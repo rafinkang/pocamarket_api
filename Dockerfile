@@ -1,5 +1,8 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-alpine
 WORKDIR /src
-COPY build/libs/*.jar pocamarket.jar
+
+COPY . .
+RUN ./gradlew build --no-daemon
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "pocamarket.jar"]
+CMD ["./gradlew", "bootRun"]
