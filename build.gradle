@@ -38,3 +38,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+    archiveBaseName.set('pocamarket') // 이름을 app으로 고정
+    archiveVersion.set('')     // 버전 없애기
+    archiveClassifier.set('')  // 부가 설명 제거
+}
