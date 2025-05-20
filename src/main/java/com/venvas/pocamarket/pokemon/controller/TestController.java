@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.poketmon.controller;
+package com.venvas.pocamarket.pokemon.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

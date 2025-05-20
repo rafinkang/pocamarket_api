@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.poketmon.domain;
+package com.venvas.pocamarket.pokemon.domain;
 
 public enum CardSubType {
     BASIC("Basic"),
