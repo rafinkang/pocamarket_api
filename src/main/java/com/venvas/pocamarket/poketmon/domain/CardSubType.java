@@ -16,4 +16,5 @@ public enum CardSubType {
     public String getCardSubType() {
         return cardSubType;
     }
+    
 }
