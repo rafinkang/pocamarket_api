@@ -4,20 +4,23 @@ spring:
   profiles:
     active: local
   application:
-    name: web
+    name: pocamarket
 
-  datasource:
-    # jdbc:mariadb://[DB IP 주소]:[포트]/[db 이름]
-    url: "jdbc:mariadb://${DB_URL}:${DB_PORT}/${DB}"
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: org.mariadb.jdbc.Driver
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+  #  datasource:
+#    # jdbc:mariadb://[DB IP 주소]:[포트]/[db 이름]
+#    url: "jdbc:mariadb://${DB_URL}:${DB_PORT}/${DB}"
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#    driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
-    #      naming:
-    #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 대소문자 구분
+      ddl-auto: create
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 대소문자 구분
     properties:
       hibernate:
         #       show_sql: true

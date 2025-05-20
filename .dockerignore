@@ -1,0 +1,24 @@
+# Gradle build 폴더 (컨테이너 빌드 시 필요 없음)
+.gradle/
+build/*
+!build/libs/
+
+# IDE 설정 파일
+.idea/
+.vscode/
+
+# 로그 파일
+*.log
+
+# 환경 변수 파일
+.env
+application-*.yml
+application-*.properties
+
+# OS/에디터 캐시 파일
+.DS_Store
+*.swp
+
+# 테스트/커버리지/캐시
+test-results/
+coverage/
