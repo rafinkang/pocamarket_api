@@ -6,4 +6,8 @@ COPY . .
 RUN chmod +x gradlew
 
 EXPOSE 8080
+
+# 환경 변수 설정
+ENV SPRING_PROFILES_ACTIVE=aws
+
 CMD ["./gradlew", "bootRun", "--no-daemon"]
