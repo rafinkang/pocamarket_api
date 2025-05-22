@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.pokemon.repository;
+package com.venvas.pocamarket.service.pokemon.domain.repository;
 
-public class TestRepository {
+public interface TestRepository {
 }

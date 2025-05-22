@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.utils;
+package com.venvas.pocamarket.common.util;
 
 public class TestUtil {
 }

@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.pokemon.domain;
+package com.venvas.pocamarket.service.pokemon.domain.entity;
 
 public enum CardType {
     POKEMON("Pokemon"),  // 포켓몬
