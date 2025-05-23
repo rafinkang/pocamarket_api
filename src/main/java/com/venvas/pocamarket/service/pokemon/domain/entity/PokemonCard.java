@@ -6,15 +6,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.List;
+import java.util.ArrayList;
+import jakarta.persistence.Index;
 
 /**
  * 포켓몬 카드 엔티티
  * 포켓몬 카드의 기본 정보를 저장하는 테이블과 매핑되는 엔티티 클래스
  */
 @Entity
-@Table(name = "pokemon_card")
+@Table(name = "pokemon_card", indexes = {
+    @Index(name = "idx_pokemon_card_code", columnList = "code")
+})
 @Getter
 @NoArgsConstructor
 public class PokemonCard {
@@ -142,4 +149,18 @@ public class PokemonCard {
      */
     @Column(nullable = false, length = 50)
     private String rarity = "COMMON";
+
+    /**
+     * 포켓몬 카드의 기술 목록
+     * 카드가 보유한 기술들의 컬렉션
+     */
+    @OneToMany(mappedBy = "pokemonCard", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PokemonAttack> attacks = new ArrayList<>();
+
+    /**
+     * 포켓몬 카드의 특성 목록
+     * 카드가 보유한 특성들의 컬렉션
+     */
+    @OneToMany(mappedBy = "pokemonCard", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PokemonAbility> abilities = new ArrayList<>();
 } 
