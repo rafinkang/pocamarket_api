@@ -1,6 +1,6 @@
 [
   {
-    "id": "pa-001",
+    "code": "pa-001",
     "name": "Potion",
     "name_ko": "회복약",
     "element": null,
@@ -17,7 +17,7 @@
     "rarity": null
   },
   {
-    "id": "pa-002",
+    "code": "pa-002",
     "name": "X Speed",
     "name_ko": "스피드업",
     "element": null,
@@ -34,7 +34,7 @@
     "rarity": null
   },
   {
-    "id": "pa-003",
+    "code": "pa-003",
     "name": "Hand Scope",
     "name_ko": "핸드스코프",
     "element": null,
@@ -51,7 +51,7 @@
     "rarity": null
   },
   {
-    "id": "pa-004",
+    "code": "pa-004",
     "name": "Pokédex",
     "name_ko": "포켓몬 도감",
     "element": null,
@@ -68,7 +68,7 @@
     "rarity": null
   },
   {
-    "id": "pa-005",
+    "code": "pa-005",
     "name": "Poké Ball",
     "name_ko": "몬스터볼",
     "element": null,
@@ -85,7 +85,7 @@
     "rarity": null
   },
   {
-    "id": "pa-006",
+    "code": "pa-006",
     "name": "Red Card",
     "name_ko": "레드카드",
     "element": null,
@@ -102,7 +102,7 @@
     "rarity": null
   },
   {
-    "id": "pa-007",
+    "code": "pa-007",
     "name": "Professor's Research",
     "name_ko": "박사의 연구",
     "element": null,
@@ -119,7 +119,7 @@
     "rarity": null
   },
   {
-    "id": "pa-008",
+    "code": "pa-008",
     "name": "Pokédex",
     "name_ko": "포켓몬 도감",
     "element": null,
@@ -136,7 +136,7 @@
     "rarity": null
   },
   {
-    "id": "pa-009",
+    "code": "pa-009",
     "name": "Pikachu",
     "name_ko": "피카츄",
     "element": "LIGHTNING",
@@ -162,7 +162,7 @@
     "rarity": null
   },
   {
-    "id": "pa-010",
+    "code": "pa-010",
     "name": "Mewtwo",
     "name_ko": "뮤츠",
     "element": "PSYCHIC",
@@ -193,7 +193,7 @@
     "rarity": null
   },
   {
-    "id": "pa-011",
+    "code": "pa-011",
     "name": "Chansey",
     "name_ko": "럭키",
     "element": "COLORLESS",
@@ -221,7 +221,7 @@
     "rarity": null
   },
   {
-    "id": "pa-012",
+    "code": "pa-012",
     "name": "Meowth",
     "name_ko": "나옹",
     "element": "COLORLESS",
@@ -249,7 +249,7 @@
     "rarity": null
   },
   {
-    "id": "pa-013",
+    "code": "pa-013",
     "name": "Butterfree",
     "name_ko": "버터플",
     "element": "GRASS",
@@ -284,7 +284,7 @@
     "rarity": null
   },
   {
-    "id": "pa-014",
+    "code": "pa-014",
     "name": "Lapras ex",
     "name_ko": "라프라스 ex",
     "element": "WATER",
@@ -314,7 +314,7 @@
     "rarity": null
   },
   {
-    "id": "pa-015",
+    "code": "pa-015",
     "name": "Pikachu",
     "name_ko": "피카츄",
     "element": "LIGHTNING",
@@ -340,7 +340,7 @@
     "rarity": null
   },
   {
-    "id": "pa-016",
+    "code": "pa-016",
     "name": "Clefairy",
     "name_ko": "삐삐",
     "element": "PSYCHIC",
@@ -366,7 +366,7 @@
     "rarity": null
   },
   {
-    "id": "pa-017",
+    "code": "pa-017",
     "name": "Mankey",
     "name_ko": "망키",
     "element": "FIGHTING",
@@ -394,7 +394,7 @@
     "rarity": null
   },
   {
-    "id": "pa-018",
+    "code": "pa-018",
     "name": "Venusaur",
     "name_ko": "이상해꽃",
     "element": "GRASS",
@@ -425,7 +425,7 @@
     "rarity": null
   },
   {
-    "id": "pa-019",
+    "code": "pa-019",
     "name": "Greninja",
     "name_ko": "개굴닌자",
     "element": "WATER",
@@ -459,7 +459,7 @@
     "rarity": null
   },
   {
-    "id": "pa-020",
+    "code": "pa-020",
     "name": "Haunter",
     "name_ko": "고우스트",
     "element": "PSYCHIC",
@@ -487,7 +487,7 @@
     "rarity": null
   },
   {
-    "id": "pa-021",
+    "code": "pa-021",
     "name": "Onix",
     "name_ko": "롱스톤",
     "element": "FIGHTING",
@@ -515,7 +515,7 @@
     "rarity": null
   },
   {
-    "id": "pa-022",
+    "code": "pa-022",
     "name": "Jigglypuff",
     "name_ko": "푸린",
     "element": "COLORLESS",
@@ -543,7 +543,7 @@
     "rarity": null
   },
   {
-    "id": "pa-023",
+    "code": "pa-023",
     "name": "Bulbasaur",
     "name_ko": "이상해씨",
     "element": "GRASS",
@@ -570,7 +570,7 @@
     "rarity": null
   },
   {
-    "id": "pa-024",
+    "code": "pa-024",
     "name": "Magnemite",
     "name_ko": "코일",
     "element": "LIGHTNING",
@@ -596,7 +596,7 @@
     "rarity": null
   },
   {
-    "id": "pa-025",
+    "code": "pa-025",
     "name": "Moltres ex",
     "name_ko": "파이어 ex",
     "element": "FIRE",
@@ -634,7 +634,7 @@
     "rarity": null
   },
   {
-    "id": "pa-026",
+    "code": "pa-026",
     "name": "Pikachu",
     "name_ko": "피카츄",
     "element": "LIGHTNING",
@@ -660,7 +660,7 @@
     "rarity": null
   },
   {
-    "id": "pa-027",
+    "code": "pa-027",
     "name": "Snivy",
     "name_ko": "주리비얀",
     "element": "GRASS",
@@ -686,7 +686,7 @@
     "rarity": null
   },
   {
-    "id": "pa-028",
+    "code": "pa-028",
     "name": "Volcarona",
     "name_ko": "불카모스",
     "element": "FIRE",
@@ -716,7 +716,7 @@
     "rarity": null
   },
   {
-    "id": "pa-029",
+    "code": "pa-029",
     "name": "Blastoise",
     "name_ko": "거북왕",
     "element": "WATER",
@@ -746,7 +746,7 @@
     "rarity": null
   },
   {
-    "id": "pa-030",
+    "code": "pa-030",
     "name": "Eevee",
     "name_ko": "이브이",
     "element": "COLORLESS",
@@ -774,7 +774,7 @@
     "rarity": null
   },
   {
-    "id": "pa-031",
+    "code": "pa-031",
     "name": "Cinccino",
     "name_ko": "치라치노",
     "element": "COLORLESS",
@@ -804,7 +804,7 @@
     "rarity": null
   },
   {
-    "id": "pa-032",
+    "code": "pa-032",
     "name": "Charmander",
     "name_ko": "파이리",
     "element": "FIRE",
@@ -832,7 +832,7 @@
     "rarity": null
   },
   {
-    "id": "pa-033",
+    "code": "pa-033",
     "name": "Squirtle",
     "name_ko": "꼬부기",
     "element": "WATER",
@@ -858,7 +858,7 @@
     "rarity": null
   },
   {
-    "id": "pa-034",
+    "code": "pa-034",
     "name": "Piplup",
     "name_ko": "팽도리",
     "element": "WATER",
@@ -886,7 +886,7 @@
     "rarity": null
   },
   {
-    "id": "pa-035",
+    "code": "pa-035",
     "name": "Turtwig",
     "name_ko": "모부기",
     "element": "GRASS",
@@ -913,7 +913,7 @@
     "rarity": null
   },
   {
-    "id": "pa-036",
+    "code": "pa-036",
     "name": "Electivire",
     "name_ko": "에레키블",
     "element": "LIGHTNING",
@@ -942,7 +942,7 @@
     "rarity": null
   },
   {
-    "id": "pa-037",
+    "code": "pa-037",
     "name": "Cresselia ex",
     "name_ko": "크레세리아 ex",
     "element": "PSYCHIC",
@@ -977,7 +977,7 @@
     "rarity": null
   },
   {
-    "id": "pa-038",
+    "code": "pa-038",
     "name": "Misdreavus",
     "name_ko": "무우마",
     "element": "PSYCHIC",
@@ -1005,7 +1005,7 @@
     "rarity": null
   },
   {
-    "id": "pa-039",
+    "code": "pa-039",
     "name": "Skarmory",
     "name_ko": "무장조",
     "element": "METAL",
@@ -1033,7 +1033,7 @@
     "rarity": null
   },
   {
-    "id": "pa-040",
+    "code": "pa-040",
     "name": "Chimchar",
     "name_ko": "불꽃숭이",
     "element": "FIRE",
@@ -1059,7 +1059,7 @@
     "rarity": null
   },
   {
-    "id": "pa-041",
+    "code": "pa-041",
     "name": "Togepi",
     "name_ko": "토게피",
     "element": "PSYCHIC",
@@ -1085,7 +1085,7 @@
     "rarity": null
   },
   {
-    "id": "pa-042",
+    "code": "pa-042",
     "name": "Darkrai ex",
     "name_ko": "",
     "element": "DARKNESS",
@@ -1120,7 +1120,7 @@
     "rarity": null
   },
   {
-    "id": "pa-043",
+    "code": "pa-043",
     "name": "Cherrim",
     "name_ko": "",
     "element": "GRASS",
@@ -1149,7 +1149,7 @@
     "rarity": null
   },
   {
-    "id": "pa-044",
+    "code": "pa-044",
     "name": "Raichu",
     "name_ko": "",
     "element": "LIGHTNING",
@@ -1185,7 +1185,7 @@
     "rarity": null
   },
   {
-    "id": "pa-045",
+    "code": "pa-045",
     "name": "Nosepass",
     "name_ko": "",
     "element": "FIGHTING",
@@ -1214,7 +1214,7 @@
     "rarity": null
   },
   {
-    "id": "pa-046",
+    "code": "pa-046",
     "name": "Gible",
     "name_ko": "",
     "element": "FIGHTING",
@@ -1240,7 +1240,7 @@
     "rarity": null
   },
   {
-    "id": "pa-047",
+    "code": "pa-047",
     "name": "Staraptor",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1275,7 +1275,7 @@
     "rarity": null
   },
   {
-    "id": "pa-048",
+    "code": "pa-048",
     "name": "Manaphy",
     "name_ko": "",
     "element": "WATER",
@@ -1303,7 +1303,7 @@
     "rarity": null
   },
   {
-    "id": "pa-049",
+    "code": "pa-049",
     "name": "Snorlax",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1334,7 +1334,7 @@
     "rarity": null
   },
   {
-    "id": "pa-050",
+    "code": "pa-050",
     "name": "Mewtwo ex",
     "name_ko": "",
     "element": "PSYCHIC",
@@ -1374,7 +1374,7 @@
     "rarity": null
   },
   {
-    "id": "pa-051",
+    "code": "pa-051",
     "name": "Cyclizar",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1402,7 +1402,7 @@
     "rarity": null
   },
   {
-    "id": "pa-052",
+    "code": "pa-052",
     "name": "Sprigatito",
     "name_ko": "",
     "element": "GRASS",
@@ -1430,7 +1430,7 @@
     "rarity": null
   },
   {
-    "id": "pa-053",
+    "code": "pa-053",
     "name": "Floatzel",
     "name_ko": "",
     "element": "WATER",
@@ -1458,7 +1458,7 @@
     "rarity": null
   },
   {
-    "id": "pa-054",
+    "code": "pa-054",
     "name": "Pawmot",
     "name_ko": "",
     "element": "LIGHTNING",
@@ -1492,7 +1492,7 @@
     "rarity": null
   },
   {
-    "id": "pa-055",
+    "code": "pa-055",
     "name": "Machamp",
     "name_ko": "",
     "element": "FIGHTING",
@@ -1521,7 +1521,7 @@
     "rarity": null
   },
   {
-    "id": "pa-056",
+    "code": "pa-056",
     "name": "Ekans",
     "name_ko": "",
     "element": "DARKNESS",
@@ -1549,7 +1549,7 @@
     "rarity": null
   },
   {
-    "id": "pa-057",
+    "code": "pa-057",
     "name": "Bidoof",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1576,7 +1576,7 @@
     "rarity": null
   },
   {
-    "id": "pa-058",
+    "code": "pa-058",
     "name": "Pachirisu",
     "name_ko": "",
     "element": "LIGHTNING",
@@ -1604,7 +1604,7 @@
     "rarity": null
   },
   {
-    "id": "pa-059",
+    "code": "pa-059",
     "name": "Riolu",
     "name_ko": "",
     "element": "FIGHTING",
@@ -1631,7 +1631,7 @@
     "rarity": null
   },
   {
-    "id": "pa-060",
+    "code": "pa-060",
     "name": "Exeggcute",
     "name_ko": "",
     "element": "GRASS",
@@ -1659,7 +1659,7 @@
     "rarity": null
   },
   {
-    "id": "pa-061",
+    "code": "pa-061",
     "name": "Froakie",
     "name_ko": "",
     "element": "WATER",
@@ -1685,7 +1685,7 @@
     "rarity": null
   },
   {
-    "id": "pa-062",
+    "code": "pa-062",
     "name": "Farfetch'd",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1711,7 +1711,7 @@
     "rarity": null
   },
   {
-    "id": "pa-063",
+    "code": "pa-063",
     "name": "Rayquaza",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1742,7 +1742,7 @@
     "rarity": null
   },
   {
-    "id": "pa-064",
+    "code": "pa-064",
     "name": "Rayquaza ex",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1773,7 +1773,7 @@
     "rarity": null
   },
   {
-    "id": "pa-065",
+    "code": "pa-065",
     "name": "Rayquaza ex",
     "name_ko": "",
     "element": "COLORLESS",
@@ -1804,7 +1804,7 @@
     "rarity": null
   },
   {
-    "id": "pa-066",
+    "code": "pa-066",
     "name": "Mimikyu",
     "name_ko": "",
     "element": "PSYCHIC",
@@ -1833,7 +1833,7 @@
     "rarity": null
   },
   {
-    "id": "pa-067",
+    "code": "pa-067",
     "name": "Cosmog",
     "name_ko": "",
     "element": "PSYCHIC",
@@ -1861,7 +1861,7 @@
     "rarity": null
   },
   {
-    "id": "pa-068",
+    "code": "pa-068",
     "name": "Lycanroc",
     "name_ko": "",
     "element": "FIGHTING",
@@ -1891,7 +1891,7 @@
     "rarity": null
   },
   {
-    "id": "pa-069",
+    "code": "pa-069",
     "name": "Alolan Exeggutor",
     "name_ko": "",
     "element": "GRASS",
@@ -1921,7 +1921,7 @@
     "rarity": null
   },
   {
-    "id": "pa-070",
+    "code": "pa-070",
     "name": "Alolan Ninetales",
     "name_ko": "",
     "element": "WATER",
@@ -1951,7 +1951,7 @@
     "rarity": null
   },
   {
-    "id": "pa-071",
+    "code": "pa-071",
     "name": "Crabrawler",
     "name_ko": "",
     "element": "FIGHTING",
@@ -1977,7 +1977,7 @@
     "rarity": null
   },
   {
-    "id": "pa-072",
+    "code": "pa-072",
     "name": "Alolan Grimer",
     "name_ko": "",
     "element": "DARKNESS",
@@ -2005,7 +2005,7 @@
     "rarity": null
   },
   {
-    "id": "pa-073",
+    "code": "pa-073",
     "name": "Toucannon",
     "name_ko": "",
     "element": "COLORLESS",
