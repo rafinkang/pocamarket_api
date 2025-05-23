@@ -1,0 +1,5851 @@
+[
+  {
+    "code": "a2-001",
+    "name": "Oddish",
+    "name_ko": "뚜벅쵸",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Blot",
+        "name_ko": "조금흡수",
+        "effect": "Heal 10 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 10회복.",
+        "damage": "10",
+        "cost": [
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-002",
+    "name": "Gloom",
+    "name_ko": "냄새꼬",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Razor Leaf",
+        "name_ko": "잎날가르기",
+        "damage": "30",
+        "cost": [
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Oddish",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-003",
+    "name": "Bellossom",
+    "name_ko": "아르고",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 130,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Leaf Step",
+        "name_ko": "리프스텝",
+        "damage": "80",
+        "cost": [
+          "GRASS",
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Gloom",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-004",
+    "name": "Tangela",
+    "name_ko": "덩쿠리",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Vine Whip",
+        "name_ko": "덩굴채찍",
+        "damage": "30",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-005",
+    "name": "Tangrowth",
+    "name_ko": "덩쿠림보",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 130,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Mega Drain",
+        "name_ko": "메가드레인",
+        "effect": "Heal 30 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 30회복.",
+        "damage": "90",
+        "cost": [
+          "GRASS",
+          "GRASS",
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Tangela",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-006",
+    "name": "Yanma",
+    "name_ko": "왕자리",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Flap",
+        "name_ko": "홰치기",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-007",
+    "name": "Yanmega ex",
+    "name_ko": "메가자리 ex",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Air Slash",
+        "name_ko": "에어슬래시",
+        "effect": "Discard a random Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 에너지를 랜덤으로 1개 트래쉬한다.",
+        "damage": "120",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Yanma",
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-008",
+    "name": "Roselia",
+    "name_ko": "로젤리아",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Sting",
+        "name_ko": "따끔따끔찌르기",
+        "damage": "20",
+        "cost": [
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-009",
+    "name": "Roserade",
+    "name_ko": "로즈레이드",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Poisonous Whip",
+        "name_ko": "독채찍",
+        "effect": "Your opponent's Active Pokémon is now Poisoned.",
+        "effect_ko": "상대의 배틀 포켓몬을 독으로 만든다.",
+        "damage": "50",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Roselia",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-010",
+    "name": "Turtwig",
+    "name_ko": "모부기",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Bite",
+        "name_ko": "물기",
+        "damage": "30",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-011",
+    "name": "Grotle",
+    "name_ko": "수풀부기",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Razor Leaf",
+        "name_ko": "잎날가르기",
+        "damage": "60",
+        "cost": [
+          "GRASS",
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Turtwig",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-012",
+    "name": "Torterra",
+    "name_ko": "토대부기",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Frenzy Plant",
+        "name_ko": "하드플랜트",
+        "effect": "During your next turn, this Pokémon can't use Frenzy Plant.",
+        "effect_ko": "자신의 다음 차례에 이 포켓몬은 하드플랜트를 사용할 수 없다.",
+        "damage": "150",
+        "cost": [
+          "GRASS",
+          "GRASS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Grotle",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-013",
+    "name": "Kricketot",
+    "name_ko": "귀뚤뚜기",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Bug Bite",
+        "name_ko": "벌레먹기",
+        "damage": "20",
+        "cost": [
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-014",
+    "name": "Kricketune",
+    "name_ko": "귀뚤톡크",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Entrancing Melody",
+        "name_ko": "트랜스멜로디",
+        "effect": "Your opponent's Active Pokémon is now Confused.",
+        "effect_ko": "상대의 배틀 포켓몬을 혼란으로 만든다.",
+        "damage": "50",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Kricketot",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-015",
+    "name": "Burmy",
+    "name_ko": "도롱충이",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Tackle",
+        "name_ko": "몸통박치기",
+        "damage": "10",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-016",
+    "name": "Wormadam",
+    "name_ko": "도롱마담",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Leaf Cutter",
+        "name_ko": "잎사귀베기",
+        "effect": "Flip a coin. If heads, this attack does 30 more damage.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 30데미지를 추가한다.",
+        "damage": "60+",
+        "cost": [
+          "GRASS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Burmy",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-017",
+    "name": "Combee",
+    "name_ko": "세꿀버리",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Call for Family",
+        "name_ko": "동료부르기",
+        "effect": "Put 1 random Basic Pokémon from your deck onto your Bench.",
+        "effect_ko": "자신의 덱에서 기본 포켓몬을 랜덤으로 1장 벤치로 내보낸다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-018",
+    "name": "Vespiquen",
+    "name_ko": "비퀸",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Pierce",
+        "name_ko": "궤찌르기",
+        "damage": "70",
+        "cost": [
+          "GRASS",
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Combee",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-019",
+    "name": "Carnivine",
+    "name_ko": "무스틈니",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Flog",
+        "name_ko": "휩다운",
+        "effect": "Flip a coin. If heads, this attack does 50 more damage.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 50데미지를 추가한다.",
+        "damage": "40+",
+        "cost": [
+          "GRASS",
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-020",
+    "name": "Leafeon",
+    "name_ko": "리피아",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Leafy Cyclone",
+        "name_ko": "잎날사이클론",
+        "effect": "During your next turn, this Pokémon can't attack.",
+        "effect_ko": "자신의 다음 차례에 이 포켓몬은 기숧을 사용할 수 없다.",
+        "damage": "90",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Eevee",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-021",
+    "name": "Mow Rotom",
+    "name_ko": "커트로토무",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Energy Cutoff",
+        "name_ko": "에너지커트",
+        "effect": "Flip a coin. If heads, discard a random Energy from your opponent's Active Pokémon.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 상대의 배틀 포켓몬에서 에너지를 랜덤으로 1개 트래쉬한다.",
+        "damage": "30",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-022",
+    "name": "Shaymin",
+    "name_ko": "쉐이미",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Flop",
+        "name_ko": "돌아다니며 뛰기",
+        "damage": "30",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [
+      {
+        "name": "Fragrant Flower Garden",
+        "name_ko": "향기로운 화원",
+        "effect": "Once during your turn, you may heal 10 damage from each of your Pokémon.",
+        "effect_ko": "자신의 차례에 1번 사용할 수 있다. 자신의 포켓몬 전원의 HP를 10회복."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-023",
+    "name": "Magmar",
+    "name_ko": "마그마",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Stoke",
+        "name_ko": "타오르기",
+        "effect": "Take a Fire Energy from your Energy Zone and attach it to this Pokémon.",
+        "effect_ko": "자신의 에너지존에서 불에너지를 1개 내보내 이 포켓몬에게 붙인다.",
+        "damage": "0",
+        "cost": [
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-024",
+    "name": "Magmortar",
+    "name_ko": "마그마번",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 130,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Bursting Inferno",
+        "name_ko": "버스트 인페르노",
+        "effect": "Your opponent's Active Pokémon is now Burned.",
+        "effect_ko": "상대의 배틀 포켓몬을 화상으로 만든다.",
+        "damage": "100",
+        "cost": [
+          "FIRE",
+          "FIRE",
+          "FIRE",
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": "Magmar",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-025",
+    "name": "Slugma",
+    "name_ko": "마그마그",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Flare",
+        "name_ko": "불꽃",
+        "damage": "20",
+        "cost": [
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-026",
+    "name": "Magcargo",
+    "name_ko": "마그카르고",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Searing Flame",
+        "name_ko": "태워그을리기",
+        "effect": "Your opponent's Active Pokémon is now Burned.",
+        "effect_ko": "상대의 배틀 포켓몬을 화상으로 만든다.",
+        "damage": "30",
+        "cost": [
+          "FIRE",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": "Slugma",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-027",
+    "name": "Chimchar",
+    "name_ko": "불꽃숭이",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Scratch",
+        "name_ko": "할퀴기",
+        "damage": "20",
+        "cost": [
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-028",
+    "name": "Monferno",
+    "name_ko": "파이숭이",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Fiery Punch",
+        "name_ko": "불꽃튀는펀치",
+        "damage": "30",
+        "cost": [
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": "Chimchar",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-029",
+    "name": "Infernape ex",
+    "name_ko": "초염몽 ex",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 170,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Flare Blitz",
+        "name_ko": "플레어드라이브",
+        "effect": "Discard all Fire Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 불에너지를 모두 트래쉬한다.",
+        "damage": "140",
+        "cost": [
+          "FIRE",
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 0,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": "Monferno",
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-030",
+    "name": "Heat Rotom",
+    "name_ko": "히트로토무",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Heat Breath",
+        "name_ko": "히트브레스",
+        "effect": "Flip a coin. If heads, this attack does 30 more damage.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 30데미지를 추가한다.",
+        "damage": "30+",
+        "cost": [
+          "FIRE",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-031",
+    "name": "Swinub",
+    "name_ko": "꾸꾸리",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Headbutt",
+        "name_ko": "박치기",
+        "damage": "40",
+        "cost": [
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-032",
+    "name": "Piloswine",
+    "name_ko": "메꾸리",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Hammer In",
+        "name_ko": "한방 먹이기",
+        "damage": "60",
+        "cost": [
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "METAL",
+    "abilities": [
+      {
+        "name": "Thick Fat",
+        "name_ko": "두꺼운지방",
+        "effect": "This Pokémon takes −20 damage from attacks from Fire or Water Pokémon.",
+        "effect_ko": "이 포켓몬이 불 또는 물 포켓몬으로부터 받는 기술의 데미지를 -20한다."
+      }
+    ],
+    "evolvesFrom": "Swinub",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-033",
+    "name": "Mamoswine",
+    "name_ko": "맘모꾸리",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Frosty Flattening",
+        "name_ko": "프로스트덤프",
+        "damage": "120",
+        "cost": [
+          "WATER",
+          "WATER",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "METAL",
+    "abilities": [
+      {
+        "name": "Thick Fat",
+        "name_ko": "두꺼운지방",
+        "effect": "This Pokémon takes −30 damage from attacks from Fire or Water Pokémon.",
+        "effect_ko": "이 포켓몬이 불 또는 물 포켓몬으로부터 받는 기술의 데미지를 -30한다."
+      }
+    ],
+    "evolvesFrom": "Piloswine",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-034",
+    "name": "Regice",
+    "name_ko": "레지아이스",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Frost Smash",
+        "name_ko": "프로스트 스매시",
+        "damage": "50",
+        "cost": [
+          "WATER",
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "METAL",
+    "abilities": [
+      {
+        "name": "Crystal Body",
+        "name_ko": "크리스털 바디",
+        "effect": "Prevent all effects of attacks used by your opponent's Pokémon done to this Pokémon.",
+        "effect_ko": "이 포켓몬은 상대의 포켓몬이 사용하는 기술의 효과를 받지 않는다."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-035",
+    "name": "Piplup",
+    "name_ko": "팽도리",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Nap",
+        "name_ko": "잠시 쉬기",
+        "effect": "Heal 20 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 20회복.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-036",
+    "name": "Prinplup",
+    "name_ko": "팽태자",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Surf",
+        "name_ko": "파도타기",
+        "damage": "30",
+        "cost": [
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Piplup",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-037",
+    "name": "Empoleon",
+    "name_ko": "엠페르트",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Aqua Jet",
+        "name_ko": "아쿠아제트",
+        "effect": "This attack also does 30 damage to 1 of your opponent's Benched Pokémon.",
+        "effect_ko": "상대의 벤치 포켓몬 1마리에게도 30데미지를 준다.",
+        "damage": "80",
+        "cost": [
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Prinplup",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-038",
+    "name": "Buizel",
+    "name_ko": "브이젤",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Water Gun",
+        "name_ko": "물대포",
+        "damage": "20",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-039",
+    "name": "Floatzel",
+    "name_ko": "플로젤",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Jet Screw",
+        "name_ko": "제트 스크루",
+        "effect": "Flip a coin. If heads, this attack does 30 more damage.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 30데미지를 추가한다.",
+        "damage": "30+",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Buizel",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-040",
+    "name": "Shellos",
+    "name_ko": "깝질무",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Mud-Slap",
+        "name_ko": "진흙뿌리기",
+        "damage": "30",
+        "cost": [
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-041",
+    "name": "Gastrodon",
+    "name_ko": "트리토돈",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Muddy Water",
+        "name_ko": "탁류",
+        "effect": "This attack also does 20 damage to 1 of your opponent's Benched Pokémon.",
+        "effect_ko": "상대의 벤치 포켓몬 1마리에게도 20데미지를 준다.",
+        "damage": "60",
+        "cost": [
+          "WATER",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Shellos",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-042",
+    "name": "Finneon",
+    "name_ko": "형광어",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Elegant Swim",
+        "name_ko": "우아하게 헤엄치기",
+        "effect": "Flip a coin. If heads, during your opponent's next turn, prevent all damage from—and effects of—attacks done to this Pokémon.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 상대의 다음 차례에 이 포켓몬은 기술의 데미지나 효과를 받지 않는다.",
+        "damage": "10",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-043",
+    "name": "Lumineon",
+    "name_ko": "네오라이트",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Waterfall",
+        "name_ko": "폭포오르기",
+        "damage": "50",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Finneon",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-044",
+    "name": "Snover",
+    "name_ko": "눈쓰개",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Ice Shard",
+        "name_ko": "얼음뭉치",
+        "effect": "If your opponent's Active Pokémon is a Fighting Pokémon, this attack does 30 more damage.",
+        "effect_ko": "상대의 배틀 포켓몬이 격투포켓몬이라면 30데미지를 추가한다.",
+        "damage": "10+",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-045",
+    "name": "Abomasnow",
+    "name_ko": "눈설왕",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Frost Breath",
+        "name_ko": "얼음숨결",
+        "damage": "120",
+        "cost": [
+          "WATER",
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": "Snover",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-046",
+    "name": "Glaceon",
+    "name_ko": "글레이시아",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Ice Beam",
+        "name_ko": "냉동빔",
+        "effect": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 상대의 배틀 포켓몬을 마비로 만든다.",
+        "damage": "60",
+        "cost": [
+          "WATER",
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": "Eevee",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-047",
+    "name": "Wash Rotom",
+    "name_ko": "워시로토무",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Wave Splash",
+        "name_ko": "스플래시",
+        "damage": "30",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-048",
+    "name": "Frost Rotom",
+    "name_ko": "프로스트로토무",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Blizzard",
+        "name_ko": "눈보라",
+        "effect": "This attack also does 10 damage to each of your opponent's Benched Pokémon.",
+        "effect_ko": "상대의 벤치 포켓몬 전원에게도 10데미지를 준다.",
+        "damage": "30",
+        "cost": [
+          "WATER",
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-049",
+    "name": "Palkia ex",
+    "name_ko": "펄기아 ex",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Slash",
+        "name_ko": "베어가르기",
+        "damage": "30",
+        "cost": [
+          "WATER"
+        ]
+      },
+      {
+        "name": "Dimensional Storm",
+        "name_ko": "디멘션스톰",
+        "effect": "Discard 3 Water Energy from this Pokémon. This attack also does 20 damage to each of your opponent's Benched Pokémon.",
+        "effect_ko": "이 포켓몬에서 물에너지를 3개 트래쉬하고 상대의 벤치 포켓몬 전원에게도 20데미지를 준다.",
+        "damage": "150",
+        "cost": [
+          "WATER",
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-050",
+    "name": "Manaphy",
+    "name_ko": "마나피",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Oceanic Gift",
+        "name_ko": "바다의소포",
+        "effect": "Choose 2 of your Benched Pokémon. For each of those Pokémon, take a Water Energy from your Energy Zone and attach it to that Pokémon.",
+        "effect_ko": "자신의 벤치 포켓몬을 2마리 선택해서 에너지존에서 물에너지를 내보내 1개씩 붙인다.",
+        "damage": "0",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-051",
+    "name": "Magnemite",
+    "name_ko": "코일",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Ram",
+        "name_ko": "부딪치기",
+        "damage": "10",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-052",
+    "name": "Magneton",
+    "name_ko": "레어코일",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Lightning Ball",
+        "name_ko": "번쩍구슬",
+        "damage": "50",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Magnemite",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-053",
+    "name": "Magnezone",
+    "name_ko": "자포코일",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Thunder Blast",
+        "name_ko": "썬더블라스트",
+        "effect": "Discard a Lightning Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 전기에너지를 1개 트래쉬한다.",
+        "damage": "110",
+        "cost": [
+          "LIGHTNING",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Magneton",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-054",
+    "name": "Voltorb",
+    "name_ko": "찌리리공",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Big Explosion",
+        "name_ko": "폭발",
+        "effect": "This Pokémon also does 10 damage to itself.",
+        "effect_ko": "이 포켓몬에게도 10데미지를 준다.",
+        "damage": "30",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-055",
+    "name": "Electrode",
+    "name_ko": "붐볼",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Rolling Attack",
+        "name_ko": "볼어택",
+        "damage": "50",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Voltorb",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-056",
+    "name": "Electabuzz",
+    "name_ko": "에레브",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Charge",
+        "name_ko": "충전",
+        "effect": "Take a Lightning Energy from your Energy Zone and attach it to this Pokémon.",
+        "effect_ko": "자신의 에너지존에서 전기에너지를 1개 내보내 이 포켓몬에게 붙인다.",
+        "damage": "0",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-057",
+    "name": "Electivire",
+    "name_ko": "에레키블",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Exciting Voltage",
+        "name_ko": "익사이팅볼트",
+        "effect": "If this Pokémon has at least 2 extra Lightning Energy attached, this attack does 80 more damage.",
+        "effect_ko": "전기에너지 2개가 추가로 붙어 있다면 80데미지를 추가한다.",
+        "damage": "40+",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Electabuzz",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-058",
+    "name": "Shinx",
+    "name_ko": "꼬링크",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Hide",
+        "name_ko": "숨기",
+        "effect": "Flip a coin. If heads, during your opponent's next turn, prevent all damage from—and effects of—attacks done to this Pokémon.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 상대의 다음 차례에 이 포켓몬은 기술의 데미지나 효과를 받지 않는다.",
+        "damage": "0",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-059",
+    "name": "Luxio",
+    "name_ko": "럭시오",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Electric Claws",
+        "name_ko": "전기발톱",
+        "damage": "40",
+        "cost": [
+          "LIGHTNING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Shinx",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-060",
+    "name": "Luxray",
+    "name_ko": "렌트라",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 130,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Volt Bolt",
+        "name_ko": "볼티지애로",
+        "effect": "Discard all Lightning Energy from this Pokémon. This attack does 120 damage to 1 of your opponent's Pokémon.",
+        "effect_ko": "이 포켓몬에서 전기에너지를 모두 트래쉬하고 상대의 포켓몬 1마리에게 120데미지를 준다.",
+        "damage": "0",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 0,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Luxio",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-061",
+    "name": "Pachirisu ex",
+    "name_ko": "파치리스 ex",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Sparking Gadget",
+        "name_ko": "가젯스파크",
+        "effect": "If this Pokémon has a Pokémon Tool attached, this attack does 40 more damage.",
+        "effect_ko": "이 포켓몬에게 포켓몬의 도구가 붙어 있다면 40데미지를 추가한다.",
+        "damage": "40+",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-062",
+    "name": "Rotom",
+    "name_ko": "로토무",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Assault Laser",
+        "name_ko": "어솔트레이저",
+        "effect": "If your opponent's Active Pokémon has a Pokémon Tool attached, this attack does 30 more damage.",
+        "effect_ko": "상대의 배틀 포켓몬에게 포켓몬의 도구가 붙어 있다면 30데미지를 추가한다.",
+        "damage": "20+",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-063",
+    "name": "Togepi",
+    "name_ko": "토게피",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Pound",
+        "name_ko": "막치기",
+        "damage": "20",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-064",
+    "name": "Togetic",
+    "name_ko": "토게틱",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Fairy Wind",
+        "name_ko": "요정의바람",
+        "damage": "40",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": "Togepi",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-065",
+    "name": "Togekiss",
+    "name_ko": "토게키스",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Overdrive Smash",
+        "name_ko": "오버스매시",
+        "effect": "During your next turn, this Pokémon's Overdrive Smash attack does +60 damage.",
+        "effect_ko": "자신의 다음 차례에 이 포켓몬의 오버스매시의 데미지를 +60한다.",
+        "damage": "60",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": "Togetic",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-066",
+    "name": "Misdreavus",
+    "name_ko": "무우마",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Mumble",
+        "name_ko": "중얼거리기",
+        "damage": "20",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-067",
+    "name": "Mismagius ex",
+    "name_ko": "무우마직 ex",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Magical Delusion",
+        "name_ko": "매지컬트립",
+        "effect": "Your opponent's Active Pokémon is now Confused.",
+        "effect_ko": "상대의 배틀 포켓몬을 혼란으로 만든다.",
+        "damage": "70",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": "Misdreavus",
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-068",
+    "name": "Ralts",
+    "name_ko": "랄토스",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Teleport",
+        "name_ko": "순간이동",
+        "effect": "Switch this Pokémon with 1 of your Benched Pokémon.",
+        "effect_ko": "이 포켓몬을 벤치 포켓몬과 교체한다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-069",
+    "name": "Kirlia",
+    "name_ko": "킬리아",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Slap",
+        "name_ko": "뺨치기",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": "Ralts",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-070",
+    "name": "Duskull",
+    "name_ko": "해골몽",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Will-O-Wisp",
+        "name_ko": "도깨비불",
+        "damage": "20",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-071",
+    "name": "Dusclops",
+    "name_ko": "미라몽",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Psypunch",
+        "name_ko": "사이코펀치",
+        "damage": "50",
+        "cost": [
+          "PSYCHIC",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": "Duskull",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-072",
+    "name": "Dusknoir",
+    "name_ko": "야느와르몽",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 130,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Devour Soul",
+        "name_ko": "소울이트",
+        "damage": "70",
+        "cost": [
+          "PSYCHIC",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "DARKNESS",
+    "abilities": [
+      {
+        "name": "Shadow Void",
+        "name_ko": "섀도홀",
+        "effect": "As often as you like during your turn, you may choose 1 of your Pokémon that has damage on it, and move all of its damage to this Pokémon.",
+        "effect_ko": "자신의 차례에 몇 번이라도 사용할 수 있다. 데미지를 받고 있는 자신의 포켓몬을 1마리 선택해서 선택한 포켓몬이 받고 있는 데미지를 모두 자신에게 옮긴다."
+      }
+    ],
+    "evolvesFrom": "Dusclops",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-073",
+    "name": "Drifloon",
+    "name_ko": "흔들풍손",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Expand",
+        "name_ko": "부풀기",
+        "effect": "During your opponent's next turn, this Pokémon takes −20 damage from attacks.",
+        "effect_ko": "상대의 다음 차례에 이 포켓몬이 받는 기술의 데미지를 -20한다.",
+        "damage": "10",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-074",
+    "name": "Drifblim",
+    "name_ko": "둥실라이드",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Balloon Strike",
+        "name_ko": "벌룬어택",
+        "damage": "60",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Drifloon",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-075",
+    "name": "Uxie",
+    "name_ko": "유크시",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Mind Boost",
+        "name_ko": "마인드부스트",
+        "effect": "Take a Psychic Energy from your Energy Zone and attach it to Mesprit or Azelf.",
+        "effect_ko": "자신의 에너지존에서 초에너지를 1개 내보내 엠라이트 또는 아그놈에게 붙인다.",
+        "damage": "20",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-076",
+    "name": "Mesprit",
+    "name_ko": "엠라이트",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Supreme Blast",
+        "name_ko": "갓블라스트",
+        "effect": "You can use this attack only if you have Uxie and Azelf on your Bench. Discard all Energy from this Pokémon.",
+        "effect_ko": "이 기술은 자신의 벤치에 유크시, 아그놈이 있을 때만 사용할 수 있다. 이 포켓몬에서 에너지를 모두 트래쉬한다.",
+        "damage": "160",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-077",
+    "name": "Azelf",
+    "name_ko": "아그놈",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Psychic Arrow",
+        "name_ko": "사이코애로",
+        "effect": "This attack does 20 damage to 1 of your opponent's Pokémon.",
+        "effect_ko": "상대의 포켓몬 1마리에게 20데미지를 준다.",
+        "damage": "0",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-078",
+    "name": "Giratina",
+    "name_ko": "기라티나",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Spooky Shot",
+        "name_ko": "홀로숏",
+        "damage": "70",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "DARKNESS",
+    "abilities": [
+      {
+        "name": "Levitate",
+        "name_ko": "부유",
+        "effect": "If this Pokémon has any Energy attached, it has no Retreat Cost.",
+        "effect_ko": "이 포켓몬에게 에너지가 붙어 있다면 이 포켓몬의 후퇴에 필요한 에너지를 모두 없앤다."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-079",
+    "name": "Cresselia",
+    "name_ko": "크레세리아",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Moonlight Gain",
+        "name_ko": "문라이트게인",
+        "effect": "Heal 20 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 20회복.",
+        "damage": "50",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-080",
+    "name": "Rhyhorn",
+    "name_ko": "뿔카노",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Horn Attack",
+        "name_ko": "뿔찌르기",
+        "damage": "40",
+        "cost": [
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-081",
+    "name": "Rhydon",
+    "name_ko": "코뿌리",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Wrack Down",
+        "name_ko": "두들겨 부수기",
+        "damage": "70",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Rhyhorn",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-082",
+    "name": "Rhyperior",
+    "name_ko": "거대코뿌리",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Mountain Swing",
+        "name_ko": "마운틴스윙",
+        "effect": "Discard the top 3 cards of your deck.",
+        "effect_ko": "자신의 덱을 위에서부터 3장 트래쉬한다.",
+        "damage": "150",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Rhydon",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-083",
+    "name": "Gligar",
+    "name_ko": "글라이거",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Pierce",
+        "name_ko": "궤찌르기",
+        "damage": "20",
+        "cost": [
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-084",
+    "name": "Gliscor",
+    "name_ko": "글라이온",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Acrobatics",
+        "name_ko": "애크러뱃",
+        "effect": "Flip 2 coins. This attack does 20 more damage for each heads.",
+        "effect_ko": "동전을 2번 던져서 앞면이 나온 수 x 20데미지를 추가한다.",
+        "damage": "20+",
+        "cost": [
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Gligar",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-085",
+    "name": "Hitmontop",
+    "name_ko": "카포에라",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Spinning Attack",
+        "name_ko": "회전어택",
+        "damage": "50",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-086",
+    "name": "Nosepass",
+    "name_ko": "코코파스",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Ram",
+        "name_ko": "부딪치기",
+        "damage": "30",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-087",
+    "name": "Regirock",
+    "name_ko": "레지락",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Boulder Crush",
+        "name_ko": "록스매시",
+        "damage": "100",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "GRASS",
+    "abilities": [
+      {
+        "name": "Exoskeleton",
+        "name_ko": "딱딱한몸",
+        "effect": "This Pokémon takes −20 damage from attacks.",
+        "effect_ko": "이 포켓몬이 받는 기술의 데미지를 -20한다."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-088",
+    "name": "Cranidos",
+    "name_ko": "두개도스",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Headbutt",
+        "name_ko": "박치기",
+        "damage": "50",
+        "cost": [
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Skull Fossil",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-089",
+    "name": "Rampardos",
+    "name_ko": "램펄드",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Head Smash",
+        "name_ko": "양날박치기",
+        "effect": "If your opponent's Pokémon is Knocked Out by damage from this attack, this Pokémon also does 50 damage to itself.",
+        "effect_ko": "이 기술의 데미지로 상대의 포켓몬이 기절했다면 이 포켓몬에게도 50데미지를 준다.",
+        "damage": "130",
+        "cost": [
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Cranidos",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-090",
+    "name": "Wormadam",
+    "name_ko": "도롱마담",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Land Crush",
+        "name_ko": "랜드크래시",
+        "damage": "70",
+        "cost": [
+          "FIGHTING",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Burmy",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-091",
+    "name": "Riolu",
+    "name_ko": "리오르",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Jab",
+        "name_ko": "잽",
+        "damage": "20",
+        "cost": [
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-092",
+    "name": "Lucario",
+    "name_ko": "루카리오",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Submarine Blow",
+        "name_ko": "서브머린블로",
+        "damage": "40",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "PSYCHIC",
+    "abilities": [
+      {
+        "name": "Fighting Coach",
+        "name_ko": "파이팅 코치",
+        "effect": "Attacks used by your Fighting Pokémon do +20 damage to your opponent's Active Pokémon.",
+        "effect_ko": "이 포켓몬이 있는 한, 자신의 격투포켓몬이 사용하는 기술이 상대의 배틀 포켓몬에게 주는 데미지를 +20한다."
+      }
+    ],
+    "evolvesFrom": "Riolu",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-093",
+    "name": "Hippopotas",
+    "name_ko": "히포포타스",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Rolling Tackle",
+        "name_ko": "구르기 태클",
+        "damage": "60",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-094",
+    "name": "Hippowdon",
+    "name_ko": "하마돈",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Earthen Press",
+        "name_ko": "그라운드 프레스",
+        "damage": "120",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Hippopotas",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-095",
+    "name": "Gallade ex",
+    "name_ko": "엘레이드 ex",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 170,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Energized Blade",
+        "name_ko": "에너지 블레이드",
+        "effect": "This attack does 20 more damage for each Energy attached to your opponent's Active Pokémon.",
+        "effect_ko": "상대 배틀 포켓몬의 에너지의 개수 x 20데미지를 추가한다.",
+        "damage": "70+",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": "Kirlia",
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-096",
+    "name": "Murkrow",
+    "name_ko": "니로우",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Peck",
+        "name_ko": "쪼기",
+        "damage": "20",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-097",
+    "name": "Honchkrow",
+    "name_ko": "돈크로우",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Skill Dive",
+        "name_ko": "직격비행",
+        "effect": "This attack does 50 damage to 1 of your opponent's Pokémon.",
+        "effect_ko": "상대의 포켓몬 1마리에게 50데미지를 준다.",
+        "damage": "0",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Murkrow",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-098",
+    "name": "Sneasel",
+    "name_ko": "포푸니",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Double Scratch",
+        "name_ko": "더블할퀴기",
+        "effect": "Flip 2 coins. This attack does 20 damage for each heads.",
+        "effect_ko": "동전을 2번 던져서 앞면이 나온 수 x 20데미지를 추가한다.",
+        "damage": "20x",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-099",
+    "name": "Weavile ex",
+    "name_ko": "포푸니라 ex",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Scratching Nails",
+        "name_ko": "스크래치네일",
+        "effect": "If your opponent's Active Pokémon has damage on it, this attack does 40 more damage.",
+        "effect_ko": "상대의 배틀 포켓몬이 데미지를 받고 있다면 40데미지를 추가한다.",
+        "damage": "30+",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Sneasel",
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-100",
+    "name": "Poochyena",
+    "name_ko": "포챠나",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Bite",
+        "name_ko": "물기",
+        "damage": "20",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-101",
+    "name": "Mightyena",
+    "name_ko": "그라에나",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Darkness Fang",
+        "name_ko": "어둠엄니",
+        "damage": "60",
+        "cost": [
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Poochyena",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-102",
+    "name": "Stunky",
+    "name_ko": "스컹뿡",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Scratch",
+        "name_ko": "할퀴기",
+        "damage": "10",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-103",
+    "name": "Skuntank",
+    "name_ko": "스컹탱크",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Poison Gas",
+        "name_ko": "독가스",
+        "effect": "Your opponent's Active Pokémon is now Poisoned.",
+        "effect_ko": "상대의 배틀 포켓몬을 독으로 만든다.",
+        "damage": "50",
+        "cost": [
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Stunky",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-104",
+    "name": "Spiritomb",
+    "name_ko": "화강돌",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Swirling Disaster",
+        "name_ko": "소용돌이재앙",
+        "effect": "This attack does 10 damage to each of your opponent's Pokémon.",
+        "effect_ko": "상대의 포켓몬 전원에게 10데미지를 준다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-105",
+    "name": "Skorupi",
+    "name_ko": "스콜피",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Pierce",
+        "name_ko": "궤찌르기",
+        "damage": "30",
+        "cost": [
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-106",
+    "name": "Drapion",
+    "name_ko": "드래피온",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Cross Poison",
+        "name_ko": "크로스포이즌",
+        "effect": "Flip 4 coins. This attack does 40 damage for each heads. If at least 2 of them are heads, your opponent's Active Pokémon is now Poisoned.",
+        "effect_ko": "동전을 4번 던져서 앞면이 나온 수 x 40데미지를 준다. 앞면이 2번 이상 나오면 상대의 배틀 포켓몬을 독으로 만든다.",
+        "damage": "40x",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS",
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Skorupi",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-107",
+    "name": "Croagunk",
+    "name_ko": "삐딱구리",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Group Beatdown",
+        "name_ko": "다함께 때려잡기",
+        "effect": "Flip a coin for each Pokémon you have in play. This attack does 20 damage for each heads.",
+        "effect_ko": "자신의 필드의 포켓몬의 수만큼 동전을 던져서 앞면이 나온 수 x 20데미지를 준다.",
+        "damage": "20x",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-108",
+    "name": "Toxicroak",
+    "name_ko": "독개굴",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Group Beatdown",
+        "name_ko": "다함께 때려잡기",
+        "effect": "Flip a coin for each Pokémon you have in play. This attack does 40 damage for each heads.",
+        "effect_ko": "자신의 필드의 포켓몬의 수만큼 동전을 던져서 앞면이 나온 수 x 40데미지를 준다.",
+        "damage": "40x",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Croagunk",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-109",
+    "name": "Darkrai",
+    "name_ko": "다크라이",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Dark Void",
+        "name_ko": "다크홀",
+        "effect": "Your opponent's Active Pokémon is now Asleep.",
+        "effect_ko": "상대의 배틀 포켓몬을 잠듦으로 만든다.",
+        "damage": "60",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-110",
+    "name": "Darkrai ex",
+    "name_ko": "다크라이 ex",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Dark Prism",
+        "name_ko": "다크프리즘",
+        "damage": "80",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [
+      {
+        "name": "Nightmare Aura",
+        "name_ko": "나이트메어 오라",
+        "effect": "Whenever you attach a Darkness Energy from your Energy Zone to this Pokémon, do 20 damage to your opponent's Active Pokémon.",
+        "effect_ko": "자신의 에너지존에서 이 포켓몬에게 악에너지를 붙일 때마다 상대의 배틀 포켓몬에게 20데미지를 준다."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-111",
+    "name": "Skarmory",
+    "name_ko": "무장조",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Metal Arms",
+        "name_ko": "메탈암즈",
+        "effect": "If this Pokémon has a Pokémon Tool attached, this attack does 30 more damage.",
+        "effect_ko": "이 포켓몬에게 포켓몬의 도구가 붙어 있다면 30데미지를 추가한다.",
+        "damage": "20+",
+        "cost": [
+          "METAL"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-112",
+    "name": "Registeel",
+    "name_ko": "레지스틸",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Metal Claw",
+        "name_ko": "메탈클로",
+        "damage": "90",
+        "cost": [
+          "METAL",
+          "METAL",
+          "METAL"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-113",
+    "name": "Shieldon",
+    "name_ko": "방패톱스",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Headbutt",
+        "name_ko": "박치기",
+        "damage": "50",
+        "cost": [
+          "METAL",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Armor Fossil",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-114",
+    "name": "Bastiodon",
+    "name_ko": "바리톱스",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Headbang",
+        "name_ko": "헤드뱅",
+        "damage": "80",
+        "cost": [
+          "METAL",
+          "METAL",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIRE",
+    "abilities": [
+      {
+        "name": "Guarded Grill",
+        "name_ko": "얼굴가드",
+        "effect": "If any damage is done to this Pokémon by attacks, flip a coin. If heads, this Pokémon takes −100 damage from that attack.",
+        "effect_ko": "이 포켓몬이 기술의 데미지를 받을 때 자신은 동전을 1번 던진다. 앞면이 나오면 이 포켓몬이 받는 기술의 데미지를 -100한다."
+      }
+    ],
+    "evolvesFrom": "Shieldon",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-115",
+    "name": "Wormadam",
+    "name_ko": "도롱마담",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Iron Head",
+        "name_ko": "아이언헤드",
+        "effect": "Flip a coin until you get tails. This attack does 30 more damage for each heads.",
+        "effect_ko": "뒷면이 나올 때까지 동전을 던져서 앞면이 나온 수 x 30데미지를 추가한다.",
+        "damage": "50+",
+        "cost": [
+          "METAL",
+          "METAL"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Burmy",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-116",
+    "name": "Bronzor",
+    "name_ko": "동미러",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Tackle",
+        "name_ko": "몸통박치기",
+        "damage": "30",
+        "cost": [
+          "METAL",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-117",
+    "name": "Bronzong",
+    "name_ko": "동탁군",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Guard Press",
+        "name_ko": "가드프레스",
+        "effect": "During your opponent's next turn, this Pokémon takes −20 damage from attacks.",
+        "effect_ko": "상대의 다음 차례에 이 포켓몬이 받는 기술의 데미지를 -20한다.",
+        "damage": "60",
+        "cost": [
+          "METAL",
+          "METAL",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Bronzor",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-118",
+    "name": "Probopass",
+    "name_ko": "대코파스",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 130,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Triple Nose",
+        "name_ko": "트리플노즈",
+        "effect": "Flip 3 coins. This attack does 50 more damage for each heads.",
+        "effect_ko": "동전을 3번 던져서 앞면이 나온 수 x 50데미지를 추가한다.",
+        "damage": "30+",
+        "cost": [
+          "METAL",
+          "METAL",
+          "METAL",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Nosepass",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-119",
+    "name": "Dialga ex",
+    "name_ko": "디아루가 ex",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Metallic Turbo",
+        "name_ko": "메탈터보",
+        "effect": "Take 2 Metal Energy from your Energy Zone and attach it to 1 of your Benched Pokémon.",
+        "effect_ko": "자신의 에너지존에서 강철에너지를 2개 내보내 벤치 포켓몬 1마리에게 붙인다.",
+        "damage": "30",
+        "cost": [
+          "METAL",
+          "METAL"
+        ]
+      },
+      {
+        "name": "Heavy Impact",
+        "name_ko": "헤비임팩트",
+        "damage": "100",
+        "cost": [
+          "METAL",
+          "METAL",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-120",
+    "name": "Heatran",
+    "name_ko": "히드런",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Steel Tackle",
+        "name_ko": "강철태클",
+        "effect": "This Pokémon also does 20 damage to itself.",
+        "effect_ko": "이 포켓몬에게도 20데미지를 준다.",
+        "damage": "110",
+        "cost": [
+          "METAL",
+          "METAL",
+          "METAL"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-121",
+    "name": "Gible",
+    "name_ko": "딥상어동",
+    "element": "DRAGON",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Gnaw",
+        "name_ko": "갉기",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-122",
+    "name": "Gabite",
+    "name_ko": "한바이트",
+    "element": "DRAGON",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Slash",
+        "name_ko": "베어가르기",
+        "damage": "60",
+        "cost": [
+          "WATER",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": "Gible",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-123",
+    "name": "Garchomp",
+    "name_ko": "한카리아스",
+    "element": "DRAGON",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Dragon Claw",
+        "name_ko": "드래곤클로",
+        "damage": "100",
+        "cost": [
+          "WATER",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": null,
+    "abilities": [
+      {
+        "name": "Reckless Shearing",
+        "name_ko": "거칠게 깍기",
+        "effect": "You must discard a card from your hand in order to use this Ability. Once during your turn, you may draw a card.",
+        "effect_ko": "자신의 차례에 자신의 패를 1장 트래쉬한다면 1번 사용할 수 있다. 자신의 덱을 1장 뽑는다."
+      }
+    ],
+    "evolvesFrom": "Gabite",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-124",
+    "name": "Lickitung",
+    "name_ko": "내루미",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Tongue Slap",
+        "name_ko": "혀로 막치기",
+        "damage": "50",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-125",
+    "name": "Lickilicky ex",
+    "name_ko": "내룸벨트 ex",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Licking Fury",
+        "name_ko": "낼름낼름러시",
+        "effect": "Flip a coin until you get tails. This attack does 40 more damage for each heads.",
+        "effect_ko": "뒷면이 나올 때까지 동전을 던져서 앞면이 나온 수 x 40데미지를 추가한다.",
+        "damage": "100+",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Lickitung",
+    "rarity": "RARE EX"
+  },
+  {
+    "code": "a2-126",
+    "name": "Eevee",
+    "name_ko": "이브이",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Quick Attack",
+        "name_ko": "전광석화",
+        "effect": "Flip a coin. If heads, this attack does 20 more damage.",
+        "effect_ko": "",
+        "damage": "10+",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-127",
+    "name": "Porygon",
+    "name_ko": "폴리곤",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Beam",
+        "name_ko": "빔",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-128",
+    "name": "Porygon2",
+    "name_ko": "폴리곤2",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Sharpen",
+        "name_ko": "각지기",
+        "damage": "30",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Porygon",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-129",
+    "name": "Porygon-Z",
+    "name_ko": "폴리곤Z",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Buggy Beam",
+        "name_ko": "버그빔",
+        "effect": "Change the type of the next Energy that will be generated for your opponent to 1 of the following at random: Grass,Fire,Water,Lightning,Psychic,Fighting,Darkness, or Metal.",
+        "effect_ko": "상대의 다음에 발생하는 에너지의 타입을 풀,불,물,전기,초,격투,악,강철 중에서 1가지로 랜덤하게 바꾼다.",
+        "damage": "80",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Porygon2",
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-130",
+    "name": "Aipom",
+    "name_ko": "에이팜",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Tail Jab",
+        "name_ko": "꼬리펀치",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-131",
+    "name": "Ambipom",
+    "name_ko": "겟핸보숭",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Double Hit",
+        "name_ko": "더블어택",
+        "effect": "Flip 2 coins. This attack does 40 damage for each heads.",
+        "effect_ko": "동전을 2번 던져서 앞면이 나온 수 x 40데미지를 추가한다.",
+        "damage": "40x",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Aipom",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-132",
+    "name": "Starly",
+    "name_ko": "찌르꼬",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Pluck",
+        "name_ko": "쪼아대기",
+        "effect": "Before doing damage, discard all Pokémon Tools from your opponent's Active Pokémon.",
+        "effect_ko": "데미지를 주기 전에 상대의 배틀 포켓몬으로부터 포켓몬의 도구를 트래쉬한다.",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-133",
+    "name": "Staravia",
+    "name_ko": "찌르버드",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Wing Attack",
+        "name_ko": "날개치기",
+        "damage": "40",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Starly",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-134",
+    "name": "Staraptor",
+    "name_ko": "찌르호크",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Clutch",
+        "name_ko": "꽉쥐기",
+        "effect": "During your opponent's next turn, the Defending Pokémon can't retreat.",
+        "effect_ko": "상대의 다음 차례에 이 기술을 받은 포켓몬은 후퇴할 수 없다.",
+        "damage": "80",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Staravia",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-135",
+    "name": "Bidoof",
+    "name_ko": "비버니",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Super Fang",
+        "name_ko": "분노의앞니",
+        "effect": "Halve your opponent's Active Pokémon's remaining HP, rounded down.",
+        "effect_ko": "상대 배틀 포켓몬의 남은 HP를 절반(일의 자리는 버림)으로 만든다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-136",
+    "name": "Bibarel",
+    "name_ko": "비버통",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Rolling Tackle",
+        "name_ko": "구르기 태클",
+        "damage": "60",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Bidoof",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-137",
+    "name": "Buneary",
+    "name_ko": "이어롤",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Splash",
+        "name_ko": "튀어오르기",
+        "damage": "10",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-138",
+    "name": "Lopunny",
+    "name_ko": "이어롭",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Jump Kick",
+        "name_ko": "점프킥",
+        "effect": "This attack also does 20 damage to 1 of your opponent's Benched Pokémon.",
+        "effect_ko": "상대의 벤치 포켓몬 1마리에게도 20데미지를 준다.",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Buneary",
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-139",
+    "name": "Glameow",
+    "name_ko": "나옹마",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Pose",
+        "name_ko": "폼잡기",
+        "effect": "Flip a coin. If tails, this attack does nothing.",
+        "effect_ko": "동전을 1번 던져서 뒷면이 나오면 이 기술은 실패한다.",
+        "damage": "40",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-140",
+    "name": "Purugly",
+    "name_ko": "몬냥이",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Interrupt",
+        "name_ko": "방해하기",
+        "effect": "Your opponent reveals their hand. Choose a card you find there and shuffle it into your opponent's deck.",
+        "effect_ko": "상대의 패의 앞면을 모두 보고 그 중에서 카드를 1장 선택해서 덱으로 되돌린다.",
+        "damage": "60",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Glameow",
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-141",
+    "name": "Chatot",
+    "name_ko": "페라페",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Fury Attack",
+        "name_ko": "마구찌르기",
+        "effect": "Flip 3 coins. This attack does 20 damage for each heads.",
+        "effect_ko": "동전을 3번 던져서 앞면이 나온 수 x 20데미지를 추가한다.",
+        "damage": "20x",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-142",
+    "name": "Fan Rotom",
+    "name_ko": "스핀로토무",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Spin Storm",
+        "name_ko": "선풍",
+        "effect": "Flip a coin. If heads, put your opponent's Active Pokémon into their hand.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 상대의 배틀 포켓몬을 패도 되돌린다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-143",
+    "name": "Regigigas",
+    "name_ko": "레지기가스",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Raging Hammer",
+        "name_ko": "레이징해머",
+        "effect": "This attack does more damage equal to the damage this Pokémon has on it.",
+        "effect_ko": "이 포켓몬이 받고 있는 데미지만큼 데미지를 추가한다.",
+        "damage": "50+",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "RARE"
+  },
+  {
+    "code": "a2-144",
+    "name": "Skull Fossil",
+    "name_ko": "두개의화석",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-145",
+    "name": "Armor Fossil",
+    "name_ko": "방패의화석",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "COMMON"
+  },
+  {
+    "code": "a2-146",
+    "name": "Pokémon Communication",
+    "name_ko": "포켓몬통신",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-147",
+    "name": "Giant Cape",
+    "name_ko": "커다란망토",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "TOOL",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-148",
+    "name": "Rocky Helmet",
+    "name_ko": "울퉁불퉁멧",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "TOOL",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-149",
+    "name": "Lum Berry",
+    "name_ko": "리샘열매",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "TOOL",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-150",
+    "name": "Cyrus",
+    "name_ko": "태홍",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-151",
+    "name": "Team Galactic Grunt",
+    "name_ko": "갤럭시단의 조무래기",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-152",
+    "name": "Cynthia",
+    "name_ko": "난천",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-153",
+    "name": "Volkner",
+    "name_ko": "전진",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-154",
+    "name": "Dawn",
+    "name_ko": "빛나",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-155",
+    "name": "Mars",
+    "name_ko": "마스",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "UNCOMMON"
+  },
+  {
+    "code": "a2-156",
+    "name": "Tangrowth",
+    "name_ko": "덩쿠림보",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 130,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Mega Drain",
+        "name_ko": "메가드레인",
+        "effect": "Heal 30 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 30회복.",
+        "damage": "90",
+        "cost": [
+          "GRASS",
+          "GRASS",
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Tangela",
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-157",
+    "name": "Combee",
+    "name_ko": "세꿀버리",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Call for Family",
+        "name_ko": "동료부르기",
+        "effect": "Put 1 random Basic Pokémon from your deck onto your Bench.",
+        "effect_ko": "자신의 덱에서 기본 포켓몬을 랜덤으로 1장 벤치로 내보낸다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-158",
+    "name": "Carnivine",
+    "name_ko": "무스틈니",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 90,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Flog",
+        "name_ko": "휩다운",
+        "effect": "Flip a coin. If heads, this attack does 50 more damage.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 50데미지를 추가한다.",
+        "damage": "40+",
+        "cost": [
+          "GRASS",
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-159",
+    "name": "Shaymin",
+    "name_ko": "쉐이미",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Flop",
+        "name_ko": "돌아다니며 뛰기",
+        "damage": "30",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [
+      {
+        "name": "Fragrant Flower Garden",
+        "name_ko": "향기로운 화원",
+        "effect": "Once during your turn, you may heal 10 damage from each of your Pokémon.",
+        "effect_ko": "자신의 차례에 1번 사용할 수 있다. 자신의 포켓몬 전원의 HP를 10회복."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-160",
+    "name": "Mamoswine",
+    "name_ko": "맘모꾸리",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Frosty Flattening",
+        "name_ko": "프로스트덤프",
+        "damage": "120",
+        "cost": [
+          "WATER",
+          "WATER",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "METAL",
+    "abilities": [
+      {
+        "name": "Thick Fat",
+        "name_ko": "두꺼운지방",
+        "effect": "This Pokémon takes −30 damage from attacks from Fire or Water Pokémon.",
+        "effect_ko": "이 포켓몬이 불 또는 물 포켓몬으로부터 받는 기술의 데미지를 -30한다."
+      }
+    ],
+    "evolvesFrom": "Piloswine",
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-161",
+    "name": "Gastrodon",
+    "name_ko": "트리토돈",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Muddy Water",
+        "name_ko": "탁류",
+        "effect": "This attack also does 20 damage to 1 of your opponent's Benched Pokémon.",
+        "effect_ko": "상대의 벤치 포켓몬 1마리에게도 20데미지를 준다.",
+        "damage": "60",
+        "cost": [
+          "WATER",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Shellos",
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-162",
+    "name": "Manaphy",
+    "name_ko": "마나피",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Oceanic Gift",
+        "name_ko": "바다의소포",
+        "effect": "Choose 2 of your Benched Pokémon. For each of those Pokémon, take a Water Energy from your Energy Zone and attach it to that Pokémon.",
+        "effect_ko": "자신의 벤치 포켓몬을 2마리 선택해서 에너지존에서 물에너지를 내보내 1개씩 붙인다.",
+        "damage": "0",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-163",
+    "name": "Shinx",
+    "name_ko": "꼬링크",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Hide",
+        "name_ko": "숨기",
+        "effect": "Flip a coin. If heads, during your opponent's next turn, prevent all damage from—and effects of—attacks done to this Pokémon.",
+        "effect_ko": "동전을 1번 던져서 앞면이 나오면 상대의 다음 차례에 이 포켓몬은 기술의 데미지나 효과를 받지 않는다.",
+        "damage": "0",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-164",
+    "name": "Rotom",
+    "name_ko": "로토무",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Assault Laser",
+        "name_ko": "어솔트레이저",
+        "effect": "If your opponent's Active Pokémon has a Pokémon Tool attached, this attack does 30 more damage.",
+        "effect_ko": "상대의 배틀 포켓몬에게 포켓몬의 도구가 붙어 있다면 30데미지를 추가한다.",
+        "damage": "20+",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-165",
+    "name": "Drifloon",
+    "name_ko": "흔들풍손",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Expand",
+        "name_ko": "부풀기",
+        "effect": "During your opponent's next turn, this Pokémon takes −20 damage from attacks.",
+        "effect_ko": "상대의 다음 차례에 이 포켓몬이 받는 기술의 데미지를 -20한다.",
+        "damage": "10",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-166",
+    "name": "Mesprit",
+    "name_ko": "엠라이트",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Supreme Blast",
+        "name_ko": "갓블라스트",
+        "effect": "You can use this attack only if you have Uxie and Azelf on your Bench. Discard all Energy from this Pokémon.",
+        "effect_ko": "이 기술은 자신의 벤치에 유크시, 아그놈이 있을 때만 사용할 수 있다. 이 포켓몬에서 에너지를 모두 트래쉬한다.",
+        "damage": "160",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-167",
+    "name": "Giratina",
+    "name_ko": "기라티나",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Spooky Shot",
+        "name_ko": "홀로숏",
+        "damage": "70",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "DARKNESS",
+    "abilities": [
+      {
+        "name": "Levitate",
+        "name_ko": "부유",
+        "effect": "If this Pokémon has any Energy attached, it has no Retreat Cost.",
+        "effect_ko": "이 포켓몬에게 에너지가 붙어 있다면 이 포켓몬의 후퇴에 필요한 에너지를 모두 없앤다."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-168",
+    "name": "Cresselia",
+    "name_ko": "크레세리아",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 110,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Moonlight Gain",
+        "name_ko": "문라이트게인",
+        "effect": "Heal 20 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 20회복.",
+        "damage": "50",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-169",
+    "name": "Rhyperior",
+    "name_ko": "거대코뿌리",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Mountain Swing",
+        "name_ko": "마운틴스윙",
+        "effect": "Discard the top 3 cards of your deck.",
+        "effect_ko": "자신의 덱을 위에서부터 3장 트래쉬한다.",
+        "damage": "150",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Rhydon",
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-170",
+    "name": "Lucario",
+    "name_ko": "루카리오",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 100,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Submarine Blow",
+        "name_ko": "서브머린블로",
+        "damage": "40",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "PSYCHIC",
+    "abilities": [
+      {
+        "name": "Fighting Coach",
+        "name_ko": "파이팅 코치",
+        "effect": "Attacks used by your Fighting Pokémon do +20 damage to your opponent's Active Pokémon.",
+        "effect_ko": "이 포켓몬이 있는 한, 자신의 격투포켓몬이 사용하는 기술이 상대의 배틀 포켓몬에게 주는 데미지를 +20한다."
+      }
+    ],
+    "evolvesFrom": "Riolu",
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-171",
+    "name": "Hippopotas",
+    "name_ko": "히포포타스",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Rolling Tackle",
+        "name_ko": "구르기 태클",
+        "damage": "60",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-172",
+    "name": "Spiritomb",
+    "name_ko": "화강돌",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Swirling Disaster",
+        "name_ko": "소용돌이재앙",
+        "effect": "This attack does 10 damage to each of your opponent's Pokémon.",
+        "effect_ko": "상대의 포켓몬 전원에게 10데미지를 준다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-173",
+    "name": "Croagunk",
+    "name_ko": "삐딱구리",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Group Beatdown",
+        "name_ko": "다함께 때려잡기",
+        "effect": "Flip a coin for each Pokémon you have in play. This attack does 20 damage for each heads.",
+        "effect_ko": "자신의 필드의 포켓몬의 수만큼 동전을 던져서 앞면이 나온 수 x 20데미지를 준다.",
+        "damage": "20x",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-174",
+    "name": "Heatran",
+    "name_ko": "히드런",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Steel Tackle",
+        "name_ko": "강철태클",
+        "effect": "This Pokémon also does 20 damage to itself.",
+        "effect_ko": "이 포켓몬에게도 20데미지를 준다.",
+        "damage": "110",
+        "cost": [
+          "METAL",
+          "METAL",
+          "METAL"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-175",
+    "name": "Garchomp",
+    "name_ko": "한카리아스",
+    "element": "DRAGON",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Dragon Claw",
+        "name_ko": "드래곤클로",
+        "damage": "100",
+        "cost": [
+          "WATER",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": null,
+    "abilities": [
+      {
+        "name": "Reckless Shearing",
+        "name_ko": "거칠게 깍기",
+        "effect": "You must discard a card from your hand in order to use this Ability. Once during your turn, you may draw a card.",
+        "effect_ko": "자신의 차례에 자신의 패를 1장 트래쉬한다면 1번 사용할 수 있다. 자신의 덱을 1장 뽑는다."
+      }
+    ],
+    "evolvesFrom": "Gabite",
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-176",
+    "name": "Staraptor",
+    "name_ko": "찌르호크",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Clutch",
+        "name_ko": "꽉쥐기",
+        "effect": "During your opponent's next turn, the Defending Pokémon can't retreat.",
+        "effect_ko": "상대의 다음 차례에 이 기술을 받은 포켓몬은 후퇴할 수 없다.",
+        "damage": "80",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Staravia",
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-177",
+    "name": "Bidoof",
+    "name_ko": "비버니",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Super Fang",
+        "name_ko": "분노의앞니",
+        "effect": "Halve your opponent's Active Pokémon's remaining HP, rounded down.",
+        "effect_ko": "상대 배틀 포켓몬의 남은 HP를 절반(일의 자리는 버림)으로 만든다.",
+        "damage": "0",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-178",
+    "name": "Glameow",
+    "name_ko": "나옹마",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Pose",
+        "name_ko": "폼잡기",
+        "effect": "Flip a coin. If tails, this attack does nothing.",
+        "effect_ko": "동전을 1번 던져서 뒷면이 나오면 이 기술은 실패한다.",
+        "damage": "40",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-179",
+    "name": "Regigigas",
+    "name_ko": "레지기가스",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Raging Hammer",
+        "name_ko": "레이징해머",
+        "effect": "This attack does more damage equal to the damage this Pokémon has on it.",
+        "effect_ko": "이 포켓몬이 받고 있는 데미지만큼 데미지를 추가한다.",
+        "damage": "50+",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART"
+  },
+  {
+    "code": "a2-180",
+    "name": "Yanmega ex",
+    "name_ko": "메가자리 ex",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Air Slash",
+        "name_ko": "에어슬래시",
+        "effect": "Discard a random Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 에너지를 랜덤으로 1개 트래쉬한다.",
+        "damage": "120",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Yanma",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-181",
+    "name": "Infernape ex",
+    "name_ko": "초염몽 ex",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 170,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Flare Blitz",
+        "name_ko": "플레어드라이브",
+        "effect": "Discard all Fire Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 불에너지를 모두 트래쉬한다.",
+        "damage": "140",
+        "cost": [
+          "FIRE",
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 0,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": "Monferno",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-182",
+    "name": "Palkia ex",
+    "name_ko": "펄기아 ex",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Slash",
+        "name_ko": "베어가르기",
+        "damage": "30",
+        "cost": [
+          "WATER"
+        ]
+      },
+      {
+        "name": "Dimensional Storm",
+        "name_ko": "디멘션스톰",
+        "effect": "Discard 3 Water Energy from this Pokémon. This attack also does 20 damage to each of your opponent's Benched Pokémon.",
+        "effect_ko": "이 포켓몬에서 물에너지를 3개 트래쉬하고 상대의 벤치 포켓몬 전원에게도 20데미지를 준다.",
+        "damage": "150",
+        "cost": [
+          "WATER",
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-183",
+    "name": "Pachirisu ex",
+    "name_ko": "파치리스 ex",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Sparking Gadget",
+        "name_ko": "가젯스파크",
+        "effect": "If this Pokémon has a Pokémon Tool attached, this attack does 40 more damage.",
+        "effect_ko": "이 포켓몬에게 포켓몬의 도구가 붙어 있다면 40데미지를 추가한다.",
+        "damage": "40+",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-184",
+    "name": "Mismagius ex",
+    "name_ko": "무우마직 ex",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Magical Delusion",
+        "name_ko": "매지컬트립",
+        "effect": "Your opponent's Active Pokémon is now Confused.",
+        "effect_ko": "상대의 배틀 포켓몬을 혼란으로 만든다.",
+        "damage": "70",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": "Misdreavus",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-185",
+    "name": "Gallade ex",
+    "name_ko": "엘레이드 ex",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 170,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Energized Blade",
+        "name_ko": "에너지 블레이드",
+        "effect": "This attack does 20 more damage for each Energy attached to your opponent's Active Pokémon.",
+        "effect_ko": "상대 배틀 포켓몬의 에너지의 개수 x 20데미지를 추가한다.",
+        "damage": "70+",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": "Kirlia",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-186",
+    "name": "Weavile ex",
+    "name_ko": "포푸니라 ex",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Scratching Nails",
+        "name_ko": "스크래치네일",
+        "effect": "If your opponent's Active Pokémon has damage on it, this attack does 40 more damage.",
+        "effect_ko": "상대의 배틀 포켓몬이 데미지를 받고 있다면 40데미지를 추가한다.",
+        "damage": "30+",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Sneasel",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-187",
+    "name": "Darkrai ex",
+    "name_ko": "다크라이 ex",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Dark Prism",
+        "name_ko": "다크프리즘",
+        "damage": "80",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [
+      {
+        "name": "Nightmare Aura",
+        "name_ko": "나이트메어 오라",
+        "effect": "Whenever you attach a Darkness Energy from your Energy Zone to this Pokémon, do 20 damage to your opponent's Active Pokémon.",
+        "effect_ko": "자신의 에너지존에서 이 포켓몬에게 악에너지를 붙일 때마다 상대의 배틀 포켓몬에게 20데미지를 준다."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-188",
+    "name": "Dialga ex",
+    "name_ko": "디아루가 ex",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Metallic Turbo",
+        "name_ko": "메탈터보",
+        "effect": "Take 2 Metal Energy from your Energy Zone and attach it to 1 of your Benched Pokémon.",
+        "effect_ko": "자신의 에너지존에서 강철에너지를 2개 내보내 벤치 포켓몬 1마리에게 붙인다.",
+        "damage": "30",
+        "cost": [
+          "METAL",
+          "METAL"
+        ]
+      },
+      {
+        "name": "Heavy Impact",
+        "name_ko": "헤비임팩트",
+        "damage": "100",
+        "cost": [
+          "METAL",
+          "METAL",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-189",
+    "name": "Lickilicky ex",
+    "name_ko": "내룸벨트 ex",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Licking Fury",
+        "name_ko": "낼름낼름러시",
+        "effect": "Flip a coin until you get tails. This attack does 40 more damage for each heads.",
+        "effect_ko": "뒷면이 나올 때까지 동전을 던져서 앞면이 나온 수 x 40데미지를 추가한다.",
+        "damage": "100+",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Lickitung",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-190",
+    "name": "Cyrus",
+    "name_ko": "태홍",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-191",
+    "name": "Team Galactic Grunt",
+    "name_ko": "갤럭시단의 조무래기",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-192",
+    "name": "Cynthia",
+    "name_ko": "난천",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-193",
+    "name": "Volkner",
+    "name_ko": "전진",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-194",
+    "name": "Dawn",
+    "name_ko": "빛나",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-195",
+    "name": "Mars",
+    "name_ko": "마스",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-196",
+    "name": "Yanmega ex",
+    "name_ko": "메가자리 ex",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Air Slash",
+        "name_ko": "에어슬래시",
+        "effect": "Discard a random Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 에너지를 랜덤으로 1개 트래쉬한다.",
+        "damage": "120",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Yanma",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-197",
+    "name": "Infernape ex",
+    "name_ko": "초염몽 ex",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 170,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Flare Blitz",
+        "name_ko": "플레어드라이브",
+        "effect": "Discard all Fire Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 불에너지를 모두 트래쉬한다.",
+        "damage": "140",
+        "cost": [
+          "FIRE",
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 0,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": "Monferno",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-198",
+    "name": "Pachirisu ex",
+    "name_ko": "파치리스 ex",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Sparking Gadget",
+        "name_ko": "가젯스파크",
+        "effect": "If this Pokémon has a Pokémon Tool attached, this attack does 40 more damage.",
+        "effect_ko": "이 포켓몬에게 포켓몬의 도구가 붙어 있다면 40데미지를 추가한다.",
+        "damage": "40+",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-199",
+    "name": "Mismagius ex",
+    "name_ko": "무우마직 ex",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Magical Delusion",
+        "name_ko": "매지컬트립",
+        "effect": "Your opponent's Active Pokémon is now Confused.",
+        "effect_ko": "상대의 배틀 포켓몬을 혼란으로 만든다.",
+        "damage": "70",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": "Misdreavus",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-200",
+    "name": "Gallade ex",
+    "name_ko": "엘레이드 ex",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 170,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Energized Blade",
+        "name_ko": "에너지 블레이드",
+        "effect": "This attack does 20 more damage for each Energy attached to your opponent's Active Pokémon.",
+        "effect_ko": "상대 배틀 포켓몬의 에너지의 개수 x 20데미지를 추가한다.",
+        "damage": "70+",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": "Kirlia",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-201",
+    "name": "Weavile ex",
+    "name_ko": "포푸니라 ex",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Scratching Nails",
+        "name_ko": "스크래치네일",
+        "effect": "If your opponent's Active Pokémon has damage on it, this attack does 40 more damage.",
+        "effect_ko": "상대의 배틀 포켓몬이 데미지를 받고 있다면 40데미지를 추가한다.",
+        "damage": "30+",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Sneasel",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-202",
+    "name": "Darkrai ex",
+    "name_ko": "다크라이 ex",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Dark Prism",
+        "name_ko": "다크프리즘",
+        "damage": "80",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [
+      {
+        "name": "Nightmare Aura",
+        "name_ko": "나이트메어 오라",
+        "effect": "Whenever you attach a Darkness Energy from your Energy Zone to this Pokémon, do 20 damage to your opponent's Active Pokémon.",
+        "effect_ko": "자신의 에너지존에서 이 포켓몬에게 악에너지를 붙일 때마다 상대의 배틀 포켓몬에게 20데미지를 준다."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-203",
+    "name": "Lickilicky ex",
+    "name_ko": "내룸벨트 ex",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE_1",
+    "health": 160,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Licking Fury",
+        "name_ko": "낼름낼름러시",
+        "effect": "Flip a coin until you get tails. This attack does 40 more damage for each heads.",
+        "effect_ko": "뒷면이 나올 때까지 동전을 던져서 앞면이 나온 수 x 40데미지를 추가한다.",
+        "damage": "100+",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Lickitung",
+    "rarity": "FULL ART EX/SUPPORT"
+  },
+  {
+    "code": "a2-204",
+    "name": "Palkia ex",
+    "name_ko": "펄기아 ex",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Palkia",
+    "attacks": [
+      {
+        "name": "Slash",
+        "name_ko": "베어가르기",
+        "damage": "30",
+        "cost": [
+          "WATER"
+        ]
+      },
+      {
+        "name": "Dimensional Storm",
+        "name_ko": "디멘션스톰",
+        "effect": "Discard 3 Water Energy from this Pokémon. This attack also does 20 damage to each of your opponent's Benched Pokémon.",
+        "effect_ko": "이 포켓몬에서 물에너지를 3개 트래쉬하고 상대의 벤치 포켓몬 전원에게도 20데미지를 준다.",
+        "damage": "150",
+        "cost": [
+          "WATER",
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "IMMERSIVE"
+  },
+  {
+    "code": "a2-205",
+    "name": "Dialga ex",
+    "name_ko": "디아루가 ex",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": "Dialga",
+    "attacks": [
+      {
+        "name": "Metallic Turbo",
+        "name_ko": "메탈터보",
+        "effect": "Take 2 Metal Energy from your Energy Zone and attach it to 1 of your Benched Pokémon.",
+        "effect_ko": "자신의 에너지존에서 강철에너지를 2개 내보내 벤치 포켓몬 1마리에게 붙인다.",
+        "damage": "30",
+        "cost": [
+          "METAL",
+          "METAL"
+        ]
+      },
+      {
+        "name": "Heavy Impact",
+        "name_ko": "헤비임팩트",
+        "damage": "100",
+        "cost": [
+          "METAL",
+          "METAL",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "IMMERSIVE"
+  },
+  {
+    "code": "a2-206",
+    "name": "Palkia ex",
+    "name_ko": "펄기아 ex",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Slash",
+        "name_ko": "베어가르기",
+        "damage": "30",
+        "cost": [
+          "WATER"
+        ]
+      },
+      {
+        "name": "Dimensional Storm",
+        "name_ko": "디멘션스톰",
+        "effect": "Discard 3 Water Energy from this Pokémon. This attack also does 20 damage to each of your opponent's Benched Pokémon.",
+        "effect_ko": "이 포켓몬에서 물에너지를 3개 트래쉬하고 상대의 벤치 포켓몬 전원에게도 20데미지를 준다.",
+        "damage": "150",
+        "cost": [
+          "WATER",
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "GOLD CROWN"
+  },
+  {
+    "code": "a2-207",
+    "name": "Dialga ex",
+    "name_ko": "디아루가 ex",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Space-Time Smackdown (A2)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Metallic Turbo",
+        "name_ko": "메탈터보",
+        "effect": "Take 2 Metal Energy from your Energy Zone and attach it to 1 of your Benched Pokémon.",
+        "effect_ko": "자신의 에너지존에서 강철에너지를 2개 내보내 벤치 포켓몬 1마리에게 붙인다.",
+        "damage": "30",
+        "cost": [
+          "METAL",
+          "METAL"
+        ]
+      },
+      {
+        "name": "Heavy Impact",
+        "name_ko": "헤비임팩트",
+        "damage": "100",
+        "cost": [
+          "METAL",
+          "METAL",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": "GOLD CROWN"
+  }
+]
