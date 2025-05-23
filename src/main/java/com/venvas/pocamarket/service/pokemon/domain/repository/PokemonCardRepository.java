@@ -2,6 +2,7 @@ package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Optional;
  * 포켓몬 카드 엔티티의 데이터베이스 접근을 담당하는 인터페이스
  */
 @Repository
-public interface PokemonCardRepository extends JpaRepository<PokemonCard, Long> {
+public interface PokemonCardRepository extends JpaRepository<PokemonCard, Long>, PokemonCardRepositoryCustom, QuerydslPredicateExecutor<PokemonCard> {
     /**
      * 카드 코드로 포켓몬 카드를 조회
      * @param code 카드 코드

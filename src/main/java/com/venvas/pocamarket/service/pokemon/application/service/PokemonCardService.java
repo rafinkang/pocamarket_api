@@ -1,5 +1,7 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
+import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
@@ -71,5 +73,14 @@ public class PokemonCardService {
      */
     public List<PokemonCard> getCardsByRarity(String rarity) {
         return pokemonCardRepository.findByRarity(rarity);
+    }
+
+    /**
+     * 필터값으로 카드를 조회
+     * @param condition 카드 필터값
+     * @return 조회된 카드 목록
+     */
+    public List<PokeCardListDto> getListData(PokeCardSearchListFilterCondition condition) {
+        return pokemonCardRepository.searchFilterList(condition);
     }
 } 

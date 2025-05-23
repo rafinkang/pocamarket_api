@@ -1,5 +1,7 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
+import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import lombok.RequiredArgsConstructor;
@@ -78,5 +80,10 @@ public class PokemonCardController {
     @GetMapping("/rarity/{rarity}")
     public ResponseEntity<List<PokemonCard>> getCardsByRarity(@PathVariable String rarity) {
         return ResponseEntity.ok(pokemonCardService.getCardsByRarity(rarity));
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<PokeCardListDto>> getListData(@ModelAttribute PokeCardSearchListFilterCondition condition) {
+        return ResponseEntity.ok(pokemonCardService.getListData(condition));
     }
 } 
