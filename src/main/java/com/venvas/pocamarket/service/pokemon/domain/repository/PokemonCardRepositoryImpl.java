@@ -9,6 +9,7 @@ import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonCard.pokemonCard;
@@ -49,11 +50,18 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     }
 
     private BooleanExpression elementEq(String element) {
-        List<String> elementList = List.of(element.trim().split(","));
-        return textEmptyCheck(element) ? pokemonCard.element.in(elementList) : null;
+        if(! textEmptyCheck(element)) return null;
+
+        return pokemonCard.element.in(splitAndTrim(element, ","));
     }
 
     private boolean textEmptyCheck(String text) {
         return StringUtils.hasText(text) && StringUtils.hasLength(text);
+    }
+
+    private List<String> splitAndTrim(String str, String regex) {
+        return Arrays.stream(str.split(regex))
+                .map(String::trim)
+                .toList();
     }
 }
