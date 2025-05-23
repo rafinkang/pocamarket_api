@@ -8,12 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.Index;
-import lombok.Setter;
 
 /**
  * 포켓몬 카드 엔티티
@@ -24,8 +24,8 @@ import lombok.Setter;
     @Index(name = "idx_pokemon_card_code", columnList = "code")
 })
 @Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PokemonCard {
     
     /**

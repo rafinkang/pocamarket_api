@@ -91,7 +91,7 @@ public class PokemonCardController {
     }
 
     @PostMapping("/update/card/{version}")
-    public ResponseEntity<List<PokemonCardDto>> updateCard(@PathVariable String version) {
+    public ResponseEntity<List<PokemonCard>> updateCard(@PathVariable String version) {
         return ResponseEntity.ok(pokemonCardUpdateService.updateJsonData(version));
     }
 } 

@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "pokemon_ability")
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class PokemonAbility {
     
