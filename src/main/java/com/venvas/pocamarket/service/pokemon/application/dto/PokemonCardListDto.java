@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 @Getter
-public class PokeCardListDto {
+public class PokemonCardListDto {
 
     @NotEmpty
     private String code;
@@ -18,7 +18,7 @@ public class PokeCardListDto {
     private String rarity;
 
     @QueryProjection
-    public PokeCardListDto(String code, String nameKo, String element, String type, String subtype, String packSet, String pack, String rarity) {
+    public PokemonCardListDto(String code, String nameKo, String element, String type, String subtype, String packSet, String pack, String rarity) {
         this.code = code;
         this.nameKo = nameKo;
         this.element = element;

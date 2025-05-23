@@ -1,10 +1,12 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardListDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.venvas.pocamarket.service.pokemon.application.dto.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,7 +82,7 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
-    public List<PokeCardListDto> getListData(PokeCardSearchListFilterCondition condition) {
+    public List<PokemonCardListDto> getListData(PokeCardSearchListFilterCondition condition) {
         return pokemonCardRepository.searchFilterList(condition);
     }
 } 

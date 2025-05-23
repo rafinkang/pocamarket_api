@@ -1,9 +1,11 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
+import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
 public class PokemonCardController {
     
     private final PokemonCardService pokemonCardService;
+    private final PokemonCardUpdateService pokemonCardUpdateService;
     
     /**
      * 모든 포켓몬 카드를 조회하는 엔드포인트
@@ -83,7 +86,12 @@ public class PokemonCardController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<PokeCardListDto>> getListData(@ModelAttribute PokeCardSearchListFilterCondition condition) {
+    public ResponseEntity<List<PokemonCardListDto>> getListData(@ModelAttribute PokeCardSearchListFilterCondition condition) {
         return ResponseEntity.ok(pokemonCardService.getListData(condition));
+    }
+
+    @PostMapping("/update/card/{version}")
+    public ResponseEntity<List<PokemonCardDto>> updateCard(@PathVariable String version) {
+        return ResponseEntity.ok(pokemonCardUpdateService.updateJsonData(version));
     }
 } 

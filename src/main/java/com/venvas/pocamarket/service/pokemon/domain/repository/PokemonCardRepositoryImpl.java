@@ -2,9 +2,9 @@ package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardSearchListFilterCondition;
-import com.venvas.pocamarket.service.pokemon.application.dto.QPokeCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.QPokemonCardListDto;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -24,9 +24,9 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     }
 
     @Override
-    public List<PokeCardListDto> searchFilterList(PokeCardSearchListFilterCondition condition) {
+    public List<PokemonCardListDto> searchFilterList(PokeCardSearchListFilterCondition condition) {
         return queryFactory
-                .select(new QPokeCardListDto(
+                .select(new QPokemonCardListDto(
                         pokemonCard.code,
                         pokemonCard.nameKo,
                         pokemonCard.element,

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.Index;
+import lombok.Setter;
 
 /**
  * 포켓몬 카드 엔티티
@@ -23,6 +24,7 @@ import jakarta.persistence.Index;
     @Index(name = "idx_pokemon_card_code", columnList = "code")
 })
 @Getter
+@Setter
 @NoArgsConstructor
 public class PokemonCard {
     

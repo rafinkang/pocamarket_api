@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 
 @Getter
-public class PokeCardDetailDto {
+public class PokemonCardDetailDto {
 
     private String code;
     private String nameKo;
@@ -24,7 +24,7 @@ public class PokeCardDetailDto {
     private String rarity;
 
     @QueryProjection
-    public PokeCardDetailDto(String code, String nameKo, String element, String type, String subtype, Integer health, String packSet, String pack, Integer retreatCost, String weakness, String evolvesFrom, String rarity) {
+    public PokemonCardDetailDto(String code, String nameKo, String element, String type, String subtype, Integer health, String packSet, String pack, Integer retreatCost, String weakness, String evolvesFrom, String rarity) {
         this.code = code;
         this.nameKo = nameKo;
         this.element = element;
