@@ -33,11 +33,11 @@ public class PokemonCardUpdateService {
             log.info("pokemon Card : {}", pokemonCards);
 
             List<PokemonCard> pokemonCardList = new ArrayList<>();
-            pokemonCards.stream()
-                    .map(card -> {
-                        PokemonCard pokemonCard = new PokemonCard();
-                        pokemonCard.set
-                    })
+//            pokemonCards.stream()
+//                    .map(card -> {
+//                        PokemonCard pokemonCard = new PokemonCard();
+//                        pokemonCard.set
+//                    })
 
             return pokemonCards;
         } catch (IOException e) {
