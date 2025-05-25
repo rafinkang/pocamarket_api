@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.service.pokemon.application.dto;
+package com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard;
 
 import com.querydsl.core.annotations.QueryProjection;
 import jakarta.validation.constraints.NotEmpty;

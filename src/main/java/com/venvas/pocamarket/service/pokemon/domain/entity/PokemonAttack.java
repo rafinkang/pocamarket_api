@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.AttacksDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -74,6 +75,16 @@ public class PokemonAttack {
      * 카드 코드를 통해 포켓몬 카드와 연결
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_code", insertable = false, updatable = false)
+    @JoinColumn(name = "card_code", nullable = false, insertable = false, updatable = false)
     private PokemonCard pokemonCard;
-} 
+
+    public PokemonAttack(AttacksDto dto, String cardCode) {
+        this.cardCode = cardCode;
+        this.name = dto.name();
+        this.nameKo = dto.name_ko();
+        this.effect = dto.effect();
+        this.effectKo = dto.effect_ko();
+        this.damage = dto.damage();
+        this.cost = String.join(",", dto.cost());
+    }
+}

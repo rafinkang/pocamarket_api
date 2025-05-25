@@ -1,12 +1,10 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.venvas.pocamarket.service.pokemon.application.dto.PokemonCardListDto;
-import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardSearchListFilterCondition;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

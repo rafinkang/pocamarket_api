@@ -121,19 +121,19 @@ public class PokemonCardUpdateService2 {
      * @param rawCard Map 형태의 카드 데이터
      */
     private void updateBasicInfo(PokemonCard card, Map<String, Object> rawCard) {
-        card.setCode((String) rawCard.get("code"));
-        card.setName((String) rawCard.get("name"));
-        card.setNameKo((String) rawCard.get("name_ko"));
-        card.setElement((String) rawCard.get("element"));
-        card.setType((String) rawCard.get("type"));
-        card.setSubtype((String) rawCard.get("subtype"));
-        card.setHealth(parseInteger(rawCard.get("health")));
-        card.setPackSet((String) rawCard.get("set"));
-        card.setPack((String) rawCard.get("pack"));
-        card.setRetreatCost(parseInteger(rawCard.get("retreatCost")));
-        card.setWeakness((String) rawCard.get("weakness"));
-        card.setEvolvesFrom((String) rawCard.get("evolvesFrom"));
-        card.setRarity((String) rawCard.get("rarity"));
+//        card.setCode((String) rawCard.get("code"));
+//        card.setName((String) rawCard.get("name"));
+//        card.setNameKo((String) rawCard.get("name_ko"));
+//        card.setElement((String) rawCard.get("element"));
+//        card.setType((String) rawCard.get("type"));
+//        card.setSubtype((String) rawCard.get("subtype"));
+//        card.setHealth(parseInteger(rawCard.get("health")));
+//        card.setPackSet((String) rawCard.get("set"));
+//        card.setPack((String) rawCard.get("pack"));
+//        card.setRetreatCost(parseInteger(rawCard.get("retreatCost")));
+//        card.setWeakness((String) rawCard.get("weakness"));
+//        card.setEvolvesFrom((String) rawCard.get("evolvesFrom"));
+//        card.setRarity((String) rawCard.get("rarity"));
     }
 
     /**
@@ -148,7 +148,7 @@ public class PokemonCardUpdateService2 {
             rawAttacks != null ? rawAttacks.size() : 0);
         
         if (rawAttacks == null) {
-            card.setAttacks(new ArrayList<>());
+//            card.setAttacks(new ArrayList<>());
             return;
         }
 
@@ -174,7 +174,7 @@ public class PokemonCardUpdateService2 {
             .filter(Objects::nonNull)
             .collect(Collectors.toList());
         
-        card.setAttacks(attacks);
+//        card.setAttacks(attacks);
     }
 
     /**
@@ -189,7 +189,7 @@ public class PokemonCardUpdateService2 {
             rawAbilities != null ? rawAbilities.size() : 0);
         
         if (rawAbilities == null) {
-            card.setAbilities(new ArrayList<>());
+//            card.setAbilities(new ArrayList<>());
             return;
         }
 
@@ -213,7 +213,7 @@ public class PokemonCardUpdateService2 {
             .filter(Objects::nonNull)
             .collect(Collectors.toList());
         
-        card.setAbilities(abilities);
+//        card.setAbilities(abilities);
     }
 
     /**

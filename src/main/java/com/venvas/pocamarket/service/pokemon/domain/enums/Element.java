@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.service.pokemon.domain.entity;
+package com.venvas.pocamarket.service.pokemon.domain.enums;
 
 public enum Element {
     GRASS,      // 풀

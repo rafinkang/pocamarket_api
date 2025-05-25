@@ -1,13 +1,12 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.PokemonCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.common.util.ApiResponse;
-import com.venvas.pocamarket.service.pokemon.application.dto.PokeCardSearchListFilterCondition;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService2;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
-import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

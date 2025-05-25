@@ -2,6 +2,9 @@ package com.venvas.pocamarket.service.pokemon.application.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.AbilityDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.AttacksDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.*;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,67 +48,30 @@ public class PokemonCardUpdateService {
         return null;
     }
 
-    private List<PokemonAbility> mappingAbilityData(String code, List<AbilityDto> aDto) {
+    private List<PokemonAbility> mappingAbilityData(List<AbilityDto> aDto, String cardCode) {
         if(aDto == null) return null;
 
         List<PokemonAbility> list = new ArrayList<>();
         for (AbilityDto a : aDto) {
-            list.add(new PokemonAbility(
-                null,
-                code,
-                a.getName(),
-                a.getName_ko(),
-                a.getEffect(),
-                a.getEffect_ko(),
-                null
-            ));
+            list.add(new PokemonAbility(a, cardCode));
         }
         return list;
     }
 
-    private List<PokemonAttack> mappingAttackData(String code, List<AttacksDto> aDto) {
+    private List<PokemonAttack> mappingAttackData(List<AttacksDto> aDto, String cardCode) {
         if(aDto == null) return null;
 
         List<PokemonAttack> list = new ArrayList<>();
         for (AttacksDto a : aDto) {
-            list.add(new PokemonAttack(
-                    null,
-                    code,
-                    a.getName(),
-                    a.getName_ko(),
-                    a.getEffect(),
-                    a.getEffect_ko(),
-                    a.getDamage(),
-                    String.join(",", a.getCost()),
-                    null
-            ));
+            list.add(new PokemonAttack(a, cardCode));
         }
         return list;
     }
 
     private PokemonCard mappingCardData(PokemonCardDto c) {
-        List<PokemonAttack> attackList = mappingAttackData(c.getCode(),c.getAttacks());
-        List<PokemonAbility> abilityList = mappingAbilityData(c.getCode(),c.getAbilities());
+        List<PokemonAttack> attackList = mappingAttackData(c.attacks(), c.code());
+        List<PokemonAbility> abilityList = mappingAbilityData(c.abilities(), c.code());
 
-        return new PokemonCard(
-                null,
-                c.getCode(),
-                null,
-                null,
-                c.getName(),
-                c.getName_ko(),
-                c.getElement(),
-                c.getType(),
-                c.getSubtype(),
-                c.getHealth(),
-                c.getSet(),
-                c.getPack(),
-                c.getRetreatCost(),
-                c.getWeakness(),
-                c.getEvolvesFrom(),
-                c.getRarity(),
-                attackList,
-                abilityList
-        );
+        return new PokemonCard(c, attackList, abilityList);
     }
 }
