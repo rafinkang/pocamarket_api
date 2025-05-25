@@ -1,0 +1,2036 @@
+[
+  {
+    "code": "pa-001",
+    "name": "Potion",
+    "name_ko": "회복약",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-002",
+    "name": "X Speed",
+    "name_ko": "스피드업",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-003",
+    "name": "Hand Scope",
+    "name_ko": "핸드스코프",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-004",
+    "name": "Pokédex",
+    "name_ko": "포켓몬 도감",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-005",
+    "name": "Poké Ball",
+    "name_ko": "몬스터볼",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-006",
+    "name": "Red Card",
+    "name_ko": "레드카드",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-007",
+    "name": "Professor's Research",
+    "name_ko": "박사의 연구",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-008",
+    "name": "Pokédex",
+    "name_ko": "포켓몬 도감",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-009",
+    "name": "Pikachu",
+    "name_ko": "피카츄",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Gnaw",
+        "name_ko": "갉기",
+        "damage": "20",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-010",
+    "name": "Mewtwo",
+    "name_ko": "뮤츠",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Power Blast",
+        "name_ko": "파워블라스트",
+        "effect": "Discard 2 Psychic Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 초에너지를 2개 트래쉬한다.",
+        "damage": "120",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-011",
+    "name": "Chansey",
+    "name_ko": "럭키",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 120,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Gentle Slap",
+        "name_ko": "세게때리기",
+        "damage": "60",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-012",
+    "name": "Meowth",
+    "name_ko": "나옹",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Pay Day",
+        "name_ko": "고양이 돈받기",
+        "effect": "Draw 1 card.",
+        "effect_ko": "자신의 덱을 1장 뽑는다.",
+        "damage": "10",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-013",
+    "name": "Butterfree",
+    "name_ko": "버터플",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 120,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Gust",
+        "name_ko": "바람일으키기",
+        "damage": "60",
+        "cost": [
+          "GRASS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [
+      {
+        "name": "Powder Heal",
+        "name_ko": "파우더 힐",
+        "effect": "Once during your turn, you may heal 20 damage from each of your Pokémon.",
+        "effect_ko": "자신의 차례에 1번 사용할 수 있다. 자신의 포켓몬 전원의 HP를 20회복."
+      }
+    ],
+    "evolvesFrom": "Metapod",
+    "rarity": null
+  },
+  {
+    "code": "pa-014",
+    "name": "Lapras ex",
+    "name_ko": "라프라스 ex",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Bubble Drain",
+        "name_ko": "버블드레인",
+        "effect": "Heal 20 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 20회복.",
+        "damage": "80",
+        "cost": [
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-015",
+    "name": "Pikachu",
+    "name_ko": "피카츄",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Gnaw",
+        "name_ko": "갉기",
+        "damage": "20",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-016",
+    "name": "Clefairy",
+    "name_ko": "삐삐",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Slap",
+        "name_ko": "뺨치기",
+        "damage": "20",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-017",
+    "name": "Mankey",
+    "name_ko": "망키",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Reckless Charge",
+        "name_ko": "돌격",
+        "effect": "This Pokémon also does 10 damage to itself.",
+        "effect_ko": "이 포켓몬에게도 10데미지를 준다.",
+        "damage": "30",
+        "cost": [
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-018",
+    "name": "Venusaur",
+    "name_ko": "이상해꽃",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 160,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Mega Drain",
+        "name_ko": "메가드레인",
+        "effect": "Heal 30 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 30회복.",
+        "damage": "80",
+        "cost": [
+          "GRASS",
+          "GRASS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Ivysaur",
+    "rarity": null
+  },
+  {
+    "code": "pa-019",
+    "name": "Greninja",
+    "name_ko": "개굴닌자",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 120,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Mist Slash",
+        "name_ko": "안개베기",
+        "damage": "60",
+        "cost": [
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [
+      {
+        "name": "Water Shuriken",
+        "name_ko": "물수리검",
+        "effect": "Once during your turn, you may do 20 damage to 1 of your opponent's Pokémon.",
+        "effect_ko": "자신의 차례에 1번 사용할 수 있다. 상대의 포켓몬 1마리에게 20데미지를 준다."
+      }
+    ],
+    "evolvesFrom": "Frogadier",
+    "rarity": null
+  },
+  {
+    "code": "pa-020",
+    "name": "Haunter",
+    "name_ko": "고우스트",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Surprise Attack",
+        "name_ko": "허찌르기",
+        "effect": "Flip a coin. If tails, this attack does nothing.",
+        "effect_ko": "동전을 1번 던져서 뒷면이 나오면 이 기술은 실패한다.",
+        "damage": "50",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": "Gastly",
+    "rarity": null
+  },
+  {
+    "code": "pa-021",
+    "name": "Onix",
+    "name_ko": "롱스톤",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 110,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Land Crush",
+        "name_ko": "랜드크래시",
+        "damage": "70",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-022",
+    "name": "Jigglypuff",
+    "name_ko": "푸린",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Sing",
+        "name_ko": "노래하기",
+        "effect": "Your opponent's Active Pokémon is now Asleep.",
+        "effect_ko": "상대의 배틀 포켓몬을 잠듦으로 만든다.",
+        "damage": "",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-023",
+    "name": "Bulbasaur",
+    "name_ko": "이상해씨",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Vine Whip",
+        "name_ko": "덩굴채찍",
+        "damage": "40",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-024",
+    "name": "Magnemite",
+    "name_ko": "코일",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Lightning Ball",
+        "name_ko": "번쩍구슬",
+        "damage": "20",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-025",
+    "name": "Moltres ex",
+    "name_ko": "파이어 ex",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Inferno Dance",
+        "name_ko": "열화의춤",
+        "effect": "Flip 3 coins. Take an amount of Fire Energy from your Energy Zone equal to the number of heads and attach it to your Benched Fire Pokémon in any way you like.",
+        "effect_ko": "동전을 3번 던져서 앞면이 나온 수만큼의 불에너지를 자신의 에너지존에서 내보내 벤치의 불포켓몬에게 원하는 대로 붙인다.",
+        "damage": "",
+        "cost": [
+          "FIRE"
+        ]
+      },
+      {
+        "name": "Heat Blast",
+        "name_ko": "히트블라스트",
+        "damage": "70",
+        "cost": [
+          "FIRE",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-026",
+    "name": "Pikachu",
+    "name_ko": "피카츄",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Gnaw",
+        "name_ko": "갉기",
+        "damage": "20",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-027",
+    "name": "Snivy",
+    "name_ko": "주리비얀",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Tackle",
+        "name_ko": "몸통박치기",
+        "damage": "20",
+        "cost": [
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-028",
+    "name": "Volcarona",
+    "name_ko": "불카모스",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 120,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Volcanic Ash",
+        "name_ko": "화쇄류",
+        "effect": "Discard 2 Fire Energy from this Pokémon. This attack does 80 damage to 1 of your opponent's Pokémon.",
+        "effect_ko": "이 포켓몬에서 불에너지를 2개 트래쉬하고 상대의 포켓몬 1마리에게 80데미지를 준다.",
+        "damage": "",
+        "cost": [
+          "FIRE",
+          "FIRE",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": "Larvesta",
+    "rarity": null
+  },
+  {
+    "code": "pa-029",
+    "name": "Blastoise",
+    "name_ko": "거북왕",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 150,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Hydro Pump",
+        "name_ko": "하이드로펌프",
+        "effect": "If this Pokémon has at least 2 extra Water Energy attached, this attack does 60 more damage.",
+        "effect_ko": "물에너지 2개가 추가로 붙어 있다면 60데미지를 추가한다.",
+        "damage": "80+",
+        "cost": [
+          "WATER",
+          "WATER",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Wartortle",
+    "rarity": null
+  },
+  {
+    "code": "pa-030",
+    "name": "Eevee",
+    "name_ko": "이브이",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Growl",
+        "name_ko": "울음소리",
+        "effect": "During your opponent's next turn, attacks used by the Defending Pokémon do −20 damage.",
+        "effect_ko": "상대의 다음 차례에 이 기술을 받은 포켓몬이 사용하는 기술의 데미지를 -20한다.",
+        "damage": "",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-031",
+    "name": "Cinccino",
+    "name_ko": "치라치노",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 90,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Do the Wave",
+        "name_ko": "친구사이",
+        "effect": "This attack does 30 damage for each of your Benched Pokémon.",
+        "effect_ko": "자신의 벤치 포켓몬의 수 x 30데미지를 준다.",
+        "damage": "30x",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Minccino",
+    "rarity": null
+  },
+  {
+    "code": "pa-032",
+    "name": "Charmander",
+    "name_ko": "파이리",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Ember",
+        "name_ko": "불꽃세례",
+        "effect": "Discard a Fire Energy from this Pokémon.",
+        "effect_ko": "이 포켓몬에서 불에너지를 1개 트래쉬한다.",
+        "damage": "30",
+        "cost": [
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-033",
+    "name": "Squirtle",
+    "name_ko": "꼬부기",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Water Gun",
+        "name_ko": "물대포",
+        "damage": "20",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-034",
+    "name": "Piplup",
+    "name_ko": "팽도리",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Nap",
+        "name_ko": "잠시 쉬기",
+        "effect": "Heal 20 damage from this Pokémon.",
+        "effect_ko": "이 포켓몬의 HP를 20회복.",
+        "damage": "",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-035",
+    "name": "Turtwig",
+    "name_ko": "모부기",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Bite",
+        "name_ko": "물기",
+        "damage": "30",
+        "cost": [
+          "GRASS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-036",
+    "name": "Electivire",
+    "name_ko": "에레키블",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 120,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Exciting Voltage",
+        "name_ko": "익사이팅볼트",
+        "effect": "If this Pokémon has at least 2 extra Lightning Energy attached, this attack does 80 more damage.",
+        "effect_ko": "전기에너지 2개가 추가로 붙어 있다면 80데미지를 추가한다.",
+        "damage": "40+",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 3,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": "Electabuzz",
+    "rarity": null
+  },
+  {
+    "code": "pa-037",
+    "name": "Cresselia ex",
+    "name_ko": "크레세리아 ex",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Psychic Flash",
+        "name_ko": "사이코플래시",
+        "damage": "80",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "DARKNESS",
+    "abilities": [
+      {
+        "name": "Lunar Plumage",
+        "name_ko": "초승달의 날개옷",
+        "effect": "Whenever you attach a Psychic Energy from your Energy Zone to this Pokémon, heal 20 damage from this Pokémon.",
+        "effect_ko": "자신의 에너지존에서 이 포켓몬에게 초에너지를 붙일 때마다 이 포켓몬의 HP를 20회복."
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-038",
+    "name": "Misdreavus",
+    "name_ko": "무우마",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Confuse Ray",
+        "name_ko": "이상한빛",
+        "effect": "Your opponent's Active Pokémon is now Confused.",
+        "effect_ko": "상대의 배틀 포켓몬을 혼란으로 만든다.",
+        "damage": "",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-039",
+    "name": "Skarmory",
+    "name_ko": "무장조",
+    "element": "METAL",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Metal Arms",
+        "name_ko": "메탈암즈",
+        "effect": "If this Pokémon has a Pokémon Tool attached, this attack does 30 more damage.",
+        "effect_ko": "이 포켓몬에게 포켓몬의 도구가 붙어 있다면 30데미지를 추가한다.",
+        "damage": "20+",
+        "cost": [
+          "METAL"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-040",
+    "name": "Chimchar",
+    "name_ko": "불꽃숭이",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Scratch",
+        "name_ko": "할퀴기",
+        "damage": "20",
+        "cost": [
+          "FIRE"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "WATER",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-041",
+    "name": "Togepi",
+    "name_ko": "토게피",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Pound",
+        "name_ko": "막치기",
+        "damage": "20",
+        "cost": [
+          "PSYCHIC"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-042",
+    "name": "Darkrai ex",
+    "name_ko": "",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Dark Prism",
+        "name_ko": "",
+        "damage": "80",
+        "cost": [
+          "DARKNESS",
+          "DARKNESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "GRASS",
+    "abilities": [
+      {
+        "name": "Nightmare Aura",
+        "name_ko": "",
+        "effect": "Whenever you attach a Darkness Energy from your Energy Zone to this Pokémon, do 20 damage to your opponent's Active Pokémon.",
+        "effect_ko": ""
+      }
+    ],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-043",
+    "name": "Cherrim",
+    "name_ko": "",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 80,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Leech Seed",
+        "name_ko": "",
+        "effect": "Heal 20 damage from this Pokémon.",
+        "effect_ko": "",
+        "damage": "60",
+        "cost": [
+          "GRASS",
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Cherubi",
+    "rarity": null
+  },
+  {
+    "code": "pa-044",
+    "name": "Raichu",
+    "name_ko": "",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 90,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Spark",
+        "name_ko": "",
+        "effect": "This attack also does 20 damage to 1 of your opponent's Benched Pokémon.",
+        "effect_ko": "",
+        "damage": "40",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [
+      {
+        "name": "Resilience Link",
+        "name_ko": "",
+        "effect": "If you have Arceus or Arceus ex in play, this Pokémon takes −30 damage from attacks.",
+        "effect_ko": ""
+      }
+    ],
+    "evolvesFrom": "Pikachu",
+    "rarity": null
+  },
+  {
+    "code": "pa-045",
+    "name": "Nosepass",
+    "name_ko": "",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Iron Defense",
+        "name_ko": "",
+        "effect": "Flip a coin. If heads, during your opponent's next turn, prevent all damage done to this Pokémon by attacks.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-046",
+    "name": "Gible",
+    "name_ko": "",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Tackle",
+        "name_ko": "",
+        "damage": "20",
+        "cost": [
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-047",
+    "name": "Staraptor",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Wing Attack",
+        "name_ko": "",
+        "damage": "90",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [
+      {
+        "name": "Defensive Whirlwind",
+        "name_ko": "",
+        "effect": "This Pokémon takes −30 damage from attacks from Fighting Pokémon.",
+        "effect_ko": ""
+      }
+    ],
+    "evolvesFrom": "Staravia",
+    "rarity": null
+  },
+  {
+    "code": "pa-048",
+    "name": "Manaphy",
+    "name_ko": "",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Oceanic Gift",
+        "name_ko": "",
+        "effect": "Choose 2 of your Benched Pokémon. For each of those Pokémon, take a Water Energy from your Energy Zone and attach it to that Pokémon.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-049",
+    "name": "Snorlax",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Collapse",
+        "name_ko": "",
+        "effect": "This Pokémon is now Asleep.",
+        "effect_ko": "",
+        "damage": "100",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-050",
+    "name": "Mewtwo ex",
+    "name_ko": "",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 150,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Psychic Sphere",
+        "name_ko": "",
+        "damage": "50",
+        "cost": [
+          "PSYCHIC",
+          "COLORLESS"
+        ]
+      },
+      {
+        "name": "Psydrive",
+        "name_ko": "",
+        "effect": "Discard 2 Psychic Energy from this Pokémon.",
+        "effect_ko": "",
+        "damage": "150",
+        "cost": [
+          "PSYCHIC",
+          "PSYCHIC",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-051",
+    "name": "Cyclizar",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 80,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Overacceleration",
+        "name_ko": "",
+        "effect": "During your next turn, this Pokémon's Overacceleration attack does +20 damage.",
+        "effect_ko": "",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-052",
+    "name": "Sprigatito",
+    "name_ko": "",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Cry for Help",
+        "name_ko": "",
+        "effect": "Put 1 random Grass Pokémon from your deck into your hand.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "GRASS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-053",
+    "name": "Floatzel",
+    "name_ko": "",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 100,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Attack the Wound",
+        "name_ko": "",
+        "effect": "If your opponent's Active Pokémon has damage on it, this attack does 60 more damage.",
+        "effect_ko": "",
+        "damage": "10+",
+        "cost": [
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Buizel",
+    "rarity": null
+  },
+  {
+    "code": "pa-054",
+    "name": "Pawmot",
+    "name_ko": "",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Electric Punch",
+        "name_ko": "",
+        "damage": "70",
+        "cost": [
+          "LIGHTNING",
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 0,
+    "weakness": "FIGHTING",
+    "abilities": [
+      {
+        "name": "Counterattack",
+        "name_ko": "",
+        "effect": "If this Pokémon is in the Active Spot and is damaged by an attack from your opponent's Pokémon, do 20 damage to the Attacking Pokémon.",
+        "effect_ko": ""
+      }
+    ],
+    "evolvesFrom": "Pawmo",
+    "rarity": null
+  },
+  {
+    "code": "pa-055",
+    "name": "Machamp",
+    "name_ko": "",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 150,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Power Press",
+        "name_ko": "",
+        "effect": "If this Pokémon has at least 2 extra Fighting Energy attached, this attack does 50 more damage.",
+        "effect_ko": "",
+        "damage": "70+",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": "Machoke",
+    "rarity": null
+  },
+  {
+    "code": "pa-056",
+    "name": "Ekans",
+    "name_ko": "",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Poison Sting",
+        "name_ko": "",
+        "effect": "Your opponent's Active Pokémon is now Poisoned.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-057",
+    "name": "Bidoof",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Headbutt",
+        "name_ko": "",
+        "damage": "30",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-058",
+    "name": "Pachirisu",
+    "name_ko": "",
+    "element": "LIGHTNING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Plasma",
+        "name_ko": "",
+        "effect": "Take a Lightning Energy from your Energy Zone and attach it to 1 of your Benched Lightning Pokémon.",
+        "effect_ko": "",
+        "damage": "10",
+        "cost": [
+          "LIGHTNING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-059",
+    "name": "Riolu",
+    "name_ko": "",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Punch",
+        "name_ko": "",
+        "damage": "40",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-060",
+    "name": "Exeggcute",
+    "name_ko": "",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 50,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Growth Spurt",
+        "name_ko": "",
+        "effect": "Take a Grass Energy from your Energy Zone and attach it to this Pokémon.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-061",
+    "name": "Froakie",
+    "name_ko": "",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Flop",
+        "name_ko": "",
+        "damage": "10",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-062",
+    "name": "Farfetch'd",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Leek Slap",
+        "name_ko": "",
+        "damage": "40",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-063",
+    "name": "Rayquaza",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 100,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Spiral Rush",
+        "name_ko": "",
+        "effect": "Flip a coin until you get tails. This attack does 30 more damage for each heads.",
+        "effect_ko": "",
+        "damage": "70+",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-064",
+    "name": "Rayquaza ex",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Draco Meteor",
+        "name_ko": "",
+        "effect": "1 of your opponent's Pokémon is chosen at random 4 times. For each time a Pokémon was chosen, do 40 damage to it.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-065",
+    "name": "Rayquaza ex",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Draco Meteor",
+        "name_ko": "",
+        "effect": "1 of your opponent's Pokémon is chosen at random 4 times. For each time a Pokémon was chosen, do 40 damage to it.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-066",
+    "name": "Mimikyu",
+    "name_ko": "",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Shadow Hit",
+        "name_ko": "",
+        "effect": "This attack also does 20 damage to 1 of your Pokémon.",
+        "effect_ko": "",
+        "damage": "60",
+        "cost": [
+          "PSYCHIC",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-067",
+    "name": "Cosmog",
+    "name_ko": "",
+    "element": "PSYCHIC",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 60,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Teleport",
+        "name_ko": "",
+        "effect": "Switch this Pokémon with 1 of your Benched Pokémon.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "DARKNESS",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-068",
+    "name": "Lycanroc",
+    "name_ko": "",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 100,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Crunch",
+        "name_ko": "",
+        "effect": "Flip a coin. If heads, discard a random Energy from your opponent's Active Pokémon.",
+        "effect_ko": "",
+        "damage": "80",
+        "cost": [
+          "FIGHTING",
+          "FIGHTING",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "GRASS",
+    "abilities": [],
+    "evolvesFrom": "Rockruff",
+    "rarity": null
+  },
+  {
+    "code": "pa-069",
+    "name": "Alolan Exeggutor",
+    "name_ko": "",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 150,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Tropical Hammer",
+        "name_ko": "",
+        "effect": "Flip a coin. If tails, this attack does nothing.",
+        "effect_ko": "",
+        "damage": "150",
+        "cost": [
+          "GRASS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 4,
+    "weakness": "FIRE",
+    "abilities": [],
+    "evolvesFrom": "Exeggcute",
+    "rarity": null
+  },
+  {
+    "code": "pa-070",
+    "name": "Alolan Ninetales",
+    "name_ko": "",
+    "element": "WATER",
+    "type": "POKEMON",
+    "subtype": "STAGE 1",
+    "health": 110,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Blizzard",
+        "name_ko": "",
+        "effect": "This attack also does 20 damage to each of your opponent's Benched Pokémon.",
+        "effect_ko": "",
+        "damage": "60",
+        "cost": [
+          "WATER",
+          "WATER",
+          "WATER"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "METAL",
+    "abilities": [],
+    "evolvesFrom": "Alolan Vulpix",
+    "rarity": null
+  },
+  {
+    "code": "pa-071",
+    "name": "Crabrawler",
+    "name_ko": "",
+    "element": "FIGHTING",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Punch",
+        "name_ko": "",
+        "damage": "20",
+        "cost": [
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "PSYCHIC",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-072",
+    "name": "Alolan Grimer",
+    "name_ko": "",
+    "element": "DARKNESS",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 70,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Poison Gas",
+        "name_ko": "",
+        "effect": "Your opponent's Active Pokémon is now Poisoned.",
+        "effect_ko": "",
+        "damage": "",
+        "cost": [
+          "DARKNESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "FIGHTING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-073",
+    "name": "Toucannon",
+    "name_ko": "",
+    "element": "COLORLESS",
+    "type": "POKEMON",
+    "subtype": "STAGE 2",
+    "health": 140,
+    "set": "Promo-A",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Beak Blast",
+        "name_ko": "",
+        "effect": "Flip a coin. If heads, your opponent's Active Pokémon is now Burned.",
+        "effect_ko": "",
+        "damage": "80",
+        "cost": [
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": "Trumbeak",
+    "rarity": null
+  }
+]
