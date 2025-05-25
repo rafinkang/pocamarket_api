@@ -1,4 +1,5 @@
-# Clean Architecture 구현
+# Architecture
+### 헥사고날 아키텍쳐 지향 계층별로 분리
 
 ```text
 src/main/java/com/venvas/pocamarket/
