@@ -2,6 +2,7 @@ package com.venvas.pocamarket.service.pokemon.application.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.AbilityDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.AttacksDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
@@ -25,10 +26,11 @@ public class PokemonCardUpdateService {
 
     private final PokemonCardRepository pokemonCardRepository;
 
-    public List<PokemonCard> updateJsonData(String version) {
+    public ApiResponse<List<PokemonCard>> updateJsonData(String version) {
         ObjectMapper mapper = new ObjectMapper();
         InputStream inputStream = getClass().getResourceAsStream("/sample/" + version + ".json");
-        TypeReference<List<PokemonCardDto>> typeReference = new TypeReference<>() {};
+        TypeReference<List<PokemonCardDto>> typeReference = new TypeReference<>() {
+        };
 
         try {
             List<PokemonCardDto> pokemonCards = mapper.readValue(inputStream, typeReference);
@@ -40,16 +42,18 @@ public class PokemonCardUpdateService {
                 cardList.add(mappingCardData(card));
             }
 
-            return pokemonCardRepository.saveAll(cardList);
+            return ApiResponse.success(pokemonCardRepository.saveAll(cardList),
+                    "카드 데이터가 성공적으로 업데이트 되었습니다.");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            return ApiResponse.error(e.getMessage(), "100");
+        } catch (Exception e) {
+            return ApiResponse.error(e.getMessage(), "101");
         }
-        return null;
     }
 
     private List<PokemonAbility> mappingAbilityData(List<AbilityDto> aDto, String cardCode) {
-        if(aDto == null) return null;
+        if (aDto == null) return null;
 
         List<PokemonAbility> list = new ArrayList<>();
         for (AbilityDto a : aDto) {
@@ -59,7 +63,7 @@ public class PokemonCardUpdateService {
     }
 
     private List<PokemonAttack> mappingAttackData(List<AttacksDto> aDto, String cardCode) {
-        if(aDto == null) return null;
+        if (aDto == null) return null;
 
         List<PokemonAttack> list = new ArrayList<>();
         for (AttacksDto a : aDto) {

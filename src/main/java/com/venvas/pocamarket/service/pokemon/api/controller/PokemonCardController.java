@@ -95,10 +95,7 @@ public class PokemonCardController {
 
     @PostMapping("/update/card/{version}")
     public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(@PathVariable String version) {
-        return ResponseEntity.ok(ApiResponse.success(
-            pokemonCardUpdateService.updateJsonData(version),
-            "카드 데이터가 성공적으로 업데이트되었습니다."
-        ));
+        return ResponseEntity.ok(pokemonCardUpdateService.updateJsonData(version));
     }
 
 
