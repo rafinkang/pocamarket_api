@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/test")
 public class TestController {
-    
-    @GetMapping("/hello")
+    @GetMapping("")
     public ResponseEntity<Object> hello() {
-        return new ResponseEntity<>("hello world !!!123123", HttpStatus.OK);
+        return new ResponseEntity<>("hello world !!!", HttpStatus.OK);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<Object> test() {
+        return new ResponseEntity<>("testtest hello world !!!", HttpStatus.OK);
     }
     
 }
