@@ -1,15 +1,17 @@
 package com.venvas.pocamarket.service.user.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
+import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
+import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,8 +25,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "user")
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 public class User {
@@ -51,7 +52,7 @@ public class User {
     /**
      * 비밀번호 (해시값)
      */
-    @Column(name = "password", nullable = false, length = 255)
+    @Column(name = "password", nullable = false)
     private String password;
 
     /**
@@ -61,19 +62,19 @@ public class User {
     private String name;
 
     /**
-     * 사용자 닉네임
+     * 닉네임 (Unique)
      */
-    @Column(name = "nickname", nullable = false, length = 50)
+    @Column(name = "nickname", nullable = false, unique = true, length = 50)
     private String nickname;
 
     /**
-     * 사용자 이메일
+     * 이메일 (Unique)
      */
-    @Column(name = "email", length = 100)
+    @Column(name = "email", unique = true, length = 100)
     private String email;
 
     /**
-     * 사용자 전화번호
+     * 전화번호
      */
     @Column(name = "phone", length = 20)
     private String phone;
@@ -86,19 +87,25 @@ public class User {
 
     /**
      * 사용자 상태
-     * 1: 활성, 0: 탈퇴 등
+     * ACTIVE: 활성, INACTIVE: 비활성, SUSPENDED: 일시정지, DELETED: 탈퇴 등
      */
     @Column(name = "status")
     @Builder.Default
-    private Integer status = 1;
+    private Integer statusCode = UserStatus.ACTIVE.getCode();
+    
+    @Transient // DB에 저장하지 않는 필드
+    private transient UserStatus status;
 
     /**
      * 사용자 권한 등급
-     * 99: 관리자, 1: 일반 사용자 등
+     * REGULAR: 일반 사용자, PREMIUM: 프리미엄, VIP: VIP, ADMIN: 관리자
      */
     @Column(name = "grade")
     @Builder.Default
-    private Integer grade = 1;
+    private Integer gradeCode = UserGrade.REGULAR.getCode();
+    
+    @Transient // DB에 저장하지 않는 필드
+    private transient UserGrade grade;
 
     /**
      * 이메일 인증 여부
@@ -108,17 +115,17 @@ public class User {
     private Boolean emailVerified = false;
 
     /**
-     * 계정 생성 일시
+     * 생성 시간 (CreationTimestamp로 자동 관리)
      */
     @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     /**
-     * 계정 정보 수정 일시
+     * 업데이트 시간 (UpdateTimestamp로 자동 관리)
      */
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     /**
@@ -136,14 +143,14 @@ public class User {
     private List<UserPasswordHistory> passwordHistories = new ArrayList<>();
 
     /**
-     * UserCreateRequest로부터 User 엔티티를 생성하는 정적 팩토리 메소드
+     * 사용자 생성 정적 팩토리 메소드
      * 
-     * @param request 사용자 생성 요청 DTO
+     * @param request        사용자 생성 요청 DTO
      * @param encodedPassword 암호화된 비밀번호
      * @return 생성된 User 엔티티
      */
     public static User createFromRequest(UserCreateRequest request, String encodedPassword) {
-        return User.builder()
+        User user = User.builder()
                 .uuid(UUID.randomUUID().toString())
                 .loginId(request.getLoginId())
                 .password(encodedPassword)
@@ -151,7 +158,61 @@ public class User {
                 .nickname(request.getNickname())
                 .email(request.getEmail())
                 .phone(request.getPhone())
-                // status, grade, emailVerified는 @Builder.Default로 기본값 사용
+                .emailVerified(false)
                 .build();
+                
+        // 열거형 값 명시적 설정
+        user.setStatus(UserStatus.ACTIVE);
+        user.setGrade(UserGrade.REGULAR);
+        
+        return user;
     }
-} 
+    
+    /**
+     * 열거형 상태 값을 조회하는 게터 메소드
+     * @return 사용자 상태 열거형
+     */
+    public UserStatus getStatus() {
+        if (status == null && statusCode != null) {
+            status = UserStatus.fromDbCode(statusCode);
+        }
+        return status;
+    }
+    
+    /**
+     * 열거형 상태 값을 설정하는 세터 메소드
+     * @param status 사용자 상태 열거형
+     */
+    public void setStatus(UserStatus status) {
+        this.status = status;
+        this.statusCode = UserStatus.toCode(status);
+    }
+    
+    /**
+     * 열거형 등급 값을 조회하는 게터 메소드
+     * @return 사용자 등급 열거형
+     */
+    public UserGrade getGrade() {
+        if (grade == null && gradeCode != null) {
+            grade = UserGrade.fromDbCode(gradeCode);
+        }
+        return grade;
+    }
+    
+    /**
+     * 열거형 등급 값을 설정하는 세터 메소드
+     * @param grade 사용자 등급 열거형
+     */
+    public void setGrade(UserGrade grade) {
+        this.grade = grade;
+        this.gradeCode = UserGrade.toCode(grade);
+    }
+    
+    /**
+     * 이메일 인증 여부 설정
+     * @param emailVerified 이메일 인증 여부
+     */
+    public void setEmailVerified(Boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+}
