@@ -9,9 +9,12 @@ import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 사용자 정보를 관리하는 엔티티
@@ -131,4 +134,24 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<UserPasswordHistory> passwordHistories = new ArrayList<>();
+
+    /**
+     * UserCreateRequest로부터 User 엔티티를 생성하는 정적 팩토리 메소드
+     * 
+     * @param request 사용자 생성 요청 DTO
+     * @param encodedPassword 암호화된 비밀번호
+     * @return 생성된 User 엔티티
+     */
+    public static User createFromRequest(UserCreateRequest request, String encodedPassword) {
+        return User.builder()
+                .uuid(UUID.randomUUID().toString())
+                .loginId(request.getLoginId())
+                .password(encodedPassword)
+                .name(request.getName())
+                .nickname(request.getNickname())
+                .email(request.getEmail())
+                .phone(request.getPhone())
+                // status, grade, emailVerified는 @Builder.Default로 기본값 사용
+                .build();
+    }
 } 

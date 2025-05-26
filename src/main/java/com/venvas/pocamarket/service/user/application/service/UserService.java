@@ -1,6 +1,5 @@
 package com.venvas.pocamarket.service.user.application.service;
 
-
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
@@ -9,13 +8,9 @@ import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 /**
  * 사용자 관련 비즈니스 로직을 처리하는 서비스
@@ -38,17 +33,20 @@ public class UserService {
      */
     public User createUser(UserCreateRequest request) {
         log.info("사용자 생성 시작: loginId={}", request.getLoginId());
-        
+
         // 중복 체크
         validateDuplicateUser(request);
+
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
         
         // 사용자 엔티티 생성 및 저장
-        User user = createUserEntity(request);
+        User user = User.createFromRequest(request, encodedPassword);
         User savedUser = userRepository.save(user);
-        
+
         log.info("사용자 생성 완료: userId={}, loginId={}", savedUser.getId(), savedUser.getLoginId());
         return savedUser;
-        
+
         // 예외는 상위 레이어로 전파됨
     }
 
@@ -63,25 +61,5 @@ public class UserService {
         }
     }
 
-    /**
-     * 사용자 엔티티 생성
-     * 요청 데이터를 기반으로 사용자 엔티티를 생성하고 초기값을 설정
-     */
-    private User createUserEntity(UserCreateRequest request) {
-        User user = new User();
-        user.setUuid(UUID.randomUUID().toString());
-        user.setLoginId(request.getLoginId());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setName(request.getName());
-        user.setNickname(request.getNickname());
-        user.setEmail(request.getEmail());
-        user.setPhone(request.getPhone());
-        
-        // 기본값 설정
-        user.setStatus(1);        // 활성 상태
-        user.setGrade(1);         // 일반 사용자
-        user.setEmailVerified(false);
-        
-        return user;
-    }
-} 
+
+}
