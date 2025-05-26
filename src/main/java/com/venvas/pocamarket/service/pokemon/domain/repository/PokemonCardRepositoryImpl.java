@@ -2,9 +2,7 @@ package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,7 +10,6 @@ import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.Pokemon
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.QPokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
-import com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonCard;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,7 +19,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonCard.pokemonCard;
@@ -43,7 +39,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     }
 
     @Override
-    public Page<List<PokemonCardListDto>> searchFilterList(PokeCardSearchListFilterCondition condition, Pageable pageable) {
+    public Page<PokemonCardListDto> searchFilterList(PokeCardSearchListFilterCondition condition, Pageable pageable) {
 
         long pageSize = checkMinMax(0, MAX_PAGE_SIZE, pageable.getPageSize());
         long offset = Math.max(pageable.getOffset(), 0);
@@ -87,7 +83,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                         rarityEqIn(condition.getRarity())
                 );
 
-        return PageableExecutionUtils.getPage(Collections.singletonList(content), pageable, countQuery::fetchOne);
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
     public Page<List<PokemonCardListDto>> searchFilterSliceList(PokeCardSearchListFilterCondition condition, Pageable pageable) {

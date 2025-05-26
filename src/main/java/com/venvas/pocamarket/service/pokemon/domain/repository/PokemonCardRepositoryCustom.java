@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface PokemonCardRepositoryCustom {
-    Page<List<PokemonCardListDto>> searchFilterList(PokeCardSearchListFilterCondition condition, Pageable pageable);
+    Page<PokemonCardListDto> searchFilterList(PokeCardSearchListFilterCondition condition, Pageable pageable);
 }

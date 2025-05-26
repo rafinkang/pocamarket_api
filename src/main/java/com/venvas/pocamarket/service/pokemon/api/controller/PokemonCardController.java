@@ -40,7 +40,7 @@ public class PokemonCardController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<ApiResponse<Page<List<PokemonCardListDto>>>> getListData(
+    public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getListData(
             @ModelAttribute PokeCardSearchListFilterCondition condition,
             @PageableDefault(size = 30, page = 0)Pageable pageable
     ) {

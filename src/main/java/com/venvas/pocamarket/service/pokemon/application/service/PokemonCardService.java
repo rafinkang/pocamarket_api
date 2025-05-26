@@ -82,7 +82,7 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
-    public Page<List<PokemonCardListDto>> getListData(PokeCardSearchListFilterCondition condition, Pageable pageable) {
+    public Page<PokemonCardListDto> getListData(PokeCardSearchListFilterCondition condition, Pageable pageable) {
         return pokemonCardRepository.searchFilterList(condition, pageable);
     }
 } 
