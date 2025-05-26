@@ -1,9 +1,11 @@
 package com.venvas.pocamarket.service.user.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -20,6 +22,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     /**
      * 사용자 고유 식별자 (PK)
@@ -82,6 +86,7 @@ public class User {
      * 1: 활성, 0: 탈퇴 등
      */
     @Column(name = "status")
+    @Builder.Default
     private Integer status = 1;
 
     /**
@@ -89,12 +94,14 @@ public class User {
      * 99: 관리자, 1: 일반 사용자 등
      */
     @Column(name = "grade")
+    @Builder.Default
     private Integer grade = 1;
 
     /**
      * 이메일 인증 여부
      */
     @Column(name = "email_verified")
+    @Builder.Default
     private Boolean emailVerified = false;
 
     /**
@@ -115,11 +122,13 @@ public class User {
      * 사용자의 로그인 이력 목록
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<UserLoginHistory> loginHistories = new ArrayList<>();
 
     /**
      * 사용자의 비밀번호 변경 이력 목록
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<UserPasswordHistory> passwordHistories = new ArrayList<>();
 } 

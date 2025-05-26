@@ -4,11 +4,11 @@ import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.application.service.UserService;
 import com.venvas.pocamarket.service.user.domain.entity.User;
-import com.venvas.pocamarket.service.user.domain.exception.UserException;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,17 +32,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody UserCreateRequest request) {
         log.info("사용자 생성 요청: loginId={}", request.getLoginId());
-        
-        try {
-            User createdUser = userService.createUser(request);
-            return ResponseEntity.ok(ApiResponse.success(createdUser, "사용자가 성공적으로 생성되었습니다."));
-        } catch (ObjectOptimisticLockingFailureException e) {
-            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage(), "ERR_02"));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage(), "ERR_03"));
-        } catch (UserException e) {
-            log.error("사용자 생성 실패: loginId={}, error={}", request.getLoginId(), e.getMessage());
-            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage(), e.getErrorCode()));
-        }
+        User createdUser = userService.createUser(request);
+        return ResponseEntity.ok(ApiResponse.success(createdUser, "사용자가 성공적으로 생성되었습니다."));
     }
 }

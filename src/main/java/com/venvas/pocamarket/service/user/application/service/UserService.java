@@ -3,6 +3,7 @@ package com.venvas.pocamarket.service.user.application.service;
 
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.domain.entity.User;
+import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +59,7 @@ public class UserService {
      */
     private void validateDuplicateUser(UserCreateRequest request) {
         if (userRepository.existsByLoginId(request.getLoginId())) {
-            throw new UserException("이미 사용 중인 로그인 ID입니다", null);
+            throw new UserException(UserErrorCode.DUPLICATE_LOGIN_ID);
         }
     }
 
