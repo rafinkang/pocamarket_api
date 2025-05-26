@@ -5,11 +5,14 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokeCardSearchListFilterCondition;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.QPokemonCardListDto;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonCard;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,6 +36,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     private final List<String> cardTypeList = List.of("POKEMON", "TRAINER");
     private final List<String> cardSubtypeList = List.of("BASIC", "STAGE_1", "STAGE_2", "ITEM", "SUPPORTER", "TOOL");
     private final List<String> packSetList = List.of("A1", "A", "A1a", "A2");
+    private final List<String> orderList = List.of("code", "nameKo", "rarity");
 
     public PokemonCardRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
@@ -100,14 +104,16 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         List<OrderSpecifier<?>> orders = new ArrayList<>();
 
         pageable.getSort().stream()
+                .filter(sort -> orderList.stream().anyMatch(order -> order.equals(sort.getProperty())))
                 .forEach(sort -> {
                     // 오름,내림차순
                     Order order = sort.isAscending() ? Order.ASC : Order.DESC;
                     // 프로퍼티값
                     String property = sort.getProperty();
-                    // queryDsl의 컬렴명을 동적으로 Path 객체로 만들어주는 유틸 ex) pokemonCard.code(property 값)
-                    Path<Object> target = Expressions.path(Object.class, pokemonCard, property);
-                    OrderSpecifier<?> orderSpecifier = new OrderSpecifier(order, target);
+                    // queryDsl의 컬렴명을 동적으로 Path 객체로 만들어주는 유틸
+                    PathBuilder<PokemonCard> pathBuilder = new PathBuilder<>(pokemonCard.getType(), pokemonCard.getMetadata());
+                    OrderSpecifier<?> orderSpecifier = new OrderSpecifier<>(order, pathBuilder.getString(property));
+
                     orders.add(orderSpecifier);
                 });
         return orders.toArray(OrderSpecifier[]::new);

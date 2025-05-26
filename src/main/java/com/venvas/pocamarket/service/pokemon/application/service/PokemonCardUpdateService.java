@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * 포켓몬 카드 데이터 업데이트를 담당하는 서비스 클래스
