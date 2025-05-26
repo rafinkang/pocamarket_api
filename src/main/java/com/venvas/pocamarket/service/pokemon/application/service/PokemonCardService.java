@@ -5,6 +5,8 @@ import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokeCar
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,7 +82,7 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
-    public List<PokemonCardListDto> getListData(PokeCardSearchListFilterCondition condition) {
-        return pokemonCardRepository.searchFilterList(condition);
+    public Page<List<PokemonCardListDto>> getListData(PokeCardSearchListFilterCondition condition, Pageable pageable) {
+        return pokemonCardRepository.searchFilterList(condition, pageable);
     }
 } 

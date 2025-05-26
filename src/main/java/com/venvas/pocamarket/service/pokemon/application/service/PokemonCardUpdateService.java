@@ -67,7 +67,7 @@ public class PokemonCardUpdateService {
             return ApiResponse.error(e.getMessage(), e.getErrorCode());
         } catch (Exception e) {
             // 기타 예외 발생 시 에러 응답 반환 (에러 코드: 101)
-            return ApiResponse.error(e.getMessage(), "109");
+            return ApiResponse.error(e.getMessage(), "JSON_UPDATE_ERROR");
         }
     }
 

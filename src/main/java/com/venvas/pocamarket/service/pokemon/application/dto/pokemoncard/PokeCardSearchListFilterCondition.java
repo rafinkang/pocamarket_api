@@ -8,17 +8,13 @@ import lombok.Getter;
 public class PokeCardSearchListFilterCondition {
 
     private String nameKo;
+    private String type;
+    private String subType;
+
     private String element;
-
-    private String trainerType;
-
-    private Integer minHealth;
-    private Integer maxHealth;
 
     private String packSet;
     private String pack;
-
-    private Integer retreatCost;
 
     private String rarity;
 }

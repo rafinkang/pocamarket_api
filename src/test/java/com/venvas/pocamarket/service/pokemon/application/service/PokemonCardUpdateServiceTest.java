@@ -137,6 +137,9 @@ class PokemonCardUpdateServiceTest {
         assertThat(pokemonCardList.stream().filter(card -> card.getAbilities() != null).count()).isEqualTo(abilityCount);
     }
 
+    /**
+     * saveAll 테스트
+     */
     @Test
     @Rollback
     public void updateServiceSaveTest() {
