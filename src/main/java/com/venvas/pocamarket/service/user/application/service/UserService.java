@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.user.application.service;
 
-import com.venvas.pocamarket.common.util.ApiResponse;
+
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
@@ -8,7 +8,8 @@ import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.dao.OptimisticLockingFailureException;
+
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,28 +35,20 @@ public class UserService {
      * @return 생성된 사용자 엔티티
      * @throws UserException 로그인 ID나 이메일이 이미 사용 중인 경우
      */
-    public ApiResponse<User> createUser(UserCreateRequest request) {
+    public User createUser(UserCreateRequest request) {
         log.info("사용자 생성 시작: loginId={}", request.getLoginId());
         
-        try {
-            // 중복 체크
-            validateDuplicateUser(request);
-            
-            // 사용자 엔티티 생성 및 저장
-            User user = createUserEntity(request);
-            User savedUser = userRepository.save(user);
-            
-            log.info("사용자 생성 완료: userId={}, loginId={}", savedUser.getId(), savedUser.getLoginId());
-            return ApiResponse.success(savedUser, "사용자가 성공적으로 생성되었습니다.");
-            
-        } catch (OptimisticLockingFailureException e) {
-            return ApiResponse.error(e.getMessage(), "ERR_02");
-        } catch (IllegalArgumentException e) {
-            return ApiResponse.error(e.getMessage(), "ERR_03");
-        } catch (UserException e) {
-            log.error("사용자 생성 실패: loginId={}, error={}", request.getLoginId(), e.getMessage());
-            return ApiResponse.error(e.getMessage(), e.getErrorCode());
-        }
+        // 중복 체크
+        validateDuplicateUser(request);
+        
+        // 사용자 엔티티 생성 및 저장
+        User user = createUserEntity(request);
+        User savedUser = userRepository.save(user);
+        
+        log.info("사용자 생성 완료: userId={}, loginId={}", savedUser.getId(), savedUser.getLoginId());
+        return savedUser;
+        
+        // 예외는 상위 레이어로 전파됨
     }
 
     /**
