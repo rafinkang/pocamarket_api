@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class PokeCardSearchListFilterCondition {
+public class PokemonCardListFilterSearchCondition {
 
     private String nameKo;
     private String type;

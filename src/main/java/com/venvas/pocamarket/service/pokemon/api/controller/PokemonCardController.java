@@ -2,7 +2,7 @@ package com.venvas.pocamarket.service.pokemon.api.controller;
 
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.common.util.ApiResponse;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokeCardSearchListFilterCondition;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService2;
@@ -41,7 +41,7 @@ public class PokemonCardController {
 
     @GetMapping("/list")
     public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getListData(
-            @ModelAttribute PokeCardSearchListFilterCondition condition,
+            @ModelAttribute PokemonCardListFilterSearchCondition condition,
             @PageableDefault(size = 30, page = 0)Pageable pageable
     ) {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
