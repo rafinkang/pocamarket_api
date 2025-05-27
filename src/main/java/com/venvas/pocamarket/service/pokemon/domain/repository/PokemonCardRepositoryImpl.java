@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -13,7 +14,9 @@ import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +30,7 @@ import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonCard.p
 public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+    private final int MIN_PAGE_SIZE = 1;
     private final int MAX_PAGE_SIZE = 30;
 
     private final List<String> cardTypeList = List.of("POKEMON", "TRAINER");
@@ -41,10 +45,13 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     @Override
     public Page<PokemonCardListDto> searchFilterList(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
 
-        long pageSize = checkMinMax(0, MAX_PAGE_SIZE, pageable.getPageSize());
+        long pageSize = checkMinMax(MIN_PAGE_SIZE, MAX_PAGE_SIZE, pageable.getPageSize());
         long offset = Math.max(pageable.getOffset(), 0);
 
-        log.info("sorting info = {}", pageable.getSort());
+        // default 정렬
+        if(pageable.getSort().isEmpty()) {
+            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.asc("code")));
+        }
 
         List<PokemonCardListDto> content = queryFactory
                 .select(new QPokemonCardListDto(
@@ -112,6 +119,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
 
                     orders.add(orderSpecifier);
                 });
+
         return orders.toArray(OrderSpecifier[]::new);
     }
 
@@ -122,42 +130,41 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     }
 
     private BooleanExpression packEq(String pack) {
-        return textEmptyCheck(pack) ? pokemonCard.pack.contains(pack) : null;
+        return textEmptyCheck(pack) ? pokemonCard.pack.eq(pack) : null;
     }
 
     private BooleanExpression packSetEq(String packSet) {
         if(! textEmptyCheck(packSet)) return null;
-        String upStr = packSet.toUpperCase();
 
-        return packSetList.stream().anyMatch(cardType -> cardType.equals(upStr)) ? pokemonCard.subtype.contains("(" + upStr + ")") : null;
+        return packSetList.stream().anyMatch(cardType -> cardType.equals(packSet)) ? pokemonCard.packSet.contains("(" + packSet + ")") : null;
     }
 
-    private BooleanExpression subTypeEq(String subtype) {
+    private BooleanExpression subTypeEqIn(String subtype) {
         if(! textEmptyCheck(subtype)) return null;
-        String upType = subtype.toUpperCase();
+
+        List<String> upSubTypeList = splitAndTrim(subtype, ",");
 
         // 목록에 서브 타입 있는지 확인
-        return cardSubtypeList.stream().anyMatch(cardType -> cardType.equals(upType)) ? pokemonCard.subtype.contains(upType) : null;
+        List<String> subtypeList = upSubTypeList.stream().filter(cardSubtype -> cardSubtypeList.stream().anyMatch(sub -> sub.equals(cardSubtype))).toList();
+        return !subtypeList.isEmpty() ? pokemonCard.subtype.in(subtypeList) : null;
     }
 
     private BooleanExpression typeEq(String type) {
         if(! textEmptyCheck(type)) return null;
-        String upType = type.toUpperCase();
-
         // 목록에 주 타입 있는지 확인
-        return cardTypeList.stream().anyMatch(cardType -> cardType.equals(upType)) ? pokemonCard.type.contains(upType) : null;
+        return cardTypeList.stream().anyMatch(cardType -> cardType.equals(type)) ? pokemonCard.type.contains(type) : null;
     }
 
-    private BooleanExpression typeAndSubTypeLike(String type, String subType) {
-        BooleanExpression typeBoolean = typeEq(type);
+    private BooleanBuilder typeAndSubTypeLike(String type, String subType) {
+        BooleanBuilder builder = new BooleanBuilder();
 
-        if(typeBoolean == null) return null;
+        BooleanExpression typeEqExpression = typeEq(type);
+        builder.and(typeEqExpression);
+        if(typeEqExpression != null) {
+            builder.and(subTypeEqIn(subType));
+        }
 
-        BooleanExpression subtypeBoolean = subTypeEq(type);
-
-        if(subtypeBoolean != null) typeBoolean.and(subtypeBoolean);
-
-        return typeBoolean;
+        return builder;
     }
 
     private BooleanExpression nameLike(String nameKo) {

@@ -32,7 +32,7 @@
     "name_ko": "이상해풀",
     "element": "GRASS",
     "type": "POKEMON",
-    "subtype": "stage_1",
+    "subtype": "STAGE_1",
     "health": 90,
     "set": "Genetic Apex (A1)",
     "pack": "Mewtwo",
