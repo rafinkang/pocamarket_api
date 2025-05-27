@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
+import com.venvas.pocamarket.common.aop.trim.TrimInput;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
@@ -82,6 +83,7 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
+    @TrimInput
     public Page<PokemonCardListDto> getListData(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
         return pokemonCardRepository.searchFilterList(condition, pageable);
     }

@@ -2,6 +2,7 @@ package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
+import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PokemonCardRepositoryImplTest {
 
     @Autowired
+    PokemonCardService pokemonCardService;
+    @Autowired
     PokemonCardRepositoryImpl pokemonCardRepository;
 
+    /**
+     * url : /list
+     * default page = 0
+     * default size = 30
+     */
     @Test
     public void 디폴트_정렬_확인() {
         PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, null, null, null, null, null, null);
@@ -42,6 +50,7 @@ class PokemonCardRepositoryImplTest {
     }
 
     /**
+     * url : /list?size=99
      * 음수 페이지는 PageRequest 객체 생성에서 에러
      */
     @Test
@@ -59,7 +68,31 @@ class PokemonCardRepositoryImplTest {
         assertThat(resultSize).isEqualTo(MAX_SIZE);
     }
 
+    /**
+     * url : /list?size=30&page=2
+     */
+    @Test
+    public void 페이지_이동() {
+        int page = 2;
+        final int MAX_SIZE = 30;
 
+        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, null, null, null, null, null, null);
+        PageRequest pageRequest = PageRequest.of(page, MAX_SIZE);
+        Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
+
+        int pageNumber = result.getNumber();
+
+        for (PokemonCardListDto dto : result.getContent()) {
+            log.info("code = {}, name = {}", dto.getCode(), dto.getNameKo());
+        }
+
+        log.info("pageNumber = {}", pageNumber);
+        assertThat(pageNumber).isEqualTo(page);
+    }
+
+    /**
+     * url : /list?nameKo=버터플
+     */
     @Test
     public void 이름검색() {
         String searchName = "버터플";
@@ -73,6 +106,10 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=POKEMON
+     * 소문자여도 상관없음
+     */
     @Test
     public void 타입검색() {
         String type = "POKEMON";
@@ -89,6 +126,7 @@ class PokemonCardRepositoryImplTest {
     }
 
     /**
+     * url : /list?subtype=ITEM
      * 타입없이 서브타입으로만 검색하면 검색이 무시됨
      */
     @Test
@@ -105,6 +143,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=pokemon&subtype=basic
+     */
     @Test
     public void 타입과_단일서브타입검색() {
         String type = "POKEMON";
@@ -121,23 +162,29 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=pokemon&subType=basic,stage_1
+     */
     @Test
     public void 타입과_다중서브타입검색() {
-        String type = "POKEMON";
+        String type = "POKEMON      ";
         String subType = "BASIC,STAGE_1";
         String[] split = subType.split(",");
         PageRequest pageRequest = PageRequest.of(0, 30);
 
         PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, null, null, null, null);
-        Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
+        Page<PokemonCardListDto> result = pokemonCardService.getListData(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
             log.info("name = {}, type = {}, subType = {}", dto.getNameKo(), dto.getType(), dto.getSubtype());
-            assertThat(dto.getType()).isEqualTo(type);
+            assertThat(dto.getType()).isEqualTo(type.trim());
             assertThat(split).contains(dto.getSubtype());
         }
     }
 
+    /**
+     * url : /list?nameKo=이생해&type=pokemon&subType=basic,stage_1,stage_2
+     */
     @Test
     public void 이름_타입_서브타입() {
         String name = "이상해";
@@ -157,6 +204,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?nameKo=리자&type=pokemon&subType=basic,stage_1,stage_2&element=fire
+     */
     @Test
     public void 이름_타입_서브타입_속성() {
         String name = "리자";
@@ -178,6 +228,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=pokemon&subType=basic,stage_1,stage_2&element=grass,fire
+     */
     @Test
     public void 타입_서브타입_다중속성() {
         String type = "POKEMON";
@@ -200,6 +253,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=pokemon&subType=basic,stage_2&element=grass,fire&packSet=A2
+     */
     @Test
     public void 타입_서브타입_다중속성_확장팩() {
         String type = "POKEMON";
@@ -224,6 +280,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=pokemon&subType=basic,stage_2&element=grass,water&packSet=A2&pack=dialga
+     */
     @Test
     public void 타입_서브타입_다중속성_확장팩_팩() {
         String type = "POKEMON";
@@ -250,6 +309,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=pokemon&subType=basic,stage_2&element=grass,water&packSet=A2&pack=dialga&rarity=common
+     */
     @Test
     public void 타입_서브타입_다중속성_확장팩_팩_레어도() {
         String type = "POKEMON";
@@ -278,6 +340,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?nameKo=꾸꾸리&type=pokemon&subType=basic,stage_2&element=grass,water&packSet=A2&pack=dialga&rarity=common
+     */
     @Test
     public void 이름_타입_서브타입_다중속성_확장팩_팩_레어도() {
         String name = "꾸꾸리";
@@ -308,6 +373,9 @@ class PokemonCardRepositoryImplTest {
         }
     }
 
+    /**
+     * url : /list?type=pokemon&subType=basic,stage_2&sort=code,desc
+     */
     @Test
     public void 정렬() {
         String type = "POKEMON";
@@ -323,6 +391,7 @@ class PokemonCardRepositoryImplTest {
     }
 
     /**
+     * url : /list?type=pokemon&subType=basic,stage_2&sort=rarity,desc&sort=code,asc
      * 특정 컬러만 정렬 됨
      */
     @Test

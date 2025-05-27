@@ -136,7 +136,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     private BooleanExpression packSetEq(String packSet) {
         if(! textEmptyCheck(packSet)) return null;
 
-        return packSetList.stream().anyMatch(cardType -> cardType.equals(packSet)) ? pokemonCard.packSet.contains("(" + packSet + ")") : null;
+        return packSetList.stream().anyMatch(cardType -> cardType.equalsIgnoreCase(packSet)) ? pokemonCard.packSet.contains("(" + packSet + ")") : null;
     }
 
     private BooleanExpression subTypeEqIn(String subtype) {
@@ -145,14 +145,14 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         List<String> upSubTypeList = splitAndTrim(subtype, ",");
 
         // 목록에 서브 타입 있는지 확인
-        List<String> subtypeList = upSubTypeList.stream().filter(cardSubtype -> cardSubtypeList.stream().anyMatch(sub -> sub.equals(cardSubtype))).toList();
+        List<String> subtypeList = upSubTypeList.stream().filter(cardSubtype -> cardSubtypeList.stream().anyMatch(sub -> sub.equalsIgnoreCase(cardSubtype))).toList();
         return !subtypeList.isEmpty() ? pokemonCard.subtype.in(subtypeList) : null;
     }
 
     private BooleanExpression typeEq(String type) {
         if(! textEmptyCheck(type)) return null;
         // 목록에 주 타입 있는지 확인
-        return cardTypeList.stream().anyMatch(cardType -> cardType.equals(type)) ? pokemonCard.type.contains(type) : null;
+        return cardTypeList.stream().anyMatch(cardType -> cardType.equalsIgnoreCase(type)) ? pokemonCard.type.contains(type) : null;
     }
 
     private BooleanBuilder typeAndSubTypeLike(String type, String subType) {
@@ -163,7 +163,6 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         if(typeEqExpression != null) {
             builder.and(subTypeEqIn(subType));
         }
-
         return builder;
     }
 
