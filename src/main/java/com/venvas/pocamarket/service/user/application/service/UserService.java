@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 사용자 관련 비즈니스 로직을 처리하는 서비스
  * 사용자 생성, 조회, 수정 등의 기능을 제공
@@ -21,6 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class UserService {
+    // 닉네임에 사용할 수 없는 금지된 단어 목록
+    private static final List<String> PROHIBITED_NICKNAME_WORDS = Arrays.asList(
+            "admin", "root", "system", "manager", "superuser", "administrator", "관리자");
+    
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -40,15 +47,26 @@ public class UserService {
         // 중복 체크
         validateDuplicateUser(request);
 
+        // 사용자 엔티티 생성 및 저장
+        User savedUser = createAndSaveUser(request);
+
+        log.info("사용자 생성 완료: userId={}, loginId={}", savedUser.getId(), savedUser.getLoginId());
+        return savedUser;
+    }
+    
+    /**
+     * 사용자 엔티티를 생성하고 저장합니다.
+     * 
+     * @param request 사용자 생성 요청 DTO
+     * @return 저장된 사용자 엔티티
+     */
+    private User createAndSaveUser(UserCreateRequest request) {
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(request.getPassword());
         
         // 사용자 엔티티 생성 및 저장
         User user = User.createFromRequest(request, encodedPassword);
-        User savedUser = userRepository.save(user);
-
-        log.info("사용자 생성 완료: userId={}, loginId={}", savedUser.getId(), savedUser.getLoginId());
-        return savedUser;
+        return userRepository.save(user);
     }
 
     /**
@@ -67,18 +85,37 @@ public class UserService {
      * @throws UserException 유효성 검증 실패 시
      */
     private void validateUserData(UserCreateRequest request) {
-        // 로그인 ID 형식 추가 검증 (Bean Validation 외 추가 검증)
-        if (request.getLoginId().contains(" ") || request.getLoginId().contains("@")) {
-            log.warn("로그인 ID에 공백 또는 특수문자 포함: {}", request.getLoginId());
+        validateLoginIdFormat(request.getLoginId());
+        validateNickname(request.getNickname());
+    }
+    
+    /**
+     * 로그인 ID 형식을 검증합니다.
+     * 공백, @를 포함하지 않아야 합니다.
+     * 
+     * @param loginId 검증할 로그인 ID
+     * @throws UserException 형식에 맞지 않는 경우
+     */
+    private void validateLoginIdFormat(String loginId) {
+        // 로그인 ID 형식 추가 검증 (공백, 특수문자 제한)
+        if (loginId.contains(" ") || loginId.contains("@")) {
+            log.warn("로그인 ID 형식 유효성 검증 실패: {}", loginId);
             throw new UserException(UserErrorCode.INVALID_LOGIN_ID_FORMAT);
         }
+    }
+    
+    /**
+     * 닉네임이 금지된 단어를 포함하는지 검사합니다.
+     * 
+     * @param nickname 검증할 닉네임
+     * @throws UserException 금지된 단어를 포함하는 경우
+     */
+    private void validateNickname(String nickname) {
+        String lowercaseNickname = nickname.toLowerCase();
         
-        // 닉네임에 부적절한 단어가 있는지 검사 (예시)
-        String[] prohibitedNicknameWords = {"admin", "root", "system", "manager"};
-        String lowercaseNickname = request.getNickname().toLowerCase();
-        for (String word : prohibitedNicknameWords) {
-            if (lowercaseNickname.contains(word)) {
-                log.warn("부적절한 닉네임 단어 포함: {}", request.getNickname());
+        for (String prohibitedWord : PROHIBITED_NICKNAME_WORDS) {
+            if (lowercaseNickname.contains(prohibitedWord)) {
+                log.warn("금지된 닉네임 단어 포함: {}, 금지된 단어: {}", nickname, prohibitedWord);
                 throw new UserException(UserErrorCode.INVALID_NICKNAME);
             }
         }
@@ -91,22 +128,47 @@ public class UserService {
      * @throws UserException 중복된 사용자가 존재하는 경우
      */
     private void validateDuplicateUser(UserCreateRequest request) {
-        // 로그인 ID와 이메일 동시 조회로 데이터베이스 쿼리 최소화
-        boolean loginIdExists = userRepository.existsByLoginId(request.getLoginId());
-        boolean emailExists = false;
+        // 로그인 ID 중복 검사
+        validateDuplicateLoginId(request.getLoginId());
         
-        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
-            emailExists = userRepository.existsByEmail(request.getEmail());
+        // 이메일 중복 검사 (이메일이 있는 경우에만)
+        if (hasEmailValue(request.getEmail())) {
+            validateDuplicateEmail(request.getEmail());
         }
-        
-        // 중복 검사 결과 처리
-        if (loginIdExists) {
-            log.warn("중복된 로그인 ID 검출: {}", request.getLoginId());
+    }
+    
+    /**
+     * 이메일 값이 유효한지 확인합니다.
+     * 
+     * @param email 검사할 이메일
+     * @return 유효한 이메일이 있으면 true
+     */
+    private boolean hasEmailValue(String email) {
+        return email != null && !email.trim().isEmpty();
+    }
+    
+    /**
+     * 로그인 ID 중복을 검사합니다.
+     * 
+     * @param loginId 검사할 로그인 ID
+     * @throws UserException 중복된 로그인 ID가 존재하는 경우
+     */
+    private void validateDuplicateLoginId(String loginId) {
+        if (userRepository.existsByLoginId(loginId)) {
+            log.warn("중복된 로그인 ID 검출: {}", loginId);
             throw new UserException(UserErrorCode.DUPLICATE_LOGIN_ID);
         }
-        
-        if (emailExists) {
-            log.warn("중복된 이메일 검출: {}", request.getEmail());
+    }
+    
+    /**
+     * 이메일 중복을 검사합니다.
+     * 
+     * @param email 검사할 이메일
+     * @throws UserException 중복된 이메일이 존재하는 경우
+     */
+    private void validateDuplicateEmail(String email) {
+        if (userRepository.existsByEmail(email)) {
+            log.warn("중복된 이메일 검출: {}", email);
             throw new UserException(UserErrorCode.DUPLICATE_EMAIL);
         }
     }
