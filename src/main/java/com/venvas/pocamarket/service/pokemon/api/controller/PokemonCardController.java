@@ -7,6 +7,7 @@ import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardServ
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService2;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,14 +49,9 @@ public class PokemonCardController {
     }
 
     @PostMapping("/update/card/{fileName}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(@PathVariable String fileName) {
-        ApiResponse<List<PokemonCard>> result = pokemonCardUpdateService.updateJsonData(fileName);
-        if(result.isSuccess()) {
-            return ResponseEntity.ok(result);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(result);
-        }
+    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(@NotBlank @PathVariable String fileName) {
+        List<PokemonCard> result = pokemonCardUpdateService.updateJsonData(fileName);
+        return ResponseEntity.ok(ApiResponse.success(result, "카드가 데이터가 성공적으로 업데이트 되었습니다."));
     }
 
     @PostMapping("/update/card2/{version}")

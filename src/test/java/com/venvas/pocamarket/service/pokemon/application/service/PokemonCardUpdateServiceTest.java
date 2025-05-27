@@ -1,16 +1,16 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
-import com.venvas.pocamarket.common.exception.data.NoDataException;
 import com.venvas.pocamarket.common.util.MappingData;
 import com.venvas.pocamarket.common.util.ReadDataListJson;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +47,7 @@ class PokemonCardUpdateServiceTest {
                 .readJson(PokemonCardDto.class)
                 .getJsonList();
 
-        if(optionalList.isEmpty()) throw new NoDataException("no data error");
+        if(optionalList.isEmpty()) throw new PokemonException(PokemonErrorCode.POKEMON_LIST_EMPTY);
 
         pokemonCardDtos = optionalList.get();
     }
@@ -151,13 +150,13 @@ class PokemonCardUpdateServiceTest {
         PokemonCard endCard = null;
 
         if(findByFirstCodeCard.isEmpty()) {
-            throw new NoDataException("첫번째 데이터 없음");
+            throw new PokemonException(PokemonErrorCode.POKEMON_NOT_FOUND, "테스트 : 첫번째 데이터 없음");
         } else {
             firstCard = findByFirstCodeCard.get();
         }
 
         if(findByEndCodeCard.isEmpty()) {
-            throw new NoDataException("마지막 데이터 없음");
+            throw new  PokemonException(PokemonErrorCode.POKEMON_NOT_FOUND, "테스트 : 마지막 데이터 없음");
         } else {
             endCard = findByEndCodeCard.get();
         }

@@ -1,6 +1,5 @@
 package com.venvas.pocamarket.common.util;
 
-import com.venvas.pocamarket.common.exception.data.JsonParsingException;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ class ReadDataListJsonTest {
         ReadDataListJson<PokemonCardDto> readDataListJson = new ReadDataListJson<>("prmm");
 
         assertThatThrownBy(() -> readDataListJson.readJson(PokemonCardDto.class))
-                .isInstanceOf(JsonParsingException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     /**

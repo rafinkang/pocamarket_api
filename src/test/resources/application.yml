@@ -1,0 +1,49 @@
+# Spring Boot 기본 설정
+spring:
+  # 외부 환경 변수 파일(.env)에서 설정값을 읽어옴
+  config:
+    import: optional:file:.env[.properties]
+  # 활성화된 프로필 설정 (AWS 환경)
+  profiles:
+    active: aws
+  # 애플리케이션 이름 설정
+  application:
+    name: pocamarket
+
+  # 데이터소스 설정
+  datasource:
+    # MariaDB 접속 URL (환경 변수로 설정)
+    url: "jdbc:mariadb://${DB_URL}:${DB_PORT}/${DB}"
+    # 데이터베이스 사용자명 (환경 변수로 설정)
+    username: ${DB_USERNAME}
+    # 데이터베이스 비밀번호 (환경 변수로 설정)
+    password: ${DB_PASSWORD}
+    # JDBC 드라이버 설정
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  # JPA 설정
+  jpa:
+    hibernate:
+      jdbc:
+        batch_size: 1000
+      # 데이터베이스 스키마 자동 업데이트
+      ddl-auto: none
+      naming:
+        # 테이블명 대소문자 구분 설정
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        # SQL 쿼리 로그 출력
+        show_sql: true
+        # SQL 포맷팅
+        format_sql: true
+        # SQL 쿼리에 주석 추가
+        use_sql_comments: true
+
+# 로깅 설정
+logging.level:
+  # Hibernate SQL 쿼리 로그 레벨
+  org.hibernate.SQL: debug
+  # 애플리케이션 로그 레벨
+  com.venvas.pocamarket: debug
+  org.hibernate.type: trace

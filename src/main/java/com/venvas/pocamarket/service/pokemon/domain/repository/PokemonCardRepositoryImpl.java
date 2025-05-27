@@ -13,10 +13,7 @@ import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.QPokemo
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
 
@@ -53,7 +50,57 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
             pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.asc("code")));
         }
 
-        List<PokemonCardListDto> content = queryFactory
+        List<PokemonCardListDto> content = getPokemonCardListQuery(condition)
+                .orderBy(getOrderSpecifier(pageable))
+                .offset(offset)
+                .limit(pageSize)
+                .fetch();
+
+        JPAQuery<Long> countQuery = getCountQuery(condition);
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    /**
+     * count 쿼리를 안날림, 다음 페이지가 있는지 없는지만 확인.
+     */
+    public Slice<PokemonCardListDto> searchFilterSliceList(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
+
+        long pageSize = checkMinMax(MIN_PAGE_SIZE, MAX_PAGE_SIZE, pageable.getPageSize());
+        long offset = Math.max(pageable.getOffset(), 0);
+
+        List<PokemonCardListDto> content = getPokemonCardListQuery(condition)
+                .orderBy(getOrderSpecifier(pageable))
+                .offset(offset)
+                .limit(pageSize + 1)
+                .fetch();
+
+        boolean hasNext = false;
+
+        if(content.size() > pageSize) {
+            content.remove((int) pageSize);
+            hasNext = true;
+        }
+
+        return new SliceImpl<>(content, pageable, hasNext);
+    }
+
+    private JPAQuery<Long> getCountQuery(PokemonCardListFilterSearchCondition condition) {
+        return queryFactory
+                .select(pokemonCard.count())
+                .from(pokemonCard)
+                .where(
+                        nameLike(condition.getNameKo()),
+                        typeAndSubTypeLike(condition.getType(), condition.getSubType()),
+                        elementEqIn(condition.getElement()),
+                        packSetEq(condition.getPackSet()),
+                        packEq(condition.getPack()),
+                        rarityEqIn(condition.getRarity())
+                );
+    }
+
+    private JPAQuery<PokemonCardListDto> getPokemonCardListQuery(PokemonCardListFilterSearchCondition condition) {
+        return queryFactory
                 .select(new QPokemonCardListDto(
                         pokemonCard.code,
                         pokemonCard.nameKo,
@@ -72,35 +119,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                         packSetEq(condition.getPackSet()),
                         packEq(condition.getPack()),
                         rarityEqIn(condition.getRarity())
-                )
-                .orderBy(getOrderSpecifier(pageable))
-                .offset(offset)
-                .limit(pageSize)
-                .fetch();
-
-        JPAQuery<Long> countQuery = queryFactory
-                .select(pokemonCard.count())
-                .from(pokemonCard)
-                .where(
-                        nameLike(condition.getNameKo()),
-                        typeAndSubTypeLike(condition.getType(), condition.getSubType()),
-                        elementEqIn(condition.getElement()),
-                        packSetEq(condition.getPackSet()),
-                        packEq(condition.getPack()),
-                        rarityEqIn(condition.getRarity())
                 );
-
-        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
-    }
-
-    public Page<List<PokemonCardListDto>> searchFilterSliceList(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
-
-        boolean hasNext = false;
-
-        // pageable.getPageSize() < 불러온 페이지 개수
-
-//        return new SliceImpl<>();
-        return null;
     }
 
     private OrderSpecifier<?>[] getOrderSpecifier(Pageable pageable) {

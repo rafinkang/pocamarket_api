@@ -21,6 +21,10 @@ public enum PokemonErrorCode {
     // 포켓몬 거래 관련 에러
     POKEMON_NOT_TRADABLE("POKEMON_201", "거래할 수 없는 포켓몬입니다."),
     INSUFFICIENT_POINTS("POKEMON_202", "포인트가 부족하여 거래할 수 없습니다."),
+
+    // 포켓몬 json 데이터 업데이트
+    READ_JSON_FILE_FAIL("POKEMON_901", "json 파일 읽기에 실패했습니다."),
+    JSON_DATA_EMPTY("POKEMON_902", "읽은 json 파일에 데이터가 없습니다"),
     
     // 기타
     UNKNOWN_ERROR("POKEMON_999", "알 수 없는 포켓몬 관련 오류가 발생했습니다.");

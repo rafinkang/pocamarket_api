@@ -4,10 +4,14 @@ import com.venvas.pocamarket.common.aop.trim.TrimInput;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +25,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class PokemonCardService {
     
     private final PokemonCardRepository pokemonCardRepository;
@@ -39,43 +44,9 @@ public class PokemonCardService {
      * @return 조회된 포켓몬 카드 (Optional)
      */
     public Optional<PokemonCard> getCardByCode(String code) {
-        return pokemonCardRepository.findByCode(code);
-    }
-    
-    /**
-     * 한글 이름으로 포켓몬 카드를 검색
-     * @param name 검색할 한글 이름
-     * @return 검색된 포켓몬 카드 목록
-     */
-    public List<PokemonCard> searchByName(String name) {
-        return pokemonCardRepository.findByNameKoContaining(name);
-    }
-    
-    /**
-     * 특정 속성의 포켓몬 카드를 조회
-     * @param element 포켓몬 속성
-     * @return 조회된 포켓몬 카드 목록
-     */
-    public List<PokemonCard> getCardsByElement(String element) {
-        return pokemonCardRepository.findByElement(element);
-    }
-    
-    /**
-     * 특정 확장팩의 포켓몬 카드를 조회
-     * @param packSet 확장팩 이름
-     * @return 조회된 포켓몬 카드 목록
-     */
-    public List<PokemonCard> getCardsByPackSet(String packSet) {
-        return pokemonCardRepository.findByPackSet(packSet);
-    }
-    
-    /**
-     * 특정 레어도의 포켓몬 카드를 조회
-     * @param rarity 카드 레어도
-     * @return 조회된 포켓몬 카드 목록
-     */
-    public List<PokemonCard> getCardsByRarity(String rarity) {
-        return pokemonCardRepository.findByRarity(rarity);
+        Optional<PokemonCard> pokemonCard = pokemonCardRepository.findByCode(code);
+        noDataCheck(pokemonCard);
+        return pokemonCard;
     }
 
     /**
@@ -85,6 +56,28 @@ public class PokemonCardService {
      */
     @TrimInput
     public Page<PokemonCardListDto> getListData(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
-        return pokemonCardRepository.searchFilterList(condition, pageable);
+        Page<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterList(condition, pageable);
+        noDataListCheck(listDto, condition);
+        return listDto;
+    }
+
+    @TrimInput
+    public Slice<PokemonCardListDto> getListDataSlice(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
+        Slice<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterSliceList(condition, pageable);
+        noDataListCheck(listDto, condition);
+        return listDto;
+    }
+
+    private void noDataCheck(Optional<PokemonCard> pokemonCard) {
+        if(pokemonCard.isEmpty()) {
+            throw new PokemonException(PokemonErrorCode.POKEMON_NOT_FOUND);
+        }
+    }
+
+    private void noDataListCheck(Slice<PokemonCardListDto> listDto, PokemonCardListFilterSearchCondition condition) {
+        if(listDto == null || listDto.getContent().isEmpty()) {
+            log.warn("포켓몬 리스트 데이터 조회 실패, filterCondition : {}", condition);
+            throw new PokemonException(PokemonErrorCode.POKEMON_LIST_EMPTY);
+        }
     }
 } 
