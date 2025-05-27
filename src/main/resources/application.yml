@@ -47,3 +47,12 @@ logging.level:
   # 애플리케이션 로그 레벨
   com.venvas.pocamarket: debug
   org.hibernate.type: trace
+
+# JWT 설정
+jwt:
+  # JWT 서명에 사용할 비밀 키 (환경 변수에서 가져옴)
+  secret-key: ${JWT_SECRET_KEY}
+  # 액세스 토큰 유효 기간 (환경 변수에서 가져옴)
+  access-token-validity-in-ms: ${JWT_ACCESS_TOKEN_VALIDITY_MS}
+  # 리프레시 토큰 유효 기간 (환경 변수에서 가져옴)
+  refresh-token-validity-in-ms: ${JWT_REFRESH_TOKEN_VALIDITY_MS}

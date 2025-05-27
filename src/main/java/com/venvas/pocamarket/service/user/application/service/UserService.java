@@ -1,5 +1,13 @@
 package com.venvas.pocamarket.service.user.application.service;
 
+import java.util.Date;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
+import com.venvas.pocamarket.infrastructure.config.JwtProperties;
+
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.application.dto.UserLoginRequest;
 import com.venvas.pocamarket.service.user.application.dto.UserLoginResponse;
@@ -8,7 +16,7 @@ import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,15 +32,22 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class UserService {
+    
+    private final JwtProperties jwtProperties;
     // 닉네임에 사용할 수 없는 금지된 단어 목록
     private static final List<String> PROHIBITED_NICKNAME_WORDS = Arrays.asList(
             "admin", "root", "system", "manager", "superuser", "administrator", "관리자");
     
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtProperties = jwtProperties;
+    }
 
     /**
      * 새로운 사용자를 생성
@@ -256,14 +271,24 @@ public class UserService {
     
     /**
      * JWT 토큰을 생성합니다.
-     * 실제 애플리케이션에서는 JWT 라이브러리를 사용하여 구현합니다.
      * 
      * @param user 토큰을 생성할 사용자 엔티티
      * @return 생성된 JWT 토큰
      */
     private String generateToken(User user) {
-        // 실제 구현에서는 JWT 토큰 생성 로직을 구현
-        // 예: 사용자 ID, 권한 등을 포함하여 서명된 토큰 생성
-        return "sample_jwt_token_" + user.getId() + "_" + System.currentTimeMillis();
+        // 현재 시간을 기준으로 토큰 발급 시간 설정
+        Date now = new Date();
+        // 현재 시간에 설정된 만료 기간을 더해 토큰 만료 시간 설정
+        Date validity = new Date(now.getTime() + jwtProperties.getAccessTokenValidityInMs());
+        
+        return Jwts.builder() // JWT 토큰 빌더 생성
+                .setSubject(user.getId().toString()) // 토큰 제목(subject)으로 사용자 ID 설정
+                .claim("loginId", user.getLoginId()) // 사용자 로그인 ID를 클레임으로 추가
+                .claim("nickname", user.getNickname()) // 사용자 닉네임을 클레임으로 추가
+                .claim("grade", user.getGrade().name()) // 사용자 등급을 클레임으로 추가
+                .setIssuedAt(now) // 토큰 발급 시간 설정
+                .setExpiration(validity) // 토큰 만료 시간 설정
+                .signWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()), SignatureAlgorithm.HS256) // HS256 알고리즘과 시크릿 키로 서명
+                .compact(); // 최종적으로 토큰 문자열로 변환
     }
 }

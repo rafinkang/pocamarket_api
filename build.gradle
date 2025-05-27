@@ -30,6 +30,11 @@ dependencies {
 
 	// Spring Security 의존성 - 사용자 인증(Authentication)과 권한 부여(Authorization)를 처리하는 프레임워크
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	
+	// JWT 라이브러리 - 사용자 인증을 위한 토큰 기반 인증 방식 구현
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	// json
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
