@@ -32,10 +32,10 @@ public class UserController {
      * @param request 사용자 생성 요청 데이터
      * @return 생성된 사용자 정보와 성공 메시지
      */
-    @PostMapping("/create")
-    public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody UserCreateRequest request) {
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponse<User>> register(@Valid @RequestBody UserCreateRequest request) {
         log.info("사용자 생성 요청: loginId={}", request.getLoginId());
-        User createdUser = userService.createUser(request);
+        User createdUser = userService.register(request);
         return ResponseEntity.ok(ApiResponse.success(createdUser, "사용자가 성공적으로 생성되었습니다."));
     }
     

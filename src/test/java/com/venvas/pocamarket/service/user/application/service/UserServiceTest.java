@@ -108,7 +108,7 @@ class UserServiceTest {
             when(request.getPhone()).thenReturn("010-1234-5678");
             
             // when: 테스트할 메소드 실행 (테스트 대상의 행동)
-            User createdUser = userService.createUser(request);
+            User createdUser = userService.register(request);
 
             // then: 결과 검증 (예상된 결과와 실제 결과를 비교)
             assertThat(createdUser).isNotNull();  // 객체가 null이 아니어야 함
@@ -204,7 +204,7 @@ class UserServiceTest {
             when(request.getLoginId()).thenReturn("test user");
             
             // when & then
-            assertThatThrownBy(() -> userService.createUser(request))
+            assertThatThrownBy(() -> userService.register(request))
                     .isInstanceOf(UserException.class)
                     .matches(e -> ((UserException) e).getErrorCode() == UserErrorCode.INVALID_LOGIN_ID_FORMAT);
         }
@@ -217,7 +217,7 @@ class UserServiceTest {
             when(request.getLoginId()).thenReturn("test@user");
 
             // when & then
-            assertThatThrownBy(() -> userService.createUser(request))
+            assertThatThrownBy(() -> userService.register(request))
                     .isInstanceOf(UserException.class)
                     .matches(e -> ((UserException) e).getErrorCode() == UserErrorCode.INVALID_LOGIN_ID_FORMAT);
         }
@@ -231,7 +231,7 @@ class UserServiceTest {
             when(request.getNickname()).thenReturn("관리자닉네임");
 
             // when & then
-            assertThatThrownBy(() -> userService.createUser(request))
+            assertThatThrownBy(() -> userService.register(request))
                     .isInstanceOf(UserException.class)
                     .matches(e -> ((UserException) e).getErrorCode() == UserErrorCode.INVALID_NICKNAME);
         }

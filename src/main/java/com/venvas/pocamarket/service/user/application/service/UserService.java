@@ -41,7 +41,7 @@ public class UserService {
      * @return 생성된 사용자 엔티티
      * @throws UserException 유효성 검증에 실패한 경우 (중복 ID, 이메일 등)
      */
-    public User createUser(UserCreateRequest request) {
+    public User register(UserCreateRequest request) {
         log.info("사용자 생성 시작: loginId={}", request.getLoginId());
 
         // 입력값 유효성 검증
