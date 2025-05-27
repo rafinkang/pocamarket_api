@@ -14,6 +14,7 @@ public enum UserErrorCode {
     ACCOUNT_LOCKED("USER_005", "계정이 잠겨 있습니다."),
     INVALID_LOGIN_ID_FORMAT("USER_006", "로그인 ID 형식이 올바르지 않습니다."),
     INVALID_NICKNAME("USER_007", "사용할 수 없는 닉네임입니다."),
+    EMAIL_REQUIRED("USER_008", "이메일은 필수 입니다."),
     
     // 권한 관련 에러
     INSUFFICIENT_PERMISSION("USER_101", "해당 작업을 수행할 권한이 없습니다."),

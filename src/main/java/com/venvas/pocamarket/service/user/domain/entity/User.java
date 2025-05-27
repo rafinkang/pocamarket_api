@@ -134,6 +134,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<UserLoginHistory> loginHistories = new ArrayList<>();
+    
 
     /**
      * 사용자의 비밀번호 변경 이력 목록
@@ -141,6 +142,42 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<UserPasswordHistory> passwordHistories = new ArrayList<>();
+    
+    /**
+     * 로그인 시도를 기록
+     * 
+     * @param ipAddress IP 주소
+     * @param userAgent 사용자 에이전트 정보
+     * @param successful 로그인 성공 여부
+     * @param failReason 실패 이유 (실패시에만 사용)
+     * @return 생성된 로그인 이력 엔티티
+     */
+    public UserLoginHistory recordLoginAttempt(String ipAddress, String userAgent, boolean successful, String failReason) {
+        UserLoginHistory loginHistory = new UserLoginHistory();
+        loginHistory.setUser(this);
+        loginHistory.setIpAddress(ipAddress);
+        loginHistory.setUserAgent(userAgent);
+        loginHistory.setSuccess(successful);
+        loginHistory.setFailReason(failReason);
+        
+        this.loginHistories.add(loginHistory);
+        
+        // 로그인 성공 시 마지막 로그인 시간 업데이트 (현재는 사용하지 않음)
+        // 필요한 경우 로그인 이력을 통해 확인할 수 있음
+        
+        return loginHistory;
+    }
+    
+    /**
+     * 로그인 시도를 기록 (성공 케이스)
+     * 
+     * @param ipAddress IP 주소
+     * @param userAgent 사용자 에이전트 정보
+     * @return 생성된 로그인 이력 엔티티
+     */
+    public UserLoginHistory recordLoginAttempt(String ipAddress, String userAgent, boolean successful) {
+        return recordLoginAttempt(ipAddress, userAgent, successful, null);
+    }
 
     /**
      * 사용자 생성 정적 팩토리 메소드
@@ -206,6 +243,14 @@ public class User {
     public void setGrade(UserGrade grade) {
         this.grade = grade;
         this.gradeCode = UserGrade.toCode(grade);
+    }
+    
+    /**
+     * 이메일 인증 여부 값을 조회하는 게터 메소드
+     * @return 이메일 인증 여부
+     */
+    public boolean isEmailVerified() {
+        return this.emailVerified != null && this.emailVerified;
     }
     
     /**

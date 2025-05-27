@@ -30,10 +30,11 @@ public class UserCreateRequest {
 
     // 이메일은 필수 항목이 아님
     @Email(message = "올바른 이메일 형식이어야 합니다")
+    @Pattern(regexp = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Za-z]{2,}$", message = "올바른 이메일 형식이어야 합니다")
     @Size(max = 30, message = "이메일은 30자 이하여야 합니다")
     private String email;
 
-    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "올바른 전화번호 형식이어야 합니다")
+    @Pattern(regexp = "^\\d{2,3}-\\d{4}-\\d{4}$", message = "올바른 전화번호 형식이어야 합니다")
     @Size(max = 20, message = "전화번호는 20자 이하여야 합니다")
     private String phone;
 }
