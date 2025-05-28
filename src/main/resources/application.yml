@@ -56,3 +56,36 @@ jwt:
   access-token-validity-in-ms: ${JWT_ACCESS_TOKEN_VALIDITY_MS}
   # 리프레시 토큰 유효 기간 (환경 변수에서 가져옴)
   refresh-token-validity-in-ms: ${JWT_REFRESH_TOKEN_VALIDITY_MS}
+
+# Swagger 설정
+springdoc:
+  # Swagger UI 접속 경로 커스텀 (기본: /swagger-ui/index.html)
+  swagger-ui:
+    path: /swagger-ui.html  # /swagger-ui.html로 접속 가능하게 함
+    display-request-duration: true  # 요청-응답 시간 표시
+    doc-expansion: none  # none, list, full (기본: none, 펼침 방식)
+    operations-sorter: method  # 메서드명 기준 정렬(method, alpha 등)
+    tags-sorter: alpha  # 태그 알파벳순 정렬
+    try-it-out-enabled: true  # Try it out 버튼 기본 활성화
+
+  # OpenAPI 문서 경로 커스텀 (기본: /v3/api-docs)
+  api-docs:
+    path: /v3/api-docs  # 기본값이지만, 필요시 변경 가능
+
+  # 그룹별 문서 분리(멀티 API 문서 필요시)
+  # group-configs:
+  #   - group: v1
+  #     paths-to-match: /api/v1/**
+  #   - group: v2
+  #     paths-to-match: /api/v2/**
+
+  # 서버 정보 추가 (API 문서 내 서버 주소 표시)
+  # servers:
+  #   - url: https://api.pocamarket.com
+  #     description: 실서버
+  #   - url: http://localhost:8080
+  #     description: 로컬 개발 서버
+
+# Swagger 관련 보안 설정 예시 (Spring Security와 연동 시)
+# spring.security:
+#   ignored: /swagger-ui.html, /swagger-ui/**, /v3/api-docs/**, /swagger-resources/**

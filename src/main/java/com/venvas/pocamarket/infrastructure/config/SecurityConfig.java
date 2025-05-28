@@ -49,7 +49,13 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // /api/** 경로는 인증 없이 접근 가능 (permitAll)
                 // 예: /api/user/create, /api/pokemon/list 등
-                .requestMatchers("/api/**").permitAll()  
+                .requestMatchers(
+                        "/api/**",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html"
+                ).permitAll()
 
                 // 그 외 모든 요청은 인증 필요
                 .anyRequest().authenticated()
