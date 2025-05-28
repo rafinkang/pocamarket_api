@@ -85,7 +85,7 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "RARE_EX"
+    "rarity": "RARE EX"
   },
   {
     "code": "a1a-004",
@@ -516,7 +516,7 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Magikarp",
-    "rarity": "RARE_EX"
+    "rarity": "RARE EX"
   },
   {
     "code": "a1a-019",
@@ -929,7 +929,7 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "RARE_EX"
+    "rarity": "RARE EX"
   },
   {
     "code": "a1a-033",
@@ -1322,7 +1322,7 @@
       }
     ],
     "evolvesFrom": "Old Amber",
-    "rarity": "RARE_EX"
+    "rarity": "RARE EX"
   },
   {
     "code": "a1a-047",
@@ -1690,7 +1690,7 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Pidgeotto",
-    "rarity": "RARE_EX"
+    "rarity": "RARE EX"
   },
   {
     "code": "a1a-060",
@@ -2417,6 +2417,6 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "GOLD_CROWN"
+    "rarity": "GOLD CROWN"
   }
 ]
