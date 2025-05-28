@@ -1,16 +1,18 @@
 package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.QPokemonCardListDto;
-import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityDetailDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackDetailDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.*;
+import com.venvas.pocamarket.service.pokemon.domain.entity.*;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
@@ -20,7 +22,10 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonAbility.pokemonAbility;
+import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonAttack.pokemonAttack;
 import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonCard.pokemonCard;
 
 @Slf4j
@@ -35,8 +40,51 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     private final List<String> packSetList = List.of("A1", "A", "A1a", "A2");
     private final List<String> orderList = List.of("code", "nameKo", "rarity");
 
-    public PokemonCardRepositoryImpl(EntityManager em) {
-        this.queryFactory = new JPAQueryFactory(em);
+    public PokemonCardRepositoryImpl(JPAQueryFactory queryFactory) {
+        this.queryFactory = queryFactory;
+    }
+
+    @Override
+    public Optional<PokemonCardDetailDto> findByCodeDetailCard(String code) {
+        return Optional.ofNullable(queryFactory
+                .from(pokemonCard)
+                .leftJoin(pokemonAttack)
+                    .on(pokemonAttack.cardCode.eq(pokemonCard.code))
+                .leftJoin(pokemonAbility)
+                    .on(pokemonAbility.cardCode.eq(pokemonCard.code))
+                .where(pokemonCard.code.eq(code))
+                .transform(
+                    GroupBy.groupBy(pokemonCard.code).as(
+                        Projections.constructor(
+                            PokemonCardDetailDto.class,
+                            pokemonCard.code,
+                            pokemonCard.nameKo,
+                            pokemonCard.element,
+                            pokemonCard.type,
+                            pokemonCard.subtype,
+                            pokemonCard.health,
+                            pokemonCard.packSet,
+                            pokemonCard.pack,
+                            pokemonCard.retreatCost,
+                            pokemonCard.weakness,
+                            pokemonCard.evolvesFrom,
+                            pokemonCard.rarity,
+                            GroupBy.list(Projections.constructor(
+                                    PokemonAttackDetailDto.class,
+                                    pokemonAttack.nameKo,
+                                    pokemonAttack.effectKo,
+                                    pokemonAttack.damage,
+                                    pokemonAttack.cost
+                            )),
+                            GroupBy.list(Projections.constructor(
+                                    PokemonAbilityDetailDto.class,
+                                    pokemonAbility.nameKo,
+                                    pokemonAbility.effectKo
+                            ))
+                        )
+                    )
+                )
+                .get(code));
     }
 
     @Override
@@ -91,7 +139,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                 .from(pokemonCard)
                 .where(
                         nameLike(condition.getNameKo()),
-                        typeAndSubTypeLike(condition.getType(), condition.getSubType()),
+                        typeAndSubTypeLike(condition.getType(), condition.getSubtype()),
                         elementEqIn(condition.getElement()),
                         packSetEq(condition.getPackSet()),
                         packEq(condition.getPack()),
@@ -114,7 +162,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                 .from(pokemonCard)
                 .where(
                         nameLike(condition.getNameKo()),
-                        typeAndSubTypeLike(condition.getType(), condition.getSubType()),
+                        typeAndSubTypeLike(condition.getType(), condition.getSubtype()),
                         elementEqIn(condition.getElement()),
                         packSetEq(condition.getPackSet()),
                         packEq(condition.getPack()),

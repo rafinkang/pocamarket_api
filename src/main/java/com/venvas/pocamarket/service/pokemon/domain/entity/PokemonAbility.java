@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.AbilityDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityJsonDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -65,7 +65,7 @@ public class PokemonAbility {
     @JoinColumn(name = "card_code", insertable = false, updatable = false)
     private PokemonCard pokemonCard;
 
-    public PokemonAbility(AbilityDto dto, String cardCode) {
+    public PokemonAbility(PokemonAbilityJsonDto dto, String cardCode) {
         this.cardCode = cardCode;
         this.name = dto.name();
         this.nameKo = dto.name_ko();

@@ -10,4 +10,4 @@ import java.util.List;
 //private String damage;
 //private List<String> cost;
 
-public record AttacksDto(String name, String name_ko, String effect, String effect_ko, String damage, List<String> cost) {}
+public record PokemonAttackJsonDto(String name, String name_ko, String effect, String effect_ko, String damage, List<String> cost) {}

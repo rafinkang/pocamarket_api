@@ -11,7 +11,7 @@ public class PokemonCardListFilterSearchCondition {
 
     private String nameKo;
     private String type;
-    private String subType;
+    private String subtype;
 
     private String element;
 

@@ -1,8 +1,13 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
 import com.venvas.pocamarket.common.aop.trim.TrimInput;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityDetailDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackDetailDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
@@ -15,6 +20,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,26 +34,17 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @Slf4j
 public class PokemonCardService {
-    
+
     private final PokemonCardRepository pokemonCardRepository;
-    
-    /**
-     * 모든 포켓몬 카드를 조회
-     * @return 전체 포켓몬 카드 목록
-     */
-    public List<PokemonCard> getAllCards() {
-        return pokemonCardRepository.findAll();
-    }
-    
+
     /**
      * 카드 코드로 특정 포켓몬 카드를 조회
      * @param code 카드 코드
      * @return 조회된 포켓몬 카드 (Optional)
      */
-    public Optional<PokemonCard> getCardByCode(String code) {
-        Optional<PokemonCard> pokemonCard = pokemonCardRepository.findByCode(code);
-        noDataCheck(pokemonCard);
-        return pokemonCard;
+    public PokemonCardDetailDto getCardByCode(String code) {
+        return pokemonCardRepository.findByCodeDetailCard(code)
+                .orElseThrow(() -> new PokemonException(PokemonErrorCode.POKEMON_NOT_FOUND, "유효하지 않은 코드입니다."));
     }
 
     /**
@@ -66,12 +64,6 @@ public class PokemonCardService {
         Slice<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterSliceList(condition, pageable);
         noDataListCheck(listDto, condition);
         return listDto;
-    }
-
-    private void noDataCheck(Optional<PokemonCard> pokemonCard) {
-        if(pokemonCard.isEmpty()) {
-            throw new PokemonException(PokemonErrorCode.POKEMON_NOT_FOUND);
-        }
     }
 
     private void noDataListCheck(Slice<PokemonCardListDto> listDto, PokemonCardListFilterSearchCondition condition) {

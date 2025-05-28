@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.common.util;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardJsonDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,9 +22,9 @@ class ReadDataListJsonTest {
      */
     @Test
     public void jsonUrlFail() {
-        ReadDataListJson<PokemonCardDto> readDataListJson = new ReadDataListJson<>("prmm");
+        ReadDataListJson<PokemonCardJsonDto> readDataListJson = new ReadDataListJson<>("prmm");
 
-        assertThatThrownBy(() -> readDataListJson.readJson(PokemonCardDto.class))
+        assertThatThrownBy(() -> readDataListJson.readJson(PokemonCardJsonDto.class))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -34,13 +34,13 @@ class ReadDataListJsonTest {
     @Test
     public void jsonUrlSuccess() {
         // 자바 제네릭은 컴파일 시점에서는 무슨 타입인지 알지만 런타임 때는 모름
-        ReadDataListJson<PokemonCardDto> readDataListJson = new ReadDataListJson<>("promo");
-        List<PokemonCardDto> dtos = readDataListJson.readJson(PokemonCardDto.class)
+        ReadDataListJson<PokemonCardJsonDto> readDataListJson = new ReadDataListJson<>("promo");
+        List<PokemonCardJsonDto> dtos = readDataListJson.readJson(PokemonCardJsonDto.class)
                 .getJsonList()
                 .orElseGet(() -> null);
 
         assertThat(dtos).isNotNull(); // null이 아님
         assertThat(dtos.size()).isGreaterThan(0); // 사이즈가 0보다 큼
-        assertThat(dtos.get(0)).isInstanceOf(PokemonCardDto.class); // 객체 타입 체크
+        assertThat(dtos.get(0)).isInstanceOf(PokemonCardJsonDto.class); // 객체 타입 체크
     }
 }

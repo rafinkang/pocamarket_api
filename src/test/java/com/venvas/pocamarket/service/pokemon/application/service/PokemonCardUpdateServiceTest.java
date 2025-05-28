@@ -2,7 +2,7 @@ package com.venvas.pocamarket.service.pokemon.application.service;
 
 import com.venvas.pocamarket.common.util.MappingData;
 import com.venvas.pocamarket.common.util.ReadDataListJson;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardJsonDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
@@ -38,39 +38,39 @@ class PokemonCardUpdateServiceTest {
     @Autowired
     private PokemonCardRepository pokemonCardRepository;
 
-    private List<PokemonCardDto> pokemonCardDtos;
+    private List<PokemonCardJsonDto> pokemonCardJsonDto;
 
     @BeforeEach
     void beforeEach() {
-        ReadDataListJson<PokemonCardDto> readJson = new ReadDataListJson<>("promo");
-        Optional<List<PokemonCardDto>> optionalList = readJson
-                .readJson(PokemonCardDto.class)
+        ReadDataListJson<PokemonCardJsonDto> readJson = new ReadDataListJson<>("promo");
+        Optional<List<PokemonCardJsonDto>> optionalList = readJson
+                .readJson(PokemonCardJsonDto.class)
                 .getJsonList();
 
         if(optionalList.isEmpty()) throw new PokemonException(PokemonErrorCode.POKEMON_LIST_EMPTY);
 
-        pokemonCardDtos = optionalList.get();
+        pokemonCardJsonDto = optionalList.get();
     }
 
     @Test
     public void dataCheck() {
-        for (PokemonCardDto dto : pokemonCardDtos) {
+        for (PokemonCardJsonDto dto : pokemonCardJsonDto) {
             log.info("dto = {}", dto);
         }
-        assertThat(pokemonCardDtos).isNotNull();
+        assertThat(pokemonCardJsonDto).isNotNull();
     }
 
     @Test
     @Rollback
     public void createAttackEntity() {
-        List<PokemonAttack> attacks = pokemonCardDtos.stream()
+        List<PokemonAttack> attacks = pokemonCardJsonDto.stream()
                 .filter(dto -> dto.attacks() != null && !dto.attacks().isEmpty())
                 .flatMap(dto -> MappingData.mappingDataList(
                                 dto.attacks(), attackDto -> new PokemonAttack(attackDto, dto.code())
                         ).stream())
                 .toList();
 
-        long count = pokemonCardDtos.stream()
+        long count = pokemonCardJsonDto.stream()
                 .filter(dto -> dto.attacks() != null && !dto.attacks().isEmpty())
                 .mapToLong(dto -> MappingData.mappingDataList(
                         dto.attacks(), attackDto -> new PokemonAttack(attackDto, dto.code())
@@ -85,14 +85,14 @@ class PokemonCardUpdateServiceTest {
     @Test
     @Rollback
     public void createAbilityEntity() {
-        List<PokemonAbility> abilities = pokemonCardDtos.stream()
+        List<PokemonAbility> abilities = pokemonCardJsonDto.stream()
                 .filter(dto -> dto.abilities() != null && !dto.abilities().isEmpty())
                 .flatMap(dto -> MappingData.mappingDataList(
                         dto.abilities(), abilityDto -> new PokemonAbility(abilityDto, dto.code())
                 ).stream())
                 .toList();
 
-        long count = pokemonCardDtos.stream()
+        long count = pokemonCardJsonDto.stream()
                 .filter(dto -> dto.abilities() != null && !dto.abilities().isEmpty())
                 .mapToLong(dto -> MappingData.mappingDataList(
                         dto.abilities(), abilityDto -> new PokemonAbility(abilityDto, dto.code())
@@ -108,7 +108,7 @@ class PokemonCardUpdateServiceTest {
     public void createPokemonCardEntity() {
 
         // PokemonCard Entity Create
-        List<PokemonCard> pokemonCardList = pokemonCardDtos.stream()
+        List<PokemonCard> pokemonCardList = pokemonCardJsonDto.stream()
                 .map(dto -> {
                     List<PokemonAttack> attackList = MappingData.mappingDataList(dto.attacks(), attacksDto -> new PokemonAttack(attacksDto, dto.code()));
                     List<PokemonAbility> abilitiesList = MappingData.mappingDataList(dto.abilities(), abilityDto -> new PokemonAbility(abilityDto, dto.code()));
@@ -117,19 +117,19 @@ class PokemonCardUpdateServiceTest {
                 .toList();
 
         // attacks count
-        long attackCount = pokemonCardDtos.stream()
+        long attackCount = pokemonCardJsonDto.stream()
                 .filter(dto -> dto.attacks() != null && !dto.attacks().isEmpty())
                 .mapToLong(dto -> 1)
                 .sum();
 
         // ability count
-        long abilityCount = pokemonCardDtos.stream()
+        long abilityCount = pokemonCardJsonDto.stream()
                 .filter(dto -> dto.abilities() != null && !dto.abilities().isEmpty())
                 .mapToLong(dto -> 1)
                 .sum();
 
         // dto, pokemonCard 개수 비교
-        assertThat(pokemonCardList.size()).isEqualTo(pokemonCardDtos.size());
+        assertThat(pokemonCardList.size()).isEqualTo(pokemonCardJsonDto.size());
         // 기술이 있는 카드 개수 비교
         assertThat(pokemonCardList.stream().filter(card -> card.getAttacks() != null).count()).isEqualTo(attackCount);
         // 특성이 있는 카드 개수 비교

@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
@@ -8,6 +9,7 @@ import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpda
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService2;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,26 +32,24 @@ public class PokemonCardController {
     private final PokemonCardService pokemonCardService;
     private final PokemonCardUpdateService pokemonCardUpdateService;
     private final PokemonCardUpdateService2 pokemonCardUpdateService2;
-    
-    /**
-     * 모든 포켓몬 카드를 조회하는 엔드포인트
-     * @return 전체 포켓몬 카드 목록
-     */
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> getAllCards() {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getAllCards()));
-    }
 
     @GetMapping("/list")
-    public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getListData(
+    public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getPokemonCardListData(
             @ModelAttribute PokemonCardListFilterSearchCondition condition,
             @PageableDefault(size = 30, page = 0)Pageable pageable
     ) {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
     }
 
+    @GetMapping("/detail/{code}")
+    public ResponseEntity<ApiResponse<PokemonCardDetailDto>> getPokemonDataByCode(
+            @PathVariable @Pattern(regexp = "^\\w{2,3}-[0-9]{3}$") String code
+    ) {
+        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getCardByCode(code)));
+    }
+
     @PostMapping("/update/card/{fileName}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(@NotBlank @PathVariable String fileName) {
+    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(@PathVariable @NotBlank(message = "파일 이름을 입력해주세요") String fileName) {
         List<PokemonCard> result = pokemonCardUpdateService.updateJsonData(fileName);
         return ResponseEntity.ok(ApiResponse.success(result, "카드가 데이터가 성공적으로 업데이트 되었습니다."));
     }

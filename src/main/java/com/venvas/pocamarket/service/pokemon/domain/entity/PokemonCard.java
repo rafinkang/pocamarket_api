@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardJsonDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -167,7 +167,7 @@ public class PokemonCard {
     @OneToMany(mappedBy = "pokemonCard", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PokemonAbility> abilities = new ArrayList<>();
 
-    public PokemonCard(PokemonCardDto dto, List<PokemonAttack> attackList, List<PokemonAbility> abilityList) {
+    public PokemonCard(PokemonCardJsonDto dto, List<PokemonAttack> attackList, List<PokemonAbility> abilityList) {
         this.code = dto.code();
         this.name = dto.name();
         this.nameKo = dto.name_ko();

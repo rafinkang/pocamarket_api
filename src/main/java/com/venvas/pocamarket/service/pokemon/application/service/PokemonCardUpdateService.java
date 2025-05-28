@@ -2,7 +2,7 @@ package com.venvas.pocamarket.service.pokemon.application.service;
 
 import com.venvas.pocamarket.common.util.MappingData;
 import com.venvas.pocamarket.common.util.ReadDataListJson;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardJsonDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.*;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
@@ -36,9 +36,9 @@ public class PokemonCardUpdateService {
      */
     public List<PokemonCard> updateJsonData(String fileName) {
         // JSON 파일을 읽어서 PokemonCardDto 리스트로 변환
-        ReadDataListJson<PokemonCardDto> readJson = new ReadDataListJson<>(fileName);
-        Optional<List<PokemonCardDto>> optionalList = readJson
-                .readJson(PokemonCardDto.class)
+        ReadDataListJson<PokemonCardJsonDto> readJson = new ReadDataListJson<>(fileName);
+        Optional<List<PokemonCardJsonDto>> optionalList = readJson
+                .readJson(PokemonCardJsonDto.class)
                 .getJsonList();
 
         if(optionalList.isEmpty()) throw new PokemonException(PokemonErrorCode.JSON_DATA_EMPTY);
@@ -47,7 +47,7 @@ public class PokemonCardUpdateService {
         List<PokemonCard> cardList = new ArrayList<>();
 
         // 각 DTO를 엔티티로 변환하여 리스트에 추가
-        for (PokemonCardDto card : optionalList.get()) {
+        for (PokemonCardJsonDto card : optionalList.get()) {
             cardList.add(mappingCardData(card));
         }
 
@@ -60,7 +60,7 @@ public class PokemonCardUpdateService {
      * @param c 변환할 PokemonCardDto
      * @return 변환된 PokemonCard 엔티티
      */
-    private PokemonCard mappingCardData(PokemonCardDto c) {
+    private PokemonCard mappingCardData(PokemonCardJsonDto c) {
         // 공격 데이터와 특성 데이터를 각각 엔티티로 변환
         List<PokemonAttack> attackList = MappingData.mappingDataList(c.attacks(), d -> new PokemonAttack(d, c.code()));
         List<PokemonAbility> abilityList = MappingData.mappingDataList(c.abilities(), d -> new PokemonAbility(d, c.code()));
