@@ -1,14 +1,8 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
-import com.venvas.pocamarket.common.aop.trim.TrimInput;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityDetailDto;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
-import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
-import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
-import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
@@ -20,10 +14,6 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * 포켓몬 카드 서비스
@@ -52,14 +42,12 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
-    @TrimInput
     public Page<PokemonCardListDto> getListData(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
         Page<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterList(condition, pageable);
         noDataListCheck(listDto, condition);
         return listDto;
     }
 
-    @TrimInput
     public Slice<PokemonCardListDto> getListDataSlice(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
         Slice<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterSliceList(condition, pageable);
         noDataListCheck(listDto, condition);
