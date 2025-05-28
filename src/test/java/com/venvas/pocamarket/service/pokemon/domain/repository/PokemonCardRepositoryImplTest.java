@@ -167,7 +167,7 @@ class PokemonCardRepositoryImplTest {
      */
     @Test
     public void 타입과_다중서브타입검색() {
-        String type = "POKEMON      ";
+        String type = "POKEMON";
         String subType = "BASIC,STAGE_1";
         String[] split = subType.split(",");
         PageRequest pageRequest = PageRequest.of(0, 30);

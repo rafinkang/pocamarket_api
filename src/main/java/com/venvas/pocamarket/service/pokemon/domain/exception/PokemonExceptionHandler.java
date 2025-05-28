@@ -1,6 +1,8 @@
 package com.venvas.pocamarket.service.pokemon.domain.exception;
 
 import com.venvas.pocamarket.common.util.ApiResponse;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.Ordered;
@@ -17,6 +19,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(basePackages = "com.venvas.pocamarket.service.pokemon")
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class PokemonExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<String>> handleConstraintViolationException(
+            ConstraintViolationException ex) {
+        String errorMessage = ex.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("입력값 검증에 실패했습니다.");
+
+        log.error("검증 실패: {}", errorMessage);
+
+        return ResponseEntity
+                .badRequest()
+                .body(ApiResponse.error(errorMessage, "VALIDATION_ERROR"));
+    }
 
     /**
      * PokemonException 처리

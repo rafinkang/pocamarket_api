@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
+import com.venvas.pocamarket.common.aop.trim.TrimInput;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.common.util.ApiResponse;
@@ -8,6 +9,11 @@ import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardServ
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService2;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
+import com.venvas.pocamarket.service.pokemon.domain.exception.valid.PokemonStrParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +30,8 @@ import java.util.List;
  * 포켓몬 카드 컨트롤러
  * 포켓몬 카드 관련 HTTP 요청을 처리하는 REST 컨트롤러
  */
+@Tag(name = "PokemonCard-API", description = "포켓몬 카드 관련 API")
+@TrimInput
 @RestController
 @RequestMapping("/api/pokemon-cards")
 @RequiredArgsConstructor
@@ -34,22 +42,35 @@ public class PokemonCardController {
     private final PokemonCardUpdateService2 pokemonCardUpdateService2;
 
     @GetMapping("/list")
+    @Operation(summary = "포켓몬 리스트", description = "filter 값에 따라 포켓몬 리스트를 조회 API")
     public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getPokemonCardListData(
-            @ModelAttribute PokemonCardListFilterSearchCondition condition,
-            @PageableDefault(size = 30, page = 0)Pageable pageable
+            @ModelAttribute @Valid PokemonCardListFilterSearchCondition condition,
+            @PageableDefault(size = 30)Pageable pageable
     ) {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
     }
 
     @GetMapping("/detail/{code}")
+    @Operation(summary = "포켓몬 디테일", description = "code로 포켓몬의 자세한 값을 가져오는 API")
     public ResponseEntity<ApiResponse<PokemonCardDetailDto>> getPokemonDataByCode(
-            @PathVariable @Pattern(regexp = "^\\w{2,3}-[0-9]{3}$") String code
+            @PathVariable
+            @PokemonStrParam(
+                    errorCode = PokemonErrorCode.POKEMON_CODE_INVALID,
+                    pattern = "^\\w{2,3}-[0-9]{3}$"
+            ) String code
     ) {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getCardByCode(code)));
     }
 
     @PostMapping("/update/card/{fileName}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(@PathVariable @NotBlank(message = "파일 이름을 입력해주세요") String fileName) {
+    @Operation(summary = "포켓몬 데이터 update", description = "특정 파일에 있는 포켓몬 json 데이터 db에 update")
+    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(
+            @PathVariable
+            @PokemonStrParam(
+                    errorCode = PokemonErrorCode.POKEMON_FILE_NAME_INVALID,
+                    pattern = "^[\\w\\-. ]+$"
+            ) String fileName
+    ) {
         List<PokemonCard> result = pokemonCardUpdateService.updateJsonData(fileName);
         return ResponseEntity.ok(ApiResponse.success(result, "카드가 데이터가 성공적으로 업데이트 되었습니다."));
     }

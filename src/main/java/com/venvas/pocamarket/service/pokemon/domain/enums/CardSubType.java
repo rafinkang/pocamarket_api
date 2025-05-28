@@ -2,8 +2,8 @@ package com.venvas.pocamarket.service.pokemon.domain.enums;
 
 public enum CardSubType {
     BASIC("Basic"),
-    STAGE_1("Stage 1"),
-    STAGE_2("Stage 2"),
+    STAGE_1("Stage_1"),
+    STAGE_2("Stage_2"),
     SUPPORTER("Supporter"),  // 서포터
     ITEM("Item");       // 아이템
 
