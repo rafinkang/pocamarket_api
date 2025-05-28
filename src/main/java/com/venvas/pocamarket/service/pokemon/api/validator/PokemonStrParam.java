@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.service.pokemon.domain.exception.valid;
+package com.venvas.pocamarket.service.pokemon.api.validator;
 
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import jakarta.validation.Constraint;
