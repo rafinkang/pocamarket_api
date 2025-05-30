@@ -7,7 +7,7 @@ import java.util.function.Function;
 public class MappingData {
 
     public static <T, R> List<R> mappingDataList(List<T> dtoList, Function<T, R> mapper) {
-        if (dtoList == null || dtoList.isEmpty()) return null;
+        if (dtoList == null || dtoList.isEmpty()) return List.of();
         return dtoList.stream()
                 .filter(Objects::nonNull)
                 .map(mapper)

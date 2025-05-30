@@ -38,6 +38,7 @@ public enum PokemonErrorCode {
     // 검색 조건 관련
     POKEMON_SEARCH_KEYWORD_INVALID("POKEMON_330", "검색어는 2글자 이상이어야 합니다."),
     POKEMON_DATE_RANGE_INVALID("POKEMON_331", "날짜 범위가 올바르지 않습니다."),
+    INVALID_SEARCH_VALUE("POKEMON_332", "유효하지 않은 검색 값입니다."),
 
     // 일반 데이터 형식
     POKEMON_NUMBER_FORMAT_INVALID("POKEMON_350", "숫자 형식이 올바르지 않습니다."),

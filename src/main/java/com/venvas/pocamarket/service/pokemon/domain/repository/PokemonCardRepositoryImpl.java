@@ -13,16 +13,15 @@ import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.Poke
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.*;
 import com.venvas.pocamarket.service.pokemon.domain.entity.*;
-import jakarta.persistence.EntityManager;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
+import com.venvas.pocamarket.service.pokemon.domain.value.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonAbility.pokemonAbility;
 import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonAttack.pokemonAttack;
@@ -35,13 +34,68 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     private final int MIN_PAGE_SIZE = 1;
     private final int MAX_PAGE_SIZE = 30;
 
-    private final List<String> cardTypeList = List.of("POKEMON", "TRAINER");
-    private final List<String> cardSubtypeList = List.of("BASIC", "STAGE_1", "STAGE_2", "ITEM", "SUPPORTER", "TOOL");
-    private final List<String> packSetList = List.of("A1", "A", "A1a", "A2");
-    private final List<String> orderList = List.of("code", "nameKo", "rarity");
 
     public PokemonCardRepositoryImpl(JPAQueryFactory queryFactory) {
         this.queryFactory = queryFactory;
+    }
+
+    @Override
+    public List<PokemonCard> findByPackSetLikeList(String packSet) {
+
+        return queryFactory
+                .from(pokemonCard)
+                .leftJoin(pokemonAttack)
+                .on(pokemonAttack.cardCode.eq(pokemonCard.code))
+                .leftJoin(pokemonAbility)
+                .on(pokemonAbility.cardCode.eq(pokemonCard.code))
+                .where(packSetEq(packSet))
+                .orderBy(pokemonCard.cardId.asc(),
+                        pokemonAttack.attackId.asc(),
+                        pokemonAbility.abilityId.asc())
+                .transform(
+                        GroupBy.groupBy(pokemonCard.code).as(
+                                Projections.constructor(
+                                        PokemonCard.class,
+                                        pokemonCard.cardId,
+                                        pokemonCard.code,
+                                        pokemonCard.dexId,
+                                        pokemonCard.dexGroup,
+                                        pokemonCard.name,
+                                        pokemonCard.nameKo,
+                                        pokemonCard.element,
+                                        pokemonCard.type,
+                                        pokemonCard.subtype,
+                                        pokemonCard.health,
+                                        pokemonCard.packSet,
+                                        pokemonCard.pack,
+                                        pokemonCard.retreatCost,
+                                        pokemonCard.weakness,
+                                        pokemonCard.evolvesFrom,
+                                        pokemonCard.rarity,
+                                        GroupBy.list(
+                                            Projections.constructor(
+                                                PokemonAttack.class,
+                                                pokemonAttack.attackId,
+                                                pokemonAttack.cardCode,
+                                                pokemonAttack.name,
+                                                pokemonAttack.nameKo,
+                                                pokemonAttack.effect,
+                                                pokemonAttack.effectKo,
+                                                pokemonAttack.damage,
+                                                pokemonAttack.cost
+                                        )),
+                                        GroupBy.list(Projections.constructor(
+                                                PokemonAbility.class,
+                                                pokemonAbility.abilityId,
+                                                pokemonAbility.cardCode,
+                                                pokemonAbility.name,
+                                                pokemonAbility.nameKo,
+                                                pokemonAbility.effect,
+                                                pokemonAbility.effectKo
+                                        ))
+                                )
+                        )
+                ).values().stream().toList();
     }
 
     @Override
@@ -52,7 +106,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                     .on(pokemonAttack.cardCode.eq(pokemonCard.code))
                 .leftJoin(pokemonAbility)
                     .on(pokemonAbility.cardCode.eq(pokemonCard.code))
-                .where(pokemonCard.code.eq(code))
+                .where(codeEq(code))
                 .transform(
                     GroupBy.groupBy(pokemonCard.code).as(
                         Projections.constructor(
@@ -174,7 +228,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         List<OrderSpecifier<?>> orders = new ArrayList<>();
 
         pageable.getSort().stream()
-                .filter(sort -> orderList.stream().anyMatch(order -> order.equals(sort.getProperty())))
+                .filter(sort -> UseOrder.getList().stream().anyMatch(order -> order.equals(sort.getProperty())))
                 .forEach(sort -> {
                     // 오름,내림차순
                     Order order = sort.isAscending() ? Order.ASC : Order.DESC;
@@ -193,7 +247,13 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     private BooleanExpression rarityEqIn(String rarity) {
         if(! textEmptyCheck(rarity)) return null;
 
-        return pokemonCard.rarity.in(splitAndTrim(rarity, ","));
+        List<String> rarityList = splitAndTrim(rarity, ",");
+
+        if(!validateAllValuesInList(rarityList, CardRarity.getList())) {
+            throw new PokemonException(PokemonErrorCode.INVALID_SEARCH_VALUE, "잘못된 레어도 값 입니다. value = " + rarity);
+        }
+
+        return pokemonCard.rarity.in(rarityList);
     }
 
     private BooleanExpression packEq(String pack) {
@@ -203,23 +263,37 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     private BooleanExpression packSetEq(String packSet) {
         if(! textEmptyCheck(packSet)) return null;
 
-        return packSetList.stream().anyMatch(cardType -> cardType.equalsIgnoreCase(packSet)) ? pokemonCard.packSet.contains("(" + packSet + ")") : null;
+        boolean result = CardPackSet.getList().stream().anyMatch(cardType -> cardType.equalsIgnoreCase(packSet));
+
+        if(!result) {
+            throw new PokemonException(PokemonErrorCode.INVALID_SEARCH_VALUE, "잘못된 확장팩 값 입니다. value = " + packSet);
+        }
+
+        return pokemonCard.packSet.contains("(" + packSet + ")");
     }
 
     private BooleanExpression subTypeEqIn(String subtype) {
         if(! textEmptyCheck(subtype)) return null;
 
-        List<String> upSubTypeList = splitAndTrim(subtype, ",");
+        List<String> subtypeList = splitAndTrim(subtype, ",");
 
-        // 목록에 서브 타입 있는지 확인
-        List<String> subtypeList = upSubTypeList.stream().filter(cardSubtype -> cardSubtypeList.stream().anyMatch(sub -> sub.equalsIgnoreCase(cardSubtype))).toList();
-        return !subtypeList.isEmpty() ? pokemonCard.subtype.in(subtypeList) : null;
+        if(!validateAllValuesInList(subtypeList, CardSubType.getList())) {
+            throw new PokemonException(PokemonErrorCode.INVALID_SEARCH_VALUE, "잘못된 서브타입 값 입니다. value = " + subtype);
+        }
+
+        return pokemonCard.subtype.in(subtypeList);
     }
 
     private BooleanExpression typeEq(String type) {
         if(! textEmptyCheck(type)) return null;
-        // 목록에 주 타입 있는지 확인
-        return cardTypeList.stream().anyMatch(cardType -> cardType.equalsIgnoreCase(type)) ? pokemonCard.type.contains(type) : null;
+
+        boolean result = CardType.getList().stream().anyMatch(cardType -> cardType.equalsIgnoreCase(type));
+
+        if(!result) {
+            throw new PokemonException(PokemonErrorCode.INVALID_SEARCH_VALUE, "잘못된 타입 값 입니다. value = " + type);
+        }
+
+        return pokemonCard.type.contains(type);
     }
 
     private BooleanBuilder typeAndSubTypeLike(String type, String subType) {
@@ -237,10 +311,26 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         return textEmptyCheck(nameKo) ? pokemonCard.nameKo.contains(nameKo) : null; // %str%
     }
 
+    private BooleanExpression codeEq(String code) {
+        return textEmptyCheck(code) ? pokemonCard.code.eq(code) : null;
+    }
+
     private BooleanExpression elementEqIn(String element) {
         if(! textEmptyCheck(element)) return null;
+        List<String> elementList = splitAndTrim(element, ",");
 
-        return pokemonCard.element.in(splitAndTrim(element, ","));
+        if(!validateAllValuesInList(elementList, CardElement.getList())) {
+            throw new PokemonException(PokemonErrorCode.INVALID_SEARCH_VALUE, "잘못된 속성 값 입니다. value = " + element);
+        }
+
+        return pokemonCard.element.in(elementList);
+    }
+
+    private boolean validateAllValuesInList(List<String> inputList, List<String> allowedValues) {
+        return inputList.stream()
+                .allMatch(input -> allowedValues.stream()
+                        .anyMatch(allowed ->
+                                allowed.equalsIgnoreCase(input)));
     }
 
     private boolean textEmptyCheck(String text) {

@@ -60,16 +60,21 @@ public class PokemonCardController {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getCardByCode(code)));
     }
 
-    @PostMapping("/update/card/{fileName}")
-    @Operation(summary = "포켓몬 데이터 update", description = "특정 파일에 있는 포켓몬 json 데이터 db에 update")
+    @PostMapping("/update/card/{fileName}/{packSet}")
+    @Operation(summary = "포켓몬 데이터 update", description = "포켓몬 json 데이터 DB에 update")
     public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(
             @PathVariable
             @PokemonStrParam(
                     errorCode = PokemonErrorCode.POKEMON_FILE_NAME_INVALID,
                     pattern = "^[\\w\\-. ]+$"
-            ) String fileName
+            ) String fileName,
+            @PathVariable
+            @PokemonStrParam(
+                    errorCode = PokemonErrorCode.POKEMON_PARAM_EMPTY,
+                    pattern = "^[a-zA-Z0-9]{1,3}$"
+            ) String packSet
     ) {
-        List<PokemonCard> result = pokemonCardUpdateService.updateJsonData(fileName);
+        List<PokemonCard> result = pokemonCardUpdateService.upsertJsonData(fileName, packSet);
         return ResponseEntity.ok(ApiResponse.success(result, "카드가 데이터가 성공적으로 업데이트 되었습니다."));
     }
 

@@ -12,9 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 포켓몬 카드 데이터 업데이트를 담당하는 서비스 클래스
@@ -34,25 +32,60 @@ public class PokemonCardUpdateService {
      * @param fileName JSON 파일의 버전 (파일명에 사용됨)
      * @return ApiResponse<List<PokemonCard>> 저장된 카드 목록과 처리 결과
      */
-    public List<PokemonCard> updateJsonData(String fileName) {
-        // JSON 파일을 읽어서 PokemonCardDto 리스트로 변환
-        ReadDataListJson<PokemonCardJsonDto> readJson = new ReadDataListJson<>(fileName);
-        Optional<List<PokemonCardJsonDto>> optionalList = readJson
-                .readJson(PokemonCardJsonDto.class)
-                .getJsonList();
+    public List<PokemonCard> upsertJsonData(String fileName, String packSet) {
+        // Json Data
+        List<PokemonCardJsonDto> pokemonJsonDto = getPokemonJsonDto(fileName);
+        // DB Data
+        List<PokemonCard> searchList = pokemonCardRepository.findByPackSetLikeList(packSet);
 
-        if(optionalList.isEmpty()) throw new PokemonException(PokemonErrorCode.JSON_DATA_EMPTY);
-
-        // 엔티티로 변환할 카드 리스트 생성
-        List<PokemonCard> cardList = new ArrayList<>();
-
-        // 각 DTO를 엔티티로 변환하여 리스트에 추가
-        for (PokemonCardJsonDto card : optionalList.get()) {
-            cardList.add(mappingCardData(card));
+        // code 기준으로 기존 카드 맵핑
+        Map<String, PokemonCard> existingCardMap = new HashMap<>();
+        if (searchList != null) {
+            for (PokemonCard card : searchList) {
+                existingCardMap.put(card.getCode(), card);
+            }
         }
 
-        // 변환된 카드 엔티티들을 데이터베이스에 저장하고 성공 응답 반환
-        return pokemonCardRepository.saveAll(cardList);
+        List<PokemonCard> insertList = new ArrayList<>();
+        List<PokemonCard> updateList = new ArrayList<>();
+
+        // 각 DTO를 엔티티로 변환하여 리스트에 추가
+        for (PokemonCardJsonDto dto : pokemonJsonDto) {
+            PokemonCard newCard = mappingCardData(dto);
+            PokemonCard existing = existingCardMap.get(dto.code());
+
+            if (existing != null) {
+                // update
+                existing.updateFrom(newCard);
+                updateList.add(existing);
+            } else {
+                // insert
+                insertList.add(newCard);
+            }
+        }
+
+        List<PokemonCard> result = new ArrayList<>();
+
+        if (!updateList.isEmpty()) {
+            result.addAll(pokemonCardRepository.saveAll(updateList));
+        }
+        // 신규 카드만 저장, 기존 카드는 커밋 시점에 자동 update
+        if (!insertList.isEmpty()) {
+            result.addAll(pokemonCardRepository.saveAll(insertList));
+        }
+
+        return result;
+    }
+
+    /**
+     * JSON 파일을 읽어서 PokemonCardDto 리스트로 변환 없으면 Exception throw
+     */
+    private List<PokemonCardJsonDto> getPokemonJsonDto(String fileName) {
+        ReadDataListJson<PokemonCardJsonDto> readJson = new ReadDataListJson<>(fileName);
+        return readJson
+                .readJson(PokemonCardJsonDto.class)
+                .getJsonList()
+                .orElseThrow(() -> new PokemonException(PokemonErrorCode.JSON_DATA_EMPTY));
     }
 
     /**
@@ -62,8 +95,8 @@ public class PokemonCardUpdateService {
      */
     private PokemonCard mappingCardData(PokemonCardJsonDto c) {
         // 공격 데이터와 특성 데이터를 각각 엔티티로 변환
-        List<PokemonAttack> attackList = MappingData.mappingDataList(c.attacks(), d -> new PokemonAttack(d, c.code()));
-        List<PokemonAbility> abilityList = MappingData.mappingDataList(c.abilities(), d -> new PokemonAbility(d, c.code()));
+        List<PokemonAttack> attackList = new ArrayList<>(MappingData.mappingDataList(c.attacks(), d -> new PokemonAttack(d, c.code())));
+        List<PokemonAbility> abilityList = new ArrayList<>(MappingData.mappingDataList(c.abilities(), d -> new PokemonAbility(d, c.code())));
 
         // 변환된 데이터로 PokemonCard 엔티티 생성하여 반환
         return new PokemonCard(c, attackList, abilityList);

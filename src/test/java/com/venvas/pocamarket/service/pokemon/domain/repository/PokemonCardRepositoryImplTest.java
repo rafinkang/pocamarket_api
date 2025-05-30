@@ -3,6 +3,9 @@ package com.venvas.pocamarket.service.pokemon.domain.repository;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -406,5 +411,24 @@ class PokemonCardRepositoryImplTest {
         for (PokemonCardListDto dto : result.getContent()) {
             log.info("code = {}, name = {}, rarity = {}", dto.getCode(), dto.getNameKo(), dto.getRarity());
         }
+    }
+
+    @Test
+    public void 확장팩_이름으로_검색_리스트_출력_json_data() {
+        List<PokemonCard> a1List = pokemonCardRepository.findByPackSetLikeList("A1");
+
+        for (PokemonCard c : a1List) {
+            log.info("card : code = {}, name = {}, pack = {}", c.getCode(), c.getNameKo(), c.getPack());
+            for (PokemonAttack a : c.getAttacks()) {
+                log.info("\t -> attack :  cardCode = {}, name : {}", a.getCardCode(), a.getNameKo());
+            }
+
+            for (PokemonAbility a : c.getAbilities()) {
+                log.info("\t -> ability :  cardCode = {}, name : {}", a.getCardCode(), a.getNameKo());
+            }
+        }
+
+        assertThat(a1List).isNotNull();
+        assertThat(a1List.isEmpty()).isFalse();
     }
 }

@@ -87,4 +87,27 @@ public class PokemonAttack {
         this.damage = dto.damage();
         this.cost = String.join(",", dto.cost());
     }
+
+    public PokemonAttack(Long attackId, String cardCode, String name, String nameKo, String effect, String effectKo, String damage, String cost) {
+        this.attackId = attackId;
+        this.cardCode = cardCode;
+        this.name = name;
+        this.nameKo = nameKo;
+        this.effect = effect;
+        this.effectKo = effectKo;
+        this.damage = damage;
+        this.cost = cost;
+    }
+
+    public void updateFrom(PokemonAttack newAttack, PokemonCard pokemonCard) {
+        // this.attackId = newAttack.getAttackId(); // PK는 변경하지 않음
+        // this.cardCode = newAttack.getCardCode(); // 연관키도 변경하지 않음
+        this.name = newAttack.getName();
+        this.nameKo = newAttack.getNameKo();
+        this.effect = newAttack.getEffect();
+        this.effectKo = newAttack.getEffectKo();
+        this.damage = newAttack.getDamage();
+        this.cost = newAttack.getCost();
+        this.pokemonCard = pokemonCard;
+    }
 }

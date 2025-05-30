@@ -12,6 +12,7 @@ import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardReposi
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -137,34 +138,39 @@ class PokemonCardUpdateServiceTest {
     }
 
     /**
-     * saveAll 테스트
+     * upsert 테스트
+     * 테이블 Auto_Increment 증가 주의 돌리면 값은 저장 안되도 증가 됨.
      */
     @Test
     @Rollback
-    public void updateServiceSaveTest() {
-        pokemonCardUpdateService.updateJsonData("test");
-        Optional<PokemonCard> findByFirstCodeCard = pokemonCardRepository.findByCode("pa-100");
-        Optional<PokemonCard> findByEndCodeCard = pokemonCardRepository.findByCode("pa-103");
+    @DisplayName("upsertJsonData 신규 insert 및 update 동작 테스트")
+    void upsertJsonData_insertAndUpdate() {
+        // given
+        String fileName = "test"; // 테스트용 JSON 파일명
+        String packSet = "T9";         // 테스트용 packSet
 
-        PokemonCard firstCard = null;
-        PokemonCard endCard = null;
+        // 1차 실행: 신규 insert
+        List<PokemonCard> firstResult = pokemonCardUpdateService.upsertJsonData(fileName, packSet);
 
-        if(findByFirstCodeCard.isEmpty()) {
-            throw new PokemonException(PokemonErrorCode.POKEMON_NOT_FOUND, "테스트 : 첫번째 데이터 없음");
-        } else {
-            firstCard = findByFirstCodeCard.get();
-        }
+        // then: DB에 데이터가 정상적으로 insert 되었는지 확인
+        assertThat(firstResult).isNotEmpty();
+        List<PokemonCard> firstDbSelectList = pokemonCardRepository.findByPackSetLikeList(packSet);
+        long resultCount = firstDbSelectList.size();
+        assertThat(resultCount).isEqualTo(firstResult.size());
 
-        if(findByEndCodeCard.isEmpty()) {
-            throw new  PokemonException(PokemonErrorCode.POKEMON_NOT_FOUND, "테스트 : 마지막 데이터 없음");
-        } else {
-            endCard = findByEndCodeCard.get();
-        }
+        fileName = "test2";
+        // 2차 실행: 같은 데이터로 update (값 일부 변경)
+        List<PokemonCard> secondResult = pokemonCardUpdateService.upsertJsonData(fileName, packSet);
 
-        log.info("firstCard : {}", firstCard);
-        log.info("endCard : {}", endCard);
+        // then: 기존 데이터가 update 되었는지 확인 (개수는 동일)
+        List<PokemonCard> secondDbSelectList = pokemonCardRepository.findByPackSetLikeList(packSet);
+        long dbCountAfterUpdate = secondDbSelectList.size();
+        assertThat(dbCountAfterUpdate).isEqualTo(secondResult.size());
 
-        assertThat(firstCard.getCode()).isEqualTo("pa-100");
-        assertThat(endCard.getCode()).isEqualTo("pa-103");
+        // 추가로, 특정 카드의 필드가 update 되었는지 검증하려면 아래처럼 작성
+        PokemonCard updatedCard = secondResult.get(0);
+        PokemonCard dbCard = pokemonCardRepository.findByCode(updatedCard.getCode()).orElseThrow();
+        log.info("cardName : {}", dbCard.getNameKo());
+        assertThat(dbCard.getNameKo()).isEqualTo(updatedCard.getNameKo());
     }
 }

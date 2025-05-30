@@ -72,4 +72,23 @@ public class PokemonAbility {
         this.effect = dto.effect();
         this.effectKo = dto.effect_ko();
     }
-} 
+
+    public PokemonAbility(Long abilityId, String cardCode, String name, String nameKo, String effect, String effectKo) {
+        this.abilityId = abilityId;
+        this.cardCode = cardCode;
+        this.name = name;
+        this.nameKo = nameKo;
+        this.effect = effect;
+        this.effectKo = effectKo;
+    }
+
+    public void updateFrom(PokemonAbility newAbility, PokemonCard pokemonCard) {
+        // this.abilityId = newAbility.getAbilityId(); // PK는 변경하지 않음
+        // this.cardCode = newAbility.getCardCode();   // 연관키도 변경하지 않음
+        this.name = newAbility.getName();
+        this.nameKo = newAbility.getNameKo();
+        this.effect = newAbility.getEffect();
+        this.effectKo = newAbility.getEffectKo();
+        this.pokemonCard = pokemonCard;
+    }
+}
