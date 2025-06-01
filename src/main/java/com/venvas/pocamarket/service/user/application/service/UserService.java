@@ -9,8 +9,10 @@ import io.jsonwebtoken.security.Keys;
 import com.venvas.pocamarket.infrastructure.config.JwtProperties;
 
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
+import com.venvas.pocamarket.service.user.application.dto.UserInfoResponse;
 import com.venvas.pocamarket.service.user.application.dto.UserLoginRequest;
 import com.venvas.pocamarket.service.user.application.dto.UserLoginResponse;
+import com.venvas.pocamarket.service.user.application.dto.UserUpdateRequest;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
@@ -22,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -290,5 +293,114 @@ public class UserService {
                 .setExpiration(validity) // 토큰 만료 시간 설정
                 .signWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()), SignatureAlgorithm.HS256) // HS256 알고리즘과 시크릿 키로 서명
                 .compact(); // 최종적으로 토큰 문자열로 변환
+    }
+    
+    /**
+     * 현재 로그인한 사용자의 정보를 조회합니다.
+     * 
+     * @param userId 현재 로그인한 사용자의 ID
+     * @return 사용자 정보 응답 DTO
+     * @throws UserException 사용자가 존재하지 않는 경우
+     */
+    public UserInfoResponse getUserInfo(Long userId) {
+        User user = findUserById(userId);
+        return UserInfoResponse.from(user);
+    }
+    
+    /**
+     * 사용자 ID로 사용자를 조회합니다.
+     * 
+     * @param userId 사용자 ID
+     * @return 사용자 엔티티
+     * @throws UserException 사용자가 존재하지 않는 경우
+     */
+    private User findUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> {
+                    log.warn("존재하지 않는 사용자 ID: {}", userId);
+                    return new UserException(UserErrorCode.USER_NOT_FOUND);
+                });
+    }
+    
+    /**
+     * 사용자 정보를 업데이트합니다.
+     * 
+     * @param userId 사용자 ID
+     * @param request 사용자 정보 업데이트 요청 DTO
+     * @return 업데이트된 사용자 정보 응답 DTO
+     * @throws UserException 사용자가 존재하지 않거나 데이터 유효성 검증에 실패한 경우
+     */
+    public UserInfoResponse updateUserInfo(Long userId, UserUpdateRequest request) {
+        User user = findUserById(userId);
+        
+        // 비밀번호 변경 처리
+        if (StringUtils.hasText(request.getNewPassword())) {
+            if (!StringUtils.hasText(request.getCurrentPassword())) {
+                throw new UserException(UserErrorCode.CURRENT_PASSWORD_REQUIRED);
+            }
+            
+            // 현재 비밀번호 확인
+            if (!validatePassword(user, request.getCurrentPassword())) {
+                throw new UserException(UserErrorCode.INVALID_PASSWORD);
+            }
+            
+            // 새 비밀번호로 변경
+            String encodedPassword = passwordEncoder.encode(request.getNewPassword());
+            user.setPassword(encodedPassword);
+        }
+        
+        // 이름 업데이트
+        if (StringUtils.hasText(request.getName())) {
+            user.setName(request.getName());
+        }
+        
+        // 닉네임 업데이트
+        if (StringUtils.hasText(request.getNickname()) && !request.getNickname().equals(user.getNickname())) {
+            validateNickname(request.getNickname());
+            user.setNickname(request.getNickname());
+        }
+        
+        // 이메일 업데이트
+        if (StringUtils.hasText(request.getEmail()) && !request.getEmail().equals(user.getEmail())) {
+            validateDuplicateEmail(request.getEmail());
+            user.setEmail(request.getEmail());
+            user.setEmailVerified(false);  // 이메일이 변경되면 인증 상태 초기화
+        }
+        
+        // 전화번호 업데이트
+        if (StringUtils.hasText(request.getPhone())) {
+            user.setPhone(request.getPhone());
+        }
+        
+        // 프로필 이미지 URL 업데이트
+        if (StringUtils.hasText(request.getProfileImageUrl())) {
+            user.setProfileImageUrl(request.getProfileImageUrl());
+        }
+        
+        User updatedUser = userRepository.save(user);
+        return UserInfoResponse.from(updatedUser);
+    }
+    
+    /**
+     * 사용자 계정을 삭제(비활성화)합니다.
+     * 실제로 데이터베이스에서 삭제하지 않고 상태만 DELETED로 변경합니다.
+     * 
+     * @param userId 사용자 ID
+     * @param password 계정 삭제 확인용 비밀번호
+     * @return 삭제된 사용자 엔티티
+     * @throws UserException 사용자가 존재하지 않거나 비밀번호가 일치하지 않는 경우
+     */
+    public User deleteUserAccount(Long userId, String password) {
+        User user = findUserById(userId);
+        
+        // 비밀번호 확인
+        if (!validatePassword(user, password)) {
+            throw new UserException(UserErrorCode.INVALID_PASSWORD);
+        }
+        
+        // 계정 상태를 DELETED로 변경
+        user.setStatus(UserStatus.DELETED);
+        
+        return userRepository.save(user);
     }
 }

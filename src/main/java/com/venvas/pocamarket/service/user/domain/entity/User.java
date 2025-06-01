@@ -260,4 +260,52 @@ public class User {
     public void setEmailVerified(Boolean emailVerified) {
         this.emailVerified = emailVerified;
     }
+    
+    /**
+     * 비밀번호를 변경합니다.
+     * @param password 새 비밀번호(해시 처리된 값)
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    /**
+     * 사용자 이름을 변경합니다.
+     * @param name 새 사용자 이름
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    /**
+     * 닉네임을 변경합니다.
+     * @param nickname 새 닉네임
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+    
+    /**
+     * 이메일을 변경합니다.
+     * @param email 새 이메일
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    /**
+     * 전화번호를 변경합니다.
+     * @param phone 새 전화번호
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    /**
+     * 프로필 이미지 URL을 변경합니다.
+     * @param profileImageUrl 새 프로필 이미지 URL
+     */
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 }
