@@ -132,9 +132,9 @@ class PokemonCardUpdateServiceTest {
         // dto, pokemonCard 개수 비교
         assertThat(pokemonCardList.size()).isEqualTo(pokemonCardJsonDto.size());
         // 기술이 있는 카드 개수 비교
-        assertThat(pokemonCardList.stream().filter(card -> card.getAttacks() != null).count()).isEqualTo(attackCount);
+        assertThat(pokemonCardList.stream().filter(card -> card.getAttacks() != null && !card.getAttacks().isEmpty()).count()).isEqualTo(attackCount);
         // 특성이 있는 카드 개수 비교
-        assertThat(pokemonCardList.stream().filter(card -> card.getAbilities() != null).count()).isEqualTo(abilityCount);
+        assertThat(pokemonCardList.stream().filter(card -> card.getAbilities() != null && !card.getAbilities().isEmpty()).count()).isEqualTo(abilityCount);
     }
 
     /**
