@@ -286,7 +286,8 @@ public class UserService {
         
         return Jwts.builder() // JWT 토큰 빌더 생성
                 .setSubject(user.getId().toString()) // 토큰 제목(subject)으로 사용자 ID 설정
-                .claim("loginId", user.getLoginId()) // 사용자 로그인 ID를 클레임으로 추가
+                .claim("uuid", user.getUuid()) // 사용자 uuid를 클레임으로 추가
+                // .claim("loginId", user.getLoginId()) // 사용자 로그인 ID를 클레임으로 추가
                 .claim("nickname", user.getNickname()) // 사용자 닉네임을 클레임으로 추가
                 .claim("grade", user.getGrade().name()) // 사용자 등급을 클레임으로 추가
                 .setIssuedAt(now) // 토큰 발급 시간 설정
