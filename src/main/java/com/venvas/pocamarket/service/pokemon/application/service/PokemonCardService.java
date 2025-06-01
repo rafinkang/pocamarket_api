@@ -2,7 +2,7 @@ package com.venvas.pocamarket.service.pokemon.application.service;
 
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
@@ -42,19 +42,19 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
-    public Page<PokemonCardListDto> getListData(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
+    public Page<PokemonCardListDto> getListData(PokemonCardListFormDto condition, Pageable pageable) {
         Page<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterList(condition, pageable);
         noDataListCheck(listDto, condition);
         return listDto;
     }
 
-    public Slice<PokemonCardListDto> getListDataSlice(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
+    public Slice<PokemonCardListDto> getListDataSlice(PokemonCardListFormDto condition, Pageable pageable) {
         Slice<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterSliceList(condition, pageable);
         noDataListCheck(listDto, condition);
         return listDto;
     }
 
-    private void noDataListCheck(Slice<PokemonCardListDto> listDto, PokemonCardListFilterSearchCondition condition) {
+    private void noDataListCheck(Slice<PokemonCardListDto> listDto, PokemonCardListFormDto condition) {
         if(listDto == null || listDto.getContent().isEmpty()) {
             log.warn("포켓몬 리스트 데이터 조회 실패, filterCondition : {}", condition);
             throw new PokemonException(PokemonErrorCode.POKEMON_LIST_EMPTY);

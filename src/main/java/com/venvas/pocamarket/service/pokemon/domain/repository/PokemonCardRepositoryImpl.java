@@ -142,7 +142,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     }
 
     @Override
-    public Page<PokemonCardListDto> searchFilterList(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
+    public Page<PokemonCardListDto> searchFilterList(PokemonCardListFormDto condition, Pageable pageable) {
 
         long pageSize = checkMinMax(MIN_PAGE_SIZE, MAX_PAGE_SIZE, pageable.getPageSize());
         long offset = Math.max(pageable.getOffset(), 0);
@@ -166,7 +166,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     /**
      * count 쿼리를 안날림, 다음 페이지가 있는지 없는지만 확인.
      */
-    public Slice<PokemonCardListDto> searchFilterSliceList(PokemonCardListFilterSearchCondition condition, Pageable pageable) {
+    public Slice<PokemonCardListDto> searchFilterSliceList(PokemonCardListFormDto condition, Pageable pageable) {
 
         long pageSize = checkMinMax(MIN_PAGE_SIZE, MAX_PAGE_SIZE, pageable.getPageSize());
         long offset = Math.max(pageable.getOffset(), 0);
@@ -187,7 +187,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         return new SliceImpl<>(content, pageable, hasNext);
     }
 
-    private JPAQuery<Long> getCountQuery(PokemonCardListFilterSearchCondition condition) {
+    private JPAQuery<Long> getCountQuery(PokemonCardListFormDto condition) {
         return queryFactory
                 .select(pokemonCard.count())
                 .from(pokemonCard)
@@ -201,7 +201,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                 );
     }
 
-    private JPAQuery<PokemonCardListDto> getPokemonCardListQuery(PokemonCardListFilterSearchCondition condition) {
+    private JPAQuery<PokemonCardListDto> getPokemonCardListQuery(PokemonCardListFormDto condition) {
         return queryFactory
                 .select(new QPokemonCardListDto(
                         pokemonCard.code,

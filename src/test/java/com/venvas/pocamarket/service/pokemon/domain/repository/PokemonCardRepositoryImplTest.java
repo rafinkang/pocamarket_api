@@ -1,7 +1,7 @@
 package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
@@ -37,7 +37,7 @@ class PokemonCardRepositoryImplTest {
      */
     @Test
     public void 디폴트_정렬_확인() {
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, null, null, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, null, null, null, null, null, null);
         PageRequest pageRequest = PageRequest.of(0, 5);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
@@ -63,7 +63,7 @@ class PokemonCardRepositoryImplTest {
         int pageSize = 99;
         final int MAX_SIZE = 30;
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, null, null, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, null, null, null, null, null, null);
         PageRequest pageRequest = PageRequest.of(0, pageSize);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
@@ -81,7 +81,7 @@ class PokemonCardRepositoryImplTest {
         int page = 2;
         final int MAX_SIZE = 30;
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, null, null, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, null, null, null, null, null, null);
         PageRequest pageRequest = PageRequest.of(page, MAX_SIZE);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
@@ -103,7 +103,7 @@ class PokemonCardRepositoryImplTest {
         String searchName = "버터플";
         PageRequest pageRequest = PageRequest.of(0, 5);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(searchName, null, null, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(searchName, null, null, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto pokemonCardListDto : result.getContent()) {
@@ -120,7 +120,7 @@ class PokemonCardRepositoryImplTest {
         String type = "POKEMON";
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, null, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, null, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
 //        log.info("result.content.size = {}", result.getContent().size());
@@ -139,7 +139,7 @@ class PokemonCardRepositoryImplTest {
         String subType = "ITEM";
         PageRequest pageRequest = PageRequest.of(0, 5);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, null, subType, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, null, subType, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto pokemonCardListDto : result.getContent()) {
@@ -157,7 +157,7 @@ class PokemonCardRepositoryImplTest {
         String subType = "BASIC";
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -177,7 +177,7 @@ class PokemonCardRepositoryImplTest {
         String[] split = subType.split(",");
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardService.getListData(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -198,7 +198,7 @@ class PokemonCardRepositoryImplTest {
         String[] split = subType.split(",");
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(name, type, subType, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(name, type, subType, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -221,7 +221,7 @@ class PokemonCardRepositoryImplTest {
         String[] split = subType.split(",");
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(name, type, subType, element, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(name, type, subType, element, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -247,7 +247,7 @@ class PokemonCardRepositoryImplTest {
 
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, element, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, element, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -273,7 +273,7 @@ class PokemonCardRepositoryImplTest {
 
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, element, packSet, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, element, packSet, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -301,7 +301,7 @@ class PokemonCardRepositoryImplTest {
 
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, element, packSet, pack, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, element, packSet, pack, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -331,7 +331,7 @@ class PokemonCardRepositoryImplTest {
 
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, element, packSet, pack, rarity);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, element, packSet, pack, rarity);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -363,7 +363,7 @@ class PokemonCardRepositoryImplTest {
 
         PageRequest pageRequest = PageRequest.of(0, 30);
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(name, type, subType, element, packSet, pack, rarity);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(name, type, subType, element, packSet, pack, rarity);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -387,7 +387,7 @@ class PokemonCardRepositoryImplTest {
         String subType = "STAGE_1,STAGE_2";
         PageRequest pageRequest = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "code"));
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
@@ -405,7 +405,7 @@ class PokemonCardRepositoryImplTest {
         String subType = "BASIC,STAGE_2";
         PageRequest pageRequest = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "rarity").and(Sort.by(Sort.Direction.ASC, "code")));
 
-        PokemonCardListFilterSearchCondition condition = new PokemonCardListFilterSearchCondition(null, type, subType, null, null, null, null);
+        PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, null, null, null, null);
         Page<PokemonCardListDto> result = pokemonCardRepository.searchFilterList(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {

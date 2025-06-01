@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @ToString
-public class PokemonCardListFilterSearchCondition {
+public class PokemonCardListFormDto {
 
     @Size(max = 30, message = "이름은 30자를 초과할 수 없습니다.")
     @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s]*$", message = "이름은 한글, 영문, 숫자만 입력 가능합니다.")

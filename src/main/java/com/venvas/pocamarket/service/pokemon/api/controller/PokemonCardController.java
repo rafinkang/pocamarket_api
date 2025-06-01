@@ -4,10 +4,9 @@ import com.venvas.pocamarket.common.aop.trim.TrimInput;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.common.util.ApiResponse;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFilterSearchCondition;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
-import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService2;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import com.venvas.pocamarket.service.pokemon.api.validator.PokemonStrParam;
@@ -18,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,12 +35,11 @@ public class PokemonCardController {
     
     private final PokemonCardService pokemonCardService;
     private final PokemonCardUpdateService pokemonCardUpdateService;
-    private final PokemonCardUpdateService2 pokemonCardUpdateService2;
 
     @GetMapping("/list")
     @Operation(summary = "포켓몬 리스트", description = "filter 값에 따라 포켓몬 리스트를 조회 API")
     public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getPokemonCardListData(
-            @ModelAttribute @Valid PokemonCardListFilterSearchCondition condition,
+            @ModelAttribute @Valid PokemonCardListFormDto condition,
             @PageableDefault(size = 30)Pageable pageable
     ) {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
@@ -78,14 +75,14 @@ public class PokemonCardController {
         return ResponseEntity.ok(ApiResponse.success(result, "카드가 데이터가 성공적으로 업데이트 되었습니다."));
     }
 
-    @PostMapping("/update/card2/{version}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard2(@PathVariable String version) {
-        try {
-            List<PokemonCard> updatedCards = pokemonCardUpdateService2.updateJsonData(version);
-            return ResponseEntity.ok(ApiResponse.success(updatedCards));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.error("Failed to update cards: " + e.getMessage(), "UPDATE_FAILED"));
-        }
-    }
+//    @PostMapping("/update/card2/{version}")
+//    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard2(@PathVariable String version) {
+//        try {
+//            List<PokemonCard> updatedCards = pokemonCardUpdateService2.updateJsonData(version);
+//            return ResponseEntity.ok(ApiResponse.success(updatedCards));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(ApiResponse.error("Failed to update cards: " + e.getMessage(), "UPDATE_FAILED"));
+//        }
+//    }
 } 
