@@ -63,7 +63,7 @@ public class PokemonCardController {
             @PathVariable
             @PokemonStrParam(
                     errorCode = PokemonErrorCode.POKEMON_FILE_NAME_INVALID,
-                    pattern = "^[\\w\\-. ]+$"
+                    pattern = "^[\\w\\-]+$"
             ) String fileName,
             @PathVariable
             @PokemonStrParam(
