@@ -1,5 +1,7 @@
 package com.venvas.pocamarket.service.user.application.service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import io.jsonwebtoken.Jwts;
@@ -13,14 +15,17 @@ import com.venvas.pocamarket.service.user.application.dto.UserInfoResponse;
 import com.venvas.pocamarket.service.user.application.dto.UserLoginRequest;
 import com.venvas.pocamarket.service.user.application.dto.UserLoginResponse;
 import com.venvas.pocamarket.service.user.application.dto.UserUpdateRequest;
+import com.venvas.pocamarket.service.user.domain.entity.RefreshToken;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
+import com.venvas.pocamarket.service.user.domain.repository.RefreshTokenRepository;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,10 +49,13 @@ public class UserService {
             "admin", "root", "system", "manager", "superuser", "administrator", "관리자");
     
     private final UserRepository userRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
+    public UserService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepository, 
+            PasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
         this.userRepository = userRepository;
+        this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProperties = jwtProperties;
     }
@@ -236,10 +244,46 @@ public class UserService {
         User updatedUser = userRepository.save(user);
         
         // 6. JWT 토큰 생성 (실제 구현에서는 JWT 서비스를 통해 토큰 생성)
-        String token = generateToken(updatedUser);
+        Date now = new Date();
+        Date accessValidityDate = new Date(now.getTime() + jwtProperties.getAccessTokenValidityInMs());
+        Date refreshValidityDate = new Date(now.getTime() + jwtProperties.getRefreshTokenValidityInMs());
+
+        String accessToken = generateToken(updatedUser, now, accessValidityDate);
+        String refreshToken = generateToken(updatedUser, now, refreshValidityDate);
+
+        // 7. 토큰 저장
+        // Date를 LocalDateTime으로 변환
+        LocalDateTime issuedAt = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime expiresAt = refreshValidityDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        
+        RefreshToken refreshTokenEntity = RefreshToken.builder()
+                .uuid(updatedUser.getUuid())
+                .token(refreshToken)
+                .issuedAt(issuedAt)
+                .expiresAt(expiresAt)
+                .build();
+                
+        // 오래된 리프레쉬 토큰 만료 처리 (선택적)
+        refreshTokenRepository.revokeAllTokensByUuid(updatedUser.getUuid());
+        refreshTokenRepository.save(refreshTokenEntity);
+
+        // 8. 쿠키 생성
+        ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", accessToken)
+                .httpOnly(true) // HTTPOnly 설정 - XSS 공격 방지, 자바스크립트 접근 불가
+                .secure(true) // HTTPS 사용 시 설정 (로컬개발시 false)
+                .sameSite("Lax") // CSRF 보호
+                .maxAge(jwtProperties.getAccessTokenValidityInMs() / 1000) // 토큰 만료 시간
+                .build();
+        
+        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
+                .httpOnly(true) // HTTPOnly 설정
+                .secure(true) // HTTPS 사용 시 설정
+                .sameSite("Lax") // CSRF 보호
+                .maxAge(jwtProperties.getRefreshTokenValidityInMs() / 1000) // 토큰 만료 시간
+                .build();
         
         log.info("로그인 성공: userId={}, loginId={}", updatedUser.getId(), updatedUser.getLoginId());
-        return UserLoginResponse.from(updatedUser, token);
+        return UserLoginResponse.from(updatedUser, accessToken, refreshToken, accessTokenCookie, refreshTokenCookie);
     }
     
     /**
@@ -278,16 +322,10 @@ public class UserService {
      * @param user 토큰을 생성할 사용자 엔티티
      * @return 생성된 JWT 토큰
      */
-    private String generateToken(User user) {
-        // 현재 시간을 기준으로 토큰 발급 시간 설정
-        Date now = new Date();
-        // 현재 시간에 설정된 만료 기간을 더해 토큰 만료 시간 설정
-        Date validity = new Date(now.getTime() + jwtProperties.getAccessTokenValidityInMs());
-        
+    private String generateToken(User user, Date now, Date validity) {
         return Jwts.builder() // JWT 토큰 빌더 생성
                 .setSubject(user.getId().toString()) // 토큰 제목(subject)으로 사용자 ID 설정
                 .claim("uuid", user.getUuid()) // 사용자 uuid를 클레임으로 추가
-                // .claim("loginId", user.getLoginId()) // 사용자 로그인 ID를 클레임으로 추가
                 .claim("nickname", user.getNickname()) // 사용자 닉네임을 클레임으로 추가
                 .claim("grade", user.getGrade().name()) // 사용자 등급을 클레임으로 추가
                 .setIssuedAt(now) // 토큰 발급 시간 설정

@@ -22,10 +22,12 @@ public class JwtProperties {
     /**
      * 액세스 토큰 유효 기간 (밀리초)
      */
-    private long accessTokenValidityInMs = 3600000; // 기본값 1시간
+    // private long accessTokenValidityInMs = 3600000; // 기본값 1시간
+    private long accessTokenValidityInMs = 180000; // 테스트용 3분
     
     /**
      * 리프레시 토큰 유효 기간 (밀리초)
      */
-    private long refreshTokenValidityInMs = 2592000000L; // 기본값 30일
+    // private long refreshTokenValidityInMs = 2592000000L; // 기본값 30일
+    private long refreshTokenValidityInMs = 300000; // 테스트용 5분
 }

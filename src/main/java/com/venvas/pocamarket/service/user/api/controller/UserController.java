@@ -13,6 +13,7 @@ import com.venvas.pocamarket.service.user.domain.exception.UserException;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -121,7 +122,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<UserLoginResponse>> login(
             @Valid @RequestBody UserLoginRequest request,
-            HttpServletRequest httpRequest) {
+            HttpServletRequest httpRequest,
+            HttpServletResponse httpResponse) {
         
         // 클라이언트 정보 추출 및 설정
         String ipAddress = httpRequest.getRemoteAddr();
@@ -133,6 +135,16 @@ public class UserController {
         log.info("로그인 요청: loginId={}, ip={}", request.getLoginId(), ipAddress);
         UserLoginResponse loginResponse = userService.login(request);
         
-        return ResponseEntity.ok(ApiResponse.success(loginResponse, "로그인에 성공하였습니다."));
+        // 쿠키에 토큰 추가
+        httpResponse.addHeader("Set-Cookie", loginResponse.getAccessTokenCookie().toString());
+        httpResponse.addHeader("Set-Cookie", loginResponse.getRefreshTokenCookie().toString());
+        
+        UserLoginResponse response = UserLoginResponse.builder()
+                .nickname(loginResponse.getNickname())
+                .status(loginResponse.getStatus())
+                .lastLoginAt(loginResponse.getLastLoginAt())
+                .build();
+        
+        return ResponseEntity.ok(ApiResponse.success(response, "로그인에 성공하였습니다."));
     }
 }

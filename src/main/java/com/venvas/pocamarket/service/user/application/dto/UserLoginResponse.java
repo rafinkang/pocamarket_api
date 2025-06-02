@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import org.springframework.http.ResponseCookie;
+
 /**
  * 사용자 로그인 응답 DTO
  */
@@ -25,7 +27,10 @@ public class UserLoginResponse {
     private UserStatus status;
     private UserGrade grade;
     private boolean emailVerified;
-    private String token; // JWT 토큰 (실제 인증 시스템에 따라 달라질 수 있음)
+    private String accessToken; // JWT 토큰 (실제 인증 시스템에 따라 달라질 수 있음)
+    private String refreshToken; // JWT 토큰 (실제 인증 시스템에 따라 달라질 수 있음)
+    private ResponseCookie accessTokenCookie;
+    private ResponseCookie refreshTokenCookie;
     private LocalDateTime lastLoginAt;
     
     /**
@@ -35,16 +40,19 @@ public class UserLoginResponse {
      * @param token 인증 토큰
      * @return 로그인 응답 DTO
      */
-    public static UserLoginResponse from(User user, String token) {
+    public static UserLoginResponse from(User user, String accessToken, String refreshToken, ResponseCookie accessTokenCookie, ResponseCookie refreshTokenCookie) {
         return UserLoginResponse.builder()
-                // .userId(user.getId())
-                // .loginId(user.getLoginId())
-                // .nickname(user.getNickname())
-                // .email(user.getEmail())
-                // .status(user.getStatus())
-                // .grade(user.getGrade())
-                // .emailVerified(user.isEmailVerified())
-                .token(token)
+                .userId(user.getId())
+                .loginId(user.getLoginId())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .status(user.getStatus())
+                .grade(user.getGrade())
+                .emailVerified(user.isEmailVerified())
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .accessTokenCookie(accessTokenCookie)
+                .refreshTokenCookie(refreshTokenCookie)
                 .lastLoginAt(user.getLoginHistories().stream()
                         .filter(history -> Boolean.TRUE.equals(history.getSuccess()))
                         .map(history -> history.getLoginAt())
