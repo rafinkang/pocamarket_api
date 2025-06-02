@@ -1,0 +1,109 @@
+[
+  {
+    "code": "pa-100",
+    "name": "Poké Ball",
+    "name_ko": "몬스터볼",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "ITEM",
+    "health": null,
+    "set": "test (T9)",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-101",
+    "name": "Professor's Research",
+    "name_ko": "박사의 연구",
+    "element": null,
+    "type": "TRAINER",
+    "subtype": "SUPPORTER",
+    "health": null,
+    "set": "test (T9)",
+    "pack": null,
+    "attacks": [],
+    "retreatCost": null,
+    "weakness": null,
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  },
+  {
+    "code": "pa-102",
+    "name": "Butterfree",
+    "name_ko": "버터플",
+    "element": "GRASS",
+    "type": "POKEMON",
+    "subtype": "STAGE_2",
+    "health": 120,
+    "set": "test (T9)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Gust",
+        "name_ko": "바람일으키기",
+        "damage": "60",
+        "cost": [
+          "GRASS",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 1,
+    "weakness": "FIRE",
+    "abilities": [
+      {
+        "name": "Powder Heal",
+        "name_ko": "파우더 힐",
+        "effect": "Once during your turn, you may heal 20 damage from each of your Pokémon.",
+        "effect_ko": "자신의 차례에 1번 사용할 수 있다. 자신의 포켓몬 전원의 HP를 20회복."
+      }
+    ],
+    "evolvesFrom": "Metapod",
+    "rarity": null
+  },
+  {
+    "code": "pa-103",
+    "name": "Moltres ex",
+    "name_ko": "파이어 ex",
+    "element": "FIRE",
+    "type": "POKEMON",
+    "subtype": "BASIC",
+    "health": 140,
+    "set": "test (T9)",
+    "pack": null,
+    "attacks": [
+      {
+        "name": "Inferno Dance",
+        "name_ko": "열화의춤",
+        "effect": "Flip 3 coins. Take an amount of Fire Energy from your Energy Zone equal to the number of heads and attach it to your Benched Fire Pokémon in any way you like.",
+        "effect_ko": "동전을 3번 던져서 앞면이 나온 수만큼의 불에너지를 자신의 에너지존에서 내보내 벤치의 불포켓몬에게 원하는 대로 붙인다.",
+        "damage": "",
+        "cost": [
+          "FIRE"
+        ]
+      },
+      {
+        "name": "Heat Blast",
+        "name_ko": "히트블라스트",
+        "damage": "70",
+        "cost": [
+          "FIRE",
+          "COLORLESS",
+          "COLORLESS"
+        ]
+      }
+    ],
+    "retreatCost": 2,
+    "weakness": "LIGHTNING",
+    "abilities": [],
+    "evolvesFrom": null,
+    "rarity": null
+  }
+]

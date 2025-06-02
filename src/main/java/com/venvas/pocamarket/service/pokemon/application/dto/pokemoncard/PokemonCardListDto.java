@@ -8,14 +8,14 @@ import lombok.Getter;
 public class PokemonCardListDto {
 
     @NotEmpty
-    private String code;
-    private String nameKo;
-    private String element;
-    private String type;
-    private String subtype;
-    private String packSet;
-    private String pack;
-    private String rarity;
+    private final String code;
+    private final String nameKo;
+    private final String element;
+    private final String type;
+    private final String subtype;
+    private final String packSet;
+    private final String pack;
+    private final String rarity;
 
     @QueryProjection
     public PokemonCardListDto(String code, String nameKo, String element, String type, String subtype, String packSet, String pack, String rarity) {

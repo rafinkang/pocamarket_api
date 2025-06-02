@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardJsonDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,12 +14,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import jakarta.persistence.Index;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 포켓몬 카드 엔티티
  * 포켓몬 카드의 기본 정보를 저장하는 테이블과 매핑되는 엔티티 클래스
  */
+@Slf4j
 @Entity
 @Table(name = "pokemon_card", indexes = {
     @Index(name = "idx_pokemon_card_code", columnList = "code")
@@ -167,7 +172,7 @@ public class PokemonCard {
     @OneToMany(mappedBy = "pokemonCard", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PokemonAbility> abilities = new ArrayList<>();
 
-    public PokemonCard(PokemonCardDto dto, List<PokemonAttack> attackList, List<PokemonAbility> abilityList) {
+    public PokemonCard(PokemonCardJsonDto dto, List<PokemonAttack> attackList, List<PokemonAbility> abilityList) {
         this.code = dto.code();
         this.name = dto.name();
         this.nameKo = dto.name_ko();
@@ -184,4 +189,78 @@ public class PokemonCard {
         this.attacks = attackList;
         this.abilities = abilityList;
     }
-} 
+
+    public void updateFrom(PokemonCard newCard) {
+        this.name = newCard.getName();
+        this.nameKo = newCard.getNameKo();
+        this.element = newCard.getElement();
+        this.type = newCard.getType();
+        this.subtype = newCard.getSubtype();
+        this.health = newCard.getHealth();
+        this.packSet = newCard.getPackSet();
+        this.pack = newCard.getPack();
+        this.retreatCost = newCard.getRetreatCost();
+        this.weakness = newCard.getWeakness();
+        this.evolvesFrom = newCard.getEvolvesFrom();
+        this.rarity = newCard.getRarity();
+        this.attacks = new ArrayList<>(this.attacks);
+        this.abilities = new ArrayList<>(this.abilities);
+
+        // 공격(Attacks) 갱신
+        if(newCard.getAttacks() != null) {
+            updateChildList(
+                    this.attacks,
+                    new ArrayList<>(newCard.getAttacks()),
+                    PokemonAttack::getName,
+                    (existing, newItem) -> existing.updateFrom(newItem, this)
+            );
+        } else {
+            this.attacks.clear();
+        }
+
+        // 특성(Abilities) 갱신
+        if(newCard.getAbilities() != null) {
+            updateChildList(
+                    this.abilities,
+                    new ArrayList<>(newCard.getAbilities()),
+                    PokemonAbility::getName,
+                    (existing, newItem) -> existing.updateFrom(newItem, this)
+            );
+        } else {
+            this.abilities.clear();
+        }
+    }
+
+    /**
+     * 연관 엔티티 리스트를 키값 기준으로 갱신하는 범용 메서드
+     * @param originList 기존 리스트(영속 상태)
+     * @param newList    새 값 리스트
+     * @param keyGetter  비교 기준이 되는 키 추출 함수
+     * @param updater    기존 객체에 새 객체 값을 복사하는 함수
+     * @param <T>        엔티티 타입
+     */
+    private <T> void updateChildList(
+            List<T> originList,
+            List<T> newList,
+            java.util.function.Function<T, String> keyGetter,
+            java.util.function.BiConsumer<T, T> updater
+    ) {
+        Map<String, T> existingMap = originList.stream()
+                .filter(e -> keyGetter.apply(e) != null)
+                .collect(Collectors.toMap(keyGetter, e -> e));
+
+        originList.clear();
+
+        for (T newItem : newList) {
+            String key = keyGetter.apply(newItem);
+            if (key == null) continue;
+            T existing = existingMap.get(key);
+            if (existing != null) {
+                updater.accept(existing, newItem);
+                originList.add(existing);
+            } else {
+                originList.add(newItem);
+            }
+        }
+    }
+}

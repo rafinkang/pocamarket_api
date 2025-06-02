@@ -1,14 +1,22 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
+import com.venvas.pocamarket.common.aop.trim.TrimInput;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.common.util.ApiResponse;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokeCardSearchListFilterCondition;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
-import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService2;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
+import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
+import com.venvas.pocamarket.service.pokemon.api.validator.PokemonStrParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +26,8 @@ import java.util.List;
  * 포켓몬 카드 컨트롤러
  * 포켓몬 카드 관련 HTTP 요청을 처리하는 REST 컨트롤러
  */
+@Tag(name = "PokemonCard-API", description = "포켓몬 카드 관련 API")
+@TrimInput
 @RestController
 @RequestMapping("/api/pokemon-cards")
 @RequiredArgsConstructor
@@ -25,88 +35,54 @@ public class PokemonCardController {
     
     private final PokemonCardService pokemonCardService;
     private final PokemonCardUpdateService pokemonCardUpdateService;
-    private final PokemonCardUpdateService2 pokemonCardUpdateService2;
-    
-    /**
-     * 모든 포켓몬 카드를 조회하는 엔드포인트
-     * @return 전체 포켓몬 카드 목록
-     */
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> getAllCards() {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getAllCards()));
-    }
-    
-    /**
-     * 카드 코드로 특정 포켓몬 카드를 조회하는 엔드포인트
-     * @param code 카드 코드
-     * @return 조회된 포켓몬 카드 (존재하지 않는 경우 404 응답)
-     */
-    @GetMapping("/code/{code}")
-    public ResponseEntity<ApiResponse<PokemonCard>> getCardByCode(@PathVariable String code) {
-        return pokemonCardService.getCardByCode(code)
-                .map(card -> ResponseEntity.ok(ApiResponse.success(card)))
-                .orElse(ResponseEntity.ok(ApiResponse.error("Card not found with code: " + code, "CARD_NOT_FOUND")));
-    }
-    
-    /**
-     * 한글 이름으로 포켓몬 카드를 검색하는 엔드포인트
-     * @param name 검색할 한글 이름
-     * @return 검색된 포켓몬 카드 목록
-     */
-    @GetMapping("/search")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> searchByName(@RequestParam String name) {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.searchByName(name)));
-    }
-    
-    /**
-     * 특정 속성의 포켓몬 카드를 조회하는 엔드포인트
-     * @param element 포켓몬 속성
-     * @return 조회된 포켓몬 카드 목록
-     */
-    @GetMapping("/element/{element}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> getCardsByElement(@PathVariable String element) {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getCardsByElement(element)));
-    }
-    
-    /**
-     * 특정 확장팩의 포켓몬 카드를 조회하는 엔드포인트
-     * @param packSet 확장팩 이름
-     * @return 조회된 포켓몬 카드 목록
-     */
-    @GetMapping("/pack-set/{packSet}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> getCardsByPackSet(@PathVariable String packSet) {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getCardsByPackSet(packSet)));
-    }
-    
-    /**
-     * 특정 레어도의 포켓몬 카드를 조회하는 엔드포인트
-     * @param rarity 카드 레어도
-     * @return 조회된 포켓몬 카드 목록
-     */
-    @GetMapping("/rarity/{rarity}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> getCardsByRarity(@PathVariable String rarity) {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getCardsByRarity(rarity)));
-    }
 
     @GetMapping("/list")
-    public ResponseEntity<ApiResponse<List<PokemonCardListDto>>> getListData(@ModelAttribute PokeCardSearchListFilterCondition condition) {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition)));
+    @Operation(summary = "포켓몬 리스트", description = "filter 값에 따라 포켓몬 리스트를 조회 API")
+    public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getPokemonCardListData(
+            @ModelAttribute @Valid PokemonCardListFormDto condition,
+            @PageableDefault(size = 30)Pageable pageable
+    ) {
+        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
     }
 
-    @PostMapping("/update/card/{version}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(@PathVariable String version) {
-        return ResponseEntity.ok(pokemonCardUpdateService.updateJsonData(version));
+    @GetMapping("/detail/{code}")
+    @Operation(summary = "포켓몬 디테일", description = "code로 포켓몬의 자세한 값을 가져오는 API")
+    public ResponseEntity<ApiResponse<PokemonCardDetailDto>> getPokemonDataByCode(
+            @PathVariable
+            @PokemonStrParam(
+                    errorCode = PokemonErrorCode.POKEMON_CODE_INVALID,
+                    pattern = "^\\w{2,3}-[0-9]{3}$"
+            ) String code
+    ) {
+        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getCardByCode(code)));
     }
 
-
-    @PostMapping("/update/card2/{version}")
-    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard2(@PathVariable String version) {
-        try {
-            List<PokemonCard> updatedCards = pokemonCardUpdateService2.updateJsonData(version);
-            return ResponseEntity.ok(ApiResponse.success(updatedCards));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.error("Failed to update cards: " + e.getMessage(), "UPDATE_FAILED"));
-        }
+    @PostMapping("/update/card/{fileName}/{packSet}")
+    @Operation(summary = "포켓몬 데이터 update", description = "포켓몬 json 데이터 DB에 update")
+    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard(
+            @PathVariable
+            @PokemonStrParam(
+                    errorCode = PokemonErrorCode.POKEMON_FILE_NAME_INVALID,
+                    pattern = "^[\\w\\-]+$"
+            ) String fileName,
+            @PathVariable
+            @PokemonStrParam(
+                    errorCode = PokemonErrorCode.POKEMON_PARAM_EMPTY,
+                    pattern = "^[a-zA-Z0-9]{1,3}$"
+            ) String packSet
+    ) {
+        List<PokemonCard> result = pokemonCardUpdateService.upsertJsonData(fileName, packSet);
+        return ResponseEntity.ok(ApiResponse.success(result, "카드가 데이터가 성공적으로 업데이트 되었습니다."));
     }
+
+//    @PostMapping("/update/card2/{version}")
+//    public ResponseEntity<ApiResponse<List<PokemonCard>>> updateCard2(@PathVariable String version) {
+//        try {
+//            List<PokemonCard> updatedCards = pokemonCardUpdateService2.updateJsonData(version);
+//            return ResponseEntity.ok(ApiResponse.success(updatedCards));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(ApiResponse.error("Failed to update cards: " + e.getMessage(), "UPDATE_FAILED"));
+//        }
+//    }
 } 

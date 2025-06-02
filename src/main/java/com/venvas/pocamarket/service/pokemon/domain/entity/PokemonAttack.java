@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.AttacksDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackJsonDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -78,7 +78,7 @@ public class PokemonAttack {
     @JoinColumn(name = "card_code", nullable = false, insertable = false, updatable = false)
     private PokemonCard pokemonCard;
 
-    public PokemonAttack(AttacksDto dto, String cardCode) {
+    public PokemonAttack(PokemonAttackJsonDto dto, String cardCode) {
         this.cardCode = cardCode;
         this.name = dto.name();
         this.nameKo = dto.name_ko();
@@ -86,5 +86,28 @@ public class PokemonAttack {
         this.effectKo = dto.effect_ko();
         this.damage = dto.damage();
         this.cost = String.join(",", dto.cost());
+    }
+
+    public PokemonAttack(Long attackId, String cardCode, String name, String nameKo, String effect, String effectKo, String damage, String cost) {
+        this.attackId = attackId;
+        this.cardCode = cardCode;
+        this.name = name;
+        this.nameKo = nameKo;
+        this.effect = effect;
+        this.effectKo = effectKo;
+        this.damage = damage;
+        this.cost = cost;
+    }
+
+    public void updateFrom(PokemonAttack newAttack, PokemonCard pokemonCard) {
+        // this.attackId = newAttack.getAttackId(); // PK는 변경하지 않음
+        // this.cardCode = newAttack.getCardCode(); // 연관키도 변경하지 않음
+        this.name = newAttack.getName();
+        this.nameKo = newAttack.getNameKo();
+        this.effect = newAttack.getEffect();
+        this.effectKo = newAttack.getEffectKo();
+        this.damage = newAttack.getDamage();
+        this.cost = newAttack.getCost();
+        this.pokemonCard = pokemonCard;
     }
 }

@@ -1,30 +1,34 @@
 package com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityDetailDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackDetailDto;
 import lombok.Getter;
+import lombok.ToString;
 
-/*
-    TODO : 기술, 특성 관련 데이터도 넣어줘야함.
- */
+import java.util.List;
 
 @Getter
+@ToString
 public class PokemonCardDetailDto {
 
-    private String code;
-    private String nameKo;
-    private String element;
-    private String type;
-    private String subtype;
-    private Integer health;
-    private String packSet;
-    private String pack;
-    private Integer retreatCost;
-    private String weakness;
-    private String evolvesFrom;
-    private String rarity;
+    private final String code;
+    private final String nameKo;
+    private final String element;
+    private final String type;
+    private final String subtype;
+    private final Integer health;
+    private final String packSet;
+    private final String pack;
+    private final Integer retreatCost;
+    private final String weakness;
+    private final String evolvesFrom;
+    private final String rarity;
+    private final List<PokemonAttackDetailDto> attackList;
+    private final List<PokemonAbilityDetailDto> abilityList;
 
     @QueryProjection
-    public PokemonCardDetailDto(String code, String nameKo, String element, String type, String subtype, Integer health, String packSet, String pack, Integer retreatCost, String weakness, String evolvesFrom, String rarity) {
+    public PokemonCardDetailDto(String code, String nameKo, String element, String type, String subtype, Integer health, String packSet, String pack, Integer retreatCost, String weakness, String evolvesFrom, String rarity, List<PokemonAttackDetailDto> attackList, List<PokemonAbilityDetailDto> abilityList) {
         this.code = code;
         this.nameKo = nameKo;
         this.element = element;
@@ -37,5 +41,7 @@ public class PokemonCardDetailDto {
         this.weakness = weakness;
         this.evolvesFrom = evolvesFrom;
         this.rarity = rarity;
+        this.attackList = attackList;
+        this.abilityList = abilityList;
     }
 }

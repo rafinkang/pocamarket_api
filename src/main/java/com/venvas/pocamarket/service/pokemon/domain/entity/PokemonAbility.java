@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.AbilityDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityJsonDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -65,11 +65,30 @@ public class PokemonAbility {
     @JoinColumn(name = "card_code", insertable = false, updatable = false)
     private PokemonCard pokemonCard;
 
-    public PokemonAbility(AbilityDto dto, String cardCode) {
+    public PokemonAbility(PokemonAbilityJsonDto dto, String cardCode) {
         this.cardCode = cardCode;
         this.name = dto.name();
         this.nameKo = dto.name_ko();
         this.effect = dto.effect();
         this.effectKo = dto.effect_ko();
     }
-} 
+
+    public PokemonAbility(Long abilityId, String cardCode, String name, String nameKo, String effect, String effectKo) {
+        this.abilityId = abilityId;
+        this.cardCode = cardCode;
+        this.name = name;
+        this.nameKo = nameKo;
+        this.effect = effect;
+        this.effectKo = effectKo;
+    }
+
+    public void updateFrom(PokemonAbility newAbility, PokemonCard pokemonCard) {
+        // this.abilityId = newAbility.getAbilityId(); // PK는 변경하지 않음
+        // this.cardCode = newAbility.getCardCode();   // 연관키도 변경하지 않음
+        this.name = newAbility.getName();
+        this.nameKo = newAbility.getNameKo();
+        this.effect = newAbility.getEffect();
+        this.effectKo = newAbility.getEffectKo();
+        this.pokemonCard = pokemonCard;
+    }
+}
