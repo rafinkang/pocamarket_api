@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * RefreshToken 엔티티에 대한 QueryDSL 커스텀 리포지토리 구현체
@@ -25,17 +26,17 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepositoryCustom 
      * @return 유효한 리프레쉬 토큰 목록
      */
     @Override
-    public List<RefreshToken> findValidTokensByUuid(String uuid, LocalDateTime currentTime) {
+    public Optional<RefreshToken> findValidTokensByUuid(String uuid, LocalDateTime currentTime) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
         QRefreshToken refreshToken = QRefreshToken.refreshToken;
         
         // String 타입 uuid로 변경되었으므로 문자열 비교 수행
-        return queryFactory
+        return Optional.ofNullable(queryFactory
                 .selectFrom(refreshToken)
                 .where(refreshToken.uuid.eq(uuid)
                         .and(refreshToken.revoked.eq(false))
                         .and(refreshToken.expiresAt.gt(currentTime)))
-                .fetch();
+                .fetchFirst());
     }
     
     /**

@@ -4,6 +4,7 @@ import com.venvas.pocamarket.service.user.domain.entity.RefreshToken;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * RefreshToken 엔티티에 대한 QueryDSL 커스텀 리포지토리 인터페이스
@@ -17,7 +18,7 @@ public interface RefreshTokenRepositoryCustom {
      * @param currentTime 현재 시간
      * @return 유효한 리프레쉬 토큰 목록
      */
-    List<RefreshToken> findValidTokensByUuid(String uuid, LocalDateTime currentTime);
+    Optional<RefreshToken> findValidTokensByUuid(String uuid, LocalDateTime currentTime);
     
     /**
      * 만료된 리프레쉬 토큰을 모두 조회합니다.

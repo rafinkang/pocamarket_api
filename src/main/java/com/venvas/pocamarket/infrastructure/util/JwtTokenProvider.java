@@ -2,7 +2,6 @@ package com.venvas.pocamarket.infrastructure.util;
 
 
 import com.venvas.pocamarket.infrastructure.config.JwtProperties;
-import com.venvas.pocamarket.service.user.application.dto.JwtToken;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
@@ -30,26 +29,29 @@ public class JwtTokenProvider {
         this.refreshTokenExpireTime = new Date(System.currentTimeMillis() + jwtProperties.getRefreshTokenValidityInMs());
     }
 
-    // 1. 토큰 생성
-    public JwtToken createToken(User user) {
-        String accessToken = createAccessToken(user.getUuid(), user.getNickname(), user.getGrade().name());
-        String refreshToken = createRefreshToken(user.getUuid(), user.getNickname());
-
-        return JwtToken.builder()
-                .grantType("Bearer") // HTTP 요청의 Authorization 헤더에 포함해서 전송
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+    public String createAccessToken(String uuid, String grade) {
+        return Jwts.builder() // JWT 토큰 빌더 생성
+            .setSubject("accessToken") // 토큰 제목(subject)으로 사용자 ID 설정
+            .claim("uuid", uuid) // 사용자 uuid를 클레임으로 추가
+            .claim("grade", grade) // 사용자 등급을 클레임으로 추가
+            .setIssuedAt(new Date()) // 토큰 발급 시간 설정
+            .setExpiration(accessTokenExpireTime) // 토큰 만료 시간 설정
+            .signWith(key, SignatureAlgorithm.HS256) // HS256 알고리즘과 시크릿 키로 서명
+            .compact(); // 최종적으로 토큰 문자열로 변환
     }
 
-    // 2. uuid 추출
+    public String createRefreshToken(String uuid) {
+        return Jwts.builder()
+                .setSubject("refreshToken")
+                .claim("uuid", uuid) // 사용자 uuid를 클레임으로 추가
+                .setIssuedAt(new Date())
+                .setExpiration(refreshTokenExpireTime)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     public String getUuid(String token) {
-        log.info("토큰 파싱 바디 값 : {}", getAllClaimsFromToken(token).toString());
         return getAllClaimsFromToken(token).get("uuid", String.class);
-    }
-
-    public String getNickname(String token) {
-        return getAllClaimsFromToken(token).get("nickname", String.class);
     }
 
     public String getGrade(String token) {
@@ -70,12 +72,8 @@ public class JwtTokenProvider {
     }
 
     // 4. Request에서 토큰 추출
-    public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
-        }
-        return null;
+    public String resolveToken(HttpServletRequest req, String tokenType) {
+        return CookieUtil.getCookieValue(req, tokenType);
     }
 
     private Claims getAllClaimsFromToken(String token) {
@@ -84,32 +82,6 @@ public class JwtTokenProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-    }
-
-    private String createAccessToken(String uuId, String nickname, String grade) {
-        return Jwts.builder() // JWT 토큰 빌더 생성
-//            .setSubject(user.getId().toString()) // 토큰 제목(subject)으로 사용자 ID 설정
-            .setSubject("AccessToken") // 토큰 제목(subject)으로 사용자 ID 설정
-//            .claim("auth", authorities)
-            .claim("uuid", uuId) // 사용자 uuid를 클레임으로 추가
-            .claim("nickname", nickname) // 사용자 닉네임을 클레임으로 추가
-            .claim("grade", grade) // 사용자 등급을 클레임으로 추가
-            .setIssuedAt(new Date()) // 토큰 발급 시간 설정
-            .setExpiration(accessTokenExpireTime) // 토큰 만료 시간 설정
-            .signWith(key, SignatureAlgorithm.HS256) // HS256 알고리즘과 시크릿 키로 서명
-            .compact(); // 최종적으로 토큰 문자열로 변환
-    }
-
-    private String createRefreshToken(String uuId, String nickname) {
-        return Jwts.builder()
-//                .setHeaderParams(Map.of("typ", "JWT"))
-                .setSubject("RefreshToken")
-                .claim("uuid", uuId) // 사용자 uuid를 클레임으로 추가
-                .claim("nickname", nickname) // 사용자 닉네임을 클레임으로 추가
-                .setIssuedAt(new Date())
-                .setExpiration(refreshTokenExpireTime)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
     }
 
     private void validateUserStatus(User user) {
