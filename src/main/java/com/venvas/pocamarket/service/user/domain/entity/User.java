@@ -12,9 +12,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
 import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +32,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class User {
+public class User implements UserDetails {
     /**
      * 사용자 고유 식별자 (PK)
      */
@@ -307,5 +311,20 @@ public class User {
      */
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.getGrade().name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return getUuid();
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 }

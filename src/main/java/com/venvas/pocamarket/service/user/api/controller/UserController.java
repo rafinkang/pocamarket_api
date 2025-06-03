@@ -19,8 +19,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Map;
 
 
@@ -146,5 +150,21 @@ public class UserController {
                 .build();
         
         return ResponseEntity.ok(ApiResponse.success(response, "로그인에 성공하였습니다."));
+    }
+
+    @GetMapping("/tokenTest")
+    public ResponseEntity<ApiResponse<String>> tokenTest(Authentication authentication) {
+        if(authentication == null) {
+            return ResponseEntity.ok(ApiResponse.success("ok", "인증에 실패했습니다."));
+        }
+        User principal = (User) authentication.getPrincipal(); // user 정보
+        Object credentials = authentication.getCredentials();// 비번 (JWT는 null)
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities(); // 권한
+        log.info("test UUID = {}", principal.getUuid());
+        log.info("test credentials = {}", credentials);
+        for (Object o : authorities.toArray()) {
+            log.info("test authorities = {}", authorities);
+        }
+        return ResponseEntity.ok(ApiResponse.success("ok", "테스트 성공하였습니다."));
     }
 }
