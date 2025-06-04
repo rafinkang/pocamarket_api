@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 리프레쉬 토큰 엔티티
@@ -32,10 +32,12 @@ public class RefreshToken {
     private String token;
 
     @Column(name = "issued_at", nullable = false)
-    private LocalDateTime issuedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date issuedAt;
 
     @Column(name = "expires_at", nullable = false)
-    private LocalDateTime expiresAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expiresAt;
 
     @Column(name = "revoked", columnDefinition = "TINYINT(1) DEFAULT 0")
     private Boolean revoked = false;
@@ -43,14 +45,14 @@ public class RefreshToken {
     /**
      * 리프레쉬 토큰 생성
      *
-     * @param uuid 사용자 UUID
-     * @param token 리프레쉬 토큰 문자열
-     * @param issuedAt 발급 시각
+     * @param uuid      사용자 UUID
+     * @param token     리프레쉬 토큰 문자열
+     * @param issuedAt  발급 시각
      * @param expiresAt 만료 시각
      * @return 생성된 리프레쉬 토큰 엔티티
      */
     @Builder
-    public RefreshToken(String uuid, String token, LocalDateTime issuedAt, LocalDateTime expiresAt) {
+    public RefreshToken(String uuid, String token, Date issuedAt, Date expiresAt) {
         this.uuid = uuid;
         this.token = token;
         this.issuedAt = issuedAt;
@@ -71,7 +73,7 @@ public class RefreshToken {
      * @param currentTime 현재 시간
      * @return 유효 여부
      */
-    public boolean isValid(LocalDateTime currentTime) {
-        return !revoked && currentTime.isBefore(expiresAt);
+    public boolean isValid(Date currentTime) {
+        return !revoked && !expiresAt.before(currentTime);
     }
 }

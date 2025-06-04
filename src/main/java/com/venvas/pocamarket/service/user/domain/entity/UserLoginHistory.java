@@ -1,12 +1,12 @@
 package com.venvas.pocamarket.service.user.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 사용자 로그인 이력을 관리하는 엔티티
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "user_login_history")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserLoginHistory {
     /**
      * 로그인 이력 고유 식별자 (PK)
@@ -37,8 +37,9 @@ public class UserLoginHistory {
      * 로그인 시도 일시
      */
     @CreationTimestamp
-    @Column(name = "login_at", updatable = false)
-    private LocalDateTime loginAt;
+    @Column(name = "login_at", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date loginAt;
 
     /**
      * 로그인 시도 IP 주소 (IPv6 포함)
@@ -65,4 +66,4 @@ public class UserLoginHistory {
      */
     @Column(name = "fail_reason", length = 100)
     private String failReason;
-} 
+}

@@ -1,6 +1,8 @@
 package com.venvas.pocamarket.service.user.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.venvas.pocamarket.service.user.domain.entity.User;
+import com.venvas.pocamarket.service.user.domain.entity.UserLoginHistory;
 import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
 import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
 import lombok.AllArgsConstructor;
@@ -8,7 +10,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.http.ResponseCookie;
 
@@ -27,20 +30,29 @@ public class UserLoginResponse {
     private UserStatus status;
     private UserGrade grade;
     private boolean emailVerified;
-    private String accessToken; // JWT 토큰 (실제 인증 시스템에 따라 달라질 수 있음)
-    private String refreshToken; // JWT 토큰 (실제 인증 시스템에 따라 달라질 수 있음)
+    private String accessToken;
+    private String refreshToken;
     private ResponseCookie accessTokenCookie;
     private ResponseCookie refreshTokenCookie;
-    private LocalDateTime lastLoginAt;
-    
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
+    private Date lastLoginAt;
+
     /**
      * User 엔티티로부터 응답 객체 생성
      * 
-     * @param user 사용자 엔티티
+     * @param user  사용자 엔티티
      * @param token 인증 토큰
      * @return 로그인 응답 DTO
      */
-    public static UserLoginResponse from(User user, String accessToken, String refreshToken, ResponseCookie accessTokenCookie, ResponseCookie refreshTokenCookie) {
+    public static UserLoginResponse from(User user, String accessToken, String refreshToken,
+            ResponseCookie accessTokenCookie, ResponseCookie refreshTokenCookie) {
+        // 마지막 로그인 시간 계산 (성공한 로그인 중 가장 최근)
+        Optional<Date> lastLoginDate = user.getLoginHistories().stream()
+                .filter(UserLoginHistory::getSuccess)
+                .map(UserLoginHistory::getLoginAt)
+                .max(Date::compareTo);
+
         return UserLoginResponse.builder()
                 .userId(user.getId())
                 .loginId(user.getLoginId())
@@ -53,11 +65,7 @@ public class UserLoginResponse {
                 .refreshToken(refreshToken)
                 .accessTokenCookie(accessTokenCookie)
                 .refreshTokenCookie(refreshTokenCookie)
-                .lastLoginAt(user.getLoginHistories().stream()
-                        .filter(history -> Boolean.TRUE.equals(history.getSuccess()))
-                        .map(history -> history.getLoginAt())
-                        .max(LocalDateTime::compareTo)
-                        .orElse(null))
+                .lastLoginAt(lastLoginDate.orElse(null))
                 .build();
     }
 }

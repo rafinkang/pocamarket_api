@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
+
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +27,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
 
@@ -67,8 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             } else if (refreshToken != null && refreshTokenErrorCode == null) {
                 // 리프레시 토큰이 유효한 경우, 새로운 액세스 토큰 발급 로직 추가 가능
                 // refresh_token 테이블에 uuid 기준으로 조회
-                refreshTokenRepository.findValidTokensByUuid(jwtTokenProvider.getUuid(refreshToken),
-                                new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
+                refreshTokenRepository.findValidTokensByUuid(jwtTokenProvider.getUuid(refreshToken), new Date())
                         .ifPresentOrElse(
                                 token -> {
                                     // 유효한 리프레시 토큰이 있는 경우
