@@ -35,7 +35,7 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "User-API", description = "유저 관련 API")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -46,65 +46,11 @@ public class UserController {
      * @param request 사용자 생성 요청 데이터
      * @return 생성된 사용자 정보와 성공 메시지
      */
-    @PostMapping("")
+    @PostMapping("/register")
     public ResponseEntity<ApiResponse<User>> register(@Valid @RequestBody UserCreateRequest request) {
         log.info("사용자 생성 요청: loginId={}", request.getLoginId());
         User createdUser = userService.register(request);
         return ResponseEntity.ok(ApiResponse.success(createdUser, "사용자가 성공적으로 생성되었습니다."));
-    }
-
-    /**
-     * 현재 로그인한 사용자의 정보를 조회합니다.
-     * 
-     * @return 사용자 정보
-     */
-    @GetMapping("/me")
-    public ResponseEntity<ApiResponse<UserInfoResponse>> getMyInfo(
-            @AuthenticationPrincipal UserDetailDto userDetailDto) {
-
-        log.info("사용자 정보 조회: uuid={}", userDetailDto.getUuid());
-        UserInfoResponse userInfo = userService.getUserInfo(userDetailDto.getUuid());
-
-        return ResponseEntity.ok(ApiResponse.success(userInfo, "사용자 정보를 성공적으로 가져왔습니다."));
-    }
-
-    /**
-     * 현재 로그인한 사용자의 정보를 업데이트합니다.
-     * 
-     * @param request 사용자 정보 업데이트 요청
-     * @return 업데이트된 사용자 정보
-     */
-    @PutMapping("/me")
-    public ResponseEntity<ApiResponse<UserInfoResponse>> updateMyInfo(@Valid @RequestBody UserUpdateRequest request,
-            @AuthenticationPrincipal UserDetailDto userDetailDto) {
-        String uuid = userDetailDto.getUuid();
-
-        log.info("사용자 정보 업데이트: uuid={}", uuid);
-        UserInfoResponse updatedUserInfo = userService.updateUserInfo(uuid, request);
-
-        return ResponseEntity.ok(ApiResponse.success(updatedUserInfo, "사용자 정보가 성공적으로 업데이트되었습니다."));
-    }
-
-    /**
-     * 현재 로그인한 사용자의 계정을 삭제(탈퇴)합니다.
-     * 
-     * @param request 계정 삭제 요청(비밀번호 포함)
-     * @return 삭제 결과 메시지
-     */
-    @DeleteMapping("/me")
-    public ResponseEntity<ApiResponse<Void>> deleteMyInfo(@RequestBody Map<String, String> request,
-            @AuthenticationPrincipal UserDetailDto userDetailDto) {
-        String uuid = userDetailDto.getUuid();
-        String password = request.get("password");
-
-        if (password == null || password.isEmpty()) {
-            throw new UserException(UserErrorCode.INVALID_PASSWORD);
-        }
-
-        log.info("사용자 계정 삭제: uuid={}", uuid);
-        userService.deleteUserAccount(uuid, password);
-
-        return ResponseEntity.ok(ApiResponse.success(null, "회원 탈퇴가 성공적으로 처리되었습니다."));
     }
 
     /**
@@ -143,7 +89,61 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(response, "로그인에 성공하였습니다."));
     }
 
-    @GetMapping("/tokenTest")
+    /**
+     * 현재 로그인한 사용자의 정보를 조회합니다.
+     * 
+     * @return 사용자 정보
+     */
+    @GetMapping("/api/user/me")
+    public ResponseEntity<ApiResponse<UserInfoResponse>> getMyInfo(
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+
+        log.info("사용자 정보 조회: uuid={}", userDetailDto.getUuid());
+        UserInfoResponse userInfo = userService.getUserInfo(userDetailDto.getUuid());
+
+        return ResponseEntity.ok(ApiResponse.success(userInfo, "사용자 정보를 성공적으로 가져왔습니다."));
+    }
+
+    /**
+     * 현재 로그인한 사용자의 정보를 업데이트합니다.
+     * 
+     * @param request 사용자 정보 업데이트 요청
+     * @return 업데이트된 사용자 정보
+     */
+    @PutMapping("/api/user/me")
+    public ResponseEntity<ApiResponse<UserInfoResponse>> updateMyInfo(@Valid @RequestBody UserUpdateRequest request,
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+        String uuid = userDetailDto.getUuid();
+
+        log.info("사용자 정보 업데이트: uuid={}", uuid);
+        UserInfoResponse updatedUserInfo = userService.updateUserInfo(uuid, request);
+
+        return ResponseEntity.ok(ApiResponse.success(updatedUserInfo, "사용자 정보가 성공적으로 업데이트되었습니다."));
+    }
+
+    /**
+     * 현재 로그인한 사용자의 계정을 삭제(탈퇴)합니다.
+     * 
+     * @param request 계정 삭제 요청(비밀번호 포함)
+     * @return 삭제 결과 메시지
+     */
+    @DeleteMapping("/api/user/me")
+    public ResponseEntity<ApiResponse<Void>> deleteMyInfo(@RequestBody Map<String, String> request,
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+        String uuid = userDetailDto.getUuid();
+        String password = request.get("password");
+
+        if (password == null || password.isEmpty()) {
+            throw new UserException(UserErrorCode.INVALID_PASSWORD);
+        }
+
+        log.info("사용자 계정 삭제: uuid={}", uuid);
+        userService.deleteUserAccount(uuid, password);
+
+        return ResponseEntity.ok(ApiResponse.success(null, "회원 탈퇴가 성공적으로 처리되었습니다."));
+    }
+
+    @GetMapping("/api/user/tokenTest")
     public ResponseEntity<ApiResponse<String>> tokenTest(Authentication authentication) {
         if (authentication == null) {
             return ResponseEntity.ok(ApiResponse.success("ok", "인증에 실패했습니다."));

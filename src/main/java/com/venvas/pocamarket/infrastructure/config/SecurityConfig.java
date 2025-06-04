@@ -83,8 +83,8 @@ public class SecurityConfig {
 
                         // 로그인 인증 체크
                         .requestMatchers(
-                                "/api/users/tokenTest",
-                                "/api/users/me")
+                                "/api/user/**",
+                                "/api/auth/**")
                         .authenticated()
 
                         // ADMIN 권한 체크
@@ -98,9 +98,7 @@ public class SecurityConfig {
 
                         // 인증 없이 접근 가능 (permitAll)
                         .requestMatchers(
-                                "/api/**",
-                                "/api/users", // 회원가입
-                                "/api/users/login" // 로그인
+                                "/**"
                         )
                         .permitAll()
                         // 그 외 모든 요청은 인증 필요
