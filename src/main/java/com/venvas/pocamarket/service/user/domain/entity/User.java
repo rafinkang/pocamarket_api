@@ -98,11 +98,11 @@ public class User {
 
     /**
      * 사용자 권한 등급
-     * REGULAR: 일반 사용자, PREMIUM: 프리미엄, VIP: VIP, ADMIN: 관리자
+     * LV01: 일반 사용자, LV02: 프리미엄, LV03: VIP, ADMIN: 관리자
      */
     @Column(name = "grade")
     @Builder.Default
-    private Integer gradeCode = UserGrade.REGULAR.getCode();
+    private Integer gradeCode = UserGrade.LV01.getCode();
     
     @Transient // DB에 저장하지 않는 필드
     private transient UserGrade grade;
@@ -200,7 +200,7 @@ public class User {
                 
         // 열거형 값 명시적 설정
         user.setStatus(UserStatus.ACTIVE);
-        user.setGrade(UserGrade.REGULAR);
+        user.setGrade(UserGrade.LV01);
         
         return user;
     }

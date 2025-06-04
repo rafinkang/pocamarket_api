@@ -70,7 +70,7 @@ class UserTest {
             assertThat(user.getPhone()).isEqualTo("010-1234-5678");  // 전화번호 확인
             assertThat(user.getEmailVerified()).isFalse();  // 초기 이메일 인증 상태는 false여야 함
             assertThat(user.getStatus()).isEqualTo(UserStatus.ACTIVE);  // 초기 상태는 ACTIVE여야 함
-            assertThat(user.getGrade()).isEqualTo(UserGrade.REGULAR);  // 초기 등급은 REGULAR여야 함
+            assertThat(user.getGrade()).isEqualTo(UserGrade.LV01);  // 초기 등급은 REGULAR여야 함
         }
     }
 
@@ -117,19 +117,19 @@ class UserTest {
             // given: 테스트를 위한 사전 조건 설정
             // VIP 등급 코드를 가진 사용자 엔티티 생성
             User user = User.builder()
-                    .gradeCode(UserGrade.VIP.getCode())  // VIP 등급 코드 설정
+                    .gradeCode(UserGrade.LV02.getCode())  // LV02 등급 코드 설정
                     .build();
 
             // when & then: 등급 코드로부터 열거형을 정확히 가져오는지 검증
             // getGrade()는 gradeCode를 사용하여 해당하는 UserGrade 열거형을 반환해야 함
-            assertThat(user.getGrade()).isEqualTo(UserGrade.VIP);  // 정수 코드로부터 열거형 변환 확인
+            assertThat(user.getGrade()).isEqualTo(UserGrade.LV02);  // 정수 코드로부터 열거형 변환 확인
 
             // when: 열거형을 통해 등급 변경
-            user.setGrade(UserGrade.REGULAR);  // 등급을 REGULAR로 변경
+            user.setGrade(UserGrade.LV01);  // 등급을 REGULAR로 변경
 
             // then: 열거형이 정수 코드로 정확히 변환되었는지 검증
-            assertThat(user.getGradeCode()).isEqualTo(UserGrade.REGULAR.getCode());  // 열거형이 코드로 변환되었는지 확인
-            assertThat(user.getGrade()).isEqualTo(UserGrade.REGULAR);  // 열거형 값도 정확한지 확인
+            assertThat(user.getGradeCode()).isEqualTo(UserGrade.LV01.getCode());  // 열거형이 코드로 변환되었는지 확인
+            assertThat(user.getGrade()).isEqualTo(UserGrade.LV01);  // 열거형 값도 정확한지 확인
         }
     }
 
