@@ -3,7 +3,6 @@ package com.venvas.pocamarket.infrastructure.util;
 
 import com.venvas.pocamarket.infrastructure.config.JwtProperties;
 import com.venvas.pocamarket.service.user.domain.exception.JwtErrorCode;
-import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;

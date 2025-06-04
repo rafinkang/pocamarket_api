@@ -11,8 +11,13 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackDetailDto;
-import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.*;
-import com.venvas.pocamarket.service.pokemon.domain.entity.*;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.QPokemonCardListDto;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.value.*;
@@ -21,7 +26,10 @@ import org.springframework.data.domain.*;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonAbility.pokemonAbility;
 import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonAttack.pokemonAttack;

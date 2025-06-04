@@ -8,8 +8,6 @@ import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
 import com.venvas.pocamarket.service.user.domain.exception.JwtCustomException;
 import com.venvas.pocamarket.service.user.domain.exception.JwtErrorCode;
-import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
-import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.RefreshTokenRepository;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 import io.jsonwebtoken.JwtException;
@@ -19,7 +17,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +25,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor

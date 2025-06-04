@@ -1,9 +1,6 @@
 package com.venvas.pocamarket.service.user.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.util.Date;
-import java.util.Optional;
-
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.entity.UserLoginHistory;
 import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
@@ -12,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
+import java.util.Optional;
 
 /**
  * 사용자 정보 응답 DTO

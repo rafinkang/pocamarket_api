@@ -9,11 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.http.ResponseCookie;
 
 import java.util.Date;
 import java.util.Optional;
-
-import org.springframework.http.ResponseCookie;
 
 /**
  * 사용자 로그인 응답 DTO

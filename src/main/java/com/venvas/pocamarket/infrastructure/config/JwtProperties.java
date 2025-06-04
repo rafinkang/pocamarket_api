@@ -1,10 +1,9 @@
 package com.venvas.pocamarket.infrastructure.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * JWT 관련 설정을 관리하는 클래스
