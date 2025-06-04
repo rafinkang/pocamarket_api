@@ -92,7 +92,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/api/pokemon-cards/update/card/*/*",
+                                "/api/pokemon-card/update/card/*/*",
                                 "/swagger-ui.html")
                         .hasRole("ADMIN")
 
