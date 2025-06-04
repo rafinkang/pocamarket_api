@@ -35,7 +35,7 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "User-API", description = "유저 관련 API")
 @RestController
-@RequestMapping("")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -94,7 +94,7 @@ public class UserController {
      * 
      * @return 사용자 정보
      */
-    @GetMapping("/api/user/me")
+    @GetMapping("/user/me")
     public ResponseEntity<ApiResponse<UserInfoResponse>> getMyInfo(
             @AuthenticationPrincipal UserDetailDto userDetailDto) {
 
@@ -110,7 +110,7 @@ public class UserController {
      * @param request 사용자 정보 업데이트 요청
      * @return 업데이트된 사용자 정보
      */
-    @PutMapping("/api/user/me")
+    @PutMapping("/user/me")
     public ResponseEntity<ApiResponse<UserInfoResponse>> updateMyInfo(@Valid @RequestBody UserUpdateRequest request,
             @AuthenticationPrincipal UserDetailDto userDetailDto) {
         String uuid = userDetailDto.getUuid();
@@ -127,7 +127,7 @@ public class UserController {
      * @param request 계정 삭제 요청(비밀번호 포함)
      * @return 삭제 결과 메시지
      */
-    @DeleteMapping("/api/user/me")
+    @DeleteMapping("/user/me")
     public ResponseEntity<ApiResponse<Void>> deleteMyInfo(@RequestBody Map<String, String> request,
             @AuthenticationPrincipal UserDetailDto userDetailDto) {
         String uuid = userDetailDto.getUuid();
@@ -143,7 +143,7 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(null, "회원 탈퇴가 성공적으로 처리되었습니다."));
     }
 
-    @GetMapping("/api/user/tokenTest")
+    @GetMapping("/user/tokenTest")
     public ResponseEntity<ApiResponse<String>> tokenTest(Authentication authentication) {
         if (authentication == null) {
             return ResponseEntity.ok(ApiResponse.success("ok", "인증에 실패했습니다."));
