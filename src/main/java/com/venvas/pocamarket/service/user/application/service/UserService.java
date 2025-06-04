@@ -337,26 +337,26 @@ public class UserService {
     /**
      * 현재 로그인한 사용자의 정보를 조회합니다.
      * 
-     * @param userId 현재 로그인한 사용자의 ID
+     * @param uuid 현재 로그인한 사용자의 UUID
      * @return 사용자 정보 응답 DTO
      * @throws UserException 사용자가 존재하지 않는 경우
      */
-    public UserInfoResponse getUserInfo(Long userId) {
-        User user = findUserById(userId);
+    public UserInfoResponse getUserInfo(String uuid) {
+        User user = findUserByUuid(uuid);
         return UserInfoResponse.from(user);
     }
     
     /**
      * 사용자 ID로 사용자를 조회합니다.
      * 
-     * @param userId 사용자 ID
+     * @param uuid 사용자 UUID
      * @return 사용자 엔티티
      * @throws UserException 사용자가 존재하지 않는 경우
      */
-    private User findUserById(Long userId) {
-        return userRepository.findById(userId)
+    private User findUserByUuid(String uuid) {
+        return userRepository.findByUuid(uuid)
                 .orElseThrow(() -> {
-                    log.warn("존재하지 않는 사용자 ID: {}", userId);
+                    log.warn("존재하지 않는 사용자 ID: {}", uuid);
                     return new UserException(UserErrorCode.USER_NOT_FOUND);
                 });
     }
@@ -364,13 +364,13 @@ public class UserService {
     /**
      * 사용자 정보를 업데이트합니다.
      * 
-     * @param userId 사용자 ID
+     * @param uuid 사용자 UUID
      * @param request 사용자 정보 업데이트 요청 DTO
      * @return 업데이트된 사용자 정보 응답 DTO
      * @throws UserException 사용자가 존재하지 않거나 데이터 유효성 검증에 실패한 경우
      */
-    public UserInfoResponse updateUserInfo(Long userId, UserUpdateRequest request) {
-        User user = findUserById(userId);
+    public UserInfoResponse updateUserInfo(String uuid, UserUpdateRequest request) {
+        User user = findUserByUuid(uuid);
         
         // 비밀번호 변경 처리
         if (StringUtils.hasText(request.getNewPassword())) {
@@ -424,13 +424,13 @@ public class UserService {
      * 사용자 계정을 삭제(비활성화)합니다.
      * 실제로 데이터베이스에서 삭제하지 않고 상태만 DELETED로 변경합니다.
      * 
-     * @param userId 사용자 ID
+     * @param uuid 사용자 UUID
      * @param password 계정 삭제 확인용 비밀번호
      * @return 삭제된 사용자 엔티티
      * @throws UserException 사용자가 존재하지 않거나 비밀번호가 일치하지 않는 경우
      */
-    public User deleteUserAccount(Long userId, String password) {
-        User user = findUserById(userId);
+    public User deleteUserAccount(String uuid, String password) {
+        User user = findUserByUuid(uuid);
         
         // 비밀번호 확인
         if (!validatePassword(user, password)) {
