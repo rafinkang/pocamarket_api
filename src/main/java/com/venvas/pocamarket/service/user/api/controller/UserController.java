@@ -1,11 +1,7 @@
 package com.venvas.pocamarket.service.user.api.controller;
 
 import com.venvas.pocamarket.common.util.ApiResponse;
-import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
-import com.venvas.pocamarket.service.user.application.dto.UserInfoResponse;
-import com.venvas.pocamarket.service.user.application.dto.UserLoginRequest;
-import com.venvas.pocamarket.service.user.application.dto.UserLoginResponse;
-import com.venvas.pocamarket.service.user.application.dto.UserUpdateRequest;
+import com.venvas.pocamarket.service.user.application.dto.*;
 import com.venvas.pocamarket.service.user.application.service.UserService;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
@@ -157,7 +153,7 @@ public class UserController {
         if(authentication == null) {
             return ResponseEntity.ok(ApiResponse.success("ok", "인증에 실패했습니다."));
         }
-        User principal = (User) authentication.getPrincipal(); // user 정보
+        UserDetailDto principal = (UserDetailDto) authentication.getPrincipal(); // user 정보
         Object credentials = authentication.getCredentials();// 비번 (JWT는 null)
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities(); // 권한
         log.info("test UUID = {}", principal.getUuid());

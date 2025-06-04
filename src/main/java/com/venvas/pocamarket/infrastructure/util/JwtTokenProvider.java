@@ -2,10 +2,8 @@ package com.venvas.pocamarket.infrastructure.util;
 
 
 import com.venvas.pocamarket.infrastructure.config.JwtProperties;
-import com.venvas.pocamarket.service.user.domain.entity.User;
-import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
+import com.venvas.pocamarket.service.user.domain.exception.JwtErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
-import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +17,9 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
+    public static final String ACCESS_TOKEN_NAME = "accessToken";
+    public static final String REFRESH_TOKEN_NAME = "refreshToken";
+
     private final Key key;
     private final Date accessTokenExpireTime;
     private final Date refreshTokenExpireTime;
@@ -31,7 +32,7 @@ public class JwtTokenProvider {
 
     public String createAccessToken(String uuid, String grade) {
         return Jwts.builder() // JWT 토큰 빌더 생성
-            .setSubject("accessToken") // 토큰 제목(subject)으로 사용자 ID 설정
+            .setSubject(ACCESS_TOKEN_NAME) // 토큰 제목(subject)으로 사용자 ID 설정
             .claim("uuid", uuid) // 사용자 uuid를 클레임으로 추가
             .claim("grade", grade) // 사용자 등급을 클레임으로 추가
             .setIssuedAt(new Date()) // 토큰 발급 시간 설정
@@ -42,7 +43,7 @@ public class JwtTokenProvider {
 
     public String createRefreshToken(String uuid) {
         return Jwts.builder()
-                .setSubject("refreshToken")
+                .setSubject(REFRESH_TOKEN_NAME)
                 .claim("uuid", uuid) // 사용자 uuid를 클레임으로 추가
                 .setIssuedAt(new Date())
                 .setExpiration(refreshTokenExpireTime)
@@ -59,15 +60,18 @@ public class JwtTokenProvider {
     }
 
     // 3. 토큰 유효성 검증
-    public boolean validateToken(String token) {
+    public JwtErrorCode validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token);
-            return !claims.getBody().getExpiration().before(new Date());
+            if(claims.getBody().getExpiration().before(new Date())) {
+                return JwtErrorCode.TOKEN_EXPIRED;
+            }
+            return null;
         } catch (JwtException | IllegalArgumentException e) {
-            return false;
+            return JwtErrorCode.FAIL_AUTHENTICATION;
         }
     }
 
@@ -82,18 +86,5 @@ public class JwtTokenProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-    }
-
-    private void validateUserStatus(User user) {
-        if (user.getStatus() == UserStatus.INACTIVE) {
-            log.warn("비활성화된 계정: loginId={}", user.getLoginId());
-            throw new UserException(UserErrorCode.ACCOUNT_LOCKED);
-        } else if (user.getStatus() == UserStatus.SUSPENDED) {
-            log.warn("일시 정지된 계정: loginId={}", user.getLoginId());
-            throw new UserException(UserErrorCode.ACCOUNT_LOCKED);
-        } else if (user.getStatus() == UserStatus.DELETED) {
-            log.warn("삭제된 계정: loginId={}", user.getLoginId());
-            throw new UserException(UserErrorCode.USER_NOT_FOUND);
-        }
     }
 }

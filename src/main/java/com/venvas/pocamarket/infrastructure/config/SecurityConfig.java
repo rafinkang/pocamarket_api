@@ -32,7 +32,7 @@ public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
-    
+
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
@@ -80,7 +80,19 @@ public class SecurityConfig {
         // URL별 접근 권한 설정
         http
             .authorizeHttpRequests(auth -> auth
-//                .requestMatchers("/api/pokemon-cards/update/card/**").hasRole("ADMIN")// 관리자 접근 가능 API
+                // 구체적인 경로를 먼저, 아닌 경로를 나중에
+
+                // 인증 체크
+                .requestMatchers(
+            "/api/users/tokenTest"
+                ).authenticated()
+
+
+                // 권한 체크
+//                .requestMatchers(
+//            "/api/pokemon-cards/update/card/*/*"
+//
+//                ).hasRole("ADMIN")
 
                 // /api/** 경로는 인증 없이 접근 가능 (permitAll)
                 // 예: /api/user/create, /api/pokemon/list 등
@@ -103,11 +115,16 @@ public class SecurityConfig {
     }
 
     /**
-     * /static/**, /css/**, /js/**, /images/** 등은 허용
+     * 해당 경로 security filter chain을 생략
+     * @return
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        return (web) -> {
+            web.ignoring()
+                    // /static/**, /css/**, /js/**, /images/** 등은 허용
+                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+
+        };
     }
 } 

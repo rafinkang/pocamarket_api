@@ -16,7 +16,7 @@ public enum UserErrorCode {
     INVALID_NICKNAME("USER_007", "사용할 수 없는 닉네임입니다."),
     EMAIL_REQUIRED("USER_008", "이메일은 필수 입니다."),
     CURRENT_PASSWORD_REQUIRED("USER_009", "현재 비밀번호를 입력해야 합니다."),
-    
+
     // 권한 관련 에러
     INSUFFICIENT_PERMISSION("USER_101", "해당 작업을 수행할 권한이 없습니다."),
     

@@ -33,5 +33,4 @@ public class UserDetailDto implements UserDetails {
     public String getPassword() {
         return null;
     }
-    
 }

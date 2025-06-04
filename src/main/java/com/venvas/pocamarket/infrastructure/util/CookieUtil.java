@@ -3,16 +3,19 @@ package com.venvas.pocamarket.infrastructure.util;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseCookie;
 
 public class CookieUtil {
 
     // 쿠키 생성
-    public static void addCookie(HttpServletResponse response, String name, String value, int maxAge, boolean httpOnly, boolean secure) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(maxAge); // 초 단위
-        cookie.setHttpOnly(httpOnly);
-        cookie.setSecure(secure);
-        response.addCookie(cookie);
+    public static ResponseCookie createResponseCookie(String name, String value, int maxAge, boolean httpOnly, boolean secure) {
+        return ResponseCookie.from(name, value)
+                .path("/")
+                .maxAge(maxAge) // 토큰 만료 시간
+                .sameSite("Lax") // CSRF 보호
+                .httpOnly(httpOnly) // HTTPOnly 설정 - XSS 공격 방지, 자바스크립트 접근 불가
+                .secure(secure) // HTTPS 사용 시 설정 (로컬개발시 false)
+                .build();
     }
 
     // 쿠키 조회
@@ -31,5 +34,10 @@ public class CookieUtil {
         Cookie cookie = new Cookie(name, null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
+    }
+
+    // 쿠키 등록
+    public static void addCookie(HttpServletResponse response, ResponseCookie cookie) {
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 }
