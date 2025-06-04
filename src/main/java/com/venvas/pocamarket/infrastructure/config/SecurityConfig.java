@@ -4,6 +4,7 @@ import com.venvas.pocamarket.infrastructure.security.JwtAccessDeniedHandler;
 import com.venvas.pocamarket.infrastructure.security.JwtAuthenticationEntryPoint;
 import com.venvas.pocamarket.infrastructure.security.JwtAuthenticationFilter;
 import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
+import com.venvas.pocamarket.service.user.domain.repository.RefreshTokenRepository;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -30,6 +31,8 @@ public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
+    
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
@@ -68,7 +71,8 @@ public class SecurityConfig {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         // 인증, 권한 부족시 실행 되는 핸들러 등록
-        http.exceptionHandling(exceptionHandling -> exceptionHandling
+        http
+            .exceptionHandling(exceptionHandling -> exceptionHandling
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
         );
@@ -93,7 +97,7 @@ public class SecurityConfig {
 
         // jwtAuthFilter를 filterChain에 추가
         http
-            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userRepository), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, refreshTokenRepository, userRepository), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
