@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.user.api.controller;
 
 import com.venvas.pocamarket.common.util.ApiResponse;
+import com.venvas.pocamarket.infrastructure.util.CookieUtil;
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 import com.venvas.pocamarket.service.user.application.dto.UserInfoResponse;
@@ -77,8 +78,8 @@ public class UserController {
         UserLoginResponse loginResponse = userService.login(request);
 
         // 쿠키에 토큰 추가
-        httpResponse.addHeader("Set-Cookie", loginResponse.getAccessTokenCookie().toString());
-        httpResponse.addHeader("Set-Cookie", loginResponse.getRefreshTokenCookie().toString());
+        CookieUtil.addCookie(httpResponse, loginResponse.getAccessTokenCookie());
+        CookieUtil.addCookie(httpResponse, loginResponse.getRefreshTokenCookie());
 
         UserLoginResponse response = UserLoginResponse.builder()
                 .nickname(loginResponse.getNickname())
