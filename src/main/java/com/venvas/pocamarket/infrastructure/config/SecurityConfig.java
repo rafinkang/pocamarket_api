@@ -24,9 +24,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Spring Security 설정 클래스
  * 애플리케이션의 보안 관련 설정을 담당
  */
-@Configuration  // 스프링 설정 클래스임을 명시
+@Configuration // 스프링 설정 클래스임을 명시
 @RequiredArgsConstructor
-@EnableWebSecurity  // Spring Security 웹 보안 활성화
+@EnableWebSecurity // Spring Security 웹 보안 활성화
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -59,63 +59,64 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // CSRF(Cross-Site Request Forgery) 보호 설정
-            // 개발 환경에서는 비활성화, 운영 환경에서는 활성화 권장
-            .csrf(AbstractHttpConfigurer::disable)
-            // HTTP Basic 인증 비활성화
-            .httpBasic(AbstractHttpConfigurer::disable);
+                // CSRF(Cross-Site Request Forgery) 보호 설정
+                // 개발 환경에서는 비활성화, 운영 환경에서는 활성화 권장
+                .csrf(AbstractHttpConfigurer::disable)
+                // HTTP Basic 인증 비활성화
+                .httpBasic(AbstractHttpConfigurer::disable);
 
         // 세션 관리 상태 없음으로 구성
         http
-            .sessionManagement(sessionManagement -> sessionManagement
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(sessionManagement -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         // 인증, 권한 부족시 실행 되는 핸들러 등록
         http
-            .exceptionHandling(exceptionHandling -> exceptionHandling
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-        );
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .accessDeniedHandler(jwtAccessDeniedHandler));
 
         // URL별 접근 권한 설정
         http
-            .authorizeHttpRequests(auth -> auth
-                // 구체적인 경로를 먼저, 아닌 경로를 나중에
+                .authorizeHttpRequests(auth -> auth
+                        // 구체적인 경로를 먼저, 아닌 경로를 나중에
 
-                // 인증 체크
-                .requestMatchers(
-            "/api/users/tokenTest"
-                ).authenticated()
+                        // 로그인 인증 체크
+                        .requestMatchers(
+                                "/api/users/tokenTest",
+                                "/api/users/me")
+                        .authenticated()
 
+                        // ADMIN 권한 체크
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/api/pokemon-cards/update/card/*/*",
+                                "/swagger-ui.html")
+                        .hasRole("ADMIN")
 
-                // 권한 체크
-//                .requestMatchers(
-//            "/api/pokemon-cards/update/card/*/*"
-//
-//                ).hasRole("ADMIN")
-
-                // /api/** 경로는 인증 없이 접근 가능 (permitAll)
-                // 예: /api/user/create, /api/pokemon/list 등
-                .requestMatchers(
-                        "/api/**",
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**",
-                        "/swagger-resources/**",
-                        "/swagger-ui.html"
-                ).permitAll()
-                // 그 외 모든 요청은 인증 필요
-                .anyRequest().authenticated()
-            );
+                        // 인증 없이 접근 가능 (permitAll)
+                        .requestMatchers(
+                                "/api/**",
+                                "/api/users", // 회원가입
+                                "/api/users/login" // 로그인
+                        )
+                        .permitAll()
+                        // 그 외 모든 요청은 인증 필요
+                        .anyRequest().authenticated());
 
         // jwtAuthFilter를 filterChain에 추가
         http
-            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, refreshTokenRepository, userRepository), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, refreshTokenRepository, userRepository),
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     /**
      * 해당 경로 security filter chain을 생략
+     * 
      * @return
      */
     @Bean
@@ -127,4 +128,4 @@ public class SecurityConfig {
 
         };
     }
-} 
+}

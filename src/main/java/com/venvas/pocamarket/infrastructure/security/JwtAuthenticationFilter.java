@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         JwtErrorCode accessTokenErrorCode = jwtTokenProvider.validateToken(accessToken);
         JwtErrorCode refreshTokenErrorCode = jwtTokenProvider.validateToken(refreshToken);
 
-        log.info("Filter 접속 = {}", accessToken);
+        log.info("Filter 접속 accessToken = {}", accessToken);
         log.info("accessTokenErrorCode = {}", accessTokenErrorCode);
         log.info("refreshTokenErrorCode = {}", refreshTokenErrorCode);
 
