@@ -3,6 +3,7 @@ package com.venvas.pocamarket.service.user.application.dto;
 import java.util.Collection;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,7 @@ public class UserDetailDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.getGrade().name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.getGrade().name()));
     }
 
     @Override
