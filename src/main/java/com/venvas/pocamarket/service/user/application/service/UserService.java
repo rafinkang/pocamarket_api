@@ -4,12 +4,6 @@ import java.util.Date;
 
 import com.venvas.pocamarket.infrastructure.util.CookieUtil;
 import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-
-import com.venvas.pocamarket.infrastructure.config.JwtProperties;
-
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.application.dto.UserInfoResponse;
 import com.venvas.pocamarket.service.user.application.dto.UserLoginRequest;

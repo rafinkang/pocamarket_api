@@ -31,9 +31,8 @@ public class CookieUtil {
 
     // 쿠키 삭제
     public static void deleteCookie(HttpServletResponse response, String name) {
-        Cookie cookie = new Cookie(name, null);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        ResponseCookie cookie = createResponseCookie(name, null, 0, true, true);
+        addCookie(response, cookie);
     }
 
     // 쿠키 등록

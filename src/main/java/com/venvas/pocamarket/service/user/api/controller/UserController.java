@@ -2,6 +2,7 @@ package com.venvas.pocamarket.service.user.api.controller;
 
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.infrastructure.util.CookieUtil;
+import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
 import com.venvas.pocamarket.service.user.application.dto.UserCreateRequest;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 import com.venvas.pocamarket.service.user.application.dto.UserInfoResponse;
@@ -88,6 +89,17 @@ public class UserController {
                 .build();
 
         return ResponseEntity.ok(ApiResponse.success(response, "로그인에 성공하였습니다."));
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<ApiResponse<Void>> logout(
+            HttpServletRequest httpRequest,
+            HttpServletResponse httpResponse) {
+
+        CookieUtil.deleteCookie(httpResponse, JwtTokenProvider.ACCESS_TOKEN_NAME);
+        CookieUtil.deleteCookie(httpResponse, JwtTokenProvider.REFRESH_TOKEN_NAME);
+
+        return ResponseEntity.ok(ApiResponse.success(null, "로그아웃에 성공하였습니다."));
     }
 
     /**

@@ -14,12 +14,10 @@ import java.util.Optional;
  */
 public class RefreshTokenRepositoryImpl implements RefreshTokenRepositoryCustom {
 
-    private final EntityManager entityManager;
     private final JPAQueryFactory queryFactory;
     private final QRefreshToken refreshToken;
 
     public RefreshTokenRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
         this.queryFactory = new JPAQueryFactory(entityManager);
         this.refreshToken = QRefreshToken.refreshToken;
     }
