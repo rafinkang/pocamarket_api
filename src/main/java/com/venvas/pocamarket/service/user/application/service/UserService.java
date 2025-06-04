@@ -2,6 +2,8 @@ package com.venvas.pocamarket.service.user.application.service;
 
 import java.util.Date;
 
+import com.venvas.pocamarket.infrastructure.util.CookieUtil;
+import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -40,22 +42,21 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
-
-    private final JwtProperties jwtProperties;
-    // 닉네임에 사용할 수 없는 금지된 단어 목록
+    
     private static final List<String> PROHIBITED_NICKNAME_WORDS = Arrays.asList(
             "admin", "root", "system", "manager", "superuser", "administrator", "관리자");
 
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public UserService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepository,
-            PasswordEncoder passwordEncoder, JwtProperties jwtProperties) {
+    public UserService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepository, 
+            PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jwtProperties = jwtProperties;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     /**
@@ -242,19 +243,15 @@ public class UserService {
         User updatedUser = userRepository.save(user);
 
         // 6. JWT 토큰 생성 (실제 구현에서는 JWT 서비스를 통해 토큰 생성)
-        Date now = new Date();
-        Date accessValidityDate = new Date(now.getTime() + jwtProperties.getAccessTokenValidityInMs());
-        Date refreshValidityDate = new Date(now.getTime() + jwtProperties.getRefreshTokenValidityInMs());
-
-        String accessToken = generateToken(updatedUser, now, accessValidityDate);
-        String refreshToken = generateToken(updatedUser, now, refreshValidityDate);
+        String accessToken = jwtTokenProvider.createAccessToken(updatedUser.getUuid(), updatedUser.getGrade().name());
+        String refreshToken = jwtTokenProvider.createRefreshToken(updatedUser.getUuid());
 
         // 7. 토큰 저장
         RefreshToken refreshTokenEntity = RefreshToken.builder()
                 .uuid(updatedUser.getUuid())
                 .token(refreshToken)
-                .issuedAt(now)
-                .expiresAt(refreshValidityDate)
+                .issuedAt(new Date())
+                .expiresAt(jwtTokenProvider.getRefreshTokenExpireTime())
                 .build();
 
         // 오래된 리프레쉬 토큰 만료 처리 (선택적)
@@ -262,19 +259,11 @@ public class UserService {
         refreshTokenRepository.save(refreshTokenEntity);
 
         // 8. 쿠키 생성
-        ResponseCookie accessTokenCookie = ResponseCookie.from("accessToken", accessToken)
-                .httpOnly(true) // HTTPOnly 설정 - XSS 공격 방지, 자바스크립트 접근 불가
-                .secure(true) // HTTPS 사용 시 설정 (로컬개발시 false)
-                .sameSite("Lax") // CSRF 보호
-                .maxAge(jwtProperties.getAccessTokenValidityInMs() / 1000) // 토큰 만료 시간
-                .build();
+        ResponseCookie accessTokenCookie = CookieUtil.createResponseCookie(JwtTokenProvider.ACCESS_TOKEN_NAME, accessToken,
+                (int) (jwtTokenProvider.getJwtProperties().getAccessTokenValidityInMs() / 1000), true, true);
 
-        ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
-                .httpOnly(true) // HTTPOnly 설정
-                .secure(true) // HTTPS 사용 시 설정
-                .sameSite("Lax") // CSRF 보호
-                .maxAge(jwtProperties.getRefreshTokenValidityInMs() / 1000) // 토큰 만료 시간
-                .build();
+        ResponseCookie refreshTokenCookie = CookieUtil.createResponseCookie(JwtTokenProvider.REFRESH_TOKEN_NAME, refreshToken,
+                (int) (jwtTokenProvider.getJwtProperties().getRefreshTokenValidityInMs() / 1000), true, true);
 
         log.info("로그인 성공: userId={}, loginId={}", updatedUser.getId(), updatedUser.getLoginId());
         return UserLoginResponse.from(updatedUser, accessToken, refreshToken, accessTokenCookie, refreshTokenCookie);
@@ -308,28 +297,6 @@ public class UserService {
      */
     private boolean validatePassword(User user, String rawPassword) {
         return passwordEncoder.matches(rawPassword, user.getPassword());
-    }
-
-    /**
-     * JWT 토큰을 생성합니다.
-     * 
-     * @param user 토큰을 생성할 사용자 엔티티
-     * @return 생성된 JWT 토큰
-     */
-    private String generateToken(User user, Date now, Date validity) {
-        return Jwts.builder() // JWT 토큰 빌더 생성
-                .setSubject(user.getId().toString()) // 토큰 제목(subject)으로 사용자 ID 설정
-                .claim("uuid", user.getUuid()) // 사용자 uuid를 클레임으로 추가
-                .claim("nickname", user.getNickname()) // 사용자 닉네임을 클레임으로 추가
-                .claim("grade", user.getGrade().name()) // 사용자 등급을 클레임으로 추가
-                .setIssuedAt(now) // 토큰 발급 시간 설정
-                .setExpiration(validity) // 토큰 만료 시간 설정
-                .signWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()), SignatureAlgorithm.HS256) // HS256
-                                                                                                                 // 알고리즘과
-                                                                                                                 // 시크릿
-                                                                                                                 // 키로
-                                                                                                                 // 서명
-                .compact(); // 최종적으로 토큰 문자열로 변환
     }
 
     /**

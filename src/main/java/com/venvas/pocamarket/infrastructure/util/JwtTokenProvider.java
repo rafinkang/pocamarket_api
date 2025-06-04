@@ -7,6 +7,7 @@ import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -21,16 +22,24 @@ public class JwtTokenProvider {
     public static final String REFRESH_TOKEN_NAME = "refreshToken";
 
     private final Key key;
-    private final Date accessTokenExpireTime;
-    private final Date refreshTokenExpireTime;
+
+    @Getter
+    private final JwtProperties jwtProperties;
+    @Getter
+    private Date accessTokenExpireTime;
+    @Getter
+    private Date refreshTokenExpireTime;
 
     public JwtTokenProvider(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
         this.key = Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes());
         this.accessTokenExpireTime = new Date(System.currentTimeMillis() + jwtProperties.getAccessTokenValidityInMs());
         this.refreshTokenExpireTime = new Date(System.currentTimeMillis() + jwtProperties.getRefreshTokenValidityInMs());
     }
 
     public String createAccessToken(String uuid, String grade) {
+        this.accessTokenExpireTime = new Date(System.currentTimeMillis() + jwtProperties.getAccessTokenValidityInMs());
+
         return Jwts.builder() // JWT 토큰 빌더 생성
             .setSubject(ACCESS_TOKEN_NAME) // 토큰 제목(subject)으로 사용자 ID 설정
             .claim("uuid", uuid) // 사용자 uuid를 클레임으로 추가
@@ -42,6 +51,7 @@ public class JwtTokenProvider {
     }
 
     public String createRefreshToken(String uuid) {
+        this.refreshTokenExpireTime = new Date(System.currentTimeMillis() + jwtProperties.getRefreshTokenValidityInMs());
         return Jwts.builder()
                 .setSubject(REFRESH_TOKEN_NAME)
                 .claim("uuid", uuid) // 사용자 uuid를 클레임으로 추가
