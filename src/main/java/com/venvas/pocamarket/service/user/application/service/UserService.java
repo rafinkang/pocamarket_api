@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserService {
     
     private static final List<String> PROHIBITED_NICKNAME_WORDS = Arrays.asList(
@@ -323,6 +323,7 @@ public class UserService {
      * @return 업데이트된 사용자 정보 응답 DTO
      * @throws UserException 사용자가 존재하지 않거나 데이터 유효성 검증에 실패한 경우
      */
+    @Transactional
     public UserInfoResponse updateUserInfo(String uuid, UserUpdateRequest request) {
         User user = findUserByUuid(uuid);
 
@@ -383,6 +384,7 @@ public class UserService {
      * @return 삭제된 사용자 엔티티
      * @throws UserException 사용자가 존재하지 않거나 비밀번호가 일치하지 않는 경우
      */
+    @Transactional
     public User deleteUserAccount(String uuid, String password) {
         User user = findUserByUuid(uuid);
 
