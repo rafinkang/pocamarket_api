@@ -78,6 +78,7 @@ public class UserController {
         UserLoginResponse response = UserLoginResponse.builder()
                 .nickname(loginResponse.getNickname())
                 .status(loginResponse.getStatus())
+                .grade(loginResponse.getGrade())
                 .lastLoginAt(loginResponse.getLastLoginAt())
                 .build();
 
