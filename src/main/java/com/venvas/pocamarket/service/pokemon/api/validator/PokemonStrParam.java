@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PokemonStrValidator.class)
 public @interface PokemonStrParam {
+    String message() default "Invalid Pokemon string parameter";
     PokemonErrorCode errorCode();
     String pattern();
     Class<?>[] groups() default {};

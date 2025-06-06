@@ -13,6 +13,12 @@ java {
 	}
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+	// 파라미터 이름 인식 유지옵션
+    options.compilerArgs << '-parameters'
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor

@@ -48,7 +48,7 @@ public class PokemonCardController {
     @GetMapping("/detail/{code}")
     @Operation(summary = "포켓몬 디테일", description = "code로 포켓몬의 자세한 값을 가져오는 API")
     public ResponseEntity<ApiResponse<PokemonCardDetailDto>> getPokemonDataByCode(
-            @PathVariable
+            @PathVariable("code")
             @PokemonStrParam(
                     errorCode = PokemonErrorCode.POKEMON_CODE_INVALID,
                     pattern = "^\\w{2,3}-[0-9]{3}$"
