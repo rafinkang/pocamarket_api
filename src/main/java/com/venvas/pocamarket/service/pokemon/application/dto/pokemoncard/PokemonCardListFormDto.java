@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard;
 
-import com.venvas.pocamarket.service.pokemon.api.validator.ValidRarityList;
+import com.venvas.pocamarket.service.pokemon.api.validator.PokemonStrArrParam;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -24,8 +24,9 @@ public class PokemonCardListFormDto {
     @Pattern(regexp = "^(?i)(basic|stage_1|stage_2|supporter|item|tool)$", message = "유효하지 않은 카드 서브타입입니다.")
     private String subtype;
 
-    @Size(max = 50, message = "속성은 50자를 초과할 수 없습니다.")
-    @Pattern(regexp = "^(?i)(grass|fire|water|lightning|psychic|fighting|darkness|metal|dragon|normal|colorless)$", message = "유효하지 않은 속성입니다.")
+    @Size(max = 80, message = "속성은 80자를 초과할 수 없습니다.")
+    @PokemonStrArrParam(expectedPokemonListPath = "com.venvas.pocamarket.service.pokemon.domain.value.CardElement", message = "유효하지 않은 속성입니다.")
+//    @Pattern(regexp = "^(?i)(grass|fire|water|lightning|psychic|fighting|darkness|metal|dragon|normal|colorless)$", message = "유효하지 않은 속성입니다.")
     private String element;
 
     @Size(max = 30, message = "확장팩은 30자를 초과할 수 없습니다.")
@@ -35,7 +36,7 @@ public class PokemonCardListFormDto {
     private String pack;
 
     @Size(max = 80, message = "레어도는 80자를 초과할 수 없습니다.")
-    @ValidRarityList
+    @PokemonStrArrParam(expectedPokemonListPath = "com.venvas.pocamarket.service.pokemon.domain.value.CardRarity", message = "유효하지 않은 레어도입니다.")
 //    @Pattern(regexp = "^(?i)(common|uncommon|rare|rare ex|full art|full art ex/support|immersive|gold crown)$", message = "유효하지 않은 레어도입니다.")
     private String rarity;
 }

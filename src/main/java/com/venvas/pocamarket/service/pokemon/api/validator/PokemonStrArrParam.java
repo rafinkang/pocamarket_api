@@ -7,9 +7,10 @@ import java.lang.annotation.*;
 
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = RarityListValidator.class)
-public @interface ValidRarityList {
-    String message() default "유효하지 않은 레어도입니다.";
+@Constraint(validatedBy = PokemonStrArrValidator.class)
+public @interface PokemonStrArrParam {
+    String message() default "유효하지 않은 데이터입니다.";
+    String expectedPokemonListPath() default "";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
