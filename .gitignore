@@ -40,3 +40,4 @@ out/
 ### cursor ###
 .cursor/
 *.pem
+runLocalDb.bat
