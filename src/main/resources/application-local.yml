@@ -1,0 +1,18 @@
+# AWS 환경 전용 설정 파일
+spring:
+  # 데이터소스 설정
+  datasource:
+    # AWS RDS MariaDB 접속 URL (환경 변수로 설정)
+    url: "jdbc:mariadb://${LOCAL_DB_URL}:${LOCAL_DB_PORT}/${DB}"
+    # 데이터베이스 사용자명 (환경 변수로 설정)
+    username: ${DB_USERNAME}
+    # 데이터베이스 비밀번호 (환경 변수로 설정)
+    password: ${DB_PASSWORD}
+    # JDBC 드라이버 설정
+    driver-class-name: org.mariadb.jdbc.Driver
+
+
+# # 문법: ssh -L [내PC포트]:[RDS엔드포인트]:[RDS포트] -i [pem키경로] [ec2사용자]@[ec2퍼블릭IP]
+
+# 실제 예시
+# ssh -L 3308:pocamarket-db.c7yg4ciuwvog.ap-northeast-2.rds.amazonaws.com:3306 -i "D:\workspace\pocamarket-ppkkey.pem" ec2-user@3.34.124.198

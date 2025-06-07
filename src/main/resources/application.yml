@@ -5,7 +5,7 @@ spring:
     import: optional:file:.env[.properties]
   # 활성화된 프로필 설정 (AWS 환경)
   profiles:
-    active: aws
+    active: local
   # 애플리케이션 이름 설정
   application:
     name: pocamarket
@@ -20,9 +20,16 @@ spring:
     password: ${DB_PASSWORD}
     # JDBC 드라이버 설정
     driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      # DB의 max_connections (30) 보다 작게 설정
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000      # 5분
+      max-lifetime: 1200000     # 20분
 
   # JPA 설정
   jpa:
+    open-in-view: false
     hibernate:
       jdbc:
         batch_size: 1000
