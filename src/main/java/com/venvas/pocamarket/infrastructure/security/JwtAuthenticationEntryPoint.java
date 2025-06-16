@@ -2,6 +2,7 @@ package com.venvas.pocamarket.infrastructure.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.venvas.pocamarket.service.user.domain.exception.JwtCustomException;
+import com.venvas.pocamarket.service.user.domain.exception.JwtErrorCode;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,8 +35,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         Object exception = request.getAttribute("exception");
         if(exception instanceof JwtCustomException ex) {
-            body.put("error", ex.getMessage());
+            body.put("errorMessage", ex.getMessage());
             body.put("code", ex.getErrorCode().getCode());
+        } else if(exception == null) {
+            body.put("error", "인증 권한 에러");
+            body.put("code", JwtErrorCode.FAIL_AUTHENTICATION);
         }
 
         response.getWriter().write(objectMapper.writeValueAsString(body));
