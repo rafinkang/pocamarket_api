@@ -1,4 +1,4 @@
-package com.venvas.pocamarket.service.trade.domain.entity;
+package com.venvas.pocamarket.service.user.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,23 +11,25 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "tcg_trade_report")
-public class TcgTradeReport {
+@Table(name = "user_report")
+public class UserReport {
     /** 신고번호 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "trade_report_id")
+    @Column(name = "report_id")
     private Long id;
 
-    /** 교환요청번호 */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trade_request_id", nullable = false)
-    private TcgTradeRequest tradeRequest;
+    /** 레퍼런스 PK 값 */
+    @Column(name = "ref_id")
+    private Long refId;
 
-    /** 거래번호 */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trade_id", nullable = false)
-    private TcgTrade trade;
+    /** 레퍼런스 타입 */
+    @Column(name = "ref_type", length = 50)
+    private String refType;
+
+    /** 링크 */
+    @Column(name = "link", length = 50)
+    private String link;
 
     /** 신고자 */
     @Column(name = "uuid", nullable = false, length = 50)
