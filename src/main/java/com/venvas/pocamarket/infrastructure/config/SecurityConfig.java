@@ -19,6 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * Spring Security 설정 클래스
@@ -67,6 +70,7 @@ public class SecurityConfig {
 
         // 세션 관리 상태 없음으로 구성
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
@@ -123,5 +127,32 @@ public class SecurityConfig {
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 
         };
+    }
+
+    /**
+     * Spring Security 필터 체인 내에서의 CORS 설정을 담당
+     * 인증이 필요한 요청에 대한 CORS 설정을 처리
+     * 특히 인증된 요청이나 프리플라이트(preflight) 요청에 대한 처리가 필요할 때 중요
+     * Security 컨텍스트 내에서 CORS를 처리하기 때문에 보안 관련 헤더나 인증 정보가 포함된 요청을 처리하기에 적합
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        
+        configuration.addAllowedOrigin("http://localhost:3000");  // 허용할 프론트엔드 출처
+        configuration.addAllowedMethod("GET");  // 허용할 HTTP 메서드들을 개별적으로 설정
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("DELETE");
+        configuration.addAllowedMethod("OPTIONS");
+        configuration.addAllowedMethod("HEAD");
+        configuration.addAllowedMethod("PATCH");
+        configuration.addAllowedHeader("*");  // 모든 헤더 허용
+        configuration.setAllowCredentials(true);  // 인증 정보 허용
+        configuration.setMaxAge(3600L);  // preflight 요청 캐시 시간 (초)
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", configuration);  // CORS를 적용할 경로 패턴 지정
+        return source;
     }
 }
