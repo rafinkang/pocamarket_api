@@ -50,8 +50,8 @@ public class TcgTradeReport {
     private Integer status = 1;
 
     /** 처리 대응 */
-    @Column(name = "report_result")
-    private Integer reportResult;
+    @Column(name = "report_result", columnDefinition = "TEXT")
+    private String reportResult;
 
     /** 대응한 관리자 */
     @Column(name = "admin_uuid", length = 50)
