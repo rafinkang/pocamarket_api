@@ -28,7 +28,7 @@ public class UserReport {
     private String refType;
 
     /** 링크 */
-    @Column(name = "link", length = 50)
+    @Column(name = "link", length = 200)
     private String link;
 
     /** 신고자 */
