@@ -31,7 +31,9 @@ public class PokemonStrValidator implements ConstraintValidator<PokemonStrParam,
     }
 
     private void addConstraintViolation(ConstraintValidatorContext context, String message) {
+        // 기본 제공되는 메시지를 비활성화
         context.disableDefaultConstraintViolation();
+        // 새로운 검증 오류 메시지를 생성하고 등록
         context.buildConstraintViolationWithTemplate(message)
                 .addConstraintViolation();
     }
