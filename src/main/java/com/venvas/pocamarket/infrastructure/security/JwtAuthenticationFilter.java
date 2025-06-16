@@ -36,8 +36,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
+
+        log.info("JWT 필터 실행 - URI: {}", request.getRequestURI());
+
         String accessToken = jwtTokenProvider.resolveToken(request, JwtTokenProvider.ACCESS_TOKEN_NAME);
         String refreshToken = jwtTokenProvider.resolveToken(request, JwtTokenProvider.REFRESH_TOKEN_NAME);
 
@@ -54,7 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String uuid = jwtTokenProvider.getUuid(accessToken);
                 UserGrade grade = UserGrade.valueOf(jwtTokenProvider.getGrade(accessToken));
 
-                if(uuid == null) {
+                if (uuid == null) {
                     throw new JwtCustomException(JwtErrorCode.INVALID_INFO);
                 }
 
@@ -72,7 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     User user = userRepository.findByUuid(jwtTokenProvider.getUuid(refreshToken))
                                             .orElse(null);
 
-                                    if(user == null) {
+                                    if (user == null) {
                                         throw new JwtCustomException(JwtErrorCode.INVALID_INFO);
                                     }
 
@@ -86,14 +89,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     CookieUtil.deleteCookie(response, JwtTokenProvider.ACCESS_TOKEN_NAME);
                                     CookieUtil.deleteCookie(response, JwtTokenProvider.REFRESH_TOKEN_NAME);
                                     throw new JwtCustomException(JwtErrorCode.TOKEN_EXPIRED);
-                                }
-                        );
+                                });
             } else {
-                log.info("토큰 없는데 접근");
-                throw new JwtCustomException(JwtErrorCode.FAIL_AUTHENTICATION);
+                // 토큰이 없거나 유효하지 않은 경우 - 인증이 필요한 경로에서만 예외 발생
+                log.info("토큰 없음 또는 유효하지 않음 - URI: {}", request.getRequestURI());
+                // SecurityConfig의 authorizeHttpRequests에서 처리하도록 넘김
             }
         } catch (JwtException e) {
-            log.info("잡았다 에러");
+            log.info("JWT 처리 중 에러 발생: {}", e.getMessage());
             request.setAttribute("exception", e);
         }
 
@@ -106,7 +109,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String newAccessToken = jwtTokenProvider.createAccessToken(user.getUuid(), user.getGrade().name());
 
         // 토큰 값을 넣은 쿠키 생성 후, 등록
-        ResponseCookie accessCookie = CookieUtil.createResponseCookie(JwtTokenProvider.ACCESS_TOKEN_NAME, newAccessToken, (int) (jwtProperties.getAccessTokenValidityInMs() / 1000), true, true);
+        ResponseCookie accessCookie = CookieUtil.createResponseCookie(JwtTokenProvider.ACCESS_TOKEN_NAME,
+                newAccessToken, (int) (jwtProperties.getAccessTokenValidityInMs() / 1000), true, true);
         CookieUtil.addCookie(response, accessCookie);
     }
 
@@ -116,8 +120,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         UserDetails user = new UserDetailDto(uuid, grade);
 
         // 인증 객체 생성
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
+                user.getAuthorities());
 
         // SecurityContext에 저장
         SecurityContextHolder.getContext().setAuthentication(authentication);

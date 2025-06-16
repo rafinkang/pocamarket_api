@@ -81,11 +81,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 구체적인 경로를 먼저, 아닌 경로를 나중에
 
-                        // 로그인 인증 체크
+                        // 인증 없이 접근 가능한 공개 API
                         .requestMatchers(
-                                "/api/user/**",
-                                "/api/auth/**")
-                        .authenticated()
+                                "/api/login",
+                                "/api/register",
+                                "/api/pokemon-card/**")
+                        .permitAll()
 
                         // ADMIN 권한 체크
                         .requestMatchers(
@@ -96,17 +97,14 @@ public class SecurityConfig {
                                 "/swagger-ui.html")
                         .hasRole("ADMIN")
 
-                        // 인증 없이 접근 가능 (permitAll)
-                        .requestMatchers(
-                                "/**"
-                        )
-                        .permitAll()
                         // 그 외 모든 요청은 인증 필요
                         .anyRequest().authenticated());
 
-        // jwtAuthFilter를 filterChain에 추가
+        // jwtAuthFilter를 filterChain에 추가 - 인증이 필요한 경로에만 적용
         http
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, refreshTokenRepository, userRepository),
+                .addFilterBefore(
+                        new JwtAuthenticationFilter(jwtTokenProvider, refreshTokenRepository,
+                                userRepository),
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
