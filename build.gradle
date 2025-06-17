@@ -73,6 +73,9 @@ dependencies {
 	// Test Lombok 사용
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	
+	// 테스트용 인메모리 DB
+	testImplementation 'com.h2database:h2'
 }
 
 tasks.named('test') {

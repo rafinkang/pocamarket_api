@@ -115,7 +115,7 @@ public class PokemonCard {
      * 팩 이름
      * 카드가 속한 팩의 이름
      */
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String pack;
     
     /**
@@ -147,7 +147,7 @@ public class PokemonCard {
      * RARE: 레어
      * RARE_HOLO: 홀로그램 레어
      */
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String rarity = "COMMON";
 
     /**
