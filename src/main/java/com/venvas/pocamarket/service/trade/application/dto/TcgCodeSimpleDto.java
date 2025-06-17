@@ -3,11 +3,11 @@ package com.venvas.pocamarket.service.trade.application.dto;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class TcgCodeSimpleDto {
 
     private Long tcgCodeId;
