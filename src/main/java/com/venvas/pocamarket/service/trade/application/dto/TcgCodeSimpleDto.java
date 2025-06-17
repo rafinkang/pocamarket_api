@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class TcgCodeSimpleDto {
 
     private Long tcgCodeId;
-    
+
     @Pattern(regexp = "^[0-9]{16}$", message = "친구 코드는 16자리 숫자만 입력 가능합니다.")
     private String tcgCode;
 

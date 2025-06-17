@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +33,18 @@ public class TcgCodeController {
     @Operation(summary = "친구 코드 추가", description = "유저 친구 코드 생성")
     public ResponseEntity<ApiResponse<TcgCodeSimpleDto>> createTcgCode(
             @RequestBody @Valid TcgCodeSimpleDto tcgCodeSimpleDto,
-            @AuthenticationPrincipal UserDetailDto userDetailDto
+            @AuthenticationPrincipal UserDetailDto userDetailDto,
+            Errors errors
     ) {
+        if(errors.hasErrors()) {
+            String errorMessage = errors.getFieldErrors()
+                    .stream()
+                    .map(error -> error.getDefaultMessage())
+                    .findFirst()
+                    .orElse("입력값이 올바르지 않습니다.");
+            return ResponseEntity.ok(ApiResponse.error(errorMessage, "400"));
+        }
+
         return executeWithErrorHandling(
             () -> tcgCodeService.createTcgCode(tcgCodeSimpleDto, userDetailDto.getUuid()),
             "신규 친구 코드가 등록 되었습니다.",
@@ -58,8 +69,18 @@ public class TcgCodeController {
     public ResponseEntity<ApiResponse<TcgCodeSimpleDto>> updateTcgCode(
             @PathVariable("codeId") Long codeId,
             @RequestBody @Valid TcgCodeSimpleDto tcgCodeSimpleDto,
-            @AuthenticationPrincipal UserDetailDto userDetailDto
+            @AuthenticationPrincipal UserDetailDto userDetailDto,
+            Errors errors
     ) {
+        if(errors.hasErrors()) {
+            String errorMessage = errors.getFieldErrors()
+                    .stream()
+                    .map(error -> error.getDefaultMessage())
+                    .findFirst()
+                    .orElse("입력값이 올바르지 않습니다.");
+            return ResponseEntity.ok(ApiResponse.error(errorMessage, "400"));
+        }
+
         return executeWithErrorHandling(
             () -> tcgCodeService.updateTcgCode(codeId, tcgCodeSimpleDto, userDetailDto.getUuid()),
             null,
