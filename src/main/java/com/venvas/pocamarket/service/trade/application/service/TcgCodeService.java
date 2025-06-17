@@ -2,6 +2,8 @@ package com.venvas.pocamarket.service.trade.application.service;
 
 import com.venvas.pocamarket.service.trade.application.dto.TcgCodeSimpleDto;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgCode;
+import com.venvas.pocamarket.service.trade.domain.exception.TcgCodeErrorCode;
+import com.venvas.pocamarket.service.trade.domain.exception.TcgCodeException;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgCodeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,18 +19,20 @@ import java.util.List;
 public class TcgCodeService {
 
     private final TcgCodeRepository tcgCodeRepository;
-    private final Integer STATUS_ACTIVE = 1;
+    private final int STATUS_ACTIVE = 1;
+    private final int MAX_TCG_CODE = 5;
 
     @Transactional
     public TcgCodeSimpleDto createTcgCode(TcgCodeSimpleDto tcgCodeSimpleDto, String userUUID) {
-        try {
-            TcgCode newTcgCode = new TcgCode(null, tcgCodeSimpleDto.getTcgCode(), userUUID, STATUS_ACTIVE, tcgCodeSimpleDto.getMemo());
-            validateTcgCode(newTcgCode);
-            TcgCode saveTcgCode = tcgCodeRepository.save(newTcgCode);
-            return new TcgCodeSimpleDto(saveTcgCode.getId(), saveTcgCode.getTcgCode(), saveTcgCode.getMemo());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        Long count = tcgCodeRepository.countByUuidAndStatus(userUUID, STATUS_ACTIVE);
+
+        if(count >= MAX_TCG_CODE) {
+            throw new TcgCodeException(TcgCodeErrorCode.TCG_CODE_MAX_COUNT_OVER);
         }
+
+        TcgCode newTcgCode = new TcgCode(null, tcgCodeSimpleDto.getTcgCode(), userUUID, STATUS_ACTIVE, tcgCodeSimpleDto.getMemo());
+        TcgCode saveTcgCode = tcgCodeRepository.save(newTcgCode);
+        return new TcgCodeSimpleDto(saveTcgCode.getId(), saveTcgCode.getTcgCode(), saveTcgCode.getMemo());
     }
 
     public List<TcgCodeSimpleDto> getTcgCodeList(String userUUID) {
@@ -38,7 +42,38 @@ public class TcgCodeService {
                 .toList();
     }
 
-    private void validateTcgCode(TcgCode tcgCode) {
+    @Transactional
+    public TcgCodeSimpleDto updateTcgCode(Long codeId, TcgCodeSimpleDto tcgCodeSimpleDto, String userUUID) {
+        if(!codeId.equals(tcgCodeSimpleDto.getTcgCodeId())) {
+            throw new TcgCodeException(TcgCodeErrorCode.TCG_CODE_NOT_EQUALS);
+        }
 
+        TcgCode findTcgCode = tcgCodeRepository.findUpdateCode(codeId, userUUID, STATUS_ACTIVE)
+                .orElseThrow(() -> new TcgCodeException(TcgCodeErrorCode.TCG_CODE_NOT_FOUND));
+
+        authorizedCheck(findTcgCode.getUuid(), userUUID);
+
+        findTcgCode.updateTcgCode(tcgCodeSimpleDto.getTcgCode(), tcgCodeSimpleDto.getMemo());
+        return new TcgCodeSimpleDto(findTcgCode.getId(), findTcgCode.getTcgCode(), findTcgCode.getMemo());
+    }
+
+    @Transactional
+    public Boolean deleteTcgCode(Long codeId, String userUUID) {
+        TcgCode findTcgCode = tcgCodeRepository.findUpdateCode(codeId, userUUID, STATUS_ACTIVE)
+                .orElseThrow(() -> new TcgCodeException(TcgCodeErrorCode.TCG_CODE_NOT_FOUND));
+
+        authorizedCheck(findTcgCode.getUuid(), userUUID);
+
+        findTcgCode.deleteTcgCode();
+        return true;
+    }
+
+    /**
+     * 인증 체크, 친구 코드에 등록된 UUID와 유저 UUID 비교
+     */
+    private void authorizedCheck(String targetUuid, String requestUserUuid) {
+        if(!targetUuid.equals(requestUserUuid)) {
+            throw new TcgCodeException(TcgCodeErrorCode.INSUFFICIENT_PERMISSION);
+        }
     }
 }

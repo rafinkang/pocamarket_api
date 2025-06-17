@@ -36,4 +36,13 @@ public class TcgCode {
     /** 유저 메모용 */
     @Column(name = "memo", length = 150)
     private String memo;
+
+    public void updateTcgCode(String tcgCode, String memo) {
+        this.tcgCode = tcgCode;
+        this.memo = memo;
+    }
+
+    public void deleteTcgCode() {
+        this.status = 0;
+    }
 } 

@@ -4,6 +4,8 @@ import com.venvas.pocamarket.common.aop.trim.TrimInput;
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.trade.application.dto.TcgCodeSimpleDto;
 import com.venvas.pocamarket.service.trade.application.service.TcgCodeService;
+import com.venvas.pocamarket.service.trade.domain.exception.TcgCodeErrorCode;
+import com.venvas.pocamarket.service.trade.domain.exception.TcgCodeException;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Slf4j
 @Tag(name = "TcgCode-API", description = "유저 친구 코드 관련 API")
@@ -31,9 +34,11 @@ public class TcgCodeController {
             @RequestBody @Valid TcgCodeSimpleDto tcgCodeSimpleDto,
             @AuthenticationPrincipal UserDetailDto userDetailDto
     ) {
-        log.info("tcgCodeCreateDto : {}", tcgCodeSimpleDto.toString());
-        return ResponseEntity.ok(ApiResponse.success(tcgCodeService.createTcgCode(tcgCodeSimpleDto, userDetailDto.getUuid()),
-                "신규 친구 코드가 등록 되었습니다."));
+        return executeWithErrorHandling(
+            () -> tcgCodeService.createTcgCode(tcgCodeSimpleDto, userDetailDto.getUuid()),
+            "신규 친구 코드가 등록 되었습니다.",
+            "친구 코드 생성에 실패했습니다."
+        );
     }
 
     @GetMapping("/tcg-code")
@@ -41,24 +46,65 @@ public class TcgCodeController {
     public ResponseEntity<ApiResponse<List<TcgCodeSimpleDto>>> getTcgCodeList(
             @AuthenticationPrincipal UserDetailDto userDetailDto
     ) {
-        return ResponseEntity.ok(ApiResponse.success(tcgCodeService.getTcgCodeList(userDetailDto.getUuid())));
+        return executeWithErrorHandling(
+            () -> tcgCodeService.getTcgCodeList(userDetailDto.getUuid()),
+            null,
+            "친구 코드 목록 조회에 실패했습니다."
+        );
     }
 
-//    @PutMapping("/tcg-code/{codeId}")
-//    @Operation(summary = "친구 코드 수정", description = "유저 친구 코드 수정")
-//    public ResponseEntity<ApiResponse<PokemonCardListDto>> getPokemonCardListData(
-//            @ModelAttribute @Valid PokemonCardListFormDto condition,
-//            @PageableDefault(size = 30) Pageable pageable
-//    ) {
-//        return ResponseEntity.ok(ApiResponse.success(tcgCodeService.getListData(condition, pageable)));
-//    }
-//
-//    @DeleteMapping("/tcg-code/{codeId}")
-//    @Operation(summary = "친구 코드 삭제", description = "유저 친구 코드 삭제")
-//    public ResponseEntity<ApiResponse<PokemonCardListDto>> getPokemonCardListData(
-//            @ModelAttribute @Valid PokemonCardListFormDto condition,
-//            @PageableDefault(size = 30) Pageable pageable
-//    ) {
-//        return ResponseEntity.ok(ApiResponse.success(tcgCodeService.getListData(condition, pageable)));
-//    }
+    @PutMapping("/tcg-code/{codeId}")
+    @Operation(summary = "친구 코드 수정", description = "유저 친구 코드 수정")
+    public ResponseEntity<ApiResponse<TcgCodeSimpleDto>> updateTcgCode(
+            @PathVariable("codeId") Long codeId,
+            @RequestBody @Valid TcgCodeSimpleDto tcgCodeSimpleDto,
+            @AuthenticationPrincipal UserDetailDto userDetailDto
+    ) {
+        return executeWithErrorHandling(
+            () -> tcgCodeService.updateTcgCode(codeId, tcgCodeSimpleDto, userDetailDto.getUuid()),
+            null,
+            "친구 코드 수정에 실패했습니다."
+        );
+    }
+
+    @DeleteMapping("/tcg-code/{codeId}")
+    @Operation(summary = "친구 코드 삭제", description = "유저 친구 코드 삭제")
+    public ResponseEntity<ApiResponse<Boolean>> deleteTcgCode(
+            @PathVariable("codeId") Long codeId,
+            @AuthenticationPrincipal UserDetailDto userDetailDto
+    ) {
+        return executeWithErrorHandling(
+            () -> tcgCodeService.deleteTcgCode(codeId, userDetailDto.getUuid()),
+            null,
+            "친구 코드 삭제에 실패했습니다."
+        );
+    }
+
+    /**
+     * 공통 예외 처리 메서드
+     * @param execution 실행할 비즈니스 로직
+     * @param successMessage 성공 시 메시지 (null 가능)
+     * @param errorMessage 실패 시 메시지
+     * @return ResponseEntity
+     */
+    private <T> ResponseEntity<ApiResponse<T>> executeWithErrorHandling(
+            Supplier<T> execution,
+            String successMessage,
+            String errorMessage
+    ) {
+        try {
+            T result = execution.get();
+            return ResponseEntity.ok(
+                successMessage != null 
+                    ? ApiResponse.success(result, successMessage)
+                    : ApiResponse.success(result)
+            );
+        } catch (Exception e) {
+            if (e instanceof TcgCodeException tcgError) {
+                TcgCodeErrorCode errorCode = tcgError.getErrorCode();
+                return ResponseEntity.ok(ApiResponse.error(errorCode.getMessage(), errorCode.getCode()));
+            }
+            return ResponseEntity.ok(ApiResponse.error(errorMessage, "500"));
+        }
+    }
 }

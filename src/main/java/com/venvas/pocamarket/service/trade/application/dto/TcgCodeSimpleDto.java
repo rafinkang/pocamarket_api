@@ -15,6 +15,6 @@ public class TcgCodeSimpleDto {
     @Pattern(regexp = "^[0-9]{16}$", message = "친구 코드는 16자리 숫자만 입력 가능합니다.")
     private String tcgCode;
 
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s,.\\-_()\\[\\]]*$", message = "한글, 영문, 숫자, 공백 및 일부 특수문자(.,-_()[])만 입력 가능합니다.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9\\s,.?!\\-_()\\[\\]]*$", message = "한글, 영문, 숫자, 공백 및 일부 특수문자(.,?!-_()[])만 입력 가능합니다.")
     private String memo;
 }
