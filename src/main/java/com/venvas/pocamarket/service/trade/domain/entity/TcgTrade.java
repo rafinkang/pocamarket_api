@@ -1,16 +1,21 @@
 package com.venvas.pocamarket.service.trade.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * 거래 엔티티
  */
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tcg_trade")
 public class TcgTrade {
@@ -37,10 +42,22 @@ public class TcgTrade {
     private Integer status = 1;
 
     /** 생성시간 */
-    @Column(name = "created_at")
-    private Date createdAt;
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     /** 최종 수정시간 */
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+    
+    /**
+     * 거래 엔티티 생성 (ID와 타임스탬프 제외)
+     */
+    public TcgTrade(String tcgCode, String uuid, String nickname, Integer status) {
+        this.tcgCode = tcgCode;
+        this.uuid = uuid;
+        this.nickname = nickname;
+        this.status = status;
+    }
 } 

@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.trade.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tcg_trade_card_code")
 public class TcgTradeCardCode {
@@ -30,4 +32,13 @@ public class TcgTradeCardCode {
     /** 1: 내카드, 2: 원하는 카드 */
     @Column(name = "type")
     private Integer type = 1;
+    
+    /**
+     * 거래 카드 코드 엔티티 생성 (ID 제외)
+     */
+    public TcgTradeCardCode(TcgTrade trade, String cardCode, Integer type) {
+        this.trade = trade;
+        this.cardCode = cardCode;
+        this.type = type;
+    }
 } 
