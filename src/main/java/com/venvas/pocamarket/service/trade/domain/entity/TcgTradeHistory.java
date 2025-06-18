@@ -3,7 +3,8 @@ package com.venvas.pocamarket.service.trade.domain.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 /**
  * 거래 히스토리 엔티티
@@ -39,5 +40,5 @@ public class TcgTradeHistory {
 
     /** 생성시간 */
     @Column(name = "create_at")
-    private Date createAt;
+    private LocalDateTime createAt;
 } 

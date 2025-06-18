@@ -3,7 +3,8 @@ package com.venvas.pocamarket.service.trade.domain.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 /**
  * 교환 요청 엔티티
@@ -46,9 +47,9 @@ public class TcgTradeRequest {
 
     /** 생성시간 */
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     /** 최종 수정시간 */
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 } 
