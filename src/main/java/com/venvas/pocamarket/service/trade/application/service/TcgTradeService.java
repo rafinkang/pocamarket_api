@@ -1,6 +1,8 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCreateRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListResponse;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeCardCode;
 import com.venvas.pocamarket.service.trade.domain.enums.TradeCardCodeStatus;
@@ -14,8 +16,12 @@ import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,6 +70,25 @@ public class TcgTradeService {
         return true;
     }
 
+    public Page<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, boolean isAdmin) {
+        String myCardCode = request.getMyCardCode();
+        List<String> wantCardCode = distinctCards(request.getWantCardCode());
+
+        ProcessDuplicateCardCodes(myCardCode, wantCardCode);
+
+        TcgTradeListRequest tcgTradeRequest = new TcgTradeListRequest(myCardCode, wantCardCode, request.getFilterOption());
+
+        // 일단 리스트의 페이
+        return tcgTradeRepository.searchFilterList(tcgTradeRequest, pageable, null, isAdmin);
+
+        // TODO : 검색 된 걸로 카드 정보 가져오기
+    }
+
+    public Page<TcgTradeListResponse> getMyTradeList(TcgTradeListRequest request, String userUuid, Pageable pageable) {
+        tcgTradeRepository.findAll(pageable);
+        return null;
+    }
+
     /**
      * 카드 중복 검증 및 중복 카드 제거 처리
      */
@@ -72,19 +97,27 @@ public class TcgTradeService {
         List<String> wantCardCodes = request.getWantCardCode();
 
         // 원하는 카드 목록에서 중복 제거
-        List<String> distinctWantCards = wantCardCodes.stream()
-                .distinct()
-                .collect(Collectors.toList());
+        List<String> distinctWantCards = distinctCards(wantCardCodes);
 
         // 내 카드와 원하는 카드 중복 검증
-        if (distinctWantCards.contains(myCardCode)) {
+        ProcessDuplicateCardCodes(myCardCode, distinctWantCards);
+
+        // 중복 제거된 요청 객체 반환
+        return new TcgTradeCreateRequest(myCardCode, distinctWantCards, request.getTcgCode());
+    }
+
+    private List<String> distinctCards(List<String> cards) {
+        return cards.stream()
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private void ProcessDuplicateCardCodes(String myCard, List<String> wantCards) {
+        if (wantCards.contains(myCard)) {
             throw new TcgTradeException(
                     TcgTradeErrorCode.INVALID_WANT_CARD_LIST,
                     "내 카드와 원하는 카드가 동일할 수 없습니다.");
         }
-
-        // 중복 제거된 요청 객체 반환
-        return new TcgTradeCreateRequest(myCardCode, distinctWantCards, request.getTcgCode());
     }
     
     /**

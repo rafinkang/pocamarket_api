@@ -9,6 +9,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.venvas.pocamarket.infrastructure.util.QueryUtil;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemonability.PokemonAbilityDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemonattack.PokemonAttackDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
@@ -39,8 +40,6 @@ import static com.venvas.pocamarket.service.pokemon.domain.entity.QPokemonCard.p
 public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-    private final int MIN_PAGE_SIZE = 1;
-    private final int MAX_PAGE_SIZE = 30;
 
 
     public PokemonCardRepositoryImpl(JPAQueryFactory queryFactory) {
@@ -152,8 +151,8 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
     @Override
     public Page<PokemonCardListDto> searchFilterList(PokemonCardListFormDto condition, Pageable pageable) {
 
-        long pageSize = checkMinMax(MIN_PAGE_SIZE, MAX_PAGE_SIZE, pageable.getPageSize());
-        long offset = Math.max(pageable.getOffset(), 0);
+        long pageSize = QueryUtil.checkMinMax(QueryUtil.MIN_PAGE_SIZE, QueryUtil.MAX_PAGE_SIZE, pageable.getPageSize());
+        long offset = QueryUtil.checkOffsetMax(pageable.getOffset());
 
         // default 정렬
         if(pageable.getSort().isEmpty()) {
@@ -161,7 +160,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         }
 
         List<PokemonCardListDto> content = getPokemonCardListQuery(condition)
-                .orderBy(getOrderSpecifier(pageable))
+                .orderBy(QueryUtil.getOrderSpecifier(pageable, pokemonCard, UseOrder.getList()))
                 .offset(offset)
                 .limit(pageSize)
                 .fetch();
@@ -176,11 +175,11 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
      */
     public Slice<PokemonCardListDto> searchFilterSliceList(PokemonCardListFormDto condition, Pageable pageable) {
 
-        long pageSize = checkMinMax(MIN_PAGE_SIZE, MAX_PAGE_SIZE, pageable.getPageSize());
-        long offset = Math.max(pageable.getOffset(), 0);
+        long pageSize = QueryUtil.checkMinMax(QueryUtil.MIN_PAGE_SIZE, QueryUtil.MAX_PAGE_SIZE, pageable.getPageSize());
+        long offset = QueryUtil.checkOffsetMax(pageable.getOffset());
 
         List<PokemonCardListDto> content = getPokemonCardListQuery(condition)
-                .orderBy(getOrderSpecifier(pageable))
+                .orderBy(QueryUtil.getOrderSpecifier(pageable, pokemonCard, UseOrder.getList()))
                 .offset(offset)
                 .limit(pageSize + 1)
                 .fetch();
@@ -230,26 +229,6 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                         packEq(condition.getPack()),
                         rarityEqIn(condition.getRarity())
                 );
-    }
-
-    private OrderSpecifier<?>[] getOrderSpecifier(Pageable pageable) {
-        List<OrderSpecifier<?>> orders = new ArrayList<>();
-
-        pageable.getSort().stream()
-                .filter(sort -> UseOrder.getList().stream().anyMatch(order -> order.equals(sort.getProperty())))
-                .forEach(sort -> {
-                    // 오름,내림차순
-                    Order order = sort.isAscending() ? Order.ASC : Order.DESC;
-                    // 프로퍼티값
-                    String property = sort.getProperty();
-                    // queryDsl의 컬렴명을 동적으로 Path 객체로 만들어주는 유틸
-                    PathBuilder<PokemonCard> pathBuilder = new PathBuilder<>(pokemonCard.getType(), pokemonCard.getMetadata());
-                    OrderSpecifier<?> orderSpecifier = new OrderSpecifier<>(order, pathBuilder.getString(property));
-
-                    orders.add(orderSpecifier);
-                });
-
-        return orders.toArray(OrderSpecifier[]::new);
     }
 
     private BooleanExpression rarityEqIn(String rarity) {
@@ -349,14 +328,5 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
         return Arrays.stream(str.split(regex))
                 .map(String::trim)
                 .toList();
-    }
-
-    /**
-     * @param min 최소값
-     * @param max 최대값
-     */
-    private long checkMinMax(long min, long max, long v) {
-        long m = Math.max(v, min); // 최소값 보다 큰 값 리턴
-        return Math.min(m, max); // 최대값 리턴
     }
 }

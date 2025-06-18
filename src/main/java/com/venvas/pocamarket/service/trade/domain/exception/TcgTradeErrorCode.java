@@ -17,7 +17,8 @@ public enum TcgTradeErrorCode {
     INVALID_WANT_CARD_LIST("TCG_TRADE_005", "원하는 카드 목록이 유효하지 않습니다."),
     TOO_MANY_WANT_CARDS("TCG_TRADE_006", "원하는 카드는 최대 10개까지 가능합니다."),
     EMPTY_WANT_CARD_LIST("TCG_TRADE_007", "원하는 카드가 최소 1개 이상 있어야 합니다."),
-    
+    INVALID_SEARCH_STATUS("TCG_TRADE_008", "검색 상태 값이 유효하지 않습니다."),
+
     // 비즈니스 로직 관련 에러
     TRADE_NOT_FOUND("TCG_TRADE_100", "교환 요청을 찾을 수 없습니다."),
     UNAUTHORIZED_TRADE_ACCESS("TCG_TRADE_101", "교환 요청에 대한 권한이 없습니다."),

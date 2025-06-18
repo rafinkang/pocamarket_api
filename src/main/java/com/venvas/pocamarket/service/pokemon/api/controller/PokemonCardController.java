@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class PokemonCardController {
     @GetMapping("/list")
     @Operation(summary = "포켓몬 리스트", description = "filter 값에 따라 포켓몬 리스트를 조회 API")
     public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getPokemonCardListData(
-            @ModelAttribute @Valid PokemonCardListFormDto condition,
+            @ModelAttribute @Validated PokemonCardListFormDto condition,
             @PageableDefault(size = 30)Pageable pageable
     ) {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
