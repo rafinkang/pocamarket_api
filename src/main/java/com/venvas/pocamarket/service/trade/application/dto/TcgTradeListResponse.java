@@ -10,6 +10,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TcgTradeListResponse {
 
     private Long tradeId;
