@@ -89,6 +89,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/login",
                                 "/api/register",
+                                "/api/tcg-trade",
                                 "/api/pokemon-card/**")
                         .permitAll()
 
