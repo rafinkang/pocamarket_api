@@ -75,6 +75,55 @@ public class TcgTradeService {
         return true;
     }
 
+    /**
+     * 카드 교환 요청을 수정합니다.
+     * 
+     * @param tradeId  교환 요청 ID
+     * @param request  교환 요청 데이터 (DTO)
+     * @param userUuid 요청자 UUID
+     * @return 처리 결과 메시지
+     */
+    @Transactional
+    public Boolean updateTrade(Long tradeId, TcgTradeCreateRequest request, String userUuid) {
+        // 0. 요청 데이터 검증 및 중복 카드 제거
+        TcgTradeCreateRequest processedRequest = validateAndProcessDuplicateCardCodes(request);
+        
+        // 1. 거래 요청 업데이트
+        TcgTrade tcgTrade = tcgTradeRepository.findById(tradeId)
+                .orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND));
+
+        // 권한 검증: 작성자만 수정 가능
+        if (!tcgTrade.getUuid().equals(userUuid)) {
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS);
+        }
+
+        // 거래 상태에 따라 수정 가능 여부 검증
+        if (tcgTrade.getStatus() > TradeStatus.REQUEST.getCode()) {
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_ALREADY_PROCESS);
+        }
+
+        // 2. 기존 거래 요청 카드 데이터 가져오기
+        List<TcgTradeCardCode> existingCardCodes = tcgTradeCardCodeRepository.findByTrade(tcgTrade);
+        
+        // 3. 기존 거래 요청 카드 데이터와 새로운 거래 요청 카드 데이터 비교
+        boolean hasChanges = hasCardCodeChanges(existingCardCodes, processedRequest);
+        
+        // 4. 기존 거래 요청 카드 데이터와 새로운 거래 요청 카드 데이터 비교 후 차이가 있으면 삭제 후 새로운 거래 요청 카드 데이터 저장
+        if (hasChanges) {
+            // 기존 카드 코드 데이터 삭제
+            tcgTradeCardCodeRepository.deleteByTrade(tcgTrade);
+            // 새로운 카드 코드 데이터 저장
+            saveTcgTradeCardCodes(tcgTrade, processedRequest);
+        }
+        
+        // TcgTrade 정보 업데이트 (tcgCode)
+        if (!tcgTrade.getTcgCode().equals(processedRequest.getTcgCode())) {
+            tcgTrade.updateTcgCode(processedRequest.getTcgCode());
+        }
+
+        return true;
+    }
+
     public Page<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin) {
         String myCardCode = request.getMyCardCode();
         List<String> wantCardCode = distinctCards(request.getWantCardCode());
@@ -185,6 +234,45 @@ public class TcgTradeService {
         }
         
         tcgTradeCardCodeRepository.saveAll(cardCodes);
+    }
+    
+    /**
+     * 기존 카드 코드와 새로운 카드 코드 변경사항 비교
+     * 
+     * @param existingCardCodes 기존 카드 코드 목록
+     * @param request 새로운 요청 데이터
+     * @return 변경사항 존재 여부
+     */
+    private boolean hasCardCodeChanges(List<TcgTradeCardCode> existingCardCodes, TcgTradeCreateRequest request) {
+        // 기존 카드 코드를 type별로 분류
+        String existingMyCard = null;
+        List<String> existingWantCards = new ArrayList<>();
+        
+        for (TcgTradeCardCode cardCode : existingCardCodes) {
+            if (cardCode.getType() == TradeCardCodeStatus.MY.getCode()) {
+                existingMyCard = cardCode.getCardCode();
+            } else if (cardCode.getType() == TradeCardCodeStatus.WANT.getCode()) {
+                existingWantCards.add(cardCode.getCardCode());
+            }
+        }
+        
+        // 내 카드 비교
+        if (!request.getMyCardCode().equals(existingMyCard)) {
+            return true;
+        }
+        
+        // 원하는 카드 개수 비교
+        if (request.getWantCardCode().size() != existingWantCards.size()) {
+            return true;
+        }
+        
+        // 원하는 카드 내용 비교 (순서 무관)
+        List<String> sortedNewWantCards = new ArrayList<>(request.getWantCardCode());
+        List<String> sortedExistingWantCards = new ArrayList<>(existingWantCards);
+        sortedNewWantCards.sort(String::compareTo);
+        sortedExistingWantCards.sort(String::compareTo);
+        
+        return !sortedNewWantCards.equals(sortedExistingWantCards);
     }
     
     /**

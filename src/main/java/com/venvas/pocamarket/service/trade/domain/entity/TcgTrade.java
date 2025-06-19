@@ -66,4 +66,13 @@ public class TcgTrade {
         this.nickname = nickname;
         this.status = status;
     }
+    
+    /**
+     * 거래 정보 업데이트 (tcgCode 수정)
+     * 
+     * @param tcgCode 새로운 tcgCode
+     */
+    public void updateTcgCode(String tcgCode) {
+        this.tcgCode = tcgCode;
+    }
 } 

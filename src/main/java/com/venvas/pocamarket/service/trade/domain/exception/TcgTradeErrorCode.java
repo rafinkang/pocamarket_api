@@ -24,6 +24,7 @@ public enum TcgTradeErrorCode {
     UNAUTHORIZED_TRADE_ACCESS("TCG_TRADE_101", "교환 요청에 대한 권한이 없습니다."),
     TRADE_ALREADY_COMPLETED("TCG_TRADE_102", "이미 완료된 교환 요청입니다."),
     TRADE_ALREADY_CANCELLED("TCG_TRADE_103", "이미 취소된 교환 요청입니다."),
+    TRADE_ALREADY_PROCESS("TCG_TRADE_104", "이미 진행중인 교환 요청입니다."),
     
     // 시스템 에러
     INTERNAL_SERVER_ERROR("TCG_TRADE_500", "서버 내부 오류가 발생했습니다.");
