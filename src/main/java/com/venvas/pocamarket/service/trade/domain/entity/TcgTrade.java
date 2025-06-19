@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -50,6 +52,10 @@ public class TcgTrade {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    /** 참조 추가 */
+    @OneToMany(mappedBy = "trade", fetch = FetchType.LAZY)
+    private List<TcgTradeCardCode> tcgTradeCardCodes = new ArrayList<>();
     
     /**
      * 거래 엔티티 생성 (ID와 타임스탬프 제외)

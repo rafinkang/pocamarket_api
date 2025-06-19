@@ -6,11 +6,14 @@ import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.venvas.pocamarket.common.util.ApiResponse;
+import com.venvas.pocamarket.service.trade.application.dto.TcgCodeSimpleDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCreateRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeDetailResponse;
 import com.venvas.pocamarket.service.trade.application.service.TcgTradeService;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 
@@ -73,5 +76,15 @@ public class TcgTradeController {
 
         Page<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable, uuid, isAdmin);
         return ResponseEntity.ok(ApiResponse.success(tradeList));
+    }
+
+    @GetMapping("/{tradeId}")
+    @Operation(summary = "카드 교환 상세", description = "카드 교환 상세 내용 조회합니다.")
+    public ResponseEntity<ApiResponse<TcgTradeDetailResponse>> getTcgTradeDetail(
+            @PathVariable("tradeId") Long tradeId,
+            @AuthenticationPrincipal UserDetailDto userDetailDto
+    ) {
+        TcgTradeDetailResponse response = tcgTradeService.getTcgTradeById(tradeId);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 }

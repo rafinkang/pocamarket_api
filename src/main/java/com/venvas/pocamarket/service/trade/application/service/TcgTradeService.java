@@ -4,6 +4,7 @@ import com.venvas.pocamarket.service.pokemon.application.dto.CardCodeName;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCardCodeDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCreateRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeDetailResponse;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListResponse;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
@@ -183,5 +184,15 @@ public class TcgTradeService {
         
         tcgTradeCardCodeRepository.saveAll(cardCodes);
     }
-
+    
+    /**
+     * TcgTradeDetail 조회
+     */
+    @Transactional(readOnly = true)
+    public TcgTradeDetailResponse getTcgTradeById(Long tradeId) {
+        TcgTrade tcgTrade = tcgTradeRepository
+                .findByIdWithCardCodes(tradeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 교환을 찾을 수 없습니다."));
+        return TcgTradeDetailResponse.from(tcgTrade);
+    }
 }
