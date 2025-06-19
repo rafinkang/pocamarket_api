@@ -20,8 +20,9 @@ public class TcgTradeDetailResponse {
     private LocalDateTime updatedAt;
     private TcgTradeDetailCardCodeDto myCard;
     private List<TcgTradeDetailCardCodeDto> wantCards;
+    private Boolean isMy;
 
-    public TcgTradeDetailResponse(TcgTrade tcgTrade, TcgTradeDetailCardCodeDto myCard, List<TcgTradeDetailCardCodeDto> wantCards) {
+    public TcgTradeDetailResponse(TcgTrade tcgTrade, TcgTradeDetailCardCodeDto myCard, List<TcgTradeDetailCardCodeDto> wantCards, boolean isMy) {
         this.tradeId = tcgTrade.getId();
         this.tcgCode = tcgTrade.getTcgCode();
         this.nickname = tcgTrade.getNickname();
@@ -30,5 +31,6 @@ public class TcgTradeDetailResponse {
         this.updatedAt = tcgTrade.getUpdatedAt();
         this.myCard = myCard;
         this.wantCards = wantCards;
+        this.isMy = isMy;
     }
 }

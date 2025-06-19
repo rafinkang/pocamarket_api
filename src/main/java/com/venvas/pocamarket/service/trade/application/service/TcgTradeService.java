@@ -191,7 +191,7 @@ public class TcgTradeService {
      * TcgTradeDetail 조회
      */
     @Transactional(readOnly = true)
-    public TcgTradeDetailResponse getTcgTradeById(Long tradeId) {
+    public TcgTradeDetailResponse getTcgTradeById(Long tradeId, String currentUserUuid) {
         // 1. TcgTrade와 TcgTradeCardCode 목록 조회 (기존과 동일)
         TcgTrade tcgTrade = tcgTradeRepository.findByIdWithCardCodes(tradeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 교환을 찾을 수 없습니다."));
@@ -220,7 +220,9 @@ public class TcgTradeService {
         // '내 카드'가 없을 경우를 대비한 방어 코드
         TcgTradeDetailCardCodeDto myCard = myCardsList.isEmpty() ? null : myCardsList.get(0);
 
+        boolean isMy = currentUserUuid != null && tcgTrade.getUuid().equals(currentUserUuid);
+
         // 5. 최종 DTO 생성 및 반환 (public 생성자 직접 호출)
-        return new TcgTradeDetailResponse(tcgTrade, myCard, wantCardsList);
+        return new TcgTradeDetailResponse(tcgTrade, myCard, wantCardsList, isMy);
     }
 }

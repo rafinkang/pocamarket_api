@@ -84,7 +84,7 @@ public class TcgTradeController {
             @PathVariable("tradeId") Long tradeId,
             @AuthenticationPrincipal UserDetailDto userDetailDto
     ) {
-        TcgTradeDetailResponse response = tcgTradeService.getTcgTradeById(tradeId);
+        TcgTradeDetailResponse response = tcgTradeService.getTcgTradeById(tradeId, userDetailDto.getUuid());
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 }
