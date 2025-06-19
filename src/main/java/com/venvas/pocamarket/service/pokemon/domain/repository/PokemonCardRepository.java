@@ -23,6 +23,13 @@ public interface PokemonCardRepository extends JpaRepository<PokemonCard, Long>,
      * @return 조회된 포켓몬 카드 (Optional)
      */
     Optional<PokemonCard> findByCode(String code);
+
+    /**
+     * 카드 코드 리스트에 포함된 포켓몬 카드를 조회
+     * @param codes 카드 코드 리스트
+     * @return 조회된 포켓몬 카드 (List)
+     */
+    List<PokemonCard> findByCodeIn(List<String> codes);
     
     /**
      * 한글 이름으로 포켓몬 카드를 검색

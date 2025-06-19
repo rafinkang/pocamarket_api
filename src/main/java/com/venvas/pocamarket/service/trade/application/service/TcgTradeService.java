@@ -1,9 +1,11 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
 import com.venvas.pocamarket.service.pokemon.application.dto.CardCodeName;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCardCodeDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCreateRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeDetailCardCodeDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeDetailResponse;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListResponse;
@@ -190,9 +192,35 @@ public class TcgTradeService {
      */
     @Transactional(readOnly = true)
     public TcgTradeDetailResponse getTcgTradeById(Long tradeId) {
-        TcgTrade tcgTrade = tcgTradeRepository
-                .findByIdWithCardCodes(tradeId)
+        // 1. TcgTrade와 TcgTradeCardCode 목록 조회 (기존과 동일)
+        TcgTrade tcgTrade = tcgTradeRepository.findByIdWithCardCodes(tradeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 교환을 찾을 수 없습니다."));
-        return TcgTradeDetailResponse.from(tcgTrade);
+
+        // 2. 모든 카드 코드 추출 (기존과 동일)
+        List<String> cardCodes = tcgTrade.getTcgTradeCardCodes().stream()
+                .map(TcgTradeCardCode::getCardCode)
+                .distinct()
+                .collect(Collectors.toList());
+
+        // 3. PokemonCard 상세 정보 한번에 조회 (기존과 동일)
+        Map<String, PokemonCard> pokemonCardMap = pokemonCardRepository.findByCodeIn(cardCodes).stream()
+                .collect(Collectors.toMap(PokemonCard::getCode, card -> card));
+
+        // 4. '내 카드'와 '원하는 카드' DTO 리스트 생성 (기존과 동일)
+        List<TcgTradeDetailCardCodeDto> myCardsList = tcgTrade.getTcgTradeCardCodes().stream()
+                .filter(tradeCard -> tradeCard.getType() == TradeCardCodeStatus.MY.getCode())
+                .map(tradeCard -> new TcgTradeDetailCardCodeDto(tradeCard, pokemonCardMap.get(tradeCard.getCardCode())))
+                .collect(Collectors.toList());
+
+        List<TcgTradeDetailCardCodeDto> wantCardsList = tcgTrade.getTcgTradeCardCodes().stream()
+                .filter(tradeCard -> tradeCard.getType() == TradeCardCodeStatus.WANT.getCode())
+                .map(tradeCard -> new TcgTradeDetailCardCodeDto(tradeCard, pokemonCardMap.get(tradeCard.getCardCode())))
+                .collect(Collectors.toList());
+
+        // '내 카드'가 없을 경우를 대비한 방어 코드
+        TcgTradeDetailCardCodeDto myCard = myCardsList.isEmpty() ? null : myCardsList.get(0);
+
+        // 5. 최종 DTO 생성 및 반환 (public 생성자 직접 호출)
+        return new TcgTradeDetailResponse(tcgTrade, myCard, wantCardsList);
     }
 }

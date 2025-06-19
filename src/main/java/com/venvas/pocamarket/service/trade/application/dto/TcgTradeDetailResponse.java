@@ -21,37 +21,13 @@ public class TcgTradeDetailResponse {
     private TcgTradeDetailCardCodeDto myCard;
     private List<TcgTradeDetailCardCodeDto> wantCards;
 
-    public static TcgTradeDetailResponse from(TcgTrade tcgTrade) {
-        List<TcgTradeDetailCardCodeDto> myCardList = tcgTrade.getTcgTradeCardCodes().stream()
-                .filter(card -> TradeCardCodeStatus.fromDbCode(card.getType()) == TradeCardCodeStatus.MY)
-                .map(TcgTradeDetailCardCodeDto::new)
-                .collect(Collectors.toList());
-
-        List<TcgTradeDetailCardCodeDto> wantCardList = tcgTrade.getTcgTradeCardCodes().stream()
-                .filter(card -> TradeCardCodeStatus.fromDbCode(card.getType()) == TradeCardCodeStatus.WANT)
-                .map(TcgTradeDetailCardCodeDto::new)
-                .collect(Collectors.toList());
-
-        return new TcgTradeDetailResponse(
-            tcgTrade.getId(),
-            tcgTrade.getTcgCode(),
-            tcgTrade.getNickname(),
-            tcgTrade.getStatus(),
-            tcgTrade.getCreatedAt(),
-            tcgTrade.getUpdatedAt(),
-            myCardList.get(0),
-            wantCardList
-        );
-    }
-    
-    // fron 메소드를 위한 private 생성자
-    private TcgTradeDetailResponse(Long id, String tcgCode, String nickname, Integer status, LocalDateTime createdAt, LocalDateTime updatedAt, TcgTradeDetailCardCodeDto myCard, List<TcgTradeDetailCardCodeDto> wantCards) {
-        this.tradeId = id;
-        this.tcgCode = tcgCode;
-        this.nickname = nickname;
-        this.status = TradeStatus.fromDbCode(status);
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public TcgTradeDetailResponse(TcgTrade tcgTrade, TcgTradeDetailCardCodeDto myCard, List<TcgTradeDetailCardCodeDto> wantCards) {
+        this.tradeId = tcgTrade.getId();
+        this.tcgCode = tcgTrade.getTcgCode();
+        this.nickname = tcgTrade.getNickname();
+        this.status = TradeStatus.fromDbCode(tcgTrade.getStatus());
+        this.createdAt = tcgTrade.getCreatedAt();
+        this.updatedAt = tcgTrade.getUpdatedAt();
         this.myCard = myCard;
         this.wantCards = wantCards;
     }
