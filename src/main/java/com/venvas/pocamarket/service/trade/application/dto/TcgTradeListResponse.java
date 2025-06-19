@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,26 +24,35 @@ public class TcgTradeListResponse {
 
     private CardData myCardInfo;
 
-    private List<CardData> wantCardInfo;
+    private List<CardData> wantCardInfo = new ArrayList<>();
+
+    private List<TcgTradeCardCodeDto> tradeCardCodeList = new ArrayList<>();
 
     @QueryProjection
-    public TcgTradeListResponse(Long tradeId, String nickname, Integer status, LocalDateTime created_at) {
+    public TcgTradeListResponse(Long tradeId, String nickname, Integer status, LocalDateTime created_at, List<TcgTradeCardCodeDto> tradeCardCodeList) {
         this.tradeId = tradeId;
         this.nickname = nickname;
         this.status = status;
         this.created_at = created_at;
+        this.tradeCardCodeList = tradeCardCodeList;
     }
 
-    public void updateCardInfo(CardData myCardInfo, List<CardData> wantCardInfo) {
-        this.myCardInfo = myCardInfo;
-        this.wantCardInfo = wantCardInfo;
+    public void updateMyCardInfo(String cardCode, String cardName) {
+        this.myCardInfo = new CardData(cardCode, cardName);
+    }
+
+    public void updateWantCardInfo(String cardCode, String cardName) {
+        if(wantCardInfo == null) {
+            wantCardInfo = new ArrayList<>();
+        }
+        wantCardInfo.add(new CardData(cardCode, cardName));
     }
 
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CardData {
-        private String myCardCode;
-        private String myCardName;
+        private String cardCode;
+        private String cardName;
     }
 }

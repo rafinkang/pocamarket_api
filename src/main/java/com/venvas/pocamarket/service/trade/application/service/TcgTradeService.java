@@ -1,5 +1,8 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
+import com.venvas.pocamarket.service.pokemon.application.dto.CardCodeName;
+import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCardCodeDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCreateRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListResponse;
@@ -15,9 +18,6 @@ import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
-
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +42,7 @@ public class TcgTradeService {
     private final UserRepository userRepository;
     private final TcgTradeRepository tcgTradeRepository;
     private final TcgTradeCardCodeRepository tcgTradeCardCodeRepository;
+    private final PokemonCardRepository pokemonCardRepository;
 
     /**
      * 카드 교환 요청을 생성합니다.
@@ -70,7 +72,7 @@ public class TcgTradeService {
         return true;
     }
 
-    public Page<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, boolean isAdmin) {
+    public Page<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin) {
         String myCardCode = request.getMyCardCode();
         List<String> wantCardCode = distinctCards(request.getWantCardCode());
 
@@ -78,15 +80,45 @@ public class TcgTradeService {
 
         TcgTradeListRequest tcgTradeRequest = new TcgTradeListRequest(myCardCode, wantCardCode, request.getFilterOption());
 
-        // 일단 리스트의 페이
-        return tcgTradeRepository.searchFilterList(tcgTradeRequest, pageable, null, isAdmin);
+        // TcgTrade 검색
+        Page<TcgTradeListResponse> tcgTradeListResponses = tcgTradeRepository.searchFilterList(tcgTradeRequest, pageable, userUuid, isAdmin);
 
-        // TODO : 검색 된 걸로 카드 정보 가져오기
-    }
+        // 가져온 리스트에서 card code 추출
+        List<String> allCardCodes = tcgTradeListResponses.getContent().stream()
+            .filter(tcgTrade -> !tcgTrade.getTradeCardCodeList().isEmpty())
+            .flatMap(tcgTrade -> tcgTrade.getTradeCardCodeList().stream())
+            .map(TcgTradeCardCodeDto::getCardCode)
+            .distinct()
+            .toList();
 
-    public Page<TcgTradeListResponse> getMyTradeList(TcgTradeListRequest request, String userUuid, Pageable pageable) {
-        tcgTradeRepository.findAll(pageable);
-        return null;
+        // 카드 코드 및 한글 이름 가져오기
+        List<CardCodeName> findCardList = pokemonCardRepository.findByCodeInGetCodeAndNameKo(allCardCodes);
+
+        // 카드 코드를 Map으로 변환하여 빠른 조회가 가능하도록 함
+        Map<String, CardCodeName> cardCodeMap = findCardList.stream()
+                .collect(Collectors.toMap(CardCodeName::getCode, card -> card));
+
+        // 가져온 카드 데이터 response에 주입
+        tcgTradeListResponses.getContent().stream()
+                .filter(tcgTrade -> !tcgTrade.getTradeCardCodeList().isEmpty())
+                .forEach(tcgTrade -> {
+                    List<TcgTradeCardCodeDto> cardList = tcgTrade.getTradeCardCodeList();
+                    for (TcgTradeCardCodeDto codeType : cardList) {
+                        CardCodeName cardInfo = cardCodeMap.get(codeType.getCardCode());
+                        if (cardInfo != null) {
+                            if (codeType.getType() == 1) {
+                                tcgTrade.updateMyCardInfo(cardInfo.getCode(), cardInfo.getNameKo());
+                            } else {
+                                tcgTrade.updateWantCardInfo(cardInfo.getCode(), cardInfo.getNameKo());
+                            }
+                        }
+                    }
+                    cardList.clear();
+                });
+
+        // TODO :: 교환 요청 건수
+
+        return tcgTradeListResponses;
     }
 
     /**

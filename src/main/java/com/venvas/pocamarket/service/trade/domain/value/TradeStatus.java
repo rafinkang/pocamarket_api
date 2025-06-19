@@ -4,12 +4,13 @@ import java.util.List;
 
 
 public class TradeStatus {
-    private static final List<String> list = List.of("all", "request", "progress", "complete");
-    private static final List<String> myList = List.of(
+    private static final List<String> list = List.of(
         "all",          // 전부 다
         "request",      // 신청한 교환
         "progress",     // 진행중인 교환
-        "complete",     // 완료된 교환
+        "complete"      // 완료된 교환
+    );
+    private static final List<String> myList = List.of(
         "my-all",       // 내 교환 전체 보기
         "my-request",   // 내가 신청한 교환
         "my-progress",  // 내 진행 중인 교환

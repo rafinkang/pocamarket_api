@@ -55,10 +55,9 @@ public class TcgTradeController {
             @PageableDefault(size = 30) Pageable pageable,
             @AuthenticationPrincipal UserDetailDto userDetailDto
     ) {
-
         boolean isAdmin = userDetailDto != null && userDetailDto.getGrade() == UserGrade.ADMIN;
 
-        Page<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable, isAdmin);
+        Page<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable, null, isAdmin);
         return ResponseEntity.ok(ApiResponse.success(tradeList));
     }
 
@@ -69,9 +68,10 @@ public class TcgTradeController {
             @PageableDefault(size = 30) Pageable pageable,
             @AuthenticationPrincipal UserDetailDto userDetailDto
     ) {
-        log.info("카드 교환 리스트: myCard={}, wantCards={}, getFilterOption={}",
-                request.getMyCardCode(), request.getWantCardCode(), request.getFilterOption());
-        Page<TcgTradeListResponse> myTradeList = tcgTradeService.getMyTradeList(request, userDetailDto.getUuid(), pageable);
-        return ResponseEntity.ok(ApiResponse.success(myTradeList));
+        boolean isAdmin = userDetailDto != null && userDetailDto.getGrade() == UserGrade.ADMIN;
+        String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
+
+        Page<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable, uuid, isAdmin);
+        return ResponseEntity.ok(ApiResponse.success(tradeList));
     }
 }

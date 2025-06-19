@@ -1,8 +1,11 @@
 package com.venvas.pocamarket.service.pokemon.domain.repository;
 
+import com.venvas.pocamarket.service.pokemon.application.dto.CardCodeName;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -48,4 +51,12 @@ public interface PokemonCardRepository extends JpaRepository<PokemonCard, Long>,
      * @return 조회된 포켓몬 카드 목록
      */
     List<PokemonCard> findByRarity(String rarity);
+
+    /**
+     * 카드 코드 리스트로 카드 코드와 한글 이름을 조회
+     * @param cardCodes 카드 코드 리스트
+     * @return 카드 코드와 한글 이름이 포함된 Projection 리스트
+     */
+    @Query("SELECT p.code as code, p.nameKo as nameKo FROM PokemonCard p WHERE p.code IN :cardCodes")
+    List<CardCodeName> findByCodeInGetCodeAndNameKo(@Param("cardCodes") List<String> cardCodes);
 }
