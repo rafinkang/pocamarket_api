@@ -27,11 +27,11 @@ public class TradeStatus {
 
     public static int convertStatus(String status) {
         return switch (status) {
-            case "all", "my-all" -> 98;
             case "request", "my-request" -> 1;
             case "progress", "my-progress" -> 2;
             case "complete", "my-complete" -> 3;
-            default -> 99;
+            case "all", "my-all" -> 98;
+            default -> 99; // 잘못된 값 or 삭제 된 글
         };
     }
 }

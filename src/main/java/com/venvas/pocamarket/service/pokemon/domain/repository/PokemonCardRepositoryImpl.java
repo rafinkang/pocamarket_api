@@ -2,11 +2,8 @@ package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.group.GroupBy;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.venvas.pocamarket.infrastructure.util.QueryUtil;
@@ -27,7 +24,6 @@ import org.springframework.data.domain.*;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

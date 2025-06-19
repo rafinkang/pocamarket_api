@@ -132,7 +132,7 @@ public class TcgTradeService {
 
         TcgTradeListRequest tcgTradeRequest = new TcgTradeListRequest(myCardCode, wantCardCode, request.getFilterOption());
 
-        // TcgTrade 검색
+//     TcgTrade 검색
         Page<TcgTradeListResponse> tcgTradeListResponses = tcgTradeRepository.searchFilterList(tcgTradeRequest, pageable, userUuid, isAdmin);
 
         // 가져온 리스트에서 card code 추출

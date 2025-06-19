@@ -43,15 +43,12 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
         this.isAdmin = isAdmin;
         this.isMy = myCheck(request.getFilterOption(), userUuid);
 
-        long pageSize = QueryUtil.checkMinMax(QueryUtil.MIN_PAGE_SIZE, QueryUtil.MAX_PAGE_SIZE, pageable.getPageSize());
-        long offset = QueryUtil.checkOffsetMax(pageable.getOffset());
-
         // default 정렬
         if(pageable.getSort().isEmpty()) {
             pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("id")));
         }
 
-        List<TcgTradeListResponse> content = getTradeListQuery(request, userUuid, pageable, pageSize, offset);
+        List<TcgTradeListResponse> content = getTradeListQuery(request, userUuid, pageable);
 
         JPAQuery<Long> countQuery = getCountQuery(request, userUuid);
 
@@ -60,35 +57,38 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
 
     private JPAQuery<Long> getCountQuery(TcgTradeListRequest request, String userUuid) {
         return queryFactory
-                .select(tcgTrade.id.countDistinct())
-                .from(tcgTrade)
-                .where(
-                    statusEq(TradeStatus.convertStatus(request.getFilterOption())),
-                    myCardEq(userUuid),
-                    hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
-                );
+            .select(tcgTrade.count())
+            .from(tcgTrade)
+            .where(
+                statusEq(TradeStatus.convertStatus(request.getFilterOption())),
+                myCardEq(userUuid),
+                hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
+        );
     }
 
-    private List<TcgTradeListResponse> getTradeListQuery(TcgTradeListRequest request, String userUuid, Pageable pageable, long pageSize, long offset) {
+    private List<TcgTradeListResponse> getTradeListQuery(TcgTradeListRequest request, String userUuid, Pageable pageable) {
+        long pageSize = QueryUtil.checkMinMax(QueryUtil.MIN_PAGE_SIZE, QueryUtil.MAX_PAGE_SIZE, pageable.getPageSize());
+        long offset = QueryUtil.checkOffsetMax(pageable.getOffset());
         // 조건에 맞는 거래 ID를 먼저 찾습니다
-        JPAQuery<Long> tradeIdsQuery = queryFactory
+        List<Long> fetch = queryFactory
                 .select(tcgTrade.id)
                 .from(tcgTrade)
                 .where(
-                    statusEq(TradeStatus.convertStatus(request.getFilterOption())),
-                    myCardEq(userUuid),
-                    hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
+                        statusEq(TradeStatus.convertStatus(request.getFilterOption())),
+                        myCardEq(userUuid),
+                        hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
                 )
                 .orderBy(QueryUtil.getOrderSpecifier(pageable, tcgTrade, UseOrder.getList()))
                 .offset(offset)
-                .limit(pageSize);
+                .limit(pageSize)
+                .fetch();
 
         // 찾은 ID에 해당하는 모든 거래와 카드 정보를 조회합니다
         return queryFactory
                 .from(tcgTrade)
                 .leftJoin(tcgTradeCardCode)
                 .on(tcgTradeCardCode.trade.id.eq(tcgTrade.id))
-                .where(tcgTrade.id.in(tradeIdsQuery))
+                .where(tcgTrade.id.in(fetch))
                 .orderBy(QueryUtil.getOrderSpecifier(pageable, tcgTrade, UseOrder.getList()))
                 .transform(GroupBy.groupBy(tcgTrade.id)
                     .list(Projections.constructor(
@@ -102,7 +102,8 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
                             tcgTradeCardCode.cardCode,
                             tcgTradeCardCode.type
                         ))
-                    )));
+                    ))
+                );
     }
 
     private BooleanExpression statusEq(int status) {
@@ -184,12 +185,14 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
      * 필터 옵션 및 유저 체크
      */
     private boolean myCheck(String filterOption, String userUuid) {
-        if(userUuid != null) {
-            return TradeStatus.getList().stream().anyMatch(f -> f.equals(filterOption));
-        } else {
-            // uuid가 없는데 my- 옵션으로 들어올 경우 Error
-            if(TradeStatus.getMyList().stream().anyMatch(f -> f.equals(filterOption))) {
+        if(userUuid == null) {
+            if(TradeStatus.getList().stream().noneMatch(f -> f.equals(filterOption))) {
                 throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "내 글을 확인 할 수 없는 상태 값입니다.");
+            }
+        } else {
+            if(TradeStatus.getList().stream().anyMatch(f -> f.equals(filterOption)) ||
+                TradeStatus.getMyList().stream().anyMatch(f -> f.equals(filterOption))) {
+                throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "잘못된 상태 값입니다.");
             }
         }
         return false;
