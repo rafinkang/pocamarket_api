@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -32,14 +32,14 @@ public class UserInfoResponse {
     private UserGrade grade;
     private boolean emailVerified;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
-    private Date createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
-    private Date updatedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime updatedAt;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
-    private Date lastLoginAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastLoginAt;
 
     /**
      * User 엔티티로부터 UserInfoResponse DTO를 생성하는 정적 팩토리 메소드
@@ -49,10 +49,10 @@ public class UserInfoResponse {
      */
     public static UserInfoResponse from(User user) {
         // 마지막 로그인 시간을 계산 (로그인 성공 이력 중 가장 최근의 것)
-        Optional<Date> lastLoginDate = user.getLoginHistories().stream()
+        Optional<LocalDateTime> lastLoginDate = user.getLoginHistories().stream()
                 .filter(UserLoginHistory::getSuccess) // 성공한 로그인만 필터링
-                .map(UserLoginHistory::getLoginAt) // Date 타입으로 변경됨
-                .max(Date::compareTo); // Date::compareTo 사용
+                .map(UserLoginHistory::getLoginAt) // LocalDateTime 타입으로 변경됨
+                .max(LocalDateTime::compareTo); // LocalDateTime::compareTo 사용
 
         return UserInfoResponse.builder()
                 .uuid(user.getUuid())
@@ -65,9 +65,9 @@ public class UserInfoResponse {
                 .status(user.getStatus())
                 .grade(user.getGrade())
                 .emailVerified(user.isEmailVerified())
-                .createdAt(user.getCreatedAt()) // Date 타입으로 변경됨
-                .updatedAt(user.getUpdatedAt()) // Date 타입으로 변경됨
-                .lastLoginAt(lastLoginDate.orElse(null)) // Optional<Date> 처리
+                .createdAt(user.getCreatedAt()) // LocalDateTime 타입으로 변경됨
+                .updatedAt(user.getUpdatedAt()) // LocalDateTime 타입으로 변경됨
+                .lastLoginAt(lastLoginDate.orElse(null)) // Optional<LocalDateTime> 처리
                 .build();
     }
 }

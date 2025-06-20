@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 사용자 비밀번호 변경 이력을 관리하는 엔티티
@@ -44,6 +44,5 @@ public class UserPasswordHistory {
      */
     @CreationTimestamp
     @Column(name = "changed_at", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date changedAt;
+    private LocalDateTime changedAt;
 }

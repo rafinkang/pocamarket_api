@@ -2,7 +2,7 @@ package com.venvas.pocamarket.service.user.domain.repository;
 
 import com.venvas.pocamarket.service.user.domain.entity.RefreshToken;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public interface RefreshTokenRepositoryCustom {
      * @param currentTime 현재 시간
      * @return 유효한 리프레쉬 토큰 목록
      */
-    Optional<RefreshToken> findValidTokensByUuid(String uuid, Date currentTime);
+    Optional<RefreshToken> findValidTokensByUuid(String uuid, LocalDateTime currentTime);
 
     /**
      * 만료된 리프레쉬 토큰을 모두 조회합니다.
@@ -26,7 +26,7 @@ public interface RefreshTokenRepositoryCustom {
      * @param currentTime 현재 시간
      * @return 만료된 리프레쉬 토큰 목록
      */
-    List<RefreshToken> findAllExpiredTokens(Date currentTime);
+    List<RefreshToken> findAllExpiredTokens(LocalDateTime currentTime);
 
     /**
      * 사용자의 모든 리프레쉬 토큰을 강제 만료 처리합니다.

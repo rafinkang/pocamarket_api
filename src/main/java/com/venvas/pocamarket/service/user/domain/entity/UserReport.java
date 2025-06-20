@@ -3,7 +3,7 @@ package com.venvas.pocamarket.service.user.domain.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 거래 신고 엔티티
@@ -45,7 +45,7 @@ public class UserReport {
 
     /** 신고시간 */
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     /** 상태값 1: 신고 2: 처리됨 3:보류 */
     @Column(name = "status")
@@ -61,5 +61,5 @@ public class UserReport {
 
     /** 처리 대응 시간 */
     @Column(name = "result_at")
-    private Date resultAt;
+    private LocalDateTime resultAt;
 } 

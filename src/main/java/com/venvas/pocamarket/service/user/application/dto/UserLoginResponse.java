@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseCookie;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -34,8 +34,8 @@ public class UserLoginResponse {
     private ResponseCookie accessTokenCookie;
     private ResponseCookie refreshTokenCookie;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "Asia/Seoul")
-    private Date lastLoginAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime lastLoginAt;
 
     /**
      * User 엔티티로부터 응답 객체 생성
@@ -47,10 +47,10 @@ public class UserLoginResponse {
     public static UserLoginResponse from(User user, String accessToken, String refreshToken,
             ResponseCookie accessTokenCookie, ResponseCookie refreshTokenCookie) {
         // 마지막 로그인 시간 계산 (성공한 로그인 중 가장 최근)
-        Optional<Date> lastLoginDate = user.getLoginHistories().stream()
+        Optional<LocalDateTime> lastLoginDate = user.getLoginHistories().stream()
                 .filter(UserLoginHistory::getSuccess)
                 .map(UserLoginHistory::getLoginAt)
-                .max(Date::compareTo);
+                .max(LocalDateTime::compareTo);
 
         return UserLoginResponse.builder()
                 .userId(user.getId())

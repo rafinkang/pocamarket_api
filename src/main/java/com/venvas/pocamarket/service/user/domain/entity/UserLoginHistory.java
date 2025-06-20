@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 사용자 로그인 이력을 관리하는 엔티티
@@ -39,8 +39,7 @@ public class UserLoginHistory {
      */
     @CreationTimestamp
     @Column(name = "login_at", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date loginAt;
+    private LocalDateTime loginAt;
 
     /**
      * 로그인 시도 IP 주소 (IPv6 포함)

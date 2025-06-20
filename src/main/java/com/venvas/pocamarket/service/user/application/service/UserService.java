@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -239,8 +239,8 @@ public class UserService {
         RefreshToken refreshTokenEntity = RefreshToken.builder()
                 .uuid(updatedUser.getUuid())
                 .token(refreshToken)
-                .issuedAt(new Date())
-                .expiresAt(jwtTokenProvider.getRefreshTokenExpireTime())
+                .issuedAt(LocalDateTime.now())
+                .expiresAt(jwtTokenProvider.getRefreshTokenExpireTimeAsLocalDateTime())
                 .build();
 
         // 오래된 리프레쉬 토큰 만료 처리 (선택적)

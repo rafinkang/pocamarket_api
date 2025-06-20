@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Slf4j
@@ -28,6 +30,15 @@ public class JwtTokenProvider {
     private Date accessTokenExpireTime;
     @Getter
     private Date refreshTokenExpireTime;
+    
+    // LocalDateTime 버전의 getter 메서드들 (entity와 호환용)
+    public LocalDateTime getRefreshTokenExpireTimeAsLocalDateTime() {
+        return refreshTokenExpireTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+    
+    public LocalDateTime getAccessTokenExpireTimeAsLocalDateTime() {
+        return accessTokenExpireTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
 
     public JwtTokenProvider(JwtProperties jwtProperties) {
         this.jwtProperties = jwtProperties;

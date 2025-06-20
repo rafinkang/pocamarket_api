@@ -5,7 +5,7 @@ import com.venvas.pocamarket.service.user.domain.entity.QRefreshToken;
 import com.venvas.pocamarket.service.user.domain.entity.RefreshToken;
 import jakarta.persistence.EntityManager;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +30,7 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepositoryCustom 
      * @return 유효한 리프레쉬 토큰 목록
      */
     @Override
-    public Optional<RefreshToken> findValidTokensByUuid(String uuid, Date currentTime) {
+    public Optional<RefreshToken> findValidTokensByUuid(String uuid, LocalDateTime currentTime) {
 
         // String 타입 uuid로 변경되었으므로 문자열 비교 수행
         return Optional.ofNullable(queryFactory
@@ -48,7 +48,7 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepositoryCustom 
      * @return 만료된 리프레쉬 토큰 목록
      */
     @Override
-    public List<RefreshToken> findAllExpiredTokens(Date currentTime) {
+    public List<RefreshToken> findAllExpiredTokens(LocalDateTime currentTime) {
         return queryFactory
                 .selectFrom(refreshToken)
                 .where(refreshToken.revoked.eq(true)
