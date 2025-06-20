@@ -99,7 +99,7 @@ public class UserController {
             @RequestBody Map<String, String> request,
             HttpServletResponse httpResponse) {
 
-        log.info("======= reissue ==================================================");
+        log.info("======= reissue 엑세스 토큰 재발급 ==================================================");
         String refreshToken = request.get("refreshToken");
         log.info("refreshToken = {}", refreshToken);
         JwtErrorCode refreshTokenErrorCode = jwtTokenProvider.validateToken(refreshToken);
@@ -111,9 +111,10 @@ public class UserController {
             
             CookieUtil.addCookie(httpResponse, accessTokenCookie);
             
-            log.info("======= reissue end ==================================================");
+            log.info("======= reissue 엑세스 토큰 재발급 성공 end ==================================================");
             return ResponseEntity.ok(ApiResponse.success(null, "토큰 재발급에 성공하였습니다."));
         } else {
+            log.info("======= reissue 엑세스 토큰 재발급 실패 리프레쉬 토큰 이상함 end ==================================================");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("유효하지 않은 리프레쉬 토큰입니다.", "UNAUTHORIZED_REFRESH_TOKEN"));
         }
     }

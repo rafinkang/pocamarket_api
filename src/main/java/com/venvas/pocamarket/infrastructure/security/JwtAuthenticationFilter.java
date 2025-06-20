@@ -34,6 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
     private final JwtProperties jwtProperties = new JwtProperties();
 
+    @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,
@@ -41,8 +42,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 1. Request Header에서 토큰 추출
         String token = resolveToken(request);
-        log.info("========================================================= request = {}", request.getHeader("Authorization"));
-        log.info("========================================================= token = {}", token);
         // 2. 토큰 유효성 검사
         if (token != null && jwtTokenProvider.validateToken(token) == null) {
             // 토큰이 유효할 경우, 토큰에서 Authentication 객체를 가져와 SecurityContext에 저장
@@ -54,7 +53,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             saveSecurityContextHolder(uuid, grade);
         }
-
 
         filterChain.doFilter(request, response);
     }

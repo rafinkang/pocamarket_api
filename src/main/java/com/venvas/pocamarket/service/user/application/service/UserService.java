@@ -233,7 +233,7 @@ public class UserService {
 
         // 6. JWT 토큰 생성 (실제 구현에서는 JWT 서비스를 통해 토큰 생성)
         String accessToken = jwtTokenProvider.createAccessToken(updatedUser.getUuid(), updatedUser.getGrade().name());
-        String refreshToken = jwtTokenProvider.createRefreshToken(updatedUser.getUuid());
+        String refreshToken = jwtTokenProvider.createRefreshToken(updatedUser.getUuid(), updatedUser.getGrade().name());
 
         // 7. 토큰 저장
         RefreshToken refreshTokenEntity = RefreshToken.builder()

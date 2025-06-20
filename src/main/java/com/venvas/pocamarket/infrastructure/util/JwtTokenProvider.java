@@ -60,11 +60,12 @@ public class JwtTokenProvider {
             .compact(); // 최종적으로 토큰 문자열로 변환
     }
 
-    public String createRefreshToken(String uuid) {
+    public String createRefreshToken(String uuid, String grade) {
         this.refreshTokenExpireTime = new Date(System.currentTimeMillis() + jwtProperties.getRefreshTokenValidityInMs());
         return Jwts.builder()
                 .setSubject(REFRESH_TOKEN_NAME)
                 .claim("uuid", uuid) // 사용자 uuid를 클레임으로 추가
+                .claim("grade", grade) // 사용자 등급을 클레임으로 추가
                 .setIssuedAt(new Date())
                 .setExpiration(refreshTokenExpireTime)
                 .signWith(key, SignatureAlgorithm.HS256)

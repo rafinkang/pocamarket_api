@@ -23,9 +23,9 @@ import java.util.Map;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
+            AuthenticationException authException) throws IOException, ServletException {
 
-        log.info("JwtAuthenticationEntryPoint 실행");
+        log.info("JwtAuthenticationEntryPoint 실행 인증 권한 실패 401 처리 부분");
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
         response.setContentType("application/json;charset=UTF-8");
@@ -34,16 +34,17 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         Map<String, Object> body = new HashMap<>();
 
         Object exception = request.getAttribute("exception");
-        if(exception instanceof JwtCustomException ex) {
+        if (exception instanceof JwtCustomException ex) {
             body.put("errorMessage", ex.getMessage());
             body.put("code", ex.getErrorCode().getCode());
-        } else if(exception == null) {
+        } else if (exception == null) {
             body.put("error", "인증 권한 에러");
             body.put("code", JwtErrorCode.FAIL_AUTHENTICATION);
         }
 
         response.getWriter().write(objectMapper.writeValueAsString(body));
-//        ResponseEntity.ok(ApiResponse.error("Not Authenticated Request", JwtErrorCode.FAIL_AUTHENTICATION.getCode()));
-//        response.getWriter().write("{\"error\": \"인증이 필요합니다.\"}");
+        // ResponseEntity.ok(ApiResponse.error("Not Authenticated Request",
+        // JwtErrorCode.FAIL_AUTHENTICATION.getCode()));
+        // response.getWriter().write("{\"error\": \"인증이 필요합니다.\"}");
     }
 }
