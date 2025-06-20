@@ -191,6 +191,9 @@ public class TcgTradeService {
     }
 
     private List<String> distinctCards(List<String> cards) {
+        if(cards == null) {
+            return new ArrayList<>();
+        }
         return cards.stream()
                 .distinct()
                 .collect(Collectors.toList());
