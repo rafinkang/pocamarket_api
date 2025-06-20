@@ -88,6 +88,7 @@ public class SecurityConfig {
                         // 인증 없이 접근 가능한 공개 API
                         .requestMatchers(
                                 "/api/login",
+                                "/api/reissue",
                                 "/api/register",
                                 "/api/tcg-trade/**",
                                 "/api/pokemon-card/**")

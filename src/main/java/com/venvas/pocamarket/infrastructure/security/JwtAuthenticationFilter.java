@@ -39,68 +39,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
-        log.info("JWT 필터 실행 - URI: {}", request.getRequestURI());
+        // 1. Request Header에서 토큰 추출
+        String token = resolveToken(request);
+        log.info("========================================================= request = {}", request.getHeader("Authorization"));
+        log.info("========================================================= token = {}", token);
+        // 2. 토큰 유효성 검사
+        if (token != null && jwtTokenProvider.validateToken(token) == null) {
+            // 토큰이 유효할 경우, 토큰에서 Authentication 객체를 가져와 SecurityContext에 저장
+            String uuid = jwtTokenProvider.getUuid(token);
+            UserGrade grade = UserGrade.valueOf(jwtTokenProvider.getGrade(token));
 
-        String accessToken = jwtTokenProvider.resolveToken(request, JwtTokenProvider.ACCESS_TOKEN_NAME);
-        String refreshToken = jwtTokenProvider.resolveToken(request, JwtTokenProvider.REFRESH_TOKEN_NAME);
-
-        JwtErrorCode accessTokenErrorCode = jwtTokenProvider.validateToken(accessToken);
-        JwtErrorCode refreshTokenErrorCode = jwtTokenProvider.validateToken(refreshToken);
-
-        log.info("Filter 접속 accessToken = {}", accessToken);
-        log.info("accessTokenErrorCode = {}", accessTokenErrorCode);
-        log.info("refreshTokenErrorCode = {}", refreshTokenErrorCode);
-
-        try {
-            if (accessToken != null && accessTokenErrorCode == null) {
-                // 토큰에서 유저 정보 추출
-                String uuid = jwtTokenProvider.getUuid(accessToken);
-                UserGrade grade = UserGrade.valueOf(jwtTokenProvider.getGrade(accessToken));
-
-                if (uuid == null) {
-                    throw new JwtCustomException(JwtErrorCode.INVALID_INFO);
-                }
-
-                saveSecurityContextHolder(uuid, grade);
-            } else if (refreshToken != null && refreshTokenErrorCode == null) {
-                // 리프레시 토큰이 유효한 경우, 새로운 액세스 토큰 발급 로직 추가 가능
-                // refresh_token 테이블에 uuid 기준으로 조회
-                refreshTokenRepository.findValidTokensByUuid(jwtTokenProvider.getUuid(refreshToken), LocalDateTime.now())
-                        .ifPresentOrElse(
-                                token -> {
-                                    // 유효한 리프레시 토큰이 있는 경우
-                                    log.info("유효한 리프레시 토큰 발견: {}", token);
-
-                                    // DB에서 유저 정보 조회 후 AccessToken 재발급 로직 추가
-                                    User user = userRepository.findByUuid(jwtTokenProvider.getUuid(refreshToken))
-                                            .orElse(null);
-
-                                    if (user == null) {
-                                        throw new JwtCustomException(JwtErrorCode.INVALID_INFO);
-                                    }
-
-                                    createTokenAddCookie(response, user);
-
-                                    saveSecurityContextHolder(user.getUuid(), user.getGrade());
-                                },
-                                () -> {
-                                    // 유효한 리프레시 토큰이 없는 경우 로그아웃 처리
-                                    log.info("유효한 리프레시 토큰 없음, 로그아웃 처리");
-                                    CookieUtil.deleteCookie(response, JwtTokenProvider.ACCESS_TOKEN_NAME);
-                                    CookieUtil.deleteCookie(response, JwtTokenProvider.REFRESH_TOKEN_NAME);
-                                    throw new JwtCustomException(JwtErrorCode.TOKEN_EXPIRED);
-                                });
-            } else {
-                // 토큰이 없거나 유효하지 않은 경우 - 인증이 필요한 경로에서만 예외 발생
-                log.info("토큰 없음 또는 유효하지 않음 - URI: {}", request.getRequestURI());
-                // SecurityConfig의 authorizeHttpRequests에서 처리하도록 넘김
+            if (uuid == null) {
+                throw new JwtCustomException(JwtErrorCode.INVALID_INFO);
             }
-        } catch (JwtException e) {
-            log.info("JWT 처리 중 에러 발생: {}", e.getMessage());
-            request.setAttribute("exception", e);
+            saveSecurityContextHolder(uuid, grade);
         }
 
+
         filterChain.doFilter(request, response);
+    }
+
+    // Request Header에서 토큰 정보를 꺼내오는 메소드
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
     // Access 토큰 생성 후, 쿠키 등록
