@@ -74,9 +74,9 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
                 .select(tcgTrade.id)
                 .from(tcgTrade)
                 .where(
-                        statusEq(TradeStatus.convertStatus(request.getFilterOption())),
-                        myCardEq(userUuid),
-                        hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
+                    statusEq(TradeStatus.convertStatus(request.getFilterOption())),
+                    myCardEq(userUuid),
+                    hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
                 )
                 .orderBy(QueryUtil.getOrderSpecifier(pageable, tcgTrade, UseOrder.getList()))
                 .offset(offset)
@@ -187,11 +187,13 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
     private boolean myCheck(String filterOption, String userUuid) {
         if(userUuid == null) {
             if(TradeStatus.getList().stream().noneMatch(f -> f.equals(filterOption))) {
-                throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "내 글을 확인 할 수 없는 상태 값입니다.");
+                throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "잘못된 상태 값입니다.");
             }
         } else {
             if(TradeStatus.getList().stream().anyMatch(f -> f.equals(filterOption)) ||
                 TradeStatus.getMyList().stream().anyMatch(f -> f.equals(filterOption))) {
+                return true;
+            } else {
                 throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "잘못된 상태 값입니다.");
             }
         }
