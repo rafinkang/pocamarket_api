@@ -121,13 +121,12 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
     }
 
     private BooleanExpression myCardEq(String userUuid) {
-        if(!this.isMy) return null;
+        if(!this.isMy || userUuid == null) return null;
 
         String uuid = userUuid.trim();
-
         if(uuid.isBlank()) return null; // 비어있는 경우 return
 
-        return tcgTrade.uuid.eq(userUuid);
+        return tcgTrade.uuid.eq(uuid);
     }
 
     /**
