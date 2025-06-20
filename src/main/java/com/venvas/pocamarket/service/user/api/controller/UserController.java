@@ -6,6 +6,7 @@ import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
 import com.venvas.pocamarket.service.user.application.dto.*;
 import com.venvas.pocamarket.service.user.application.service.UserService;
 import com.venvas.pocamarket.service.user.domain.entity.User;
+import com.venvas.pocamarket.service.user.domain.exception.JwtErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,7 +25,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 /**
  * 사용자 관련 HTTP 요청을 처리하는 REST 컨트롤러
@@ -34,6 +42,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     /**
      * 새로운 사용자 생성
@@ -84,6 +93,29 @@ public class UserController {
 
         return ResponseEntity.ok(ApiResponse.success(response, "로그인에 성공하였습니다."));
     }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<ApiResponse<UserLoginResponse>> reissue(
+            @RequestBody Map<String, String> request,
+            HttpServletResponse httpResponse) {
+
+        String refreshToken = request.get("refreshToken");
+        log.info("refreshToken = {}", refreshToken);
+        JwtErrorCode refreshTokenErrorCode = jwtTokenProvider.validateToken(refreshToken);
+        log.info("refreshTokenErrorCode = {}", refreshTokenErrorCode);
+        if (refreshTokenErrorCode == null) {
+            String accessToken = jwtTokenProvider.createAccessToken(jwtTokenProvider.getUuid(refreshToken), jwtTokenProvider.getGrade(refreshToken));
+            ResponseCookie accessTokenCookie = CookieUtil.createResponseCookie(JwtTokenProvider.ACCESS_TOKEN_NAME, accessToken,
+                (int) (jwtTokenProvider.getJwtProperties().getAccessTokenValidityInMs() / 1000), true, true);
+
+            CookieUtil.addCookie(httpResponse, accessTokenCookie);
+
+            return ResponseEntity.ok(ApiResponse.success(null, "토큰 재발급에 성공하였습니다."));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("유효하지 않은 리프레쉬 토큰입니다.", "UNAUTHORIZED_REFRESH_TOKEN"));
+        }
+    }
+    
 
     @GetMapping("/logout")
     public ResponseEntity<ApiResponse<Void>> logout(
