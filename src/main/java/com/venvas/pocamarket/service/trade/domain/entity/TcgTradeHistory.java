@@ -41,4 +41,15 @@ public class TcgTradeHistory {
     /** 생성시간 */
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    /**
+     * 거래 히스토리 엔티티 생성자 (ID와 타임스탬프 제외)
+     */
+    public TcgTradeHistory(TcgTrade trade, TcgTradeRequest tradeRequest, String uuid, String content) {
+        this.trade = trade;
+        this.tradeRequest = tradeRequest;
+        this.uuid = uuid;
+        this.content = content;
+        this.createAt = LocalDateTime.now();
+    }
 } 

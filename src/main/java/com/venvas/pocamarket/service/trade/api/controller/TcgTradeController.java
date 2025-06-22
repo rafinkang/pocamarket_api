@@ -2,6 +2,7 @@ package com.venvas.pocamarket.service.trade.api.controller;
 
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.trade.application.dto.*;
+import com.venvas.pocamarket.service.trade.application.service.TcgTradeRequestService;
 import com.venvas.pocamarket.service.trade.application.service.TcgTradeService;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class TcgTradeController {
 
     private final TcgTradeService tcgTradeService;
+    private final TcgTradeRequestService tcgTradeRequestService;
 
     @PostMapping("")
     @Operation(summary = "카드 교환 요청 생성", description = "새로운 카드 교환 요청을 생성합니다.")
@@ -94,5 +96,17 @@ public class TcgTradeController {
             @AuthenticationPrincipal UserDetailDto userDetailDto) {
         Boolean result = tcgTradeService.updateTrade(tradeId, request, userDetailDto.getUuid());
         return ResponseEntity.ok(ApiResponse.success(result));
+    }
+
+    @PostMapping("/{tradeId}/request")
+    @Operation(summary = "카드 교환 신청 추가", description = "카드에 대한 교환 요청을 생성합니다.")
+    public ResponseEntity<ApiResponse<Boolean>> createTcgTradeRequest(
+            @PathVariable("tradeId") Long tradeId,
+            @Valid @RequestBody TcgTradeRequestCreateRequest request,
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+        String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
+
+        Boolean result = tcgTradeRequestService.createTcgTradeRequest(tradeId, request, uuid);
+        return ResponseEntity.ok(ApiResponse.success(result, "카드 교환 요청이 성공적으로 등록되었습니다."));
     }
 }

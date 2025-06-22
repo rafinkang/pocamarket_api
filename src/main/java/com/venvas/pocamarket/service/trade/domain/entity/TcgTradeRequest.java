@@ -52,4 +52,18 @@ public class TcgTradeRequest {
     /** 최종 수정시간 */
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    /**
+     * 교환 요청 엔티티 생성자 (ID와 타임스탬프 제외)
+     */
+    public TcgTradeRequest(TcgTrade trade, String uuid, String nickname, String tcgCode, String requestCardCode, Integer status) {
+        this.trade = trade;
+        this.uuid = uuid;
+        this.nickname = nickname;
+        this.tcgCode = tcgCode;
+        this.requestCardCode = requestCardCode;
+        this.status = status;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 } 

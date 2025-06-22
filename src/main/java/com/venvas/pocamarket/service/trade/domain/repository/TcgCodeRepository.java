@@ -19,4 +19,7 @@ public interface TcgCodeRepository extends JpaRepository<TcgCode, Long> {
 
     @Query("select t from TcgCode t where t.id = :tcg_code_id and t.uuid = :uuid and t.status = :status")
     Optional<TcgCode> findUpdateCode(@Param("tcg_code_id") Long id, @Param("uuid") String uuid, @Param("status") int status);
+
+    // uuid와 tcgCode, status로 특정 친구 코드 존재 여부 확인
+    boolean existsByUuidAndTcgCodeAndStatus(String uuid, String tcgCode, int status);
 }

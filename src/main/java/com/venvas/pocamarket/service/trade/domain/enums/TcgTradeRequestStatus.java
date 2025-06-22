@@ -1,0 +1,51 @@
+package com.venvas.pocamarket.service.trade.domain.enums;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+/**
+ * 교환 요청 상태 열거형
+ */
+@Getter
+@RequiredArgsConstructor
+public enum TcgTradeRequestStatus {
+    REQUEST(1, "요청"),
+    REQUEST_CANCEL(2, "요청 취소"),
+    TRADE_PROGRESS(3, "교환 진행"),
+    TRADE_CANCEL(4, "교환 취소"),
+    TRADE_COMPLETE(5, "교환 완료");
+
+    private final Integer code;
+    private final String description;
+
+    /**
+     * DB 코드로부터 열거형 값을 찾습니다.
+     * 
+     * @param code DB에 저장된 코드
+     * @return 해당하는 열거형 값
+     * @throws IllegalArgumentException 유효하지 않은 코드인 경우
+     */
+    public static TcgTradeRequestStatus fromDbCode(Integer code) {
+        if (code == null) {
+            return REQUEST; // 기본값
+        }
+        
+        for (TcgTradeRequestStatus status : values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
+        }
+        
+        throw new IllegalArgumentException("유효하지 않은 교환 요청 상태 코드: " + code);
+    }
+
+    /**
+     * 열거형 값을 DB 코드로 변환합니다.
+     * 
+     * @param status 열거형 값
+     * @return DB 코드
+     */
+    public static Integer toCode(TcgTradeRequestStatus status) {
+        return status != null ? status.getCode() : REQUEST.getCode();
+    }
+} 
