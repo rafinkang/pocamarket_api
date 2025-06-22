@@ -28,6 +28,7 @@ public class UserLoginResponse {
     private String email;
     private UserStatus status;
     private UserGrade grade;
+    private String gradeDesc;
     private boolean emailVerified;
     private String accessToken;
     private String refreshToken;
@@ -58,7 +59,8 @@ public class UserLoginResponse {
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .status(user.getStatus())
-                .grade(user.getGrade())
+                .grade(UserGrade.fromCode(user.getGradeCode()))
+                .gradeDesc(UserGrade.toDesc(user.getGrade()))
                 .emailVerified(user.isEmailVerified())
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

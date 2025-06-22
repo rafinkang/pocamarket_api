@@ -55,7 +55,14 @@ public enum UserGrade {
         }
         return grade.getCode();
     }
-    
+
+    public static String toDesc(UserGrade grade) {
+        if (grade == null) {
+            return LV01.getDescription(); // 기본값 설정
+        }
+        return grade.getDescription();
+    }
+
     /**
      * DB에서 읽어온 값을 열거형으로 변환
      * 

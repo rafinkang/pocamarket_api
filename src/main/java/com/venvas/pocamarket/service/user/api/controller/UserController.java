@@ -6,6 +6,7 @@ import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
 import com.venvas.pocamarket.service.user.application.dto.*;
 import com.venvas.pocamarket.service.user.application.service.UserService;
 import com.venvas.pocamarket.service.user.domain.entity.User;
+import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
 import com.venvas.pocamarket.service.user.domain.exception.JwtErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
@@ -88,6 +89,7 @@ public class UserController {
                 .nickname(loginResponse.getNickname())
                 .status(loginResponse.getStatus())
                 .grade(loginResponse.getGrade())
+                .gradeDesc(UserGrade.toDesc(loginResponse.getGrade()))
                 .lastLoginAt(loginResponse.getLastLoginAt())
                 .build();
 

@@ -30,6 +30,7 @@ public class UserInfoResponse {
     private String profileImageUrl;
     private UserStatus status;
     private UserGrade grade;
+    private String gradeDesc;
     private boolean emailVerified;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -64,6 +65,7 @@ public class UserInfoResponse {
                 .profileImageUrl(user.getProfileImageUrl())
                 .status(user.getStatus())
                 .grade(user.getGrade())
+                .gradeDesc(UserGrade.toDesc(user.getGrade()))
                 .emailVerified(user.isEmailVerified())
                 .createdAt(user.getCreatedAt()) // LocalDateTime 타입으로 변경됨
                 .updatedAt(user.getUpdatedAt()) // LocalDateTime 타입으로 변경됨
