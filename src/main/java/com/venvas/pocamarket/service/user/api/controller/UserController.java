@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 /**
@@ -202,4 +205,12 @@ public class UserController {
         }
         return ResponseEntity.ok(ApiResponse.success("ok", "테스트 성공하였습니다."));
     }
+
+    @GetMapping("/user/checkNickname/{nickname}")
+    public ResponseEntity<ApiResponse<Boolean>> checkNickname(@PathVariable("nickname") String nickname) {
+        log.info("닉네임 중복 여부 확인: nickname={}", nickname);
+        boolean isAvailable = !userService.existsByNickname(nickname);
+        return ResponseEntity.ok(ApiResponse.success(isAvailable, "닉네임 중복 여부를 확인했습니다."));
+    }
+    
 }

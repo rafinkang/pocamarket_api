@@ -398,4 +398,9 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public boolean existsByNickname(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
+    
 }
