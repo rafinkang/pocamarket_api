@@ -385,13 +385,13 @@ public class UserService {
      * @throws UserException 사용자가 존재하지 않거나 비밀번호가 일치하지 않는 경우
      */
     @Transactional
-    public User deleteUserAccount(String uuid, String password) {
+    public User deleteUserAccount(String uuid) {
         User user = findUserByUuid(uuid);
 
         // 비밀번호 확인
-        if (!validatePassword(user, password)) {
-            throw new UserException(UserErrorCode.INVALID_PASSWORD);
-        }
+        // if (!validatePassword(user, password)) {
+        //     throw new UserException(UserErrorCode.INVALID_PASSWORD);
+        // }
 
         // 계정 상태를 DELETED로 변경
         user.setStatus(UserStatus.DELETED);

@@ -172,17 +172,17 @@ public class UserController {
      * @return 삭제 결과 메시지
      */
     @DeleteMapping("/user/me")
-    public ResponseEntity<ApiResponse<Void>> deleteMyInfo(@RequestBody Map<String, String> request,
-            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+    public ResponseEntity<ApiResponse<Void>> deleteMyInfo(@AuthenticationPrincipal UserDetailDto userDetailDto) {
         String uuid = userDetailDto.getUuid();
-        String password = request.get("password");
+        // String password = request.get("password");
 
-        if (password == null || password.isEmpty()) {
-            throw new UserException(UserErrorCode.INVALID_PASSWORD);
-        }
+        // if (password == null || password.isEmpty()) {
+        //     throw new UserException(UserErrorCode.INVALID_PASSWORD);
+        // }
 
         log.info("사용자 계정 삭제: uuid={}", uuid);
-        userService.deleteUserAccount(uuid, password);
+        // userService.deleteUserAccount(uuid, password);
+        userService.deleteUserAccount(uuid);
 
         return ResponseEntity.ok(ApiResponse.success(null, "회원 탈퇴가 성공적으로 처리되었습니다."));
     }
