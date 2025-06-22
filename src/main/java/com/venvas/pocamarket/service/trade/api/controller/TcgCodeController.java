@@ -1,24 +1,32 @@
 package com.venvas.pocamarket.service.trade.api.controller;
 
-import com.venvas.pocamarket.common.aop.trim.TrimInput;
+import java.util.List;
+import java.util.function.Supplier;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.trade.application.dto.TcgCodeSimpleDto;
 import com.venvas.pocamarket.service.trade.application.service.TcgCodeService;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgCodeErrorCode;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgCodeException;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.function.Supplier;
 
 @Slf4j
 @Tag(name = "TcgCode-API", description = "유저 친구 코드 관련 API")

@@ -2,10 +2,8 @@ package com.venvas.pocamarket.service.trade.application.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
-import com.venvas.pocamarket.service.trade.domain.enums.TradeCardCodeStatus;
 import com.venvas.pocamarket.service.trade.domain.enums.TradeStatus;
 
 import lombok.Getter;

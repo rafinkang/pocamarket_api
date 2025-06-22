@@ -1,6 +1,5 @@
 package com.venvas.pocamarket.service.trade.domain.exception;
 
-import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import lombok.Getter;
 
 @Getter

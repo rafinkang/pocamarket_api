@@ -1,6 +1,14 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestCreateRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestGetResponse;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeHistory;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeRequest;
@@ -15,10 +23,9 @@ import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -98,5 +105,16 @@ public class TcgTradeRequestService {
         log.info("교환 히스토리 저장 완료: historyId={}", savedTradeHistory.getId());
 
         return true;
+    }
+
+    /**
+     * 교환 요청 목록을 조회합니다.
+     */
+    public Page<TcgTradeRequestGetResponse> getTcgTradeRequestList(Long tradeId, String userUuid, Pageable pageable, Boolean isAdmin) {
+        if (!tcgTradeRepository.existsById(tradeId)) {
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND);
+        }
+
+        return tcgTradeRequestRepository.findTradeRequestsWithTradeUser(tradeId, userUuid, pageable, isAdmin);
     }
 }

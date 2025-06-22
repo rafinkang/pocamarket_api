@@ -9,11 +9,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum TcgTradeRequestStatus {
-    REQUEST(1, "요청"),
-    REQUEST_CANCEL(2, "요청 취소"),
-    TRADE_PROGRESS(3, "교환 진행"),
-    TRADE_CANCEL(4, "교환 취소"),
-    TRADE_COMPLETE(5, "교환 완료");
+    DELETED(0, "교환 삭제"),
+    REQUEST(1, "교환 요청"),
+    PROGRESS(2, "교환 진행"),
+    COMPLETE(3, "교환 완료");
 
     private final Integer code;
     private final String description;

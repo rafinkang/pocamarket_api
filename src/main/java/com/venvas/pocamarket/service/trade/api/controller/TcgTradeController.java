@@ -1,23 +1,39 @@
 package com.venvas.pocamarket.service.trade.api.controller;
 
-import com.venvas.pocamarket.common.util.ApiResponse;
-import com.venvas.pocamarket.service.trade.application.dto.*;
-import com.venvas.pocamarket.service.trade.application.service.TcgTradeRequestService;
-import com.venvas.pocamarket.service.trade.application.service.TcgTradeService;
-import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
-import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.venvas.pocamarket.common.util.ApiResponse;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCreateRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeDetailResponse;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListResponse;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRefreshRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestCreateRequest;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestGetResponse;
+import com.venvas.pocamarket.service.trade.application.service.TcgTradeRequestService;
+import com.venvas.pocamarket.service.trade.application.service.TcgTradeService;
+import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
+import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Tag(name = "TcgTrade-API", description = "카드 교환 관련 API")
@@ -108,5 +124,19 @@ public class TcgTradeController {
 
         Boolean result = tcgTradeRequestService.createTcgTradeRequest(tradeId, request, uuid);
         return ResponseEntity.ok(ApiResponse.success(result, "카드 교환 요청이 성공적으로 등록되었습니다."));
+    }
+
+    @GetMapping("/request/{tradeId}")
+    @Operation(summary = "카드 교환 리스트 가져오기", description = "카드 교환 리스트를 가져옵니다.")
+    public ResponseEntity<ApiResponse<Page<TcgTradeRequestGetResponse>>> getTcgTradeRequestList(
+            @PathVariable("tradeId") Long tradeId,
+            @PageableDefault(size = 10) Pageable pageable,
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+
+        boolean isAdmin = userDetailDto != null && userDetailDto.getGrade() == UserGrade.ADMIN;
+        String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
+
+        Page<TcgTradeRequestGetResponse> result = tcgTradeRequestService.getTcgTradeRequestList(tradeId, uuid, pageable, isAdmin);
+        return ResponseEntity.ok(ApiResponse.success(result));
     }
 }
