@@ -3,12 +3,7 @@ package com.venvas.pocamarket.service.trade.application.service;
 import com.venvas.pocamarket.service.pokemon.application.dto.TradeListCardDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
-import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCardCodeDto;
-import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCreateRequest;
-import com.venvas.pocamarket.service.trade.application.dto.TcgTradeDetailCardCodeDto;
-import com.venvas.pocamarket.service.trade.application.dto.TcgTradeDetailResponse;
-import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
-import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListResponse;
+import com.venvas.pocamarket.service.trade.application.dto.*;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeCardCode;
 import com.venvas.pocamarket.service.trade.domain.enums.TradeCardCodeStatus;
@@ -29,6 +24,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -125,7 +123,7 @@ public class TcgTradeService {
         return true;
     }
 
-    public Page<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin) {
+    public Page<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin, boolean isMy) {
         String myCardCode = request.getMyCardCode();
         List<String> wantCardCode = distinctCards(request.getWantCardCode());
 
@@ -133,11 +131,17 @@ public class TcgTradeService {
 
         TcgTradeListRequest tcgTradeRequest = new TcgTradeListRequest(myCardCode, wantCardCode, request.getFilterOption());
 
-//     TcgTrade 검색
-        Page<TcgTradeListResponse> tcgTradeListResponses = tcgTradeRepository.searchFilterList(tcgTradeRequest, pageable, userUuid, isAdmin);
+//     TcgTrade 검색 isMy가 true면 userUuid 값 전달
+        Page<TcgTradeListDto> tcgTradeListDto = tcgTradeRepository.searchFilterList(tcgTradeRequest, pageable, isMy ? userUuid : null, isAdmin);
+
+        tcgTradeListDto.getContent().forEach((TcgTradeListDto response) -> {
+            if(userUuid != null && !userUuid.isBlank()) {
+                response.updateIsMyList(response.getUuid().equals(userUuid));
+            }
+        });
 
         // 가져온 리스트에서 card code 추출
-        List<String> allCardCodes = tcgTradeListResponses.getContent().stream()
+        List<String> allCardCodes = tcgTradeListDto.getContent().stream()
             .filter(tcgTrade -> !tcgTrade.getTradeCardCodeList().isEmpty())
             .flatMap(tcgTrade -> tcgTrade.getTradeCardCodeList().stream())
             .map(TcgTradeCardCodeDto::getCardCode)
@@ -152,7 +156,7 @@ public class TcgTradeService {
                 .collect(Collectors.toMap(TradeListCardDto::getCode, card -> card));
 
         // 가져온 카드 데이터 response에 주입
-        tcgTradeListResponses.getContent().stream()
+        tcgTradeListDto.getContent().stream()
                 .filter(tcgTrade -> !tcgTrade.getTradeCardCodeList().isEmpty())
                 .forEach(tcgTrade -> {
                     List<TcgTradeCardCodeDto> cardList = tcgTrade.getTradeCardCodeList();
@@ -169,9 +173,47 @@ public class TcgTradeService {
                     cardList.clear();
                 });
 
-        // TODO :: 교환 요청 건수
+        // TcgTradeListDto를 TcgTradeListResponse로 변환
+        return tcgTradeListDto.map(TcgTradeListResponse::new);
+    }
 
-        return tcgTradeListResponses;
+    @Transactional
+    public Boolean tcgTradeRefreshList(Long tradeId, TcgTradeRefreshRequest request, String userUuid) {
+
+        // uuid 있는지 체크
+        if(userUuid == null || userUuid.isBlank()) throw new UserException(UserErrorCode.USER_NOT_FOUND);
+
+        // 클라이언트에서 온 정보 확인
+        if(! TradeStatus.REQUEST.getCode().equals(request.getStatus())) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "교환 글의 상태가 유효하지 않습니다.");
+        }
+        try {
+            LocalDateTime requestTime = LocalDateTime.parse(request.getUpdatedAt());
+            Duration duration = Duration.between(requestTime, LocalDateTime.now());
+            if (duration.toHours() < 1) {
+                throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "갱신은 최소 1시간마다 가능합니다.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "날짜 형식이 올바르지 않습니다.");
+        }
+
+        // code 값으로 tcgTrade 가져오기
+        TcgTrade tcgTrade = tcgTradeRepository.findById(tradeId).orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "유효한 id 값이 아닙니다."));
+
+        // db에서 가져온 정보랑 비교
+        if(! tcgTrade.getUuid().equals(userUuid)) {
+            // listUuid, userUuid랑 같은지 비교
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "유저 uuid가 교환 글과 일치하지 않습니다.");
+        } else if(! TradeStatus.REQUEST.getCode().equals(tcgTrade.getStatus())) {
+            // 상태 값이 요청 받는 중인 글인지 확인
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "교환 글의 상태가 유효하지 않습니다.");
+        } else if(Duration.between(tcgTrade.getUpdatedAt(), LocalDateTime.now()).toHours() < 1) {
+            // 카드에 저장된 update_at과 비교
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "갱신은 최소 1시간마다 가능합니다..");
+        }
+        tcgTrade.refresh();
+
+        return true;
     }
 
     /**

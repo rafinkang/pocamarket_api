@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * 거래 엔티티
@@ -74,5 +73,9 @@ public class TcgTrade {
      */
     public void updateTcgCode(String tcgCode) {
         this.tcgCode = tcgCode;
+    }
+
+    public void refresh() {
+        this.updatedAt = LocalDateTime.now();
     }
 } 

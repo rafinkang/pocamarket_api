@@ -25,6 +25,16 @@ public class TradeStatus {
         return myList;
     }
 
+    public static String convertStatusToString(int status) {
+        return switch (status) {
+            case 0 -> "delete";
+            case 1 -> "request";
+            case 2 -> "progress";
+            case 3 -> "complete";
+            default -> "error"; // 잘못된
+        };
+    }
+
     public static int convertStatus(String status) {
         return switch (status) {
             case "request", "my-request" -> 1;

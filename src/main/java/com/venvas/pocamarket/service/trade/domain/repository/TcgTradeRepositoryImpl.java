@@ -8,8 +8,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.venvas.pocamarket.infrastructure.util.QueryUtil;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCardCodeDto;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
-import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListResponse;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeErrorCode;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeException;
 import com.venvas.pocamarket.service.trade.domain.value.TradeStatus;
@@ -39,7 +39,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
     }
 
     @Override
-    public Page<TcgTradeListResponse> searchFilterList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin) {
+    public Page<TcgTradeListDto> searchFilterList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin) {
         this.isAdmin = isAdmin;
         this.isMy = myCheck(request.getFilterOption(), userUuid);
 
@@ -48,7 +48,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
             pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("id")));
         }
 
-        List<TcgTradeListResponse> content = getTradeListQuery(request, userUuid, pageable);
+        List<TcgTradeListDto> content = getTradeListQuery(request, userUuid, pageable);
 
         JPAQuery<Long> countQuery = getCountQuery(request, userUuid);
 
@@ -66,7 +66,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
         );
     }
 
-    private List<TcgTradeListResponse> getTradeListQuery(TcgTradeListRequest request, String userUuid, Pageable pageable) {
+    private List<TcgTradeListDto> getTradeListQuery(TcgTradeListRequest request, String userUuid, Pageable pageable) {
         long pageSize = QueryUtil.checkMinMax(QueryUtil.MIN_PAGE_SIZE, QueryUtil.MAX_PAGE_SIZE, pageable.getPageSize());
         long offset = QueryUtil.checkOffsetMax(pageable.getOffset());
         // 조건에 맞는 거래 ID를 먼저 찾습니다
@@ -92,11 +92,12 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
                 .orderBy(QueryUtil.getOrderSpecifier(pageable, tcgTrade, UseOrder.getList()))
                 .transform(GroupBy.groupBy(tcgTrade.id)
                     .list(Projections.constructor(
-                        TcgTradeListResponse.class,
+                        TcgTradeListDto.class,
                         tcgTrade.id,
                         tcgTrade.nickname,
                         tcgTrade.status,
-                        tcgTrade.createdAt,
+                        tcgTrade.updatedAt,
+                        tcgTrade.uuid,
                         GroupBy.list(Projections.constructor(
                             TcgTradeCardCodeDto.class,
                             tcgTradeCardCode.cardCode,
