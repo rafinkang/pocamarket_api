@@ -1,6 +1,6 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
-import com.venvas.pocamarket.service.pokemon.application.dto.CardCodeName;
+import com.venvas.pocamarket.service.pokemon.application.dto.TradeListCardDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCardCodeDto;
@@ -145,11 +145,11 @@ public class TcgTradeService {
             .toList();
 
         // 카드 코드 및 한글 이름 가져오기
-        List<CardCodeName> findCardList = pokemonCardRepository.findByCodeInGetCodeAndNameKo(allCardCodes);
+        List<TradeListCardDto> findCardList = pokemonCardRepository.findByCodeInGetTradeListCardInfo(allCardCodes);
 
         // 카드 코드를 Map으로 변환하여 빠른 조회가 가능하도록 함
-        Map<String, CardCodeName> cardCodeMap = findCardList.stream()
-                .collect(Collectors.toMap(CardCodeName::getCode, card -> card));
+        Map<String, TradeListCardDto> cardCodeMap = findCardList.stream()
+                .collect(Collectors.toMap(TradeListCardDto::getCode, card -> card));
 
         // 가져온 카드 데이터 response에 주입
         tcgTradeListResponses.getContent().stream()
@@ -157,12 +157,12 @@ public class TcgTradeService {
                 .forEach(tcgTrade -> {
                     List<TcgTradeCardCodeDto> cardList = tcgTrade.getTradeCardCodeList();
                     for (TcgTradeCardCodeDto codeType : cardList) {
-                        CardCodeName cardInfo = cardCodeMap.get(codeType.getCardCode());
+                        TradeListCardDto cardInfo = cardCodeMap.get(codeType.getCardCode());
                         if (cardInfo != null) {
                             if (codeType.getType() == 1) {
-                                tcgTrade.updateMyCardInfo(cardInfo.getCode(), cardInfo.getNameKo());
+                                tcgTrade.updateMyCardInfo(cardInfo);
                             } else {
-                                tcgTrade.updateWantCardInfo(cardInfo.getCode(), cardInfo.getNameKo());
+                                tcgTrade.updateWantCardInfo(cardInfo);
                             }
                         }
                     }

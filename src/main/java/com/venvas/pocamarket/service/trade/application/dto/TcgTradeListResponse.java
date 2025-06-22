@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.trade.application.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.venvas.pocamarket.service.pokemon.application.dto.TradeListCardDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,15 +38,15 @@ public class TcgTradeListResponse {
         this.tradeCardCodeList = tradeCardCodeList;
     }
 
-    public void updateMyCardInfo(String cardCode, String cardName) {
-        this.myCardInfo = new CardData(cardCode, cardName);
+    public void updateMyCardInfo(TradeListCardDto cardInfo) {
+        this.myCardInfo = new CardData(cardInfo.getCode(), cardInfo.getNameKo(), cardInfo.getPackSet());
     }
 
-    public void updateWantCardInfo(String cardCode, String cardName) {
+    public void updateWantCardInfo(TradeListCardDto cardInfo) {
         if(wantCardInfo == null) {
             wantCardInfo = new ArrayList<>();
         }
-        wantCardInfo.add(new CardData(cardCode, cardName));
+        wantCardInfo.add(new CardData(cardInfo.getCode(), cardInfo.getNameKo(), cardInfo.getPackSet()));
     }
 
     @Getter
@@ -54,5 +55,6 @@ public class TcgTradeListResponse {
     public static class CardData {
         private String cardCode;
         private String cardName;
+        private String cardPackSet;
     }
 }
