@@ -47,4 +47,23 @@ public enum TcgTradeRequestStatus {
     public static Integer toCode(TcgTradeRequestStatus status) {
         return status != null ? status.getCode() : REQUEST.getCode();
     }
+
+    /**
+     * 현재 상태에서 다음 단계로 진행할 수 있는 상태를 반환합니다.
+     * 1(REQUEST) → 2(PROGRESS)
+     * 2(PROGRESS) → 3(COMPLETE)
+     */
+    public static Integer getNextStatus(Integer currentStatus) {
+        if (currentStatus == null) {
+            throw new IllegalArgumentException("현재 상태가 null입니다.");
+        }
+        
+        if (currentStatus.equals(REQUEST.getCode())) {
+            return PROGRESS.getCode(); // 1 → 2
+        } else if (currentStatus.equals(PROGRESS.getCode())) {
+            return COMPLETE.getCode(); // 2 → 3
+        } else {
+            throw new IllegalArgumentException("더 이상 진행할 수 없는 상태입니다. 현재 상태: " + currentStatus);
+        }
+    }
 } 

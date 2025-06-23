@@ -1,8 +1,14 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestCreateRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestDeleteRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestGetResponse;
+import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestPatchRequest;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeHistory;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeRequest;
@@ -17,12 +23,9 @@ import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,127 +40,191 @@ public class TcgTradeRequestService {
 
     private final Integer STATUS_ACTIVE = 1;
 
-    /**
-     * 카드 교환 요청을 생성합니다.
-     * 
-     * @param tradeId 거래 ID
-     * @param request 교환 요청 생성 DTO
-     * @param userUuid 요청자 UUID
-     * @return 처리 결과
-     * @throws UserException 사용자 관련 예외
-     * @throws TcgTradeException 교환 관련 예외
-     */
+
     @Transactional
     public Boolean createTcgTradeRequest(Long tradeId, TcgTradeRequestCreateRequest request, String userUuid) {
-        log.info("카드 교환 요청 생성 시작: tradeId={}, userUuid={}, tcgCode={}, cardCode={}", 
-                tradeId, userUuid, request.getTcgCode(), request.getCardCode());
+        // 기본 검증
+        validateUserUuid(userUuid);
 
-        // 1. userUuid가 값이 없다면 에러를 띄움
-        if (userUuid == null || userUuid.isBlank()) {
-            throw new UserException(UserErrorCode.USER_NOT_FOUND);
-        }
-
-        // 2. tcgCodeRepository에서 userUuid와 request안에 있는 tcgCode 값으로 조회해서 확인
+        // 친구 코드 존재 여부 확인
         boolean tcgCodeExists = tcgCodeRepository.existsByUuidAndTcgCodeAndStatus(userUuid, request.getTcgCode(), STATUS_ACTIVE);
-        
         if (!tcgCodeExists) {
             throw new TcgTradeException(TcgTradeErrorCode.INVALID_TCG_CODE_FORMAT, "등록되지 않은 친구 코드입니다.");
         }
 
-        // 교환 정보 조회
-        TcgTrade trade = tcgTradeRepository.findById(tradeId)
-                .orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND));
+        // 필요한 정보 조회
+        TcgTrade trade = findTrade(tradeId);
+        User user = findUser(userUuid);
 
-        // 사용자 정보 조회
-        User user = userRepository.findByUuid(userUuid)
-                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
-
-        // 3. TcgTradeRequest 객체를 만들어서 db에 저장
+        // 교환 요청 생성 및 저장
         TcgTradeRequest tradeRequest = new TcgTradeRequest(
-                trade,
-                userUuid,
-                user.getNickname(),
-                request.getTcgCode(),
-                request.getCardCode(),
-                TcgTradeRequestStatus.REQUEST.getCode()
+                trade, userUuid, user.getNickname(), request.getTcgCode(), 
+                request.getCardCode(), TcgTradeRequestStatus.REQUEST.getCode()
         );
-        
         TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tradeRequest);
 
-        // 4. TcgTradeHistory 객체를 만들어서 db에 저장
+        // 히스토리 저장
         String historyContent = String.format("%s (%s)님이 %s (%s)카드로 교환을 요청했습니다.",
                 user.getNickname(), user.getUuid(), request.getCardName(), request.getCardCode());
-        
-        TcgTradeHistory tradeHistory = new TcgTradeHistory(
-            trade,
-            savedTradeRequest,
-            userUuid,
-            historyContent
-        );
-        
-        TcgTradeHistory savedTradeHistory = tcgTradeHistoryRepository.save(tradeHistory);
+        saveHistory(trade, savedTradeRequest, userUuid, historyContent);
 
         return true;
     }
 
-    /**
-     * 교환 요청 목록을 조회합니다.
-     */
     public Page<TcgTradeRequestGetResponse> getTcgTradeRequestList(Long tradeId, String userUuid, Pageable pageable, Boolean isAdmin) {
-        if (!tcgTradeRepository.existsById(tradeId)) {
-            throw new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND);
-        }
-
+        validateTradeExists(tradeId);
         return tcgTradeRequestRepository.findTradeRequestsWithTradeUser(tradeId, userUuid, pageable, isAdmin);
     }
 
     @Transactional
-    public Boolean deleteTradeRequest(Long tradeId, TcgTradeRequestDeleteRequest request, String userUuid, Boolean isAdmin) {
-
-        if (userUuid == null || userUuid.isBlank()) {
-            log.warn("요청자 UUID가 없습니다.");
-            throw new UserException(UserErrorCode.USER_NOT_FOUND);
-        }
-
-        if (!tcgTradeRepository.existsById(tradeId)) {
-            throw new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND);
-        }
+    public Boolean patchTcgTradeRequest(Long tradeId, TcgTradeRequestPatchRequest request, String userUuid) {
+        
+        // 기본 검증
+        validateUserUuid(userUuid);
+        validateRequestNextStatus(request.getStatus());
 
         // 교환 요청 조회 및 권한 검증
-        TcgTradeRequest tcgTradeRequest = tcgTradeRequestRepository
-                .findByIdAndTradeId(request.getTcgTradeRequestId(), tradeId)
-                .orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.TRADE_REQUEST_NOT_FOUND));
+        TcgTradeRequest tcgTradeRequest = findTradeRequest(request.getTcgTradeRequestId(), tradeId);
+        validateIsTradeOwner(tcgTradeRequest, userUuid);
+        validateCurrentStatus(tcgTradeRequest, request.getStatus());
 
-        // 관리자가 아닌 경우 본인 것만 삭제 가능
-        if (!isAdmin && !tcgTradeRequest.getUuid().equals(userUuid)) {
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS);
-        }
+        // 다음 단계로 상태 업데이트
+        Integer nextStatus = getNextStatusSafely(tcgTradeRequest.getStatus());
+        tcgTradeRequest.updateStatus(nextStatus);
+        TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tcgTradeRequest);
 
-        // 이미 삭제된 요청인지 확인
-        if (tcgTradeRequest.getStatus().equals(TcgTradeRequestStatus.DELETE.getCode())) {
-            log.warn("이미 삭제된 교환 요청입니다. tcgTradeRequestId: {}", request.getTcgTradeRequestId());
-            throw new TcgTradeException(TcgTradeErrorCode.TRADE_REQUEST_ALREADY_DELETED);
-        }
+        // 히스토리 저장
+        String historyContent = createStatusChangeHistoryContent(nextStatus, tcgTradeRequest.getNickname(), userUuid);
+        saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, userUuid, historyContent);
 
-        // 이미 완료된 요청인지 확인
-        if (tcgTradeRequest.getStatus().equals(TcgTradeRequestStatus.COMPLETE.getCode())) {
-            log.warn("이미 완료된 교환 요청은 삭제할 수 없습니다. tcgTradeRequestId: {}", request.getTcgTradeRequestId());
-            throw new TcgTradeException(TcgTradeErrorCode.TRADE_REQUEST_ALREADY_COMPLETED);
-        }
+        return true;
+    }
 
+    @Transactional
+    public Boolean deleteTcgTradeRequest(Long tradeId, TcgTradeRequestDeleteRequest request, String userUuid, Boolean isAdmin) {
+
+        // 기본 검증
+        validateUserUuid(userUuid);
+
+        // 교환 요청 조회 및 권한 검증
+        TcgTradeRequest tcgTradeRequest = findTradeRequest(request.getTcgTradeRequestId(), tradeId);
+        validateDeletePermission(tcgTradeRequest, userUuid, isAdmin);
+        validateDeletableStatus(tcgTradeRequest);
+
+        // 삭제 처리
         tcgTradeRequest.updateStatus(TcgTradeRequestStatus.DELETE.getCode());
         TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tcgTradeRequest);
 
-        // 삭제 히스토리 저장
-        String historyContent = String.format("%s (%s)님이 교환 요청을 취소했습니다.", isAdmin ? "관리자" : tcgTradeRequest.getNickname(), userUuid);
+        // 히스토리 저장
+        String historyContent = createDeleteHistoryContent(tcgTradeRequest.getNickname(), userUuid, isAdmin);
+        saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, userUuid, historyContent);
         
-        tcgTradeHistoryRepository.save(
-            new TcgTradeHistory(
-                tcgTradeRequest.getTrade(),
-                savedTradeRequest,
-                userUuid,
-                historyContent
-        ));
         return true;
+    }
+
+    /*사용자 UUID 유효성을 검증합니다. */
+    private void validateUserUuid(String userUuid) {
+        if (userUuid == null || userUuid.isBlank()) {
+            throw new UserException(UserErrorCode.USER_NOT_FOUND);
+        }
+    }
+
+    /* 교환 글 존재 여부를 확인합니다. */
+    private void validateTradeExists(Long tradeId) {
+        if (!tcgTradeRepository.existsById(tradeId)) {
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND);
+        }
+    }
+
+    /* 교환 요청을 조회합니다. */
+    private TcgTradeRequest findTradeRequest(Long tcgTradeRequestId, Long tradeId) {
+        return tcgTradeRequestRepository
+                .findByIdAndTradeId(tcgTradeRequestId, tradeId)
+                .orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.TRADE_REQUEST_NOT_FOUND));
+    }
+
+    /* 사용자 정보를 조회합니다. */
+    private User findUser(String userUuid) {
+        return userRepository.findByUuid(userUuid)
+                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
+    }
+
+    /* 교환 글을 조회합니다. */
+    private TcgTrade findTrade(Long tradeId) {
+        return tcgTradeRepository.findById(tradeId)
+                .orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND));
+    }
+
+    /* 히스토리를 저장합니다. */
+    private void saveHistory(TcgTrade trade, TcgTradeRequest tradeRequest, String userUuid, String content) {
+        tcgTradeHistoryRepository.save(
+            new TcgTradeHistory(trade, tradeRequest, userUuid, content)
+        );
+    }
+
+    /* 요청된 상태가 다음 값으로 유효한지 검증합니다. */
+    private void validateRequestNextStatus(Integer status) {
+        if (!status.equals(TcgTradeRequestStatus.REQUEST.getCode()) && 
+            !status.equals(TcgTradeRequestStatus.PROGRESS.getCode())) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "유효하지 않은 상태 값입니다.");
+        }
+    }
+
+    /* 교환 글 소유권을 검증합니다. */
+    private void validateIsTradeOwner(TcgTradeRequest tcgTradeRequest, String userUuid) {
+        if (!tcgTradeRequest.getTrade().getUuid().equals(userUuid)) {
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS);
+        }
+    }
+
+    /* 현재 상태와 요청된 상태가 일치하는지 검증합니다. */
+    private void validateCurrentStatus(TcgTradeRequest tcgTradeRequest, Integer requestedStatus) {
+        if (!tcgTradeRequest.getStatus().equals(requestedStatus)) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, 
+                "현재 상태와 요청된 상태가 일치하지 않습니다. 현재: " + tcgTradeRequest.getStatus() + ", 요청: " + requestedStatus);
+        }
+    }
+
+    /* 안전하게 다음 상태를 가져옵니다. */
+    private Integer getNextStatusSafely(Integer currentStatus) {
+        try {
+            return TcgTradeRequestStatus.getNextStatus(currentStatus);
+        } catch (IllegalArgumentException e) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, e.getMessage());
+        }
+    }
+
+    /* 상태 변경 히스토리 내용을 생성합니다. */
+    private String createStatusChangeHistoryContent(Integer nextStatus, String nickname, String userUuid) {
+        if (nextStatus.equals(TcgTradeRequestStatus.PROGRESS.getCode())) {
+            return String.format("%s (%s)님이 교환을 진행 상태로 변경했습니다.", nickname, userUuid);
+        } else if (nextStatus.equals(TcgTradeRequestStatus.COMPLETE.getCode())) {
+            return String.format("%s (%s)님이 교환을 완료했습니다.", nickname, userUuid);
+        } else {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "유효하지 않은 상태 값입니다.");
+        }
+    }
+
+    /* 삭제 권한을 검증합니다. */
+    private void validateDeletePermission(TcgTradeRequest tcgTradeRequest, String userUuid, Boolean isAdmin) {
+        if (!isAdmin && !tcgTradeRequest.getUuid().equals(userUuid)) {
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS);
+        }
+    }
+
+    /* 삭제 가능한 상태인지 검증합니다. */
+    private void validateDeletableStatus(TcgTradeRequest tcgTradeRequest) {
+        if (tcgTradeRequest.getStatus().equals(TcgTradeRequestStatus.DELETE.getCode())) {
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_REQUEST_ALREADY_DELETED);
+        }
+        if (tcgTradeRequest.getStatus().equals(TcgTradeRequestStatus.COMPLETE.getCode())) {
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_REQUEST_ALREADY_COMPLETED);
+        }
+    }
+
+    /* 삭제 히스토리 내용을 생성합니다. */
+    private String createDeleteHistoryContent(String nickname, String userUuid, Boolean isAdmin) {
+        return String.format("%s (%s)님이 교환 요청을 취소했습니다.", 
+            isAdmin ? "관리자" : nickname, userUuid);
     }
 }

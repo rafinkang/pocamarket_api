@@ -124,9 +124,21 @@ public class TcgTradeController {
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 
+    @PatchMapping("/request/{tradeId}")
+    @Operation(summary = "카드 교환 요청 수정", description = "카드 교환 요청의 상태 값을 바꿉니다..")
+    public ResponseEntity<ApiResponse<Boolean>> patchTcgTradeRequestList(
+            @PathVariable("tradeId") Long tradeId,
+            @Valid @RequestBody TcgTradeRequestPatchRequest request,
+            @AuthenticationPrincipal UserDetailDto userDetailDto
+    ) {
+        String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
+
+        return ResponseEntity.ok(ApiResponse.success(tcgTradeRequestService.patchTcgTradeRequest(tradeId, request, uuid)));
+    }
+
     @DeleteMapping("/request/{tradeId}")
     @Operation(summary = "카드 교환 요청 제거", description = "카드 교환 요청의 상태 값을 0(삭제)로 바꿔줍니다.")
-    public ResponseEntity<ApiResponse<Boolean>> deleteTcgTradeRequestList(
+    public ResponseEntity<ApiResponse<Boolean>> deleteTcgTradeRequest(
             @PathVariable("tradeId") Long tradeId,
             @Valid @RequestBody TcgTradeRequestDeleteRequest request,
             @AuthenticationPrincipal UserDetailDto userDetailDto
@@ -134,6 +146,6 @@ public class TcgTradeController {
         boolean isAdmin = userDetailDto != null && userDetailDto.getGrade() == UserGrade.ADMIN;
         String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
 
-        return ResponseEntity.ok(ApiResponse.success(tcgTradeRequestService.deleteTradeRequest(tradeId, request, uuid, isAdmin)));
+        return ResponseEntity.ok(ApiResponse.success(tcgTradeRequestService.deleteTcgTradeRequest(tradeId, request, uuid, isAdmin)));
     }
 }
