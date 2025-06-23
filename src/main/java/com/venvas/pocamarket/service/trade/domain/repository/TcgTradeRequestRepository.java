@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,6 @@ public interface TcgTradeRequestRepository extends JpaRepository<TcgTradeRequest
 
     @Query("SELECT tr FROM TcgTradeRequest tr WHERE tr.id = :id AND tr.trade.id = :tradeId AND tr.uuid = :uuid")
     Optional<TcgTradeRequest> findByIdAndTradeIdAndUuid(@Param("id") Long id, @Param("tradeId") Long tradeId, @Param("uuid") String uuid);
+
+    Integer countByUuidAndTradeStatusIn(String uuid, List<Integer> status);
 }

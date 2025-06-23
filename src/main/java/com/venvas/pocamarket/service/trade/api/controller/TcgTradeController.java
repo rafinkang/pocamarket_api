@@ -4,6 +4,7 @@ import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.trade.application.dto.*;
 import com.venvas.pocamarket.service.trade.application.service.TcgTradeRequestService;
 import com.venvas.pocamarket.service.trade.application.service.TcgTradeService;
+import com.venvas.pocamarket.service.trade.application.service.TcgTradeUserService;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +29,8 @@ public class TcgTradeController {
 
     private final TcgTradeService tcgTradeService;
     private final TcgTradeRequestService tcgTradeRequestService;
-
+    private final TcgTradeUserService tcgTradeUserService;
+    
     @PostMapping("")
     @Operation(summary = "카드 교환 요청 생성", description = "새로운 카드 교환 요청을 생성합니다.")
     public ResponseEntity<ApiResponse<Boolean>> createTcgTrade(
@@ -66,6 +68,16 @@ public class TcgTradeController {
 
         Page<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable, uuid, isAdmin, true);
         return ResponseEntity.ok(ApiResponse.success(tradeList));
+    }
+
+    @GetMapping("/my/info")
+    @Operation(summary = "내 카드 교환 정보", description = "내 카드 교환 정보를 가져옵니다. 인증 필요함")
+    public ResponseEntity<ApiResponse<TcgMyInfoResponse>> getMyTcgTradeInfo(
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+        log.info("내 카드 교환 정보: uuid={}", userDetailDto.getUuid());
+
+        TcgMyInfoResponse response = tcgTradeUserService.getMyTcgTradeInfo(userDetailDto.getUuid());
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @PatchMapping("/refresh/{tradeId}")
