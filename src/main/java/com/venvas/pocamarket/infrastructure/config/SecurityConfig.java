@@ -85,6 +85,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 구체적인 경로를 먼저, 아닌 경로를 나중에
 
+                        // 인증 필요한 경로
+                        .requestMatchers(
+                                "/api/tcg-trade/my/**",
+                                "/api/tcg-trade/refresh/**")
+                        .authenticated()
+
                         // 인증 없이 접근 가능한 공개 API
                         .requestMatchers(
                                 "/api/login",
@@ -140,21 +146,21 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        
-        configuration.addAllowedOrigin("http://localhost:3000");  // 허용할 프론트엔드 출처
-        configuration.addAllowedMethod("GET");  // 허용할 HTTP 메서드들을 개별적으로 설정
+
+        configuration.addAllowedOrigin("http://localhost:3000"); // 허용할 프론트엔드 출처
+        configuration.addAllowedMethod("GET"); // 허용할 HTTP 메서드들을 개별적으로 설정
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("PUT");
         configuration.addAllowedMethod("DELETE");
         configuration.addAllowedMethod("OPTIONS");
         configuration.addAllowedMethod("HEAD");
         configuration.addAllowedMethod("PATCH");
-        configuration.addAllowedHeader("*");  // 모든 헤더 허용
-        configuration.setAllowCredentials(true);  // 인증 정보 허용
-        configuration.setMaxAge(3600L);  // preflight 요청 캐시 시간 (초)
+        configuration.addAllowedHeader("*"); // 모든 헤더 허용
+        configuration.setAllowCredentials(true); // 인증 정보 허용
+        configuration.setMaxAge(3600L); // preflight 요청 캐시 시간 (초)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);  // CORS를 적용할 경로 패턴 지정
+        source.registerCorsConfiguration("/api/**", configuration); // CORS를 적용할 경로 패턴 지정
         return source;
     }
 }
