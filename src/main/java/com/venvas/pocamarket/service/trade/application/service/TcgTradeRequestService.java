@@ -64,6 +64,10 @@ public class TcgTradeRequestService {
             throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "본인이 작성한 교환 글에는 요청할 수 없습니다.");
         }
 
+        if(tcgTradeRequestRepository.existsByTradeIdAndUuidAndRequestCardCode(trade.getId(), userUuid, request.getCardCode())) {
+            throw new TcgTradeException(TcgTradeErrorCode.DUPLICATE_TRADE_REQUEST);
+        }
+
         User user = findUser(userUuid);
 
         // 교환 요청 생성 및 저장
