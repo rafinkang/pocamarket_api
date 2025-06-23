@@ -32,4 +32,16 @@ public class TcgTradeUser {
     /** 포인트 */
     @Column(name = "point")
     private Integer point = 0;
+
+    public TcgTradeUser(String uuid) {
+        this.uuid = uuid;
+        this.tradeCount = 0;
+        this.reportCount = 0;
+        this.exp = 0;
+        this.point = 0;
+    }
+
+    public void incrementTradeCount() {
+        this.tradeCount++;
+    }
 } 

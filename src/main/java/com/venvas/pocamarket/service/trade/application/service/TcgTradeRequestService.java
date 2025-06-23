@@ -19,6 +19,8 @@ import com.venvas.pocamarket.service.trade.domain.repository.TcgCodeRepository;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeHistoryRepository;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRepository;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRequestRepository;
+import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeUserRepository;
+import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeUser;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
@@ -26,6 +28,8 @@ import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +40,7 @@ public class TcgTradeRequestService {
     private final TcgTradeRequestRepository tcgTradeRequestRepository;
     private final TcgTradeHistoryRepository tcgTradeHistoryRepository;
     private final TcgTradeRepository tcgTradeRepository;
+    private final TcgTradeUserRepository tcgTradeUserRepository;
     private final UserRepository userRepository;
 
     private final Integer STATUS_ACTIVE = 1;
@@ -54,6 +59,11 @@ public class TcgTradeRequestService {
 
         // 필요한 정보 조회
         TcgTrade trade = findTrade(tradeId);
+
+        if (trade.getUuid().equals(userUuid)) {
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "본인이 작성한 교환 글에는 요청할 수 없습니다.");
+        }
+
         User user = findUser(userUuid);
 
         // 교환 요청 생성 및 저장
@@ -71,9 +81,9 @@ public class TcgTradeRequestService {
         return true;
     }
 
-    public Page<TcgTradeRequestGetResponse> getTcgTradeRequestList(Long tradeId, String userUuid, Pageable pageable, Boolean isAdmin) {
+    public List<TcgTradeRequestGetResponse> getTcgTradeRequestList(Long tradeId, String userUuid, Boolean isAdmin) {
         validateTradeExists(tradeId);
-        return tcgTradeRequestRepository.findTradeRequestsWithTradeUser(tradeId, userUuid, pageable, isAdmin);
+        return tcgTradeRequestRepository.findTradeRequestsWithTradeUser(tradeId, userUuid, isAdmin);
     }
 
     @Transactional
@@ -96,6 +106,11 @@ public class TcgTradeRequestService {
         // 히스토리 저장
         String historyContent = createStatusChangeHistoryContent(nextStatus, tcgTradeRequest.getNickname(), userUuid);
         saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, userUuid, historyContent);
+
+        // 교환 완료 시 거래 횟수 증가
+        if (nextStatus.equals(TcgTradeRequestStatus.COMPLETE.getCode())) {
+            updateTradeCount(tcgTradeRequest.getUuid(), tcgTradeRequest.getTrade().getUuid());
+        }
 
         return true;
     }
@@ -226,5 +241,44 @@ public class TcgTradeRequestService {
     private String createDeleteHistoryContent(String nickname, String userUuid, Boolean isAdmin) {
         return String.format("%s (%s)님이 교환 요청을 취소했습니다.", 
             isAdmin ? "관리자" : nickname, userUuid);
+    }
+
+    /* 거래 횟수를 업데이트합니다. */
+    private void updateTradeCount(String requestUserUuid, String tradeOwnerUuid) {
+        // 업데이트할 UUID 리스트 생성 (중복 제거)
+        List<String> uuidsToUpdate = requestUserUuid.equals(tradeOwnerUuid) 
+            ? List.of(requestUserUuid)
+            : List.of(requestUserUuid, tradeOwnerUuid);
+        
+        // 한 번에 조회
+        List<TcgTradeUser> existingUsers = tcgTradeUserRepository.findAllById(uuidsToUpdate);
+        
+        // 존재하는 사용자들의 UUID 추출
+        List<String> existingUuids = existingUsers.stream()
+                .map(TcgTradeUser::getUuid)
+                .toList();
+        
+        // 기존 사용자들의 거래 횟수 증가
+        existingUsers.forEach(TcgTradeUser::incrementTradeCount);
+        
+        // 새로 생성해야 할 사용자들 추가
+        List<TcgTradeUser> newUsers = uuidsToUpdate.stream()
+                .filter(uuid -> !existingUuids.contains(uuid))
+                .map(uuid -> {
+                    TcgTradeUser newUser = new TcgTradeUser(uuid);
+                    newUser.incrementTradeCount();
+                    return newUser;
+                })
+                .toList();
+        
+        // 기존 사용자 업데이트
+        if (!existingUsers.isEmpty()) {
+            tcgTradeUserRepository.saveAll(existingUsers);
+        }
+        
+        // 새 사용자 생성
+        if (!newUsers.isEmpty()) {
+            tcgTradeUserRepository.saveAll(newUsers);
+        }
     }
 }

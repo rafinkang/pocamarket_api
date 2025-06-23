@@ -20,6 +20,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @Tag(name = "TcgTrade-API", description = "카드 교환 관련 API")
 @RestController
@@ -124,15 +126,14 @@ public class TcgTradeController {
 
     @GetMapping("/request/{tradeId}")
     @Operation(summary = "카드 교환 요청 리스트 가져오기", description = "카드 교환 리스트를 가져옵니다.")
-    public ResponseEntity<ApiResponse<Page<TcgTradeRequestGetResponse>>> getTcgTradeRequestList(
+    public ResponseEntity<ApiResponse<List<TcgTradeRequestGetResponse>>> getTcgTradeRequestList(
             @PathVariable("tradeId") Long tradeId,
-            @PageableDefault(size = 10) Pageable pageable,
             @AuthenticationPrincipal UserDetailDto userDetailDto
     ) {
         boolean isAdmin = userDetailDto != null && userDetailDto.getGrade() == UserGrade.ADMIN;
         String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
 
-        Page<TcgTradeRequestGetResponse> result = tcgTradeRequestService.getTcgTradeRequestList(tradeId, uuid, pageable, isAdmin);
+        List<TcgTradeRequestGetResponse> result = tcgTradeRequestService.getTcgTradeRequestList(tradeId, uuid, isAdmin);
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 
