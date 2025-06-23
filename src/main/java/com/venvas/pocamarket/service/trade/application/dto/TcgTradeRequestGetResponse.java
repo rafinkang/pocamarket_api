@@ -23,7 +23,7 @@ public class TcgTradeRequestGetResponse {
 
     private Integer status;
 
-    private boolean isMy;
+    private Boolean isMy;
 
     private LocalDateTime updatedAt;
 

@@ -64,7 +64,6 @@ public class TcgTradeRequestRepositoryImpl implements TcgTradeRequestRepositoryC
                 tcgTradeRequest.trade.id.eq(tradeId),
                 statusCondition(isAdmin)
             );
-
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 
