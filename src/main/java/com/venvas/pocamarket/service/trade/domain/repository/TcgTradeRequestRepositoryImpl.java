@@ -71,6 +71,6 @@ public class TcgTradeRequestRepositoryImpl implements TcgTradeRequestRepositoryC
         if (isAdmin != null && isAdmin) {
             return null; // 관리자는 모든 상태 조회
         }
-        return tcgTradeRequest.status.ne(TcgTradeRequestStatus.DELETED.getCode()); // 일반 사용자는 삭제되지 않은 것만
+        return tcgTradeRequest.status.ne(TcgTradeRequestStatus.DELETE.getCode()); // 일반 사용자는 삭제되지 않은 것만
     }
 } 

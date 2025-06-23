@@ -66,4 +66,12 @@ public class TcgTradeRequest {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
+    /**
+     * 교환 요청 상태를 업데이트합니다.
+     */
+    public void updateStatus(Integer status) {
+        this.status = status;
+        this.updatedAt = LocalDateTime.now();
+    }
 } 

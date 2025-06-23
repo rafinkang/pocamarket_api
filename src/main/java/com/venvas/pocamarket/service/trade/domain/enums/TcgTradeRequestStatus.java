@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum TcgTradeRequestStatus {
-    DELETED(0, "교환 삭제"),
+    DELETE(0, "교환 삭제"),
     REQUEST(1, "교환 요청"),
     PROGRESS(2, "교환 진행"),
     COMPLETE(3, "교환 완료");
