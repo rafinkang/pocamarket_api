@@ -89,7 +89,7 @@ public class TcgTradeService {
      * @return 처리 결과 메시지
      */
     @Transactional
-    public Boolean updateTrade(Long tradeId, TcgTradeCreateRequest request, String userUuid) {
+    public Boolean putTcgTrade(Long tradeId, TcgTradeCreateRequest request, String userUuid) {
         // 0. 요청 데이터 검증 및 중복 카드 제거
         TcgTradeCreateRequest processedRequest = validateAndProcessDuplicateCardCodes(request);
         
