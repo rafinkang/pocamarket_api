@@ -26,7 +26,7 @@ public class UserReportController {
     private final UserReportService userReportService;
     
     @PostMapping
-    public ResponseEntity<ApiResponse<?>> login(@RequestBody UserReportRequest request, @AuthenticationPrincipal UserDetailDto userDetailDto) {
+    public ResponseEntity<ApiResponse<?>> userReport(@RequestBody UserReportRequest request, @AuthenticationPrincipal UserDetailDto userDetailDto) {
         log.info("신고 접수 시작: {}", request);
         try {
             request.setUuid(userDetailDto.getUuid());

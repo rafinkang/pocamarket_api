@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TradeStatus {
     DELETED(0, "거래 삭제"),
-    REQUEST(1, "거래 요청"),
-    SELECT(2, "거래 선택"),
+    REQUEST(1, "거래 등록"),
+    SELECT(2, "거래 선택중"),
     PROCESS(3, "거래 진행중"),
     COMPLETE(4, "거래 완료");
 
