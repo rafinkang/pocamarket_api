@@ -15,7 +15,6 @@ public class UserReportResponse {
     private LocalDateTime createdAt;
     private Integer status;
     private String reportResult;
-    private String adminUuid;
     private LocalDateTime resultAt;
 
     private UserReportResponse(
@@ -29,7 +28,6 @@ public class UserReportResponse {
         LocalDateTime createdAt,
         Integer status,
         String reportResult,
-        String adminUuid,
         LocalDateTime resultAt
     ) {
         this.id = id;
@@ -42,7 +40,6 @@ public class UserReportResponse {
         this.createdAt = createdAt;
         this.status = status;
         this.reportResult = reportResult;
-        this.adminUuid = adminUuid;
         this.resultAt = resultAt;
     }
 
@@ -58,7 +55,6 @@ public class UserReportResponse {
             userReport.getCreatedAt(),
             userReport.getStatus(),
             userReport.getReportResult(),
-            userReport.getAdminUuid(),
             userReport.getResultAt()
         );
     }

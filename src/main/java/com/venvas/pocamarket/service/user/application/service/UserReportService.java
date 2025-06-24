@@ -1,5 +1,9 @@
 package com.venvas.pocamarket.service.user.application.service;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,5 +26,10 @@ public class UserReportService {
         UserReport userReport = UserReport.createFromRequest(reportRequest);
         UserReportResponse response = UserReportResponse.from(UserReportRepository.save(userReport));
         return response;
+    }
+
+    public Page<UserReportResponse> getReportsByUuid(Pageable pageable, String uuid) throws Exception {
+        Page<UserReport> userReportPage = UserReportRepository.findByUuid(uuid, pageable);
+        return userReportPage.map(UserReportResponse::from);
     }
 }
