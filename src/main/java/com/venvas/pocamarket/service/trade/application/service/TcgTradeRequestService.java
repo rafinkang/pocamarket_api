@@ -124,8 +124,8 @@ public class TcgTradeRequestService {
         validateIsTradeOwner(tcgTradeRequest, userUuid);
         validateCurrentStatus(tcgTradeRequest, request.getStatus());
 
-        // 게시글의 상태 확인
-        if(trade.getStatus() > TradeStatus.REQUEST.getCode()) {
+        // 교환글의 상태 확인
+        if(trade.getStatus() > TradeStatus.SELECT.getCode()) {
             String message = trade.getStatus().equals(TradeStatus.PROCESS.getCode()) ? "다른 요청을 진행하고 있습니다." : "교환이 완료된 글입니다.";
             throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, message);
         } else if(trade.getStatus().equals(TradeStatus.DELETED.getCode())) {
