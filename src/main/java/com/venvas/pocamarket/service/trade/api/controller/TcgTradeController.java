@@ -103,12 +103,12 @@ public class TcgTradeController {
     }
 
     @PutMapping("/{tradeId}")
-    @Operation(summary = "카드 교환 요청 수정", description = "카드 교환 요청을 수정합니다.")
-    public ResponseEntity<ApiResponse<Boolean>> updateTcgTrade(
+    @Operation(summary = "카드 교환 내용 수정", description = "카드 교환 내용을 수정합니다.")
+    public ResponseEntity<ApiResponse<Boolean>> putTcgTrade(
             @PathVariable("tradeId") Long tradeId,
             @Valid @RequestBody TcgTradeCreateRequest request,
             @AuthenticationPrincipal UserDetailDto userDetailDto) {
-        Boolean result = tcgTradeService.updateTrade(tradeId, request, userDetailDto.getUuid());
+        Boolean result = tcgTradeService.putTcgTrade(tradeId, request, userDetailDto.getUuid());
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 

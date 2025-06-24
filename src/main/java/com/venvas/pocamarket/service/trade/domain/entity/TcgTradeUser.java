@@ -44,4 +44,29 @@ public class TcgTradeUser {
     public void incrementTradeCount() {
         this.tradeCount++;
     }
+
+    public void addPoint(Integer point) {
+        this.point += point;
+    }
+
+    public void addExp(Integer exp) {
+        this.exp += exp;
+    }
+
+    /**
+     * 신고 횟수 증가
+     */
+    public void incrementReportCount() {
+        this.reportCount++;
+    }
+
+    /**
+     * 신고 횟수 감소
+     */
+    public void decrementReportCount() {
+        this.reportCount--;
+        if(this.reportCount < 0) {
+            this.reportCount = 0;
+        }
+    }
 } 
