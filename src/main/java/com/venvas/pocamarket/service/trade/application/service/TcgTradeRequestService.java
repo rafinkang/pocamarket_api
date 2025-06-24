@@ -94,7 +94,7 @@ public class TcgTradeRequestService {
         // 교환 글에 요청이 없었으면 (삭제된 요청 제외, 요청글 추가되기 전에 검사) 상태 변경
         if(!tradeHasRequest) {
             trade.updateStatus(TradeStatus.SELECT.getCode());
-            saveHistory(trade, savedTradeRequest, trade.getUuid(), "교환글의 상태가 교환 선택으로 변경 되었습니다.");
+            saveHistory(trade, savedTradeRequest, trade.getUuid(), "교환글의 상태가 (교환 선택)으로 변경 되었습니다.");
         }
 
         return true;
@@ -121,14 +121,21 @@ public class TcgTradeRequestService {
         // 교환 요청 조회 및 권한 검증
         TcgTradeRequest tcgTradeRequest = findTradeRequest(request.getTcgTradeRequestId(), tradeId); // 삭제 된게 아닌 것들 중에서 찾음
         TcgTrade trade = tcgTradeRequest.getTrade();
+
         validateIsTradeOwner(tcgTradeRequest, userUuid);
         validateCurrentStatus(tcgTradeRequest, request.getStatus());
 
-        // 교환글의 상태 확인
-        if(trade.getStatus() > TradeStatus.SELECT.getCode()) {
-            String message = trade.getStatus().equals(TradeStatus.PROCESS.getCode()) ? "다른 요청을 진행하고 있습니다." : "교환이 완료된 글입니다.";
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, message);
+        if(trade.getStatus().equals(TradeStatus.SELECT.getCode()) && tcgTradeRequest.getStatus() > TcgTradeRequestStatus.REQUEST.getCode()) {
+            // 교환글의 상태가 선택중, 요청의 상태가 Request(1) 보다 크면 에러
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "요청의 상태가 잘못 됐습니다.");
+        } else if(trade.getStatus().equals(TradeStatus.PROCESS.getCode()) && tcgTradeRequest.getStatus() < TcgTradeRequestStatus.PROCESS.getCode()) {
+            // 교환글의 상태가 진행중 or 교환 완료인데 요청글이 진행중보다 낮으면 에러
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "다른 요청을 진행하고 있습니다.");
+        } else if(trade.getStatus().equals(TradeStatus.COMPLETE.getCode())) {
+            // 교환글의 상태가 완료인데 요청 들어오면 에러
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "교환이 완료된 글입니다.");
         } else if(trade.getStatus().equals(TradeStatus.DELETED.getCode())) {
+            // 교환글의 상태가 삭제인데 요청 들어오면 에러
             throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "삭제된 교환글에는 요청 할 수 없습니다.");
         }
 
@@ -143,7 +150,13 @@ public class TcgTradeRequestService {
         tcgTradeRepository.save(trade);
 
         // 히스토리 저장
-        String historyContent = createStatusChangeHistoryContent(nextStatus, tcgTradeRequest.getNickname(), userUuid);
+        // 교환글
+        String tradeHistoryMessage = trade.getStatus().equals(TradeStatus.PROCESS.getCode()) ?
+                "교환글의 상태가 (교환 진행)으로 변경 되었습니다." : "교환글의 상태가 (교환 완료)으로 변경 되었습니다.";
+        saveHistory(trade, savedTradeRequest, trade.getUuid(), tradeHistoryMessage);
+
+        // 교환 요청
+        String historyContent = createStatusChangeHistoryContent(nextStatus, tcgTradeRequest.getNickname());
         saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, userUuid, historyContent);
 
         // 교환 완료 시 거래 횟수 증가
@@ -292,12 +305,12 @@ public class TcgTradeRequestService {
         }
     }
 
-    /* 상태 변경 히스토리 내용을 생성합니다. */
-    private String createStatusChangeHistoryContent(Integer nextStatus, String nickname, String userUuid) {
+    /* 교환글 상태 변경 히스토리 내용을 생성합니다. */
+    private String createStatusChangeHistoryContent(Integer nextStatus, String nickname) {
         if (nextStatus.equals(TcgTradeRequestStatus.PROCESS.getCode())) {
-            return String.format("%s (%s)님이 교환을 진행 상태로 변경했습니다.", nickname, userUuid);
+            return String.format("%s님이 교환을 진행 상태로 변경했습니다.", nickname);
         } else if (nextStatus.equals(TcgTradeRequestStatus.COMPLETE.getCode())) {
-            return String.format("%s (%s)님이 교환을 완료했습니다.", nickname, userUuid);
+            return String.format("%s님이 교환을 완료했습니다.", nickname);
         } else {
             throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "유효하지 않은 상태 값입니다.");
         }
