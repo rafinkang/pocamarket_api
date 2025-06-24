@@ -66,6 +66,10 @@ public class TcgTradeRequestService {
             throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "본인이 작성한 교환 글에는 요청할 수 없습니다.");
         }
 
+        if(trade.getStatus() > TradeStatus.SELECT.getCode()) {
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "교환 진행, 완료된 글에는 요청할 수 없습니다.");
+        }
+
         // 중복 카드 검사
         if(tcgTradeRequestRepository.existsByTradeIdAndUuidAndRequestCardCode(trade.getId(), userUuid, request.getCardCode())) {
             throw new TcgTradeException(TcgTradeErrorCode.DUPLICATE_TRADE_REQUEST);
