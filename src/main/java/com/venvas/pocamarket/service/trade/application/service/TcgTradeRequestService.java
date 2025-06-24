@@ -45,6 +45,9 @@ public class TcgTradeRequestService {
     private final Integer STATUS_ACTIVE = 1;
 
 
+    /**
+     * 교환 요청 생성
+     */
     @Transactional
     public Boolean createTcgTradeRequest(Long tradeId, TcgTradeRequestCreateRequest request, String userUuid) {
         // 기본 검증
@@ -70,6 +73,7 @@ public class TcgTradeRequestService {
 
         User user = findUser(userUuid);
 
+        // 교환 글에 해당하는 교환 요청글이 있는지 확인
         boolean tradeHasRequest = tcgTradeRequestRepository.existsByTradeId(trade.getId());
 
         // 교환 요청 생성 및 저장
@@ -83,19 +87,26 @@ public class TcgTradeRequestService {
                 user.getNickname(), request.getCardName(), request.getCardCode());
         saveHistory(trade, savedTradeRequest, userUuid, historyContent);
 
-        // 교환 글에 요청이 없으면 (삭제된 요청 제외)
+        // 교환 글에 요청이 없었으면 (삭제된 요청 제외, 요청글 추가되기 전에 검사) 상태 변경
         if(!tradeHasRequest) {
             trade.updateStatus(TradeStatus.SELECT.getCode());
+            saveHistory(trade, savedTradeRequest, trade.getUuid(), "교환글의 상태가 교환 선택으로 변경 되었습니다.");
         }
 
         return true;
     }
 
+    /**
+     * 교환 요청리스트 가져오기
+     */
     public List<TcgTradeRequestGetResponse> getTcgTradeRequestList(Long tradeId, String userUuid, Boolean isAdmin) {
         validateTradeExists(tradeId);
         return tcgTradeRequestRepository.findTradeRequestsWithTradeUser(tradeId, userUuid, isAdmin);
     }
 
+    /**
+     * 교환 요청 수정
+     */
     @Transactional
     public Boolean patchTcgTradeRequest(Long tradeId, TcgTradeRequestPatchRequest request, String userUuid) {
         
@@ -111,10 +122,10 @@ public class TcgTradeRequestService {
 
         // 게시글의 상태 확인
         if(trade.getStatus() > TradeStatus.REQUEST.getCode()) {
-            String message = trade.getStatus().equals(TradeStatus.PROCESS.getCode()) ? "다른 요청을 진행하고 있습니다." : "교환이 완료된 게시글입니다.";
+            String message = trade.getStatus().equals(TradeStatus.PROCESS.getCode()) ? "다른 요청을 진행하고 있습니다." : "교환이 완료된 글입니다.";
             throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, message);
         } else if(trade.getStatus().equals(TradeStatus.DELETED.getCode())) {
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "삭제된 게시글에는 요청 할 수 없습니다.");
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "삭제된 교환글에는 요청 할 수 없습니다.");
         }
 
         // 다음 단계로 상태 업데이트
@@ -139,6 +150,9 @@ public class TcgTradeRequestService {
         return true;
     }
 
+    /**
+     * 교환 요청 삭제
+     */
     @Transactional
     public Boolean deleteTcgTradeRequest(Long tradeId, TcgTradeRequestDeleteRequest request, String userUuid, Boolean isAdmin) {
 
@@ -150,9 +164,18 @@ public class TcgTradeRequestService {
         validateDeletePermission(tcgTradeRequest, userUuid, isAdmin);
         validateDeletableStatus(tcgTradeRequest);
 
+        // 교환글 가져오기
+        TcgTrade trade = findTrade(tradeId);
+
         // 삭제 처리
         tcgTradeRequest.updateStatus(TcgTradeRequestStatus.DELETE.getCode());
         TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tcgTradeRequest);
+
+        // 삭제 이후, 교환글에 요청글이 없을 경우 거래 요청으로 상태 변경(삭제된 요청 제외, uuid는 교환글 작성자의 것으로 적용)
+        if(!tcgTradeRequestRepository.existsByTradeId(trade.getId())) {
+            trade.updateStatus(TradeStatus.REQUEST.getCode());
+            saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, trade.getUuid(), "교환글의 상태가 교환 요청으로 변경 되었습니다.");
+        }
 
         // 히스토리 저장
         String historyContent = createDeleteHistoryContent(tcgTradeRequest.getNickname(), userUuid, isAdmin);
@@ -161,7 +184,7 @@ public class TcgTradeRequestService {
         return true;
     }
 
-    /*사용자 UUID 유효성을 검증합니다. */
+    /* 사용자 UUID 유효성을 검증합니다. */
     private void validateUserUuid(String userUuid) {
         if (userUuid == null || userUuid.isBlank()) {
             throw new UserException(UserErrorCode.USER_NOT_FOUND);
