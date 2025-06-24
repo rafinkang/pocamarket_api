@@ -15,7 +15,7 @@ public enum TcgTradeErrorCode {
     INVALID_CARD_CODE_FORMAT("TCG_TRADE_003", "카드 코드 형식이 유효하지 않습니다."),
     INVALID_TCG_CODE_FORMAT("TCG_TRADE_004", "친구 코드 형식이 유효하지 않습니다."),
     INVALID_WANT_CARD_LIST("TCG_TRADE_005", "원하는 카드 목록이 유효하지 않습니다."),
-    TOO_MANY_WANT_CARDS("TCG_TRADE_006", "원하는 카드는 최대 10개까지 가능합니다."),
+    TOO_MANY_WANT_CARDS("TCG_TRADE_006", "원하는 카드는 최대 3개까지 가능합니다."),
     EMPTY_WANT_CARD_LIST("TCG_TRADE_007", "원하는 카드가 최소 1개 이상 있어야 합니다."),
     INVALID_SEARCH_STATUS("TCG_TRADE_008", "검색 상태 값이 유효하지 않습니다."),
     DUPLICATE_TRADE_REQUEST("TCG_TRADE_009", "중복된 카드 요청 입니다."),

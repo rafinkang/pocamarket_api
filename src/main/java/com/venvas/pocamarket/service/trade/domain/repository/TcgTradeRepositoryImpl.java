@@ -48,8 +48,6 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
             pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("sortedAt")));
         }
 
-        log.info("sort : {}", pageable.getSort().stream().findFirst().get().getProperty());
-
         List<TcgTradeListDto> content = getTradeListQuery(request, userUuid, pageable);
 
         JPAQuery<Long> countQuery = getCountQuery(request, userUuid);
@@ -113,7 +111,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
     private BooleanExpression statusEq(int status) {
         if(isAdmin && status == 98) { // 관리자가 전체 검색
             return null;
-        } else if(status == 98) { // 삭제 된 글 제외하고 보기
+        } else if(status == 98) { // 삭제 된 글 제외하고 전체 보기
             return tcgTrade.status.ne(0);
         }
 
