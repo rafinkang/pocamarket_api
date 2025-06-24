@@ -38,7 +38,7 @@ public class TcgTradeUserService {
         Integer tradingCount = tcgTradeRepository.countByUuidAndStatusIn(userUuid,
                 List.of(TradeStatus.REQUEST.getCode(), TradeStatus.PROCESS.getCode(), TradeStatus.SELECT.getCode()));
         Integer requestCount = tcgTradeRequestRepository.countByUuidAndTradeStatusIn(userUuid,
-                List.of(TcgTradeRequestStatus.REQUEST.getCode(), TcgTradeRequestStatus.PROGRESS.getCode()));
+                List.of(TcgTradeRequestStatus.REQUEST.getCode(), TcgTradeRequestStatus.PROCESS.getCode()));
 
         return new TcgMyInfoResponse(tcgTradeUser, tradingCount, requestCount);
     }

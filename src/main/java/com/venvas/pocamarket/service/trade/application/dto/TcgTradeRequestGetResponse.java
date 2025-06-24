@@ -17,8 +17,6 @@ public class TcgTradeRequestGetResponse {
 
     private String nickname;
 
-    private String tcgCode;
-
     private String requestCardCode;
 
     private Integer status;
@@ -48,14 +46,13 @@ public class TcgTradeRequestGetResponse {
     /**
      * QueryDSL Projections에서 사용하는 생성자 (PokemonCard 정보 포함)
      */
-    public TcgTradeRequestGetResponse(Long tradeRequestId, Long tradeId, String nickname, String tcgCode, 
+    public TcgTradeRequestGetResponse(Long tradeRequestId, Long tradeId, String nickname,
                                     String requestCardCode, Integer status, String requestUuid, LocalDateTime updatedAt,
                                     Integer tradeCount, Integer reportCount,
                                     String cardNameKo, String cardElement, String cardPackSet, String cardRarity) {
         this.tradeRequestId = tradeRequestId;
         this.tradeId = tradeId;
         this.nickname = nickname;
-        this.tcgCode = tcgCode;
         this.requestCardCode = requestCardCode;
         this.status = status;
         this.requestUuid = requestUuid;

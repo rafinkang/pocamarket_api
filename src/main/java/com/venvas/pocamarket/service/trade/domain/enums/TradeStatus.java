@@ -60,4 +60,20 @@ public enum TradeStatus {
         TradeStatus status = fromCode(code);
         return status != null ? status : REQUEST; // 알 수 없는 코드는 기본값으로
     }
+
+    public static Integer getNextStatus(Integer currentStatus) {
+        if (currentStatus == null) {
+            throw new IllegalArgumentException("현재 상태가 null입니다.");
+        }
+
+        if (currentStatus.equals(REQUEST.getCode())) {
+            return SELECT.getCode(); // 1 → 2
+        } else if (currentStatus.equals(SELECT.getCode())) {
+            return PROCESS.getCode(); // 2 → 3
+        }  else if (currentStatus.equals(PROCESS.getCode())) {
+            return COMPLETE.getCode(); // 3 → 4
+        } else {
+            throw new IllegalArgumentException("더 이상 진행할 수 없는 상태입니다. 현재 상태: " + currentStatus);
+        }
+    }
 }

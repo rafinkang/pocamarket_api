@@ -78,4 +78,8 @@ public class TcgTrade {
     public void refresh() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void updateStatus(Integer status) {
+        this.status = status;
+    }
 } 

@@ -1,7 +1,8 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
+
+import com.venvas.pocamarket.service.trade.domain.enums.TradeStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestPatchR
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeHistory;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeRequest;
+import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeUser;
 import com.venvas.pocamarket.service.trade.domain.enums.TcgTradeRequestStatus;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeErrorCode;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeException;
@@ -20,7 +22,6 @@ import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeHistoryRepo
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRepository;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRequestRepository;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeUserRepository;
-import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeUser;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
@@ -28,8 +29,6 @@ import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -78,8 +77,8 @@ public class TcgTradeRequestService {
         TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tradeRequest);
 
         // 히스토리 저장
-        String historyContent = String.format("%s (%s)님이 %s (%s)카드로 교환을 요청했습니다.",
-                user.getNickname(), user.getUuid(), request.getCardName(), request.getCardCode());
+        String historyContent = String.format("%s님이 %s (%s)카드로 교환을 요청했습니다.",
+                user.getNickname(), request.getCardName(), request.getCardCode());
         saveHistory(trade, savedTradeRequest, userUuid, historyContent);
 
         return true;
@@ -98,14 +97,28 @@ public class TcgTradeRequestService {
         validateRequestNextStatus(request.getStatus());
 
         // 교환 요청 조회 및 권한 검증
-        TcgTradeRequest tcgTradeRequest = findTradeRequest(request.getTcgTradeRequestId(), tradeId);
+        TcgTradeRequest tcgTradeRequest = findTradeRequest(request.getTcgTradeRequestId(), tradeId); // 삭제 된게 아닌 것들 중에서 찾음
+        TcgTrade trade = tcgTradeRequest.getTrade();
         validateIsTradeOwner(tcgTradeRequest, userUuid);
         validateCurrentStatus(tcgTradeRequest, request.getStatus());
 
+        // 게시글의 상태 확인
+        if(trade.getStatus() > TradeStatus.REQUEST.getCode()) {
+            String message = trade.getStatus().equals(TradeStatus.PROCESS.getCode()) ? "다른 요청을 진행하고 있습니다." : "교환이 완료된 게시글입니다.";
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, message);
+        } else if(trade.getStatus().equals(TradeStatus.DELETED.getCode())) {
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "삭제된 게시글에는 요청 할 수 없습니다.");
+        }
+
         // 다음 단계로 상태 업데이트
-        Integer nextStatus = getNextStatusSafely(tcgTradeRequest.getStatus());
+        Integer nextStatus = getNextRequestStatusSafely(tcgTradeRequest.getStatus());
         tcgTradeRequest.updateStatus(nextStatus);
         TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tcgTradeRequest);
+
+        // 게시글 상태도 업데이트
+        Integer nextTradeStatus = getNextTradeStatusSafely(trade.getStatus());
+        trade.updateStatus(nextTradeStatus);
+        tcgTradeRepository.save(trade);
 
         // 히스토리 저장
         String historyContent = createStatusChangeHistoryContent(nextStatus, tcgTradeRequest.getNickname(), userUuid);
@@ -184,7 +197,7 @@ public class TcgTradeRequestService {
     /* 요청된 상태가 다음 값으로 유효한지 검증합니다. */
     private void validateRequestNextStatus(Integer status) {
         if (!status.equals(TcgTradeRequestStatus.REQUEST.getCode()) && 
-            !status.equals(TcgTradeRequestStatus.PROGRESS.getCode())) {
+            !status.equals(TcgTradeRequestStatus.PROCESS.getCode())) {
             throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "유효하지 않은 상태 값입니다.");
         }
     }
@@ -204,8 +217,17 @@ public class TcgTradeRequestService {
         }
     }
 
-    /* 안전하게 다음 상태를 가져옵니다. */
-    private Integer getNextStatusSafely(Integer currentStatus) {
+    /* 안전하게 교환글의 다음 상태를 가져옵니다. */
+    private Integer getNextTradeStatusSafely(Integer currentStatus) {
+        try {
+            return TradeStatus.getNextStatus(currentStatus);
+        } catch (IllegalArgumentException e) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, e.getMessage());
+        }
+    }
+
+    /* 안전하게 요청의 다음 상태를 가져옵니다. */
+    private Integer getNextRequestStatusSafely(Integer currentStatus) {
         try {
             return TcgTradeRequestStatus.getNextStatus(currentStatus);
         } catch (IllegalArgumentException e) {
@@ -215,7 +237,7 @@ public class TcgTradeRequestService {
 
     /* 상태 변경 히스토리 내용을 생성합니다. */
     private String createStatusChangeHistoryContent(Integer nextStatus, String nickname, String userUuid) {
-        if (nextStatus.equals(TcgTradeRequestStatus.PROGRESS.getCode())) {
+        if (nextStatus.equals(TcgTradeRequestStatus.PROCESS.getCode())) {
             return String.format("%s (%s)님이 교환을 진행 상태로 변경했습니다.", nickname, userUuid);
         } else if (nextStatus.equals(TcgTradeRequestStatus.COMPLETE.getCode())) {
             return String.format("%s (%s)님이 교환을 완료했습니다.", nickname, userUuid);

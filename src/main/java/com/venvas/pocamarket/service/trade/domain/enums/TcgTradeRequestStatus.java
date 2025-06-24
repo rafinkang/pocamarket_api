@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public enum TcgTradeRequestStatus {
     DELETE(0, "교환 삭제"),
     REQUEST(1, "교환 요청"),
-    PROGRESS(2, "교환 진행"),
+    PROCESS(2, "교환 진행"),
     COMPLETE(3, "교환 완료");
 
     private final Integer code;
@@ -55,12 +55,12 @@ public enum TcgTradeRequestStatus {
      */
     public static Integer getNextStatus(Integer currentStatus) {
         if (currentStatus == null) {
-            throw new IllegalArgumentException("현재 상태가 null입니다.");
+            throw new IllegalArgumentException("현재 상태가 null 입니다.");
         }
         
         if (currentStatus.equals(REQUEST.getCode())) {
-            return PROGRESS.getCode(); // 1 → 2
-        } else if (currentStatus.equals(PROGRESS.getCode())) {
+            return PROCESS.getCode(); // 1 → 2
+        } else if (currentStatus.equals(PROCESS.getCode())) {
             return COMPLETE.getCode(); // 2 → 3
         } else {
             throw new IllegalArgumentException("더 이상 진행할 수 없는 상태입니다. 현재 상태: " + currentStatus);

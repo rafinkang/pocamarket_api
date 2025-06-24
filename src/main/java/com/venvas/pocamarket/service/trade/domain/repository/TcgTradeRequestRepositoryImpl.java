@@ -29,7 +29,6 @@ public class TcgTradeRequestRepositoryImpl implements TcgTradeRequestRepositoryC
                 tcgTradeRequest.id,
                 tcgTradeRequest.trade.id,
                 tcgTradeRequest.nickname,
-                tcgTradeRequest.tcgCode,
                 tcgTradeRequest.requestCardCode,
                 tcgTradeRequest.status,
                 tcgTradeRequest.uuid,
