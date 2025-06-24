@@ -133,6 +133,10 @@ public class TcgTradeService {
         String myCardCode = request.getMyCardCode();
         List<String> wantCardCode = distinctCards(request.getWantCardCode());
 
+        // 원하는 카드 최대 길이 체크
+        maxChekCards(wantCardCode);
+
+        // 원하는 카드 중복 제거
         ProcessDuplicateCardCodes(myCardCode, wantCardCode);
 
         TcgTradeListRequest tcgTradeRequest = new TcgTradeListRequest(myCardCode, wantCardCode, request.getFilterOption());
@@ -237,6 +241,13 @@ public class TcgTradeService {
 
         // 중복 제거된 요청 객체 반환
         return new TcgTradeCreateRequest(myCardCode, distinctWantCards, request.getTcgCode());
+    }
+
+    private void maxChekCards(List<String> cards) {
+        int MAX_SIZE = 3;
+        if(cards.size() > MAX_SIZE) {
+            throw new TcgTradeException(TcgTradeErrorCode.TOO_MANY_WANT_CARDS);
+        }
     }
 
     private List<String> distinctCards(List<String> cards) {
