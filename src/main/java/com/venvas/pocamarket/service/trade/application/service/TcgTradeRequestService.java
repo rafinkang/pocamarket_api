@@ -41,6 +41,7 @@ public class TcgTradeRequestService {
     private final TcgTradeRepository tcgTradeRepository;
     private final TcgTradeUserRepository tcgTradeUserRepository;
     private final UserRepository userRepository;
+    private final TcgTradeUserService tcgTradeUserService;
 
     private final Integer STATUS_ACTIVE = 1;
 
@@ -159,9 +160,12 @@ public class TcgTradeRequestService {
         String historyContent = createStatusChangeHistoryContent(nextStatus, tcgTradeRequest.getNickname());
         saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, userUuid, historyContent);
 
-        // 교환 완료 시 거래 횟수 증가
+        // 교환 완료 시 거래 횟수 증가 및 보상 지급
         if (nextStatus.equals(TcgTradeRequestStatus.COMPLETE.getCode())) {
             updateTradeCount(tcgTradeRequest.getUuid(), tcgTradeRequest.getTrade().getUuid());
+            // 완료처리시 포인트 지급, 경험치 지급
+            tcgTradeUserService.giveRewardToUser(tcgTradeRequest.getUuid()); 
+            tcgTradeUserService.giveRewardToUser(tcgTradeRequest.getTrade().getUuid());
         }
 
         return true;
