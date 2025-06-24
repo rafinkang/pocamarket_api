@@ -63,23 +63,30 @@ public class TcgTradeRequestService {
             throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "본인이 작성한 교환 글에는 요청할 수 없습니다.");
         }
 
+        // 중복 카드 검사
         if(tcgTradeRequestRepository.existsByTradeIdAndUuidAndRequestCardCode(trade.getId(), userUuid, request.getCardCode())) {
             throw new TcgTradeException(TcgTradeErrorCode.DUPLICATE_TRADE_REQUEST);
         }
 
         User user = findUser(userUuid);
 
+        boolean tradeHasRequest = tcgTradeRequestRepository.existsByTradeId(trade.getId());
+
         // 교환 요청 생성 및 저장
-        TcgTradeRequest tradeRequest = new TcgTradeRequest(
-                trade, userUuid, user.getNickname(), request.getTcgCode(), 
+        TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(new TcgTradeRequest(
+                trade, userUuid, user.getNickname(), request.getTcgCode(),
                 request.getCardCode(), TcgTradeRequestStatus.REQUEST.getCode()
-        );
-        TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tradeRequest);
+        ));
 
         // 히스토리 저장
         String historyContent = String.format("%s님이 %s (%s)카드로 교환을 요청했습니다.",
                 user.getNickname(), request.getCardName(), request.getCardCode());
         saveHistory(trade, savedTradeRequest, userUuid, historyContent);
+
+        // 교환 글에 요청이 없으면 (삭제된 요청 제외)
+        if(!tradeHasRequest) {
+            trade.updateStatus(TradeStatus.SELECT.getCode());
+        }
 
         return true;
     }

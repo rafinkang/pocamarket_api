@@ -18,5 +18,8 @@ public interface TcgTradeRequestRepository extends JpaRepository<TcgTradeRequest
     @Query("SELECT EXISTS (SELECT 1 FROM TcgTradeRequest tr WHERE tr.trade.id = :tradeId AND tr.uuid = :uuid AND tr.requestCardCode = :requestCardCode AND tr.status != 0)")
     boolean existsByTradeIdAndUuidAndRequestCardCode(@Param("tradeId") Long tradeId, @Param("uuid") String uuid, @Param("requestCardCode") String requestCardCode);
 
+    @Query("SELECT EXISTS (SELECT 1 FROM TcgTradeRequest tr WHERE tr.trade.id = :tradeId AND tr.status != 0)")
+    boolean existsByTradeId(@Param("tradeId") Long tradeId);
+
     Integer countByUuidAndTradeStatusIn(String uuid, List<Integer> status);
 }
