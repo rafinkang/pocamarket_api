@@ -52,6 +52,10 @@ public class TcgTrade {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @CreationTimestamp
+    @Column(name = "sorted_at", nullable = false)
+    private LocalDateTime sortedAt;
+
     /** 참조 추가 */
     @OneToMany(mappedBy = "trade", fetch = FetchType.LAZY)
     private List<TcgTradeCardCode> tcgTradeCardCodes = new ArrayList<>();
@@ -76,7 +80,7 @@ public class TcgTrade {
     }
 
     public void refresh() {
-        this.updatedAt = LocalDateTime.now();
+        this.sortedAt = LocalDateTime.now();
     }
 
     public void updateStatus(Integer status) {

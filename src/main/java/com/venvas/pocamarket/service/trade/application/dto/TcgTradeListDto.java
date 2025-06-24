@@ -27,6 +27,8 @@ public class TcgTradeListDto {
 
     private LocalDateTime updated_at;
 
+    private LocalDateTime sorted_at;
+
     private String uuid;
 
     private Boolean isMyList = false;
@@ -38,11 +40,12 @@ public class TcgTradeListDto {
     private List<TcgTradeCardCodeDto> tradeCardCodeList = new ArrayList<>();
 
     @QueryProjection
-    public TcgTradeListDto(Long tradeId, String nickname, Integer status, LocalDateTime updated_at, String uuid, List<TcgTradeCardCodeDto> tradeCardCodeList) {
+    public TcgTradeListDto(Long tradeId, String nickname, Integer status, LocalDateTime updated_at, LocalDateTime sorted_at, String uuid, List<TcgTradeCardCodeDto> tradeCardCodeList) {
         this.tradeId = tradeId;
         this.nickname = nickname;
         this.status = status;
         this.updated_at = updated_at;
+        this.sorted_at = sorted_at;
         this.uuid = uuid;
         this.tradeCardCodeList = tradeCardCodeList;
     }

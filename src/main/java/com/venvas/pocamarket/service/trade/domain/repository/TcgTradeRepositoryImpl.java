@@ -45,8 +45,10 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
 
         // default 정렬
         if(pageable.getSort().isEmpty()) {
-            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("id")));
+            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Order.desc("sortedAt")));
         }
+
+        log.info("sort : {}", pageable.getSort().stream().findFirst().get().getProperty());
 
         List<TcgTradeListDto> content = getTradeListQuery(request, userUuid, pageable);
 
@@ -97,6 +99,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
                         tcgTrade.nickname,
                         tcgTrade.status,
                         tcgTrade.updatedAt,
+                        tcgTrade.sortedAt,
                         tcgTrade.uuid,
                         GroupBy.list(Projections.constructor(
                             TcgTradeCardCodeDto.class,
