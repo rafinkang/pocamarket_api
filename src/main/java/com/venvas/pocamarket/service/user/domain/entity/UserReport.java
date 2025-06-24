@@ -1,17 +1,25 @@
 package com.venvas.pocamarket.service.user.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.venvas.pocamarket.service.user.application.dto.UserReportRequest;
 
 /**
  * 거래 신고 엔티티
  */
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user_report")
+@Builder
 public class UserReport {
     /** 신고번호 */
     @Id
@@ -27,6 +35,10 @@ public class UserReport {
     @Column(name = "ref_type", length = 50)
     private String refType;
 
+    /** 신고한 시점(상태값) */
+    @Column(name = "ref_status", nullable = false)
+    private Integer refStatus;
+
     /** 링크 */
     @Column(name = "link", length = 200)
     private String link;
@@ -39,11 +51,8 @@ public class UserReport {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
-    /** 신고한 시점(상태값) */
-    @Column(name = "trade_status", nullable = false)
-    private Integer tradeStatus;
-
     /** 신고시간 */
+    @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -62,4 +71,22 @@ public class UserReport {
     /** 처리 대응 시간 */
     @Column(name = "result_at")
     private LocalDateTime resultAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.status = this.status == null ? 1 : this.status;
+    }
+    
+    public static UserReport createFromRequest(UserReportRequest request) {
+        UserReport report = UserReport.builder()
+            .refId(request.getRefId())
+            .refType(request.getRefType())
+            .link(request.getLink())
+            .uuid(request.getUuid())
+            .content(request.getContent())
+            .refStatus(request.getRefStatus())
+            .build();
+
+        return report;
+    }
 } 

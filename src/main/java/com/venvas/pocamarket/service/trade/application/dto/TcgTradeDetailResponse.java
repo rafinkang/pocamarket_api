@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
-import com.venvas.pocamarket.service.trade.domain.enums.TradeStatus;
 
 import lombok.Getter;
 
@@ -13,7 +12,7 @@ public class TcgTradeDetailResponse {
     private Long tradeId;
     private String tcgCode;
     private String nickname;
-    private TradeStatus status;
+    private Integer status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private TcgTradeDetailCardCodeDto myCard;
@@ -24,7 +23,7 @@ public class TcgTradeDetailResponse {
         this.tradeId = tcgTrade.getId();
         this.tcgCode = tcgTrade.getTcgCode();
         this.nickname = tcgTrade.getNickname();
-        this.status = TradeStatus.fromDbCode(tcgTrade.getStatus());
+        this.status = tcgTrade.getStatus();
         this.createdAt = tcgTrade.getCreatedAt();
         this.updatedAt = tcgTrade.getUpdatedAt();
         this.myCard = myCard;
