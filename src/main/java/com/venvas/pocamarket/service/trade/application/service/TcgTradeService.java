@@ -6,12 +6,16 @@ import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardReposi
 import com.venvas.pocamarket.service.trade.application.dto.*;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTrade;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeCardCode;
+import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeHistory;
+import com.venvas.pocamarket.service.trade.domain.enums.TcgTradeRequestStatus;
 import com.venvas.pocamarket.service.trade.domain.enums.TradeCardCodeStatus;
 import com.venvas.pocamarket.service.trade.domain.enums.TradeStatus;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeErrorCode;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeException;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeCardCodeRepository;
+import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeHistoryRepository;
 import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRepository;
+import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRequestRepository;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
@@ -45,6 +49,8 @@ public class TcgTradeService {
     private final TcgTradeRepository tcgTradeRepository;
     private final TcgTradeCardCodeRepository tcgTradeCardCodeRepository;
     private final PokemonCardRepository pokemonCardRepository;
+    private final TcgTradeRequestRepository tcgTradeRequestRepository;
+    private final TcgTradeHistoryRepository tcgTradeHistoryRepository;
 
     /**
      * 카드 교환 요청을 생성합니다.
@@ -363,5 +369,39 @@ public class TcgTradeService {
 
         // 5. 최종 DTO 생성 및 반환 (public 생성자 직접 호출)
         return new TcgTradeDetailResponse(tcgTrade, myCard, wantCardsList, isMy);
+    }
+
+    /**
+     * 거래 글 삭제
+     * 
+     * @param tradeId 거래 글 ID
+     * @param userUuid 사용자 UUID
+     * @return 삭제 결과
+     */
+    @Transactional
+    public Boolean deleteTrade(Long tradeId, String userUuid) {
+
+        User user = userRepository.findByUuid(userUuid)
+                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
+
+        // 1. 거래 글 상태 DELETED 로 변경
+        TcgTrade tcgTrade = tcgTradeRepository.findById(tradeId)
+                .orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND));
+
+        if(!tcgTrade.getUuid().equals(userUuid)) {
+            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS);
+        }
+
+        tcgTrade.updateStatus(TradeStatus.DELETED.getCode());
+        tcgTradeRepository.save(tcgTrade);
+        
+        // 2. 해당 거래에 대한 요청들 상태 DELETED 로 변경
+        tcgTradeRequestRepository.updateStatusByTradeId(tradeId, TcgTradeRequestStatus.DELETE.getCode());
+
+        // 3. 삭제에 대한 히스토리 로그 추가
+        String historyContent = String.format("%s 님이 거래 글을 삭제했습니다.", user.getNickname());
+        tcgTradeHistoryRepository.save(new TcgTradeHistory(tcgTrade, null, userUuid, historyContent));
+
+        return true;
     }
 }

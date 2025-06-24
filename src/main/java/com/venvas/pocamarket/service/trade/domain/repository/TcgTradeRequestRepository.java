@@ -2,6 +2,7 @@ package com.venvas.pocamarket.service.trade.domain.repository;
 
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -22,4 +23,8 @@ public interface TcgTradeRequestRepository extends JpaRepository<TcgTradeRequest
     boolean existsByTradeId(@Param("tradeId") Long tradeId);
 
     Integer countByUuidAndStatusIn(String uuid, List<Integer> status);
+
+    @Modifying
+    @Query("UPDATE TcgTradeRequest tr SET tr.status = :status WHERE tr.trade.id = :tradeId")
+    void updateStatusByTradeId(@Param("tradeId") Long tradeId, @Param("status") Integer status);
 }

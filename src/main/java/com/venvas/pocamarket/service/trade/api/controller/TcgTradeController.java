@@ -112,6 +112,15 @@ public class TcgTradeController {
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 
+    @DeleteMapping("/{tradeId}")
+    @Operation(summary = "카드 교환 삭제", description = "카드 교환을 삭제합니다.")
+    public ResponseEntity<ApiResponse<Boolean>> deleteTcgTrade(
+            @PathVariable("tradeId") Long tradeId,
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
+        Boolean result = tcgTradeService.deleteTrade(tradeId, userDetailDto.getUuid());
+        return ResponseEntity.ok(ApiResponse.success(result));
+    }
+
     @PostMapping("/{tradeId}/request")
     @Operation(summary = "카드 교환 요청 추가", description = "카드에 대한 교환 요청을 생성합니다.")
     public ResponseEntity<ApiResponse<Boolean>> createTcgTradeRequest(
