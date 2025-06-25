@@ -58,6 +58,7 @@ public class UserReport {
 
     /** 상태값 1: 신고 2: 처리됨 3:보류 */
     @Column(name = "status")
+    @Builder.Default
     private Integer status = 1;
 
     /** 처리 대응 */
