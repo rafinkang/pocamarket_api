@@ -83,7 +83,7 @@ public class TcgTradeController {
     }
 
     @PatchMapping("/refresh/{tradeId}")
-    @Operation(summary = "내 카드 리스트 끌어올리기", description = "내 교환 카드 리스트 중 하나의 updated_at을 최신으로 갱신합니다.")
+    @Operation(summary = "내 카드 리스트 끌어올리기", description = "내 교환 카드 리스트 중 하나의 sorted_at을 최신으로 갱신합니다.")
     public ResponseEntity<ApiResponse<Boolean>> patchMyListRefresh(
             @PathVariable("tradeId") Long tradeId,
             @Valid @RequestBody TcgTradeRefreshRequest request,
