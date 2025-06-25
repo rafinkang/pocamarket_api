@@ -49,7 +49,10 @@ public class TcgTradeRequestRepositoryImpl implements TcgTradeRequestRepositoryC
                 tcgTradeRequest.trade.id.eq(tradeId),
                 statusCondition(isAdmin)
             )
-            .orderBy(tcgTradeRequest.updatedAt.desc())
+            .orderBy(
+                tcgTradeRequest.status.desc(),
+                tcgTradeRequest.updatedAt.desc()
+            )
             .fetch();
 
         result.forEach(response -> response.setMyFlag(userUuid));

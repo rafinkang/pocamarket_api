@@ -196,6 +196,10 @@ public class TcgTradeRequestService {
         if(!tcgTradeRequestRepository.existsByTradeId(trade.getId())) {
             trade.updateStatus(TradeStatus.REQUEST.getCode());
             saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, trade.getUuid(), "교환글의 상태가 교환 요청으로 변경 되었습니다.");
+        } else {
+            // 삭제 이후, 교환글에 요청글이 있는 경우에는 거래 선택으로 상태 변경
+            trade.updateStatus(TradeStatus.SELECT.getCode());
+            saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, trade.getUuid(), "교환글의 상태가 교환 선택으로 변경 되었습니다.");
         }
 
         // 히스토리 저장
