@@ -26,7 +26,7 @@ public class TcgTradeListResponse {
 
     private CardData myCardInfo;
 
-        private List<CardData> wantCardInfo = new ArrayList<>();
+    private List<CardData> wantCardInfo = new ArrayList<>();
 
     /**
      * TcgTradeListDto를 TcgTradeListResponse로 변환하는 생성자

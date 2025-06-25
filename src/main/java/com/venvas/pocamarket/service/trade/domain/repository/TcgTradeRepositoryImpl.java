@@ -10,9 +10,9 @@ import com.venvas.pocamarket.infrastructure.util.QueryUtil;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeCardCodeDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListDto;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeListRequest;
+import com.venvas.pocamarket.service.trade.domain.enums.TradeStatus;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeErrorCode;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeException;
-import com.venvas.pocamarket.service.trade.domain.value.TradeStatus;
 import com.venvas.pocamarket.service.trade.domain.value.UseOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.venvas.pocamarket.service.trade.domain.entity.QTcgTrade.tcgTrade;
 import static com.venvas.pocamarket.service.trade.domain.entity.QTcgTradeCardCode.tcgTradeCardCode;
@@ -41,7 +42,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
     @Override
     public Page<TcgTradeListDto> searchFilterList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin) {
         this.isAdmin = isAdmin;
-        this.isMy = myCheck(request.getFilterOption(), userUuid);
+        this.isMy = userUuid != null;
 
         // default 정렬
         if(pageable.getSort().isEmpty()) {
@@ -60,7 +61,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
             .select(tcgTrade.count())
             .from(tcgTrade)
             .where(
-                statusEq(TradeStatus.convertStatus(request.getFilterOption())),
+                statusEq(request.getStatus()),
                 myCardEq(userUuid),
                 hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
         );
@@ -74,7 +75,7 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
                 .select(tcgTrade.id)
                 .from(tcgTrade)
                 .where(
-                    statusEq(TradeStatus.convertStatus(request.getFilterOption())),
+                    statusEq(request.getStatus()),
                     myCardEq(userUuid),
                     hasMatchingCards(request.getMyCardCode(), request.getWantCardCode())
                 )
@@ -108,14 +109,22 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
                 );
     }
 
-    private BooleanExpression statusEq(int status) {
-        if(isAdmin && status == 98) { // 관리자가 전체 검색
+    private BooleanExpression statusEq(Integer status) {
+        status = Objects.isNull(status) ? 99 : status;
+
+        if(isAdmin && (status == 99)) { // 관리자가 전체 검색
             return null;
-        } else if(status == 98) { // 삭제 된 글 제외하고 전체 보기
+        } else if(status == 99) { // 삭제 된 글 제외하고 전체 보기
             return tcgTrade.status.ne(0);
         }
 
-        if(status == 99) {
+        // 관라지가 아닌데 삭제된 교환글 검색 시 에러
+        if(!isAdmin && Objects.equals(TradeStatus.DELETED.getCode(), status)) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "잘못된 상태 값 입니다.");
+        }
+
+        // 정해진 상태 값에 없으면 에러
+        if(TradeStatus.fromCode(status) == null) {
             throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "잘못된 상태 값 입니다.");
         }
 
@@ -180,24 +189,5 @@ public class TcgTradeRepositoryImpl implements TcgTradeRepositoryCustom{
 
         // 둘 다 있으면 OR 조건으로 연결
         return myCardCondition.or(wantCardCondition);
-    }
-
-    /**
-     * 필터 옵션 및 유저 체크
-     */
-    private boolean myCheck(String filterOption, String userUuid) {
-        if(userUuid == null) {
-            if(TradeStatus.getList().stream().noneMatch(f -> f.equals(filterOption))) {
-                throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "잘못된 상태 값입니다.");
-            }
-        } else {
-            if(TradeStatus.getList().stream().anyMatch(f -> f.equals(filterOption)) ||
-                TradeStatus.getMyList().stream().anyMatch(f -> f.equals(filterOption))) {
-                return true;
-            } else {
-                throw new TcgTradeException(TcgTradeErrorCode.INVALID_SEARCH_STATUS, "잘못된 상태 값입니다.");
-            }
-        }
-        return false;
     }
 }

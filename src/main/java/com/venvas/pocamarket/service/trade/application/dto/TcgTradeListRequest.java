@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.trade.application.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,5 @@ public class TcgTradeListRequest {
     @Pattern(regexp = "^[a-zA-Z0-9\\-]*$", message = "카드 코드는 영문, 숫자, 하이픈(-)만 사용 가능합니다.")
             String> wantCardCode;
 
-    @Size(max = 15, message = "필터값은 15자를 넘을수 없습니다.")
-    @Pattern(regexp = "^[a-z\\-]*$", message = "필터 옵션은 영문, 하이픈(-)만 사용 가능합니다.")
-    private String filterOption;
+    private Integer status;
 }

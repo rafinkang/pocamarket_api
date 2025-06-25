@@ -139,7 +139,7 @@ public class TcgTradeService {
         // 원하는 카드 중복 제거
         ProcessDuplicateCardCodes(myCardCode, wantCardCode);
 
-        TcgTradeListRequest tcgTradeRequest = new TcgTradeListRequest(myCardCode, wantCardCode, request.getFilterOption());
+        TcgTradeListRequest tcgTradeRequest = new TcgTradeListRequest(myCardCode, wantCardCode, request.getStatus());
 
 //     TcgTrade 검색 isMy가 true면 userUuid 값 전달
         Page<TcgTradeListDto> tcgTradeListDto = tcgTradeRepository.searchFilterList(tcgTradeRequest, pageable, isMy ? userUuid : null, isAdmin);
