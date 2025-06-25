@@ -29,6 +29,7 @@ public enum TcgTradeErrorCode {
     TRADE_REQUEST_NOT_FOUND("TCG_TRADE_105", "교환 요청을 찾을 수 없습니다."),
     TRADE_REQUEST_ALREADY_DELETED("TCG_TRADE_106", "이미 삭제된 교환 요청입니다."),
     TRADE_REQUEST_ALREADY_COMPLETED("TCG_TRADE_107", "이미 완료된 교환 요청은 삭제할 수 없습니다."),
+    INVALID_TRADE_STATUS("TCG_TRADE_108", "변경될 교환의 상태 값이 유요하지 않습니다."),
     
     // 시스템 에러
     INTERNAL_SERVER_ERROR("TCG_TRADE_500", "서버 내부 오류가 발생했습니다.");

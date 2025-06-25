@@ -1,11 +1,5 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
-import java.util.List;
-
-import com.venvas.pocamarket.service.trade.domain.enums.TradeStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestCreateRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestDeleteRequest;
 import com.venvas.pocamarket.service.trade.application.dto.TcgTradeRequestGetResponse;
@@ -15,20 +9,21 @@ import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeHistory;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeRequest;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeUser;
 import com.venvas.pocamarket.service.trade.domain.enums.TcgTradeRequestStatus;
+import com.venvas.pocamarket.service.trade.domain.enums.TradeStatus;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeErrorCode;
 import com.venvas.pocamarket.service.trade.domain.exception.TcgTradeException;
-import com.venvas.pocamarket.service.trade.domain.repository.TcgCodeRepository;
-import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeHistoryRepository;
-import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRepository;
-import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeRequestRepository;
-import com.venvas.pocamarket.service.trade.domain.repository.TcgTradeUserRepository;
+import com.venvas.pocamarket.service.trade.domain.repository.*;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -192,20 +187,27 @@ public class TcgTradeRequestService {
         tcgTradeRequest.updateStatus(TcgTradeRequestStatus.DELETE.getCode());
         TcgTradeRequest savedTradeRequest = tcgTradeRequestRepository.save(tcgTradeRequest);
 
-        // 삭제 이후, 교환글에 요청글이 없을 경우 거래 요청으로 상태 변경(삭제된 요청 제외, uuid는 교환글 작성자의 것으로 적용)
-        if(!tcgTradeRequestRepository.existsByTradeId(trade.getId())) {
-            trade.updateStatus(TradeStatus.REQUEST.getCode());
-            saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, trade.getUuid(), "교환글의 상태가 교환 요청으로 변경 되었습니다.");
-        } else {
-            // 삭제 이후, 교환글에 요청글이 있는 경우에는 거래 선택으로 상태 변경
-            trade.updateStatus(TradeStatus.SELECT.getCode());
-            saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, trade.getUuid(), "교환글의 상태가 교환 선택으로 변경 되었습니다.");
-        }
+        // 삭제 이후, 교환글에 가장 상태가 큰 요청을 기준으로 교환글 상태 변경
+        Optional<TcgTradeRequest> topStatusRequest = tcgTradeRequestRepository.findFirstByTradeIdOrderByStatusDesc(trade.getId());
+
+        int topStatus = topStatusRequest.isPresent() ? topStatusRequest.get().getStatus() : 0;
+        Integer tradeStatus = switch (topStatus) {
+            case 0 -> TradeStatus.REQUEST.getCode();    // 삭제 요청 밖에 없음
+            case 1 -> TradeStatus.SELECT.getCode();     // 요청글이 있음
+            case 2 -> TradeStatus.PROCESS.getCode();    // 교환 진행중인 요청 있음
+            case 3 -> TradeStatus.COMPLETE.getCode();   // 교환 완료
+            default -> throw new TcgTradeException(TcgTradeErrorCode.INVALID_TRADE_STATUS);
+        };
 
         // 히스토리 저장
-        String historyContent = createDeleteHistoryContent(tcgTradeRequest.getNickname(), userUuid, isAdmin);
+        // 요청
+        String historyContent = createDeleteHistoryContent(tcgTradeRequest.getNickname(), isAdmin);
         saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, userUuid, historyContent);
-        
+        // 교환글
+        trade.updateStatus(tradeStatus);
+        String message = String.format("교환글의 상태가 %s으로 변경 되었습니다.", TradeStatus.fromDbCode(tradeStatus).getDescription());
+        saveHistory(tcgTradeRequest.getTrade(), savedTradeRequest, trade.getUuid(), message);
+
         return true;
     }
 
@@ -342,9 +344,9 @@ public class TcgTradeRequestService {
     }
 
     /* 삭제 히스토리 내용을 생성합니다. */
-    private String createDeleteHistoryContent(String nickname, String userUuid, Boolean isAdmin) {
-        return String.format("%s (%s)님이 교환 요청을 취소했습니다.", 
-            isAdmin ? "관리자" : nickname, userUuid);
+    private String createDeleteHistoryContent(String nickname, Boolean isAdmin) {
+        return String.format("%s 님이 교환 요청을 취소했습니다.",
+            isAdmin ? "관리자" : nickname);
     }
 
     /* 거래 횟수를 업데이트합니다. */
