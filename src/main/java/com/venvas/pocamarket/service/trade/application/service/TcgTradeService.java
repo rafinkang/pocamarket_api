@@ -34,6 +34,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -194,8 +195,8 @@ public class TcgTradeService {
         if(userUuid == null || userUuid.isBlank()) throw new UserException(UserErrorCode.USER_NOT_FOUND);
 
         // 클라이언트에서 온 정보 확인
-        if(! TradeStatus.REQUEST.getCode().equals(request.getStatus())) {
-            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "교환 글의 상태가 유효하지 않습니다.");
+        if(!(TradeStatus.DELETED.getCode() < request.getStatus() && request.getStatus() < TradeStatus.PROCESS.getCode())) {
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "교환글의 상태가 유효하지 않습니다.");
         }
         try {
             LocalDateTime requestTime = LocalDateTime.parse(request.getUpdatedAt());
