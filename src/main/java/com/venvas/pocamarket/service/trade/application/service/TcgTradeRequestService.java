@@ -211,29 +211,6 @@ public class TcgTradeRequestService {
         return true;
     }
 
-    public String getTcgTradeCode(Long tradeId, Long requestId, String userUuid) {
-
-        // 유저 uuid 검사
-        validateUserUuid(userUuid);
-
-        // 교환글의 요청
-        TcgTradeRequest tcgTradeRequest = tcgTradeRequestRepository.findByIdAndTradeIdAndStatusGt(tradeId, requestId)
-                .orElseThrow(() -> new TcgTradeException(TcgTradeErrorCode.TRADE_NOT_FOUND));
-
-        // 교환글 작성자 uuid인지 검사 -> 맞으면 요청자 친구코드 반환
-        if(tcgTradeRequest.getTrade().getUuid().equals(userUuid)) {
-            return tcgTradeRequest.getTcgCode();
-        }
-
-        // 요청자랑 같은 uuid인지 검사 -> 교환글 작성자 친구코드 반환
-        if(tcgTradeRequest.getUuid().equals(userUuid)) {
-            return tcgTradeRequest.getTrade().getTcgCode();
-        }
-
-        // 아니면 무조건 error
-        throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS);
-    }
-
     /* 사용자 UUID 유효성을 검증합니다. */
     private void validateUserUuid(String userUuid) {
         if (userUuid == null || userUuid.isBlank()) {

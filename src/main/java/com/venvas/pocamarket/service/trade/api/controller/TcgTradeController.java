@@ -146,18 +146,6 @@ public class TcgTradeController {
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 
-    @GetMapping("/request/{tradeId}/{requestId}")
-    @Operation(summary = "교환에 필요한 친구 코드", description = "교환에 필요한 친구 코드 반환")
-    public ResponseEntity<ApiResponse<String>> getTcgTradeRequest(
-            @PathVariable("tradeId") Long tradeId,
-            @PathVariable("requestId") Long requestId,
-            @AuthenticationPrincipal UserDetailDto userDetailDto
-    ) {
-        String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
-
-        return ResponseEntity.ok(ApiResponse.success(tcgTradeRequestService.getTcgTradeCode(tradeId, requestId, uuid)));
-    }
-
     @PatchMapping("/request/{tradeId}")
     @Operation(summary = "카드 교환 요청 수정", description = "카드 교환 요청의 상태 값을 바꿉니다..")
     public ResponseEntity<ApiResponse<Boolean>> patchTcgTradeRequestList(
