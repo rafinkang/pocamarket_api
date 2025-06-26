@@ -1,26 +1,20 @@
 package com.venvas.pocamarket.service.user.api.controller;
 
+import com.venvas.pocamarket.common.util.ApiResponse;
+import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
+import com.venvas.pocamarket.service.user.application.dto.UserReportRequest;
+import com.venvas.pocamarket.service.user.application.dto.UserReportResponse;
+import com.venvas.pocamarket.service.user.application.service.UserReportService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.venvas.pocamarket.common.util.ApiResponse;
-import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
-import com.venvas.pocamarket.service.user.application.dto.UserReportRequest;
-import com.venvas.pocamarket.service.user.application.dto.UserReportResponse;
-import com.venvas.pocamarket.service.user.application.service.UserReportService;
-
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Tag(name = "UserReport-API", description = "유저 신고 관련 API")
