@@ -148,6 +148,9 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.addAllowedOrigin("http://localhost:3000"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("http://localhost"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("http://3.34.124.198"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("http://ec2-54-252-151-78.ap-southeast-2.compute.amazonaws.com"); // 허용할 프론트엔드 출처
         configuration.addAllowedMethod("GET"); // 허용할 HTTP 메서드들을 개별적으로 설정
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("PUT");
