@@ -1,18 +1,60 @@
-# AWS 환경 전용 설정 파일
+# 로컬 개발환경용 설정
 spring:
-  # 데이터소스 설정
+  # MariaDB 데이터소스 설정
   datasource:
-    # AWS RDS MariaDB 접속 URL (환경 변수로 설정)
-    url: "jdbc:mariadb://${LOCAL_DB_URL}:${LOCAL_DB_PORT}/${DB}"
-    # 데이터베이스 사용자명 (환경 변수로 설정)
-    username: ${DB_USERNAME}
-    # 데이터베이스 비밀번호 (환경 변수로 설정)
-    password: ${DB_PASSWORD}
-    # JDBC 드라이버 설정
+    url: "jdbc:mariadb://${DB_URL:localhost}:${DB_PORT:3306}/${DB:pocamarket}"
+    username: ${DB_USERNAME:pocauser}
+    password: ${DB_PASSWORD:pocapassword}
     driver-class-name: org.mariadb.jdbc.Driver
+    hikari:
+      # 프로덕션용 커넥션 풀 설정
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000      # 5분
+      max-lifetime: 1200000     # 20분
+      connection-timeout: 20000 # 20초
+  # H2 인메모리 데이터베이스 사용 (개발 편의성)
+  # datasource:
+  #   url: jdbc:h2:mem:testdb
+  #   driver-class-name: org.h2.Driver
+  #   username: sa
+  #   password: 
+  #   hikari:
+  #     maximum-pool-size: 5
+  #     minimum-idle: 2
+  #     idle-timeout: 300000
+  #     max-lifetime: 1200000
+  #     connection-timeout: 20000
 
+  # # H2 콘솔 활성화 (개발용)
+  # h2:
+  #   console:
+  #     enabled: true
+  #     path: /h2-console
 
-# # 문법: ssh -L [내PC포트]:[RDS엔드포인트]:[RDS포트] -i [pem키경로] [ec2사용자]@[ec2퍼블릭IP]
+  # JPA 개발 설정
+  jpa:
+    hibernate:
+      # 테이블 자동 생성 (개발용)
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        # SQL 쿼리 로그 출력 (개발용)
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.H2Dialect
 
-# 실제 예시
-# ssh -L 3308:pocamarket-db.c7yg4ciuwvog.ap-northeast-2.rds.amazonaws.com:3306 -i "D:\workspace\pocamarket-ppkkey.pem" ec2-user@3.34.124.198
+# JWT 개발용 설정 (보안성 낮음)
+jwt:
+  secret-key: ${JWT_SECRET_KEY:this-is-a-very-long-secret-key-for-jwt-production-environment-that-meets-256-bit-security-requirements-must-be-changed}
+  access-token-validity-in-ms: 86400000   # 24시간 (개발 편의성)
+  refresh-token-validity-in-ms: 604800000 # 7일
+
+# 개발용 로깅 설정 (상세한 로그)
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+    com.venvas.pocamarket: debug
+    org.springframework.web: debug
