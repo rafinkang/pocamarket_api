@@ -1,0 +1,78 @@
+# 워크플로우 이름
+name: Deploy pocamarket-api to EC2
+
+# 워크플로우 실행 조건: 'master' 브랜치 대상 PR 생성/업데이트 시
+on:
+  push:
+    branches: [ "master" ]
+
+# 워크플로우 내에서 사용할 환경 변수 정의
+env:
+  IMAGE_NAME: pocamarket-api # EC2에서 실행될 컨테이너 이름
+  DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/pocamarket-api
+
+jobs:
+  build-and-deploy:
+    # 실행 환경
+    runs-on: ubuntu-latest
+    steps:
+      # 1. GitHub 저장소의 소스 코드 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Docker 빌드 환경 최적화 설정 (Buildx)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3. Docker Hub 로그인 (GitHub Secrets 사용)
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 4. Docker 이미지 빌드 및 Docker Hub에 푸시
+      #    - latest: 항상 최신 버전을 가리키는 태그
+      #    - ${github.sha}: 각 커밋별 고유 버전을 가리키는 태그
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ env.DOCKER_IMAGE }}:latest
+            ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            DB_URL=${{ secrets.DB_URL }}
+            DB_PORT=${{ secrets.DB_PORT }}
+            DB=${{ secrets.DB }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            JWT_ACCESS_TOKEN_VALIDITY_MS=${{ secrets.JWT_ACCESS_TOKEN_VALIDITY_MS }}
+            JWT_REFRESH_TOKEN_VALIDITY_MS=${{ secrets.JWT_REFRESH_TOKEN_VALIDITY_MS }}
+            SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }}
+
+      # 5. EC2에 SSH로 접속하여 배포 스크립트 실행
+      - name: Deploy API to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # EC2 서버에서 실행될 스크립트
+            # docker-compose.yml이 있는 프로젝트 루트 디렉토리로 이동
+            cd /var/www/pocamarket/ 
+            
+            # Docker Hub에서 최신 이미지 pull
+            docker pull ${{ env.DOCKER_IMAGE }}:latest
+
+            # Docker Compose로 'pocamarket-api' 서비스만 재시작
+            docker-compose up -d --no-deps pocamarket-api
+            
+            # 불필요한 이전 이미지들 삭제 (선택 사항)
+            docker image prune -af
