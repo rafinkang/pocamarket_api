@@ -1,23 +1,23 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
 import com.venvas.pocamarket.common.aop.trim.TrimInput;
+import com.venvas.pocamarket.common.util.ApiResponse;
+import com.venvas.pocamarket.service.pokemon.api.validator.PokemonStrParam;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
-import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardUpdateService;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
-import com.venvas.pocamarket.service.pokemon.api.validator.PokemonStrParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 @Tag(name = "PokemonCard-API", description = "포켓몬 카드 관련 API")
 @TrimInput
 @RestController
-@RequestMapping("/api/pokemon-cards")
+@RequestMapping("/api/pokemon-card")
 @RequiredArgsConstructor
 public class PokemonCardController {
     
@@ -39,7 +39,7 @@ public class PokemonCardController {
     @GetMapping("/list")
     @Operation(summary = "포켓몬 리스트", description = "filter 값에 따라 포켓몬 리스트를 조회 API")
     public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getPokemonCardListData(
-            @ModelAttribute @Valid PokemonCardListFormDto condition,
+            @ModelAttribute @Validated PokemonCardListFormDto condition,
             @PageableDefault(size = 30)Pageable pageable
     ) {
         return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
@@ -48,7 +48,7 @@ public class PokemonCardController {
     @GetMapping("/detail/{code}")
     @Operation(summary = "포켓몬 디테일", description = "code로 포켓몬의 자세한 값을 가져오는 API")
     public ResponseEntity<ApiResponse<PokemonCardDetailDto>> getPokemonDataByCode(
-            @PathVariable
+            @PathVariable("code")
             @PokemonStrParam(
                     errorCode = PokemonErrorCode.POKEMON_CODE_INVALID,
                     pattern = "^\\w{2,3}-[0-9]{3}$"

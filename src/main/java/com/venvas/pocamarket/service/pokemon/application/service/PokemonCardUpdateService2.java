@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 @Transactional
 @RequiredArgsConstructor
 @Slf4j

@@ -41,7 +41,17 @@ public class PokemonCardDetailDto {
         this.weakness = weakness;
         this.evolvesFrom = evolvesFrom;
         this.rarity = rarity;
-        this.attackList = attackList;
-        this.abilityList = abilityList;
+        // attackList에서 nameKo가 null인 항목들을 제거
+        this.attackList = attackList != null ? 
+            attackList.stream()
+                .filter(attack -> attack.getNameKo() != null)
+                .toList() : 
+            List.of();
+        // abilityList에서 nameKo와 effectKo가 모두 null인 항목들을 제거
+        this.abilityList = abilityList != null ? 
+            abilityList.stream()
+                .filter(ability -> ability.getNameKo() != null || ability.getEffectKo() != null)
+                .toList() : 
+            List.of();
     }
 }

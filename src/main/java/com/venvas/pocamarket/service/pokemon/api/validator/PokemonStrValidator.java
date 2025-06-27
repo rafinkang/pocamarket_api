@@ -10,14 +10,21 @@ public class PokemonStrValidator implements ConstraintValidator<PokemonStrParam,
     private PokemonErrorCode errorCode;
 
     @Override
+    public void initialize(PokemonStrParam constraintAnnotation) {
+        this.pattern = constraintAnnotation.pattern();
+        this.errorCode = constraintAnnotation.errorCode();
+    }
+
+    @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if(value == null) {
+        if (value == null) {
             addConstraintViolation(context, errorCode.getMessage() + " (null 값은 허용되지 않습니다)");
             return false;
         }
 
-        if(!value.matches(pattern)) {
-            addConstraintViolation(context, String.format("[%s] %s (입력값: %s)", errorCode.getCode(), errorCode.getMessage(), value));
+        if (!value.matches(pattern)) {
+            addConstraintViolation(context, String.format("[%s] %s (입력값: %s)", 
+                errorCode.getCode(), errorCode.getMessage(), value));
             return false;
         }
         return true;

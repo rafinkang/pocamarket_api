@@ -1,24 +1,16 @@
 package com.venvas.pocamarket.service.pokemon.domain.entity;
 
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardJsonDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import jakarta.persistence.Index;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 포켓몬 카드 엔티티
@@ -123,7 +115,7 @@ public class PokemonCard {
      * 팩 이름
      * 카드가 속한 팩의 이름
      */
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String pack;
     
     /**
@@ -155,7 +147,7 @@ public class PokemonCard {
      * RARE: 레어
      * RARE_HOLO: 홀로그램 레어
      */
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String rarity = "COMMON";
 
     /**

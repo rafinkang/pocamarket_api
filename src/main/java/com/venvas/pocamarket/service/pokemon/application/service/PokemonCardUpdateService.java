@@ -3,7 +3,9 @@ package com.venvas.pocamarket.service.pokemon.application.service;
 import com.venvas.pocamarket.common.util.MappingData;
 import com.venvas.pocamarket.common.util.ReadDataListJson;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardJsonDto;
-import com.venvas.pocamarket.service.pokemon.domain.entity.*;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAbility;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonAttack;
+import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
@@ -12,7 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 포켓몬 카드 데이터 업데이트를 담당하는 서비스 클래스

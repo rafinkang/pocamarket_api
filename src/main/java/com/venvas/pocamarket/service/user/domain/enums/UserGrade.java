@@ -10,9 +10,13 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum UserGrade {
-    REGULAR(1, "일반 사용자"),
-    PREMIUM(2, "프리미엄 사용자"),
-    VIP(3, "VIP 사용자"),
+    LV01(1, "몬스터 볼"),
+    LV02(2, "슈퍼 볼"),
+    LV03(3, "하이퍼 볼"),
+    LV04(4, "마스터 볼"),
+    LV05(5, "프리미어 볼"),
+    LV06(6, "럭셔리 볼"),
+    LV10(10, "오박사"),
     ADMIN(99, "관리자");
 
     private final int code;
@@ -47,11 +51,18 @@ public enum UserGrade {
      */
     public static Integer toCode(UserGrade grade) {
         if (grade == null) {
-            return REGULAR.getCode(); // 기본값 설정
+            return LV01.getCode(); // 기본값 설정
         }
         return grade.getCode();
     }
-    
+
+    public static String toDesc(UserGrade grade) {
+        if (grade == null) {
+            return LV01.getDescription(); // 기본값 설정
+        }
+        return grade.getDescription();
+    }
+
     /**
      * DB에서 읽어온 값을 열거형으로 변환
      * 
@@ -60,10 +71,10 @@ public enum UserGrade {
      */
     public static UserGrade fromDbCode(Integer code) {
         if (code == null) {
-            return REGULAR; // 기본값 설정
+            return LV01; // 기본값 설정
         }
         
         UserGrade grade = fromCode(code);
-        return grade != null ? grade : REGULAR; // 알 수 없는 코드는 기본값으로
+        return grade != null ? grade : LV01; // 알 수 없는 코드는 기본값으로
     }
 }

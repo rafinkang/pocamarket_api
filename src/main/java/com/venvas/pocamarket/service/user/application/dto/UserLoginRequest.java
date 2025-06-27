@@ -1,12 +1,7 @@
 package com.venvas.pocamarket.service.user.application.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 /**
  * 사용자 로그인 요청 DTO

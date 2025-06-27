@@ -43,9 +43,9 @@ public class RefreshToken {
     /**
      * 리프레쉬 토큰 생성
      *
-     * @param uuid 사용자 UUID
-     * @param token 리프레쉬 토큰 문자열
-     * @param issuedAt 발급 시각
+     * @param uuid      사용자 UUID
+     * @param token     리프레쉬 토큰 문자열
+     * @param issuedAt  발급 시각
      * @param expiresAt 만료 시각
      * @return 생성된 리프레쉬 토큰 엔티티
      */
@@ -72,6 +72,6 @@ public class RefreshToken {
      * @return 유효 여부
      */
     public boolean isValid(LocalDateTime currentTime) {
-        return !revoked && currentTime.isBefore(expiresAt);
+        return !revoked && expiresAt.isAfter(currentTime);
     }
 }
