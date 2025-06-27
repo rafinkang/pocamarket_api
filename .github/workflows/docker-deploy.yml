@@ -3,7 +3,7 @@ name: Deploy pocamarket-api to EC2
 
 # 워크플로우 실행 조건: 'master' 브랜치 대상 PR 생성/업데이트 시
 on:
-  pull_request:
+  push:
     branches: [ "master" ]
 
 # 워크플로우 내에서 사용할 환경 변수 정의
