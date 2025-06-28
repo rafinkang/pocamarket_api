@@ -53,3 +53,6 @@ server:
     include-message: never
     include-binding-errors: never
     include-stacktrace: never 
+  session:
+    cookie:
+      secure: false
