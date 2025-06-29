@@ -657,7 +657,7 @@
   {
     "code": "a1-024",
     "name": "Tangela",
-    "name_ko": "덩쿠리리",
+    "name_ko": "덩쿠리",
     "element": "GRASS",
     "type": "POKEMON",
     "subtype": "BASIC",
@@ -793,7 +793,7 @@
   {
     "code": "a1-029",
     "name": "Petilil",
-    "name_ko": "치릴리리",
+    "name_ko": "치릴리",
     "element": "GRASS",
     "type": "POKEMON",
     "subtype": "BASIC",
