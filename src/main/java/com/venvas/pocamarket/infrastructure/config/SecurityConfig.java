@@ -149,9 +149,8 @@ public class SecurityConfig {
 
         configuration.addAllowedOrigin("http://localhost:3000"); // 허용할 프론트엔드 출처
         configuration.addAllowedOrigin("https://localhost"); // 허용할 프론트엔드 출처
-        configuration.addAllowedOrigin("http://13.209.17.99"); // 허용할 프론트엔드 출처
-        configuration.addAllowedOrigin("http://ec2-13-209-17-99.ap-northeast-2.compute.amazonaws.com/"); // 허용할 프론트엔드 출처
         configuration.addAllowedOrigin("https://pocamarket.co.kr/"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("https://www.pocamarket.co.kr/"); // 허용할 프론트엔드 출처
         configuration.addAllowedMethod("GET"); // 허용할 HTTP 메서드들을 개별적으로 설정
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("PUT");
