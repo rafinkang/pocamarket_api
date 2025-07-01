@@ -43,21 +43,11 @@ public class PokemonCardService {
      * @return 조회된 카드 목록
      */
     public Page<PokemonCardListDto> getListData(PokemonCardListFormDto condition, Pageable pageable) {
-        Page<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterList(condition, pageable);
-        noDataListCheck(listDto, condition);
-        return listDto;
+        return pokemonCardRepository.searchFilterList(condition, pageable);
+//        noDataListCheck(listDto, condition);
     }
 
     public Slice<PokemonCardListDto> getListDataSlice(PokemonCardListFormDto condition, Pageable pageable) {
-        Slice<PokemonCardListDto> listDto = pokemonCardRepository.searchFilterSliceList(condition, pageable);
-        noDataListCheck(listDto, condition);
-        return listDto;
-    }
-
-    private void noDataListCheck(Slice<PokemonCardListDto> listDto, PokemonCardListFormDto condition) {
-        if(listDto == null || listDto.getContent().isEmpty()) {
-            log.warn("포켓몬 리스트 데이터 조회 실패, filterCondition : {}", condition);
-            throw new PokemonException(PokemonErrorCode.POKEMON_LIST_EMPTY);
-        }
+        return pokemonCardRepository.searchFilterSliceList(condition, pageable);
     }
 } 
