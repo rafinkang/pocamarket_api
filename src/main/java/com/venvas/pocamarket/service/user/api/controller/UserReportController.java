@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Tag(name = "UserReport-API", description = "유저 신고 관련 API")
 @RestController
-@RequestMapping("/api/user-report")
+@RequestMapping("/user-report")
 @RequiredArgsConstructor
 public class UserReportController {
     private final UserReportService userReportService;

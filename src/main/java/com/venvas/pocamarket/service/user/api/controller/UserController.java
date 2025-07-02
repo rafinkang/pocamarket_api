@@ -34,7 +34,7 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "User-API", description = "유저 관련 API")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

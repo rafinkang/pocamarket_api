@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 @Tag(name = "TcgTrade-API", description = "카드 교환 관련 API")
 @RestController
-@RequestMapping("/api/tcg-trade")
+@RequestMapping("/tcg-trade")
 @RequiredArgsConstructor
 public class TcgTradeController {
 
