@@ -147,10 +147,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://localhost:3000"); // 허용할 프론트엔드 출처
-        configuration.addAllowedOrigin("https://localhost:3000"); // 허용할 프론트엔드 출처
-        configuration.addAllowedOrigin("https://pocamarket.co.kr"); // 허용할 프론트엔드 출처
-        configuration.addAllowedOrigin("https://www.pocamarket.co.kr"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("http://localhost:3000"); // 로컬 개발환경 프론트엔드 출처
+        configuration.addAllowedOrigin("https://localhost:3000"); // 로컬 개발환경 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("http://localhost"); // 스테이징 환경 프론트엔드 출처
+        configuration.addAllowedOrigin("https://localhost"); // 스테이징 환경 프론트엔드 출처
+        configuration.addAllowedOrigin("https://pocamarket.co.kr"); // 운영환경 프론트엔드 출처
+        configuration.addAllowedOrigin("https://www.pocamarket.co.kr"); // 운영환경 프론트엔드 출처
         configuration.addAllowedMethod("GET"); // 허용할 HTTP 메서드들을 개별적으로 설정
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("PUT");
