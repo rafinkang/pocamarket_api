@@ -62,6 +62,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+                .logout(logout -> logout.disable())
                 // CSRF(Cross-Site Request Forgery) 보호 설정
                 // 개발 환경에서는 비활성화, 운영 환경에서는 활성화 권장
                 .csrf(AbstractHttpConfigurer::disable)

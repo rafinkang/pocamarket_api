@@ -119,7 +119,6 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<Void>> logout(
-            HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
 
         CookieUtil.deleteCookie(httpResponse, JwtTokenProvider.ACCESS_TOKEN_NAME);
