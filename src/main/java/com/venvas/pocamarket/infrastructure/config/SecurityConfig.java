@@ -87,17 +87,17 @@ public class SecurityConfig {
 
                         // 인증 필요한 경로
                         .requestMatchers(
-                                "/api/tcg-trade/my/**",
-                                "/api/tcg-trade/refresh/**")
+                                "/tcg-trade/my/**",
+                                "/tcg-trade/refresh/**")
                         .authenticated()
 
                         // 인증 없이 접근 가능한 공개 API
                         .requestMatchers(
-                                "/api/login",
-                                "/api/reissue",
-                                "/api/register",
-                                "/api/tcg-trade/**",
-                                "/api/pokemon-card/**")
+                                "/login",
+                                "/reissue",
+                                "/register",
+                                "/tcg-trade/**",
+                                "/pokemon-card/**")
                         .permitAll()
 
                         // ADMIN 권한 체크
@@ -105,7 +105,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/api/pokemon-card/update/card/*/*",
+                                "/pokemon-card/update/card/*/*",
                                 "/swagger-ui.html")
                         .hasRole("ADMIN")
 
@@ -147,10 +147,10 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://localhost:3000"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("http://localhost"); // 허용할 프론트엔드 출처
         configuration.addAllowedOrigin("https://localhost"); // 허용할 프론트엔드 출처
-        configuration.addAllowedOrigin("https://pocamarket.co.kr/"); // 허용할 프론트엔드 출처
-        configuration.addAllowedOrigin("https://www.pocamarket.co.kr/"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("https://pocamarket.co.kr"); // 허용할 프론트엔드 출처
+        configuration.addAllowedOrigin("https://www.pocamarket.co.kr"); // 허용할 프론트엔드 출처
         configuration.addAllowedMethod("GET"); // 허용할 HTTP 메서드들을 개별적으로 설정
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("PUT");
@@ -163,7 +163,7 @@ public class SecurityConfig {
         configuration.setMaxAge(3600L); // preflight 요청 캐시 시간 (초)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration); // CORS를 적용할 경로 패턴 지정
+        source.registerCorsConfiguration("/**", configuration); // CORS를 적용할 경로 패턴 지정
         return source;
     }
 }

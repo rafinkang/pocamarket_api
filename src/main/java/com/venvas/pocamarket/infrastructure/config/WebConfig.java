@@ -4,17 +4,18 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 // Spring MVC의 일반적인 웹 요청에 대한 CORS 설정을 담당, SecurityConfig 에서 cors 설정 적용 중
+// ** 현재 사용 안하는 파일 **
 // @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry) {
-        registry.addMapping("/api/**") // CORS를 적용할 경로 패턴
+        registry.addMapping("/**") // CORS를 적용할 경로 패턴
                 .allowedOrigins( // 허용할 프론트엔드 출처
-                    "http://localhost:3000", // 모든 localhost 포트 허용
                     "http://localhost", // 모든 localhost 포트 허용
-                    "http://3.34.124.198", // EC2 도메인
-                    "http://ec2-54-252-151-78.ap-southeast-2.compute.amazonaws.com"
+                    "https://localhost", // 모든 localhost 포트 허용
+                    "https://pocamarket.co.kr", // EC2 도메인
+                    "https://www.pocamarket.co.kr"
                 ) 
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH") // 허용할 HTTP 메서드
                 .allowedHeaders("*") // 모든 헤더 허용 (필요에 따라 특정 헤더만 명시 가능)

@@ -29,7 +29,7 @@ import java.util.List;
 @Tag(name = "PokemonCard-API", description = "포켓몬 카드 관련 API")
 @TrimInput
 @RestController
-@RequestMapping("/api/pokemon-card")
+@RequestMapping("/pokemon-card")
 @RequiredArgsConstructor
 public class PokemonCardController {
     
