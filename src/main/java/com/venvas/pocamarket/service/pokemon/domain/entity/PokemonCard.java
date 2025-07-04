@@ -150,6 +150,9 @@ public class PokemonCard {
     @Column(length = 50)
     private String rarity = "COMMON";
 
+    @Column(name = "rarity_num")
+    private Integer rarityNum = 1;
+
     /**
      * 포켓몬 카드의 기술 목록
      * 카드가 보유한 기술들의 컬렉션
@@ -178,6 +181,7 @@ public class PokemonCard {
         this.weakness = dto.weakness();
         this.evolvesFrom = dto.evolvesFrom();
         this.rarity = dto.rarity();
+        this.rarityNum = dto.rarity_num();
         this.attacks = attackList;
         this.abilities = abilityList;
     }
@@ -195,6 +199,7 @@ public class PokemonCard {
         this.weakness = newCard.getWeakness();
         this.evolvesFrom = newCard.getEvolvesFrom();
         this.rarity = newCard.getRarity();
+        this.rarityNum = newCard.getRarityNum();
         this.attacks = new ArrayList<>(this.attacks);
         this.abilities = new ArrayList<>(this.abilities);
 

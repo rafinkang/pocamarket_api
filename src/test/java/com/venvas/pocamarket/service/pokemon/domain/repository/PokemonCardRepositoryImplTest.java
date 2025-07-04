@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.domain.repository;
 
+import com.venvas.pocamarket.common.dto.PageResponse;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
 import com.venvas.pocamarket.service.pokemon.application.service.PokemonCardService;
@@ -187,7 +188,7 @@ class PokemonCardRepositoryImplTest {
         PageRequest pageRequest = PageRequest.of(0, 30);
 
         PokemonCardListFormDto condition = new PokemonCardListFormDto(null, type, subType, null, null, null, null);
-        Page<PokemonCardListDto> result = pokemonCardService.getListData(condition, pageRequest);
+        PageResponse<PokemonCardListDto> result = pokemonCardService.getListData(condition, pageRequest);
 
         for (PokemonCardListDto dto : result.getContent()) {
             log.info("name = {}, type = {}, subType = {}", dto.getNameKo(), dto.getType(), dto.getSubtype());

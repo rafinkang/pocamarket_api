@@ -75,6 +75,7 @@ public class PokemonCardRepositoryImpl implements PokemonCardRepositoryCustom {
                                         pokemonCard.weakness,
                                         pokemonCard.evolvesFrom,
                                         pokemonCard.rarity,
+                                        pokemonCard.rarityNum,
                                         GroupBy.list(
                                             Projections.constructor(
                                                 PokemonAttack.class,
