@@ -25,7 +25,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
 
-        log.info("JwtAuthenticationEntryPoint 실행 인증 권한 실패 401 처리 부분");
+        log.info("JwtAuthenticationEntryPoint 실행 인증 권한 실패 401 처리 부분, requestURI: {}", request.getRequestURI());
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
         response.setContentType("application/json;charset=UTF-8");

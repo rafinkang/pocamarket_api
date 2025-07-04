@@ -101,7 +101,8 @@ public class SecurityConfig {
                                 "/reissue",
                                 "/register",
                                 "/tcg-trade/**",
-                                "/pokemon-card/**")
+                                "/pokemon-card/**",
+                                "/auth/social/**")
                         .permitAll()
 
                         // ADMIN 권한 체크
@@ -125,8 +126,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
 
     /**
      * Spring Security 필터 체인 내에서의 CORS 설정을 담당
