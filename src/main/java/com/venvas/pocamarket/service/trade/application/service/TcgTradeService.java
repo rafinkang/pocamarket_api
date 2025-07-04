@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.trade.application.service;
 
+import com.venvas.pocamarket.common.dto.PageResponse;
 import com.venvas.pocamarket.service.pokemon.application.dto.TradeListCardDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
@@ -130,7 +131,7 @@ public class TcgTradeService {
         return true;
     }
 
-    public Page<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin, boolean isMy) {
+    public PageResponse<TcgTradeListResponse> getTradeList(TcgTradeListRequest request, Pageable pageable, String userUuid, boolean isAdmin, boolean isMy) {
         String myCardCode = request.getMyCardCode();
         List<String> wantCardCode = distinctCards(request.getWantCardCode());
 
@@ -185,7 +186,7 @@ public class TcgTradeService {
                 });
 
         // TcgTradeListDto를 TcgTradeListResponse로 변환
-        return tcgTradeListDto.map(TcgTradeListResponse::new);
+        return PageResponse.of(tcgTradeListDto.map(TcgTradeListResponse::new));
     }
 
     @Transactional

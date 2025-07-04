@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -86,6 +85,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 구체적인 경로를 먼저, 아닌 경로를 나중에
 
+                        // 정적 리소스 (CSS, JS, 이미지 등) - 인증 없이 접근 가능
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                        .permitAll()
+
                         // 인증 필요한 경로
                         .requestMatchers(
                                 "/tcg-trade/my/**",
@@ -123,20 +126,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * 해당 경로 security filter chain을 생략
-     * 
-     * @return
-     */
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> {
-            web.ignoring()
-                    // /static/**, /css/**, /js/**, /images/** 등은 허용
-                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 
-        };
-    }
 
     /**
      * Spring Security 필터 체인 내에서의 CORS 설정을 담당

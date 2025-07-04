@@ -1,6 +1,8 @@
 package com.venvas.pocamarket.service.pokemon.api.controller;
 
 import com.venvas.pocamarket.common.aop.trim.TrimInput;
+import com.venvas.pocamarket.common.dto.PageRequest;
+import com.venvas.pocamarket.common.dto.PageResponse;
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.pokemon.api.validator.PokemonStrParam;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
@@ -13,8 +15,6 @@ import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -38,11 +38,11 @@ public class PokemonCardController {
 
     @GetMapping("/list")
     @Operation(summary = "포켓몬 리스트", description = "filter 값에 따라 포켓몬 리스트를 조회 API")
-    public ResponseEntity<ApiResponse<Page<PokemonCardListDto>>> getPokemonCardListData(
+    public ResponseEntity<ApiResponse<PageResponse<PokemonCardListDto>>> getPokemonCardListData(
             @ModelAttribute @Validated PokemonCardListFormDto condition,
-            @PageableDefault(size = 30)Pageable pageable
+            @PageableDefault(size = 10) PageRequest pageable
     ) {
-        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable)));
+        return ResponseEntity.ok(ApiResponse.success(pokemonCardService.getListData(condition, pageable.toPageable())));
     }
 
     @GetMapping("/detail/{code}")

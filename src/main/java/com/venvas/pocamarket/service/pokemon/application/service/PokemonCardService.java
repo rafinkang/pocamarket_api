@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
+import com.venvas.pocamarket.common.dto.PageResponse;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
@@ -42,8 +43,8 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
-    public Page<PokemonCardListDto> getListData(PokemonCardListFormDto condition, Pageable pageable) {
-        return pokemonCardRepository.searchFilterList(condition, pageable);
+    public PageResponse<PokemonCardListDto> getListData(PokemonCardListFormDto condition, Pageable pageable) {
+        return PageResponse.of(pokemonCardRepository.searchFilterList(condition, pageable));
 //        noDataListCheck(listDto, condition);
     }
 

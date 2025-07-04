@@ -1,5 +1,7 @@
 package com.venvas.pocamarket.service.trade.api.controller;
 
+import com.venvas.pocamarket.common.dto.PageRequest;
+import com.venvas.pocamarket.common.dto.PageResponse;
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.trade.application.dto.*;
 import com.venvas.pocamarket.service.trade.application.service.TcgTradeRequestService;
@@ -12,8 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -48,27 +48,27 @@ public class TcgTradeController {
 
     @GetMapping("")
     @Operation(summary = "카드 교환 리스트", description = "카드 교환 리스트를 가져옵니다.")
-    public ResponseEntity<ApiResponse<Page<TcgTradeListResponse>>> getTcgTradeList(
+    public ResponseEntity<ApiResponse<PageResponse<TcgTradeListResponse>>> getTcgTradeList(
             @Validated @ModelAttribute TcgTradeListRequest request,
-            @PageableDefault(size = 30) Pageable pageable,
+            @PageableDefault(size = 10) PageRequest pageable,
             @AuthenticationPrincipal UserDetailDto userDetailDto) {
         boolean isAdmin = userDetailDto != null && userDetailDto.getGrade() == UserGrade.ADMIN;
         String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
 
-        Page<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable, uuid, isAdmin, false);
+        PageResponse<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable.toPageable(), uuid, isAdmin, false);
         return ResponseEntity.ok(ApiResponse.success(tradeList));
     }
 
     @GetMapping("/my")
     @Operation(summary = "내 카드 교환 리스트", description = "내 카드 교환 리스트를 가져옵니다. 인증 필요함")
-    public ResponseEntity<ApiResponse<Page<TcgTradeListResponse>>> getMyTcgTradeList(
+    public ResponseEntity<ApiResponse<PageResponse<TcgTradeListResponse>>> getMyTcgTradeList(
             @Valid @ModelAttribute TcgTradeListRequest request,
-            @PageableDefault(size = 30) Pageable pageable,
+            @PageableDefault(size = 30) PageRequest pageable,
             @AuthenticationPrincipal UserDetailDto userDetailDto) {
         boolean isAdmin = userDetailDto != null && userDetailDto.getGrade() == UserGrade.ADMIN;
         String uuid = userDetailDto != null ? userDetailDto.getUuid() : null;
 
-        Page<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable, uuid, isAdmin, true);
+        PageResponse<TcgTradeListResponse> tradeList = tcgTradeService.getTradeList(request, pageable.toPageable(), uuid, isAdmin, true);
         return ResponseEntity.ok(ApiResponse.success(tradeList));
     }
 
@@ -91,7 +91,6 @@ public class TcgTradeController {
         Boolean result = tcgTradeService.tcgTradeRefreshList(tradeId, request, userDetailDto.getUuid());
         return ResponseEntity.ok(ApiResponse.success(result));
     }
-
 
     @GetMapping("/{tradeId}")
     @Operation(summary = "카드 교환 상세", description = "카드 교환 상세 내용 조회합니다.")
