@@ -98,6 +98,7 @@ public class SecurityConfig {
                         // 인증 없이 접근 가능한 공개 API
                         .requestMatchers(
                                 "/login",
+                                "/logout",
                                 "/reissue",
                                 "/register",
                                 "/tcg-trade/**",
