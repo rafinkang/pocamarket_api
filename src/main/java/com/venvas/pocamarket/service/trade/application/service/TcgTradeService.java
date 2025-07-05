@@ -359,6 +359,7 @@ public class TcgTradeService {
         Map<String, PokemonCard> pokemonCardMap = pokemonCardRepository.findByCodeIn(cardCodes).stream()
                 .collect(Collectors.toMap(PokemonCard::getCode, card -> card));
 
+
         // 4. '내 카드'와 '원하는 카드' DTO 리스트 생성 (기존과 동일)
         List<TcgTradeDetailCardCodeDto> myCardsList = tcgTrade.getTcgTradeCardCodes().stream()
                 .filter(tradeCard -> tradeCard.getType() == TradeCardCodeStatus.MY.getCode())

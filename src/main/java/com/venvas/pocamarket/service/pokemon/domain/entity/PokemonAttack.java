@@ -75,7 +75,11 @@ public class PokemonAttack {
      * 카드 코드를 통해 포켓몬 카드와 연결
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_code", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(
+        name = "card_code", // pokemon_attack 테이블의 외래 키 컬럼 이름
+        referencedColumnName = "code", // pokemon_card 테이블이 참조할 컬럼 이름
+        nullable = false, insertable = false, updatable = false
+    )
     private PokemonCard pokemonCard;
 
     public PokemonAttack(PokemonAttackJsonDto dto, String cardCode) {
