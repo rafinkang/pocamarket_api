@@ -1,7 +1,6 @@
 package com.venvas.pocamarket.service.user.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.venvas.pocamarket.service.user.domain.entity.QRefreshToken;
 import com.venvas.pocamarket.service.user.domain.entity.RefreshToken;
 import jakarta.persistence.EntityManager;
 
@@ -9,17 +8,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static com.venvas.pocamarket.service.user.domain.entity.QRefreshToken.refreshToken;
+
 /**
  * RefreshToken 엔티티에 대한 QueryDSL 커스텀 리포지토리 구현체
  */
 public class RefreshTokenRepositoryImpl implements RefreshTokenRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-    private final QRefreshToken refreshToken;
 
     public RefreshTokenRepositoryImpl(EntityManager entityManager) {
         this.queryFactory = new JPAQueryFactory(entityManager);
-        this.refreshToken = QRefreshToken.refreshToken;
     }
 
     /**

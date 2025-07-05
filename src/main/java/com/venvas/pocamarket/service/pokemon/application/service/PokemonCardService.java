@@ -9,7 +9,6 @@ import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
