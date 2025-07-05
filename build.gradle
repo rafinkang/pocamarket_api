@@ -76,6 +76,9 @@ dependencies {
 	
 	// 테스트용 인메모리 DB
 	testImplementation 'com.h2database:h2'
+
+	// localDateTime
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }
 
 tasks.named('test') {

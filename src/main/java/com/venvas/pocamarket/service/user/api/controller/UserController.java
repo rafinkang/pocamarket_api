@@ -85,6 +85,7 @@ public class UserController {
                 .status(loginResponse.getStatus())
                 .grade(loginResponse.getGrade())
                 .gradeDesc(UserGrade.toDesc(loginResponse.getGrade()))
+                .profileImageUrl(loginResponse.getProfileImageUrl())
                 .lastLoginAt(loginResponse.getLastLoginAt())
                 .build();
 
