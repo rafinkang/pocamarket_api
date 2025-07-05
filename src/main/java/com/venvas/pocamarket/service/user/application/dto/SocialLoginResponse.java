@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.user.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.entity.UserLoginHistory;
 import com.venvas.pocamarket.service.user.domain.entity.SocialUser;
@@ -19,6 +20,7 @@ import java.util.Optional;
  * 소셜 로그인 응답 DTO
  * 소셜 로그인 성공 시 반환되는 정보를 포함
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Builder
 @NoArgsConstructor

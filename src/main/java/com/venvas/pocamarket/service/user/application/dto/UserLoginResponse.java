@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.user.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.entity.UserLoginHistory;
 import com.venvas.pocamarket.service.user.domain.enums.UserGrade;
@@ -17,6 +18,7 @@ import java.util.Optional;
 /**
  * 사용자 로그인 응답 DTO
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Builder
 @NoArgsConstructor
@@ -30,6 +32,7 @@ public class UserLoginResponse {
     private UserGrade grade;
     private String gradeDesc;
     private boolean emailVerified;
+    private String profileImageUrl;
     private String accessToken;
     private String refreshToken;
     private ResponseCookie accessTokenCookie;
@@ -62,6 +65,7 @@ public class UserLoginResponse {
                 .grade(UserGrade.fromCode(user.getGradeCode()))
                 .gradeDesc(UserGrade.toDesc(user.getGrade()))
                 .emailVerified(user.isEmailVerified())
+                .profileImageUrl(user.getProfileImageUrl())
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .accessTokenCookie(accessTokenCookie)
