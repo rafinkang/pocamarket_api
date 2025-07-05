@@ -1,10 +1,7 @@
 package com.venvas.pocamarket.service.user.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +14,7 @@ import java.time.LocalDateTime;
         @UniqueConstraint(name = "uk_refresh_token_token", columnNames = "token")
 })
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshToken {
 
