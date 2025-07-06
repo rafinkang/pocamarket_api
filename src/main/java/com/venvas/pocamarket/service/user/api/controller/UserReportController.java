@@ -1,5 +1,7 @@
 package com.venvas.pocamarket.service.user.api.controller;
 
+import com.venvas.pocamarket.common.dto.PageRequest;
+import com.venvas.pocamarket.common.dto.PageResponse;
 import com.venvas.pocamarket.common.util.ApiResponse;
 import com.venvas.pocamarket.service.user.application.dto.UserDetailDto;
 import com.venvas.pocamarket.service.user.application.dto.UserReportRequest;
@@ -8,8 +10,6 @@ import com.venvas.pocamarket.service.user.application.service.UserReportService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,9 +41,9 @@ public class UserReportController {
     }
 
     @GetMapping()
-    public ResponseEntity<ApiResponse<?>> getUserReport(@PageableDefault(size = 30) Pageable pageable, @AuthenticationPrincipal UserDetailDto userDetailDto) {
+    public ResponseEntity<ApiResponse<?>> getUserReport(@PageableDefault(size = 30) PageRequest pageable, @AuthenticationPrincipal UserDetailDto userDetailDto) {
        try {
-            Page<UserReportResponse> response =  userReportService.getReportsByUuid(pageable, userDetailDto.getUuid());
+            PageResponse<UserReportResponse> response = userReportService.getReportsByUuid(pageable.toPageable(), userDetailDto.getUuid());
             return ResponseEntity.ok(ApiResponse.success(response, "ok"));
        } catch (Exception e) {
             log.error("신고 조회 중 알 수 없는 에러 발생: {}", e.getMessage(), e);

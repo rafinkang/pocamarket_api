@@ -1,17 +1,16 @@
 package com.venvas.pocamarket;
 
-import com.venvas.pocamarket.config.TestConfig;
-import com.venvas.pocamarket.config.TestQueryDslConfig;
+import com.venvas.pocamarket.config.BaseTestAnnotations;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 
-@SpringBootTest
-@Import({TestConfig.class, TestQueryDslConfig.class})
+/**
+ * 애플리케이션 컨텍스트 로드 테스트
+ */
+@BaseTestAnnotations
 class PocamarketApplicationTests {
 
     @Test
     void contextLoads() {
+        // 애플리케이션 컨텍스트가 정상적으로 로드되는지 확인
     }
-
 }

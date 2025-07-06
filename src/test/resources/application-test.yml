@@ -1,23 +1,62 @@
+# 테스트 환경 설정
 spring:
-    datasource:
-        url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1
-        username: sa
-        password:
-        driver-class-name: org.h2.Driver
-    jpa:
-        hibernate:
-            ddl-auto: create-drop
-        properties:
-            hibernate:
-                format_sql: true
-                show_sql: true
-                dialect: org.hibernate.dialect.H2Dialect
-    h2:
-        console:
-            enabled: true
+  # H2 인메모리 데이터베이스 설정
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
 
-# JWT 설정 (테스트용 더미 값)
+  # JPA 테스트 설정
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+        generate_statistics: false
+    defer-datasource-initialization: true
+
+  # H2 콘솔 활성화 (테스트 디버깅용)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # SQL 초기화 설정
+  sql:
+    init:
+      mode: never
+
+  # Security 완전 비활성화
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration
+
+  # Bean Override 허용
+  main:
+    allow-bean-definition-overriding: true
+
+# 테스트용 JWT 설정
 jwt:
-    secret-key: testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
-    access-token-validity-in-ms: 3600000
-    refresh-token-validity-in-ms: 86400000
+  secret-key: testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+  access-token-validity-in-ms: 3600000
+  refresh-token-validity-in-ms: 86400000
+
+# 테스트용 로깅 설정
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+    com.venvas.pocamarket: debug
+    org.springframework.test: info
+    org.springframework.web: warn
+    root: info

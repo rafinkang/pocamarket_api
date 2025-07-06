@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.pokemon.application.service;
 
+import com.venvas.pocamarket.common.dto.PageResponse;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListDto;
 import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardListFormDto;
@@ -8,7 +9,6 @@ import com.venvas.pocamarket.service.pokemon.domain.exception.PokemonException;
 import com.venvas.pocamarket.service.pokemon.domain.repository.PokemonCardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -42,8 +42,8 @@ public class PokemonCardService {
      * @param condition 카드 필터값
      * @return 조회된 카드 목록
      */
-    public Page<PokemonCardListDto> getListData(PokemonCardListFormDto condition, Pageable pageable) {
-        return pokemonCardRepository.searchFilterList(condition, pageable);
+    public PageResponse<PokemonCardListDto> getListData(PokemonCardListFormDto condition, Pageable pageable) {
+        return PageResponse.of(pokemonCardRepository.searchFilterList(condition, pageable));
 //        noDataListCheck(listDto, condition);
     }
 

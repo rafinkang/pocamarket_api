@@ -19,10 +19,11 @@ public record PokemonCardJsonDto(
         Integer health,
         String set,
         String pack,
-        List<PokemonAttackJsonDto> attacks,
         Integer retreatCost,
         String weakness,
-        List<PokemonAbilityJsonDto> abilities,
         String evolvesFrom,
-        String rarity)
+        String rarity,
+        Integer rarity_num,
+        List<PokemonAttackJsonDto> attacks,
+        List<PokemonAbilityJsonDto> abilities)
 {}

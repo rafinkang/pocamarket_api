@@ -1,6 +1,7 @@
 package com.venvas.pocamarket.service.pokemon.domain.repository;
 
 import com.venvas.pocamarket.service.pokemon.application.dto.TradeListCardDto;
+import com.venvas.pocamarket.service.pokemon.application.dto.pokemoncard.PokemonCardDetailDto;
 import com.venvas.pocamarket.service.pokemon.domain.entity.PokemonCard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,12 @@ public interface PokemonCardRepository extends JpaRepository<PokemonCard, Long>,
      * @return 조회된 포켓몬 카드 (List)
      */
     List<PokemonCard> findByCodeIn(List<String> codes);
+
+    @Query("SELECT DISTINCT pc FROM PokemonCard pc LEFT JOIN FETCH pc.attacks WHERE pc.code IN :codes")
+    List<PokemonCard> findByCodeInWithAttacks(@Param("codes") List<String> codes);
+
+    @Query("SELECT DISTINCT pc FROM PokemonCard pc LEFT JOIN FETCH pc.abilities WHERE pc.code IN :codes")
+    List<PokemonCard> findByCodeInWithAbilities(@Param("codes") List<String> codes);
     
     /**
      * 한글 이름으로 포켓몬 카드를 검색

@@ -25,7 +25,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-002",
@@ -56,7 +57,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": "Exeggcute",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-003",
@@ -85,7 +87,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "RARE EX"
+    "rarity": "RARE EX",
+    "rarity_num": 4
   },
   {
     "code": "a1a-004",
@@ -112,7 +115,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-005",
@@ -139,7 +143,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": "Snivy",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-006",
@@ -175,7 +180,8 @@
       }
     ],
     "evolvesFrom": "Servine",
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-007",
@@ -201,7 +207,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-008",
@@ -230,7 +237,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": "Morelull",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-009",
@@ -258,7 +266,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-010",
@@ -286,7 +295,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-011",
@@ -315,7 +325,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": "Ponyta",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-012",
@@ -344,7 +355,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-013",
@@ -371,7 +383,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-014",
@@ -401,7 +414,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": "Larvesta",
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-015",
@@ -429,7 +443,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-016",
@@ -457,7 +472,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": "Salandit",
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-017",
@@ -485,7 +501,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-018",
@@ -516,7 +533,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Magikarp",
-    "rarity": "RARE EX"
+    "rarity": "RARE EX",
+    "rarity_num": 4
   },
   {
     "code": "a1a-019",
@@ -551,7 +569,8 @@
       }
     ],
     "evolvesFrom": "Eevee",
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-020",
@@ -577,7 +596,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-021",
@@ -606,7 +626,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Finneon",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-022",
@@ -633,7 +654,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-023",
@@ -663,7 +685,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Chewtle",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-024",
@@ -693,7 +716,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-025",
@@ -721,7 +745,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-026",
@@ -751,7 +776,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": "Pikachu",
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-027",
@@ -780,7 +806,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-028",
@@ -806,7 +833,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-029",
@@ -835,7 +863,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": "Joltik",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-030",
@@ -863,7 +892,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-031",
@@ -891,7 +921,8 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-032",
@@ -929,7 +960,8 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "RARE EX"
+    "rarity": "RARE EX",
+    "rarity_num": 4
   },
   {
     "code": "a1a-033",
@@ -957,7 +989,8 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-034",
@@ -983,7 +1016,8 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-035",
@@ -1011,7 +1045,8 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": "Elgyem",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-036",
@@ -1039,7 +1074,8 @@
     "weakness": "METAL",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-037",
@@ -1067,7 +1103,8 @@
     "weakness": "METAL",
     "abilities": [],
     "evolvesFrom": "Flabébé",
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-038",
@@ -1096,7 +1133,8 @@
     "weakness": "METAL",
     "abilities": [],
     "evolvesFrom": "Floette",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-039",
@@ -1122,7 +1160,8 @@
     "weakness": "METAL",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-040",
@@ -1149,7 +1188,8 @@
     "weakness": "METAL",
     "abilities": [],
     "evolvesFrom": "Swirlix",
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-041",
@@ -1177,7 +1217,8 @@
     "weakness": "PSYCHIC",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-042",
@@ -1203,7 +1244,8 @@
     "weakness": "PSYCHIC",
     "abilities": [],
     "evolvesFrom": "Mankey",
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-043",
@@ -1230,7 +1272,8 @@
     "weakness": "GRASS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-044",
@@ -1257,7 +1300,8 @@
     "weakness": "GRASS",
     "abilities": [],
     "evolvesFrom": "Geodude",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-045",
@@ -1288,7 +1332,8 @@
     "weakness": "GRASS",
     "abilities": [],
     "evolvesFrom": "Graveler",
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-046",
@@ -1322,7 +1367,8 @@
       }
     ],
     "evolvesFrom": "Old Amber",
-    "rarity": "RARE EX"
+    "rarity": "RARE EX",
+    "rarity_num": 4
   },
   {
     "code": "a1a-047",
@@ -1351,7 +1397,8 @@
     "weakness": "PSYCHIC",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-048",
@@ -1379,7 +1426,8 @@
     "weakness": "GRASS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-049",
@@ -1407,7 +1455,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-050",
@@ -1436,7 +1485,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": "Koffing",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-051",
@@ -1462,7 +1512,8 @@
     "weakness": "GRASS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-052",
@@ -1488,7 +1539,8 @@
     "weakness": "GRASS",
     "abilities": [],
     "evolvesFrom": "Purrloin",
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-053",
@@ -1514,7 +1566,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-054",
@@ -1542,7 +1595,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": "Venipede",
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-055",
@@ -1571,7 +1625,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": "Whirlipede",
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-056",
@@ -1606,7 +1661,8 @@
       }
     ],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-057",
@@ -1632,7 +1688,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-058",
@@ -1660,7 +1717,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Pidgey",
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-059",
@@ -1690,7 +1748,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Pidgeotto",
-    "rarity": "RARE EX"
+    "rarity": "RARE EX",
+    "rarity_num": 4
   },
   {
     "code": "a1a-060",
@@ -1720,7 +1779,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "RARE"
+    "rarity": "RARE",
+    "rarity_num": 3
   },
   {
     "code": "a1a-061",
@@ -1748,7 +1808,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-062",
@@ -1776,7 +1837,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-063",
@@ -1793,7 +1855,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "COMMON"
+    "rarity": "COMMON",
+    "rarity_num": 1
   },
   {
     "code": "a1a-064",
@@ -1810,7 +1873,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-065",
@@ -1827,7 +1891,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-066",
@@ -1844,7 +1909,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-067",
@@ -1861,7 +1927,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-068",
@@ -1878,7 +1945,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "UNCOMMON"
+    "rarity": "UNCOMMON",
+    "rarity_num": 2
   },
   {
     "code": "a1a-069",
@@ -1909,7 +1977,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": "Exeggcute",
-    "rarity": "FULL ART"
+    "rarity": "FULL ART",
+    "rarity_num": 5
   },
   {
     "code": "a1a-070",
@@ -1945,7 +2014,8 @@
       }
     ],
     "evolvesFrom": "Servine",
-    "rarity": "FULL ART"
+    "rarity": "FULL ART",
+    "rarity_num": 5
   },
   {
     "code": "a1a-071",
@@ -1973,7 +2043,8 @@
     "weakness": "WATER",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART"
+    "rarity": "FULL ART",
+    "rarity_num": 5
   },
   {
     "code": "a1a-072",
@@ -2008,7 +2079,8 @@
       }
     ],
     "evolvesFrom": "Eevee",
-    "rarity": "FULL ART"
+    "rarity": "FULL ART",
+    "rarity_num": 5
   },
   {
     "code": "a1a-073",
@@ -2023,7 +2095,7 @@
     "attacks": [
       {
         "name": "Thunder Shock",
-        "name_ko": "전기쇼크", 
+        "name_ko": "전기쇼크",
         "effect": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.",
         "effect_ko": "동전을 1번 던져서 앞면이 나오면 상대의 배틀 포켓몬을 마비로 만든다.",
         "damage": "10",
@@ -2036,7 +2108,8 @@
     "weakness": "FIGHTING",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART"
+    "rarity": "FULL ART",
+    "rarity_num": 5
   },
   {
     "code": "a1a-074",
@@ -2065,7 +2138,8 @@
     "weakness": "PSYCHIC",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART"
+    "rarity": "FULL ART",
+    "rarity_num": 5
   },
   {
     "code": "a1a-075",
@@ -2094,7 +2168,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-076",
@@ -2125,7 +2200,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Magikarp",
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-077",
@@ -2163,7 +2239,8 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-078",
@@ -2197,7 +2274,8 @@
       }
     ],
     "evolvesFrom": "Old Amber",
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-079",
@@ -2227,7 +2305,8 @@
     "weakness": "LIGHTNING",
     "abilities": [],
     "evolvesFrom": "Pidgeotto",
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-080",
@@ -2244,7 +2323,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-081",
@@ -2261,7 +2341,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-082",
@@ -2278,7 +2359,8 @@
     "weakness": null,
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-083",
@@ -2316,7 +2398,8 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-084",
@@ -2350,7 +2433,8 @@
       }
     ],
     "evolvesFrom": "Old Amber",
-    "rarity": "FULL ART EX/SUPPORT"
+    "rarity": "FULL ART EX/SUPPORT",
+    "rarity_num": 6
   },
   {
     "code": "a1a-085",
@@ -2379,7 +2463,8 @@
     "weakness": "FIRE",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "IMMERSIVE"
+    "rarity": "IMMERSIVE",
+    "rarity_num": 7
   },
   {
     "code": "a1a-086",
@@ -2417,6 +2502,7 @@
     "weakness": "DARKNESS",
     "abilities": [],
     "evolvesFrom": null,
-    "rarity": "GOLD CROWN"
+    "rarity": "GOLD CROWN",
+    "rarity_num": 8
   }
 ]

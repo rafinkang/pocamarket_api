@@ -1,18 +1,10 @@
 package com.venvas.pocamarket.infrastructure.config;
 
-import com.venvas.pocamarket.infrastructure.security.JwtAccessDeniedHandler;
-import com.venvas.pocamarket.infrastructure.security.JwtAuthenticationEntryPoint;
-import com.venvas.pocamarket.infrastructure.security.JwtAuthenticationFilter;
-import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
-import com.venvas.pocamarket.service.user.domain.repository.RefreshTokenRepository;
-import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +15,18 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.venvas.pocamarket.infrastructure.security.JwtAccessDeniedHandler;
+import com.venvas.pocamarket.infrastructure.security.JwtAuthenticationEntryPoint;
+import com.venvas.pocamarket.infrastructure.security.JwtAuthenticationFilter;
+import com.venvas.pocamarket.infrastructure.security.oauth2.CustomOAuth2UserService;
+import com.venvas.pocamarket.infrastructure.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.venvas.pocamarket.infrastructure.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
+import com.venvas.pocamarket.service.user.domain.repository.RefreshTokenRepository;
+import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
 /**
  * Spring Security 설정 클래스
  * 애플리케이션의 보안 관련 설정을 담당
@@ -32,12 +36,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity // Spring Security 웹 보안 활성화
 public class SecurityConfig {
 
+    
+    // JWT 관련
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
-
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;    
+    // OAuth2 관련
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler OAuth2AuthenticationSuccessHandler;
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
     /**
      * 비밀번호 암호화를 위한 PasswordEncoder 빈 등록
@@ -86,6 +95,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 구체적인 경로를 먼저, 아닌 경로를 나중에
 
+                        // 정적 리소스 (CSS, JS, 이미지 등) - 인증 없이 접근 가능
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                        .permitAll()
+
                         // 인증 필요한 경로
                         .requestMatchers(
                                 "/tcg-trade/my/**",
@@ -95,10 +108,14 @@ public class SecurityConfig {
                         // 인증 없이 접근 가능한 공개 API
                         .requestMatchers(
                                 "/login",
+                                "/logout",
                                 "/reissue",
                                 "/register",
                                 "/tcg-trade/**",
-                                "/pokemon-card/**")
+                                "/pokemon-card/**",
+                                "/auth/social/**",
+                                "/oauth2/authorization/**",
+                                "/login/oauth2/code/**")
                         .permitAll()
 
                         // ADMIN 권한 체크
@@ -113,6 +130,16 @@ public class SecurityConfig {
                         // 그 외 모든 요청은 인증 필요
                         .anyRequest().authenticated());
 
+        // OAuth2 로그인 설정
+        http
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(OAuth2AuthenticationSuccessHandler)
+                        .failureHandler(oAuth2AuthenticationFailureHandler)
+                );
+
         // jwtAuthFilter를 filterChain에 추가 - 인증이 필요한 경로에만 적용
         http
                 .addFilterBefore(
@@ -121,21 +148,6 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
-    /**
-     * 해당 경로 security filter chain을 생략
-     * 
-     * @return
-     */
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> {
-            web.ignoring()
-                    // /static/**, /css/**, /js/**, /images/** 등은 허용
-                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-
-        };
     }
 
     /**
