@@ -35,6 +35,7 @@ public class TcgTradeRequestRepositoryImpl implements TcgTradeRequestRepositoryC
                 tcgTradeRequest.updatedAt,
                 tcgTradeUser.tradeCount.coalesce(0),
                 tcgTradeUser.reportCount.coalesce(0),
+                tcgTradeUser.exp.coalesce(0),
                 pokemonCard.nameKo.coalesce(""),
                 pokemonCard.element.coalesce(""),
                 pokemonCard.packSet.coalesce(""),

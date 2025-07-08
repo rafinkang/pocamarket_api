@@ -18,8 +18,10 @@ public class TcgTradeDetailResponse {
     private TcgTradeDetailCardCodeDto myCard;
     private List<TcgTradeDetailCardCodeDto> wantCards;
     private Boolean isMy;
+    private TcgMyInfoResponse userInfo;
 
-    public TcgTradeDetailResponse(TcgTrade tcgTrade, TcgTradeDetailCardCodeDto myCard, List<TcgTradeDetailCardCodeDto> wantCards, boolean isMy) {
+
+    public TcgTradeDetailResponse(TcgTrade tcgTrade, TcgTradeDetailCardCodeDto myCard, List<TcgTradeDetailCardCodeDto> wantCards, boolean isMy, TcgMyInfoResponse userInfo) {
         this.tradeId = tcgTrade.getId();
         this.tcgCode = tcgTrade.getTcgCode();
         this.nickname = tcgTrade.getNickname();
@@ -29,5 +31,6 @@ public class TcgTradeDetailResponse {
         this.myCard = myCard;
         this.wantCards = wantCards;
         this.isMy = isMy;
+        this.userInfo = userInfo;
     }
 }

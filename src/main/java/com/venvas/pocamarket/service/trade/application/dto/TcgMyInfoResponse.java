@@ -1,5 +1,6 @@
 package com.venvas.pocamarket.service.trade.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.venvas.pocamarket.service.trade.domain.entity.TcgTradeUser;
 
 import lombok.Getter;
@@ -8,8 +9,10 @@ import lombok.Getter;
 public class TcgMyInfoResponse {
 
     // 진행중인 교환
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer tradingCount;
     // 내가 신청한 교환
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer requestCount;
     // 완료된 교환
     private Integer tradeCount;
@@ -23,6 +26,13 @@ public class TcgMyInfoResponse {
     public TcgMyInfoResponse(TcgTradeUser tcgTradeUser, Integer tradingCount, Integer requestCount) {
         this.tradingCount = tradingCount;
         this.requestCount = requestCount;
+        this.tradeCount = tcgTradeUser.getTradeCount();
+        this.reportCount = tcgTradeUser.getReportCount();
+        this.exp = tcgTradeUser.getExp();
+        this.point = tcgTradeUser.getPoint();
+    }
+
+    public TcgMyInfoResponse(TcgTradeUser tcgTradeUser) {
         this.tradeCount = tcgTradeUser.getTradeCount();
         this.reportCount = tcgTradeUser.getReportCount();
         this.exp = tcgTradeUser.getExp();

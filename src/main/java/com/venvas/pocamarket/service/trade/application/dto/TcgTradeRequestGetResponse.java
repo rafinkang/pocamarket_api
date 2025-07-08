@@ -30,6 +30,8 @@ public class TcgTradeRequestGetResponse {
 
     private Integer reportCount;
 
+    private Integer exp;
+
     // PokemonCard 정보 추가
     private String cardNameKo;
 
@@ -48,7 +50,7 @@ public class TcgTradeRequestGetResponse {
      */
     public TcgTradeRequestGetResponse(Long tradeRequestId, Long tradeId, String nickname,
                                     String requestCardCode, Integer status, String requestUuid, LocalDateTime updatedAt,
-                                    Integer tradeCount, Integer reportCount,
+                                    Integer tradeCount, Integer reportCount, Integer exp,
                                     String cardNameKo, String cardElement, String cardPackSet, String cardRarity) {
         this.tradeRequestId = tradeRequestId;
         this.tradeId = tradeId;
@@ -59,6 +61,7 @@ public class TcgTradeRequestGetResponse {
         this.updatedAt = updatedAt;
         this.tradeCount = tradeCount;
         this.reportCount = reportCount;
+        this.exp = exp;
         this.cardNameKo = cardNameKo;
         this.cardElement = cardElement;
         this.cardPackSet = cardPackSet;

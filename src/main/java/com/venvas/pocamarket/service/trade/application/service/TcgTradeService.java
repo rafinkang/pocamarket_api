@@ -53,6 +53,8 @@ public class TcgTradeService {
     private final PokemonCardRepository pokemonCardRepository;
     private final TcgTradeRequestRepository tcgTradeRequestRepository;
     private final TcgTradeHistoryRepository tcgTradeHistoryRepository;
+    private final TcgTradeUserService tcgTradeUserService;
+
 
     /**
      * 카드 교환 요청을 생성합니다.
@@ -381,8 +383,10 @@ public class TcgTradeService {
             isMy = currentUserUuid != null && tcgTrade.getUuid().equals(currentUserUuid);
         }
 
+        TcgMyInfoResponse userInfo = tcgTradeUserService.getTcgTradeUser(tcgTrade.getUuid());
+
         // 5. 최종 DTO 생성 및 반환 (public 생성자 직접 호출)
-        return new TcgTradeDetailResponse(tcgTrade, myCard, wantCardsList, isMy);
+        return new TcgTradeDetailResponse(tcgTrade, myCard, wantCardsList, isMy, userInfo);
     }
 
     /**
