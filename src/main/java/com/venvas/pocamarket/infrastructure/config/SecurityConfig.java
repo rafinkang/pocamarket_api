@@ -107,6 +107,10 @@ public class SecurityConfig {
 
                         // 인증 없이 접근 가능한 공개 API
                         .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/swagger-ui.html",
                                 "/login",
                                 "/logout",
                                 "/reissue",
@@ -120,11 +124,8 @@ public class SecurityConfig {
 
                         // ADMIN 권한 체크
                         .requestMatchers(
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/swagger-resources/**",
-                                "/pokemon-card/update/card/*/*",
-                                "/swagger-ui.html")
+                                "/pokemon-card/update/card/*/*"
+                                )
                         .hasRole("ADMIN")
 
                         // 그 외 모든 요청은 인증 필요
