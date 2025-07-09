@@ -63,7 +63,13 @@ public class TcgTradeRequestService {
         }
 
         if(trade.getStatus() > TradeStatus.SELECT.getCode()) {
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "교환 진행, 완료된 글에는 요청할 수 없습니다.");
+            TcgTradeErrorCode errorCode = TcgTradeErrorCode.TRADE_ALREADY_PROCESS;
+
+            if(trade.getStatus().equals(TradeStatus.COMPLETE.getCode())) {
+                errorCode = TcgTradeErrorCode.TRADE_ALREADY_COMPLETED;
+            }
+
+            throw new TcgTradeException(errorCode);
         }
 
         // 중복 카드 검사
@@ -123,16 +129,16 @@ public class TcgTradeRequestService {
 
         if(trade.getStatus().equals(TradeStatus.SELECT.getCode()) && tcgTradeRequest.getStatus() > TcgTradeRequestStatus.REQUEST.getCode()) {
             // 교환글의 상태가 선택중, 요청의 상태가 Request(1) 보다 크면 에러
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "요청의 상태가 잘못 됐습니다.");
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_REQUEST_NOT_EDITABLE);
         } else if(trade.getStatus().equals(TradeStatus.PROCESS.getCode()) && tcgTradeRequest.getStatus() < TcgTradeRequestStatus.PROCESS.getCode()) {
             // 교환글의 상태가 진행중 or 교환 완료인데 요청글이 진행중보다 낮으면 에러
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "다른 요청을 진행하고 있습니다.");
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_ALREADY_IN_PROGRESS);
         } else if(trade.getStatus().equals(TradeStatus.COMPLETE.getCode())) {
             // 교환글의 상태가 완료인데 요청 들어오면 에러
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "교환이 완료된 글입니다.");
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_ALREADY_IN_PROGRESS);
         } else if(trade.getStatus().equals(TradeStatus.DELETED.getCode())) {
             // 교환글의 상태가 삭제인데 요청 들어오면 에러
-            throw new TcgTradeException(TcgTradeErrorCode.UNAUTHORIZED_TRADE_ACCESS, "삭제된 교환글에는 요청 할 수 없습니다.");
+            throw new TcgTradeException(TcgTradeErrorCode.TRADE_ALREADY_CANCELLED);
         }
 
         // 다음 단계로 상태 업데이트
