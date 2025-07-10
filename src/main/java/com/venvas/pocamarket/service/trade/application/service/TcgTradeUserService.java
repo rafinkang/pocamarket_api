@@ -29,7 +29,7 @@ public class TcgTradeUserService {
     private final TcgTradeRequestRepository tcgTradeRequestRepository;
 
     /**
-     * 사용자의 TCG 거래 정보를 조회합니다.
+     * 사용자(my)의 TCG 거래 정보를 조회합니다.
      * 
      * @param userUuid 사용자 UUID
      * @return TCG 거래 정보 응답 DTO
@@ -44,6 +44,19 @@ public class TcgTradeUserService {
                 List.of(TcgTradeRequestStatus.REQUEST.getCode(), TcgTradeRequestStatus.PROCESS.getCode()));
 
         return new TcgMyInfoResponse(tcgTradeUser, tradingCount, requestCount);
+    }
+
+    /**
+     * 사용자의 TCG 거래 정보를 조회합니다.
+     * 
+     * @param userUuid 사용자 UUID
+     * @return TCG 거래 정보 응답 DTO
+     */
+    public TcgMyInfoResponse getTcgTradeUser(String userUuid) {
+        TcgTradeUser tcgTradeUser = tcgTradeUserRepository.findByUuid(userUuid)
+                .orElseGet(() -> createDefaultTcgTradeUser(userUuid));
+
+        return new TcgMyInfoResponse(tcgTradeUser);
     }
 
 

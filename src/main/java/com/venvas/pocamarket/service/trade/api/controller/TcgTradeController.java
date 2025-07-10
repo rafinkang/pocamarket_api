@@ -146,7 +146,7 @@ public class TcgTradeController {
     }
 
     @PatchMapping("/request/{tradeId}")
-    @Operation(summary = "카드 교환 요청 수정", description = "카드 교환 요청의 상태 값을 바꿉니다..")
+    @Operation(summary = "카드 교환 요청 수정", description = "카드 교환 요청의 상태 값을 바꿉니다.")
     public ResponseEntity<ApiResponse<Boolean>> patchTcgTradeRequestList(
             @PathVariable("tradeId") Long tradeId,
             @Valid @RequestBody TcgTradeRequestPatchRequest request,

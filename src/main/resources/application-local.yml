@@ -46,6 +46,15 @@ spring:
         # dialect: org.hibernate.dialect.H2Dialect
         dialect: org.hibernate.dialect.MariaDBDialect
 
+  # Spring Security OAuth2 Client 설정
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            client-id: ${NAVER_CLIENT_TEST_ID}
+            client-secret: ${NAVER_CLIENT_TEST_SECRET}
+
 # JWT 개발용 설정 (보안성 낮음)
 jwt:
   secret-key: ${JWT_SECRET_KEY:this-is-a-very-long-secret-key-for-jwt-production-environment-that-meets-256-bit-security-requirements-must-be-changed}
