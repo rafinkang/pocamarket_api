@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 포켓몬 카드 컨트롤러
+ * 포켓몬 카드 컨트롤러 
  * 포켓몬 카드 관련 HTTP 요청을 처리하는 REST 컨트롤러
  */
 @Tag(name = "PokemonCard-API", description = "포켓몬 카드 관련 API")
