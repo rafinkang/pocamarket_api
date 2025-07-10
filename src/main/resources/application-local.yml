@@ -55,6 +55,21 @@ spring:
             client-id: ${NAVER_CLIENT_TEST_ID}
             client-secret: ${NAVER_CLIENT_TEST_SECRET}
 
+# Swagger 공통 설정
+springdoc:
+  # Swagger UI 접속 경로 커스텀
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    doc-expansion: none
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+
+  # OpenAPI 문서 경로 커스텀
+  api-docs:
+    path: /v3/api-docs
+    
 # JWT 개발용 설정 (보안성 낮음)
 jwt:
   secret-key: ${JWT_SECRET_KEY:this-is-a-very-long-secret-key-for-jwt-production-environment-that-meets-256-bit-security-requirements-must-be-changed}

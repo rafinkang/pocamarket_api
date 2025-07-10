@@ -48,6 +48,7 @@ springdoc:
     operations-sorter: method
     tags-sorter: alpha
     try-it-out-enabled: true
+    url: /api/v3/api-docs # API 명세서 파일의 전체 경로를 알려주는 설정
 
   # OpenAPI 문서 경로 커스텀
   api-docs:
