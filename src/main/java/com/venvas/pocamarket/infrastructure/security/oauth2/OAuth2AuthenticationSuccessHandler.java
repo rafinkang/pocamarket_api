@@ -202,6 +202,6 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     return "https://pocamarket.co.kr/login/success";
             }
         }
-        return "http://localhost:3000/login/success";
+        return "https://pocamarket.co.kr/login/success";
     }
 } 
