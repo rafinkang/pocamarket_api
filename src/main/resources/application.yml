@@ -52,7 +52,7 @@ springdoc:
 
   # OpenAPI 문서 경로 커스텀
   api-docs:
-    path: /v3/api-docs
+    path: /api/v3/api-docs
 
 # OAuth2 소셜 로그인 설정
 oauth2:
