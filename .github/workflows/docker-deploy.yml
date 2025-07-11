@@ -55,6 +55,10 @@ jobs:
             JWT_ACCESS_TOKEN_VALIDITY_MS=${{ secrets.JWT_ACCESS_TOKEN_VALIDITY_MS }}
             JWT_REFRESH_TOKEN_VALIDITY_MS=${{ secrets.JWT_REFRESH_TOKEN_VALIDITY_MS }}
             SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }}
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            NAVER_CLIENT_ID=${{ secrets.NAVER_CLIENT_ID }}
+            NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }}
 
       # 5. EC2에 SSH로 접속하여 배포 스크립트 실행
       - name: Deploy API to EC2
