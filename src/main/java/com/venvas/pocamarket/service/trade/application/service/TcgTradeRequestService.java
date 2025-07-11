@@ -114,7 +114,7 @@ public class TcgTradeRequestService {
      * 교환 요청 수정
      */
     @Transactional
-    public Boolean patchTcgTradeRequest(Long tradeId, TcgTradeRequestPatchRequest request, String userUuid) {
+    public Integer patchTcgTradeRequest(Long tradeId, TcgTradeRequestPatchRequest request, String userUuid) {
         
         // 기본 검증
         validateUserUuid(userUuid);
@@ -169,7 +169,7 @@ public class TcgTradeRequestService {
             tcgTradeUserService.giveRewardToUser(tcgTradeRequest.getTrade().getUuid());
         }
 
-        return true;
+        return savedTradeRequest.getStatus();
     }
 
     /**

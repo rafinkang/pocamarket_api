@@ -20,7 +20,7 @@ public class TcgTradeListResponse {
 
     private Integer status;
 
-    private LocalDateTime updated_at;
+    private LocalDateTime sorted_at;
 
     private Boolean isMyList = false;
 
@@ -35,7 +35,7 @@ public class TcgTradeListResponse {
         this.tradeId = dto.getTradeId();
         this.nickname = dto.getNickname();
         this.status = dto.getStatus();
-        this.updated_at = dto.getUpdated_at();
+        this.sorted_at = dto.getSorted_at();
         this.isMyList = dto.getIsMyList();
         
         // myCardInfo 변환
