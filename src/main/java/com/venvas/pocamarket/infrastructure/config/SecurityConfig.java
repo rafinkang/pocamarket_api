@@ -111,6 +111,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/swagger-ui.html",
+                                "/webjars/**",
+                                "/favicon.ico",
                                 "/login",
                                 "/logout",
                                 "/reissue",
