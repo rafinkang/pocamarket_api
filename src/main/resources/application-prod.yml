@@ -37,14 +37,14 @@ jwt:
   access-token-validity-in-ms: ${JWT_ACCESS_TOKEN_VALIDITY_MS:3600000}    # 1시간
   refresh-token-validity-in-ms: ${JWT_REFRESH_TOKEN_VALIDITY_MS:86400000} # 24시간
 
-# 프로덕션용 Swagger 설정 (간단한 설정으로 변경)
+# 프로덕션용 Swagger 설정
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
     enabled: true
   api-docs:
-    path: /api/v3/api-docs
-    enabled: true  # OpenAPI 문서 경로 커스텀
+    path: /v3/api-docs
+    enabled: true
 
 # 프로덕션용 로깅 설정 (디버깅용으로 일시적 변경)
 logging:
