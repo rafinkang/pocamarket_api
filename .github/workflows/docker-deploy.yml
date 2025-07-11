@@ -57,6 +57,10 @@ jobs:
             # EC2 서버에서 실행될 스크립트
             # pocamarket_api/.env 파일 생성
             cd /var/www/pocamarket/pocamarket_api
+
+            # .env 파일 삭제
+            rm -f .env
+
             # .env 파일 생성
             echo "DB_URL=${{ secrets.DB_URL }}" >> .env
             echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
