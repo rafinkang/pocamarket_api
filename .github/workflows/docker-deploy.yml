@@ -45,20 +45,6 @@ jobs:
             ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            DB_URL=${{ secrets.DB_URL }}
-            DB_PORT=${{ secrets.DB_PORT }}
-            DB=${{ secrets.DB }}
-            DB_USERNAME=${{ secrets.DB_USERNAME }}
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-            JWT_ACCESS_TOKEN_VALIDITY_MS=${{ secrets.JWT_ACCESS_TOKEN_VALIDITY_MS }}
-            JWT_REFRESH_TOKEN_VALIDITY_MS=${{ secrets.JWT_REFRESH_TOKEN_VALIDITY_MS }}
-            SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }}
-            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-            NAVER_CLIENT_ID=${{ secrets.NAVER_CLIENT_ID }}
-            NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }}
 
       # 5. EC2에 SSH로 접속하여 배포 스크립트 실행
       - name: Deploy API to EC2
@@ -69,6 +55,23 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # EC2 서버에서 실행될 스크립트
+            # pocamarket_api/.env 파일 생성
+            cd /var/www/pocamarket/pocamarket_api
+            # .env 파일 생성
+            echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+            echo "DB=${{ secrets.DB }}" >> .env
+            echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+            echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
+            echo "JWT_ACCESS_TOKEN_VALIDITY_MS=${{ secrets.JWT_ACCESS_TOKEN_VALIDITY_MS }}" >> .env
+            echo "JWT_REFRESH_TOKEN_VALIDITY_MS=${{ secrets.JWT_REFRESH_TOKEN_VALIDITY_MS }}" >> .env
+            echo "SPRING_PROFILES_ACTIVE=${{ secrets.SPRING_PROFILES_ACTIVE }}" >> .env
+            echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
+            echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+            echo "NAVER_CLIENT_ID=${{ secrets.NAVER_CLIENT_ID }}" >> .env
+            echo "NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }}" >> .env
+
             # docker-compose.yml이 있는 프로젝트 루트 디렉토리로 이동
             cd /var/www/pocamarket/ 
             
