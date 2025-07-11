@@ -54,6 +54,7 @@ spring:
           naver:
             client-id: ${NAVER_CLIENT_TEST_ID}
             client-secret: ${NAVER_CLIENT_TEST_SECRET}
+            redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
 
 # Swagger 공통 설정
 springdoc:

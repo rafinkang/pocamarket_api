@@ -27,7 +27,7 @@ spring:
             client-id: ${NAVER_CLIENT_ID}
             client-secret: ${NAVER_CLIENT_SECRET}
             scope: name, email, nickname, profile_image
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            redirect-uri: "https://pocamarket.co.kr/api/login/oauth2/code/naver"
             authorization-grant-type: authorization_code
             client-name: Naver
         
