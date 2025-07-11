@@ -15,5 +15,5 @@ public class TcgTradeRefreshRequest {
     private Integer status;
     
     @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$")
-    private String updatedAt;
+    private String sortedAt;
 }

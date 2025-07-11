@@ -198,14 +198,14 @@ public class TcgTradeService {
         if(userUuid == null || userUuid.isBlank()) throw new UserException(UserErrorCode.USER_NOT_FOUND);
 
         // 클라이언트에서 온 정보 확인
-        if(!(TradeStatus.DELETED.getCode() < request.getStatus() && request.getStatus() < TradeStatus.PROCESS.getCode())) {
+        if(request.getStatus() <= TradeStatus.DELETED.getCode() || TradeStatus.PROCESS.getCode() <= request.getStatus()) {
             throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "교환글의 상태가 유효하지 않습니다.");
         }
         try {
-            LocalDateTime requestTime = LocalDateTime.parse(request.getUpdatedAt());
+            LocalDateTime requestTime = LocalDateTime.parse(request.getSortedAt());
             Duration duration = Duration.between(requestTime, LocalDateTime.now());
             if (duration.toHours() < 1) {
-                throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "갱신은 최소 1시간마다 가능합니다.");
+                throw new TcgTradeException(TcgTradeErrorCode.REFRESH_INTERVAL_ERROR);
             }
         } catch (DateTimeParseException e) {
             throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "날짜 형식이 올바르지 않습니다.");
@@ -218,12 +218,12 @@ public class TcgTradeService {
         if(! tcgTrade.getUuid().equals(userUuid)) {
             // listUuid, userUuid랑 같은지 비교
             throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "유저 uuid가 교환 글과 일치하지 않습니다.");
-        } else if(! TradeStatus.REQUEST.getCode().equals(tcgTrade.getStatus())) {
+        } else if(request.getStatus() <= TradeStatus.DELETED.getCode() || TradeStatus.PROCESS.getCode() <= request.getStatus()) {
             // 상태 값이 요청 받는 중인 글인지 확인
-            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "교환 글의 상태가 유효하지 않습니다.");
-        } else if(Duration.between(tcgTrade.getUpdatedAt(), LocalDateTime.now()).toHours() < 1) {
-            // 카드에 저장된 update_at과 비교
-            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "갱신은 최소 1시간마다 가능합니다..");
+            throw new TcgTradeException(TcgTradeErrorCode.INVALID_REQUEST_DATA, "교환글의 상태가 유효하지 않습니다.");
+        } else if(Duration.between(tcgTrade.getSortedAt(), LocalDateTime.now()).toHours() < 1) {
+            // 카드에 저장된 sorted_at과 비교
+            throw new TcgTradeException(TcgTradeErrorCode.REFRESH_INTERVAL_ERROR);
         }
         tcgTrade.refresh();
 
