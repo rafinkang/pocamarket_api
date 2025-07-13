@@ -4,11 +4,13 @@ import com.venvas.pocamarket.infrastructure.util.CookieUtil;
 import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
 import com.venvas.pocamarket.service.user.application.dto.*;
 import com.venvas.pocamarket.service.user.domain.entity.RefreshToken;
+import com.venvas.pocamarket.service.user.domain.entity.SocialUser;
 import com.venvas.pocamarket.service.user.domain.entity.User;
 import com.venvas.pocamarket.service.user.domain.enums.UserStatus;
 import com.venvas.pocamarket.service.user.domain.exception.UserErrorCode;
 import com.venvas.pocamarket.service.user.domain.exception.UserException;
 import com.venvas.pocamarket.service.user.domain.repository.RefreshTokenRepository;
+import com.venvas.pocamarket.service.user.domain.repository.SocialUserRepository;
 import com.venvas.pocamarket.service.user.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
@@ -37,13 +39,15 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final SocialUserRepository socialUserRepository;
 
     public UserService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepository, 
-            PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+            PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, SocialUserRepository socialUserRepository) {
         this.userRepository = userRepository;
         this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.socialUserRepository = socialUserRepository;
     }
 
     /**
@@ -264,7 +268,7 @@ public class UserService {
      * @param user 검증할 사용자 엔티티
      * @throws UserException 계정이 활성 상태가 아닌 경우
      */
-    private void validateUserStatus(User user) {
+    public void validateUserStatus(User user) {
         if (user.getStatus() == UserStatus.INACTIVE) {
             log.warn("비활성화된 계정: loginId={}", user.getLoginId());
             throw new UserException(UserErrorCode.ACCOUNT_LOCKED);
@@ -385,22 +389,29 @@ public class UserService {
      * @throws UserException 사용자가 존재하지 않거나 비밀번호가 일치하지 않는 경우
      */
     @Transactional
-    public User deleteUserAccount(String uuid) {
+    public void deleteUserAccount(String uuid) {
         User user = findUserByUuid(uuid);
+        
+        // 소셜 연동용 데이터 초기화
+        List<SocialUser> socialUsers = socialUserRepository.findByUuid(uuid);
+        for (SocialUser socialUser : socialUsers) {
+            socialUser.deleteSocialUser();
+        }
+        socialUserRepository.saveAll(socialUsers);
 
-        // 비밀번호 확인
-        // if (!validatePassword(user, password)) {
-        //     throw new UserException(UserErrorCode.INVALID_PASSWORD);
-        // }
-
-        // 계정 상태를 DELETED로 변경
-        user.setStatus(UserStatus.DELETED);
-
-        return userRepository.save(user);
+        // 소셜 연동용 이메일 초기화
+        user.deleteUser();
+        userRepository.save(user);
+        
+        return;
     }
 
     public boolean existsByNickname(String nickname) {
         return userRepository.existsByNickname(nickname);
     }
+
+    // 탈퇴 유저 복구 기능 -> state값만 살리기
+
+    // 탈퇴 유저 재가입용 프로세스 -> 기존 계정 provider, email null처리
     
 }

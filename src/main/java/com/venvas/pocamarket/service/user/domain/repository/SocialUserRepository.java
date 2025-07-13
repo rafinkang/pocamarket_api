@@ -48,7 +48,7 @@ public interface SocialUserRepository extends JpaRepository<SocialUser, Long> {
      * @param uuid 사용자 UUID
      * @return 해당 사용자의 활성 상태 소셜 로그인 정보 리스트
      */
-    @Query("SELECT s FROM SocialUser s WHERE s.uuid = :uuid AND s.isActive = true")
+    @Query("SELECT s FROM SocialUser s WHERE s.uuid = :uuid AND s.active = 1")
     List<SocialUser> findActiveByUuid(@Param("uuid") String uuid);
     
     /**
@@ -58,7 +58,7 @@ public interface SocialUserRepository extends JpaRepository<SocialUser, Long> {
      * @param providerId 제공자에서 제공하는 사용자 ID
      * @return 해당 소셜 로그인 정보
      */
-    @Query("SELECT s FROM SocialUser s WHERE s.provider = :provider AND s.providerId = :providerId AND s.isActive = true")
+    @Query("SELECT s FROM SocialUser s WHERE s.provider = :provider AND s.providerId = :providerId AND s.active = 1")
     Optional<SocialUser> findActiveByProviderAndProviderId(
             @Param("provider") String provider, 
             @Param("providerId") String providerId);
@@ -69,7 +69,7 @@ public interface SocialUserRepository extends JpaRepository<SocialUser, Long> {
      * @param provider 소셜 로그인 제공자
      * @return 해당 제공자의 활성 사용자 수
      */
-    @Query("SELECT COUNT(s) FROM SocialUser s WHERE s.provider = :provider AND s.isActive = true")
+    @Query("SELECT COUNT(s) FROM SocialUser s WHERE s.provider = :provider AND s.active = 1")
     long countActiveByProvider(@Param("provider") String provider);
     
     /**

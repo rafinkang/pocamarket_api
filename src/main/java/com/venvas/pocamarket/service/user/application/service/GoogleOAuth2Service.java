@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.venvas.pocamarket.infrastructure.security.oauth2.CustomOAuth2UserService;
 import com.venvas.pocamarket.infrastructure.util.CookieUtil;
 import com.venvas.pocamarket.infrastructure.util.JwtTokenProvider;
 import com.venvas.pocamarket.service.user.application.dto.OAuth2UserInfoDto;
@@ -53,6 +54,7 @@ public class GoogleOAuth2Service implements OAuth2UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Value("${oauth2.google.client-id}")
     private String clientId;
@@ -317,6 +319,8 @@ public class GoogleOAuth2Service implements OAuth2UserService {
             nickname = userInfo.getEmail() != null ? userInfo.getEmail().split("@")[0]
                     : "사용자" + System.currentTimeMillis();
         }
+
+        nickname = customOAuth2UserService.generateUniqueNickname(nickname);
 
         // 새 사용자 생성
         User newUser = User.builder()

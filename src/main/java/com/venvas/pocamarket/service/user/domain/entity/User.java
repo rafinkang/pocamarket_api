@@ -41,7 +41,7 @@ public class User {
     /**
      * 로그인 ID (Unique)
      */
-    @Column(name = "login_id", nullable = false, unique = true, length = 50)
+    @Column(name = "login_id", nullable = false, unique = true, length = 100)
     private String loginId;
 
     /**
@@ -314,5 +314,12 @@ public class User {
      */
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public void deleteUser() {
+        this.loginId = this.loginId + "_deleted_" + LocalDateTime.now().toString();
+        this.email = null;
+        this.emailVerified = false;
+        this.statusCode = UserStatus.DELETED.getCode();
     }
 }
