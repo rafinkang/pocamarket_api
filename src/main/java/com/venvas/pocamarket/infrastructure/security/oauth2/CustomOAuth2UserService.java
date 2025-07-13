@@ -151,7 +151,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .uuid(UUID.randomUUID().toString())
                 .loginId(generateUniqueLoginId(provider))
                 .password("") // 소셜 로그인 사용자는 비밀번호 불필요
-                .name(oAuth2UserInfo.getName() != null ? oAuth2UserInfo.getName() : oAuth2UserInfo.getNickname())
+                .name(oAuth2UserInfo.getName()) // getName -> nickname값 반환
                 .nickname(generateUniqueNickname(oAuth2UserInfo.getNickname()))
                 .email(oAuth2UserInfo.getEmail())
                 .emailVerified(true) // 소셜 로그인 사용자는 이메일 인증 완료로 간주
