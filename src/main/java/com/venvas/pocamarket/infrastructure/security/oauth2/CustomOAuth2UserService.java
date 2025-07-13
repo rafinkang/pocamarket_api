@@ -82,7 +82,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // 기존 소셜 사용자 확인
         log.info("기존 소셜 사용자 검색: provider={}, providerId={}", registrationId, oAuth2UserInfo.getProviderId());
-        Optional<SocialUser> existingSocialUser = socialUserRepository.findByProviderAndProviderId(
+        Optional<SocialUser> existingSocialUser = socialUserRepository.findActiveByProviderAndProviderId(
                 registrationId, oAuth2UserInfo.getProviderId());
         
         log.info("기존 소셜 사용자 검색 결과: {}", existingSocialUser.isPresent() ? "발견" : "없음");
@@ -120,7 +120,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 socialUser.getProvider(), socialUser.getProviderId(), socialUser.getUuid());
 
         // 사용자 정보 조회
-        Optional<User> userOptional = userRepository.findByUuid(socialUser.getUuid());
+        Optional<User> userOptional = userRepository.findStatusByUuid(socialUser.getUuid());
         if (userOptional.isEmpty()) {
             log.error("연결된 사용자를 찾을 수 없습니다: uuid={}", socialUser.getUuid());
             throw new UserException(UserErrorCode.UNKNOWN_ERROR, "연결된 사용자를 찾을 수 없습니다");

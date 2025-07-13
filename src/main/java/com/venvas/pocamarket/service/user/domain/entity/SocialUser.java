@@ -88,7 +88,7 @@ public class SocialUser {
      */
     @Builder.Default
     @Column(name = "is_active", columnDefinition = "TINYINT(1) DEFAULT 1")
-    private Boolean isActive = true;
+    private Integer active = 1;
     
     /**
      * 최근 로그인 시각
@@ -128,7 +128,7 @@ public class SocialUser {
                 .profileImageUrl(userInfo.getProfileImageUrl())
                 .emailVerified(userInfo.isEmailVerified())
                 .rawData(userInfo.getRawData())
-                .isActive(true)
+                .active(1)
                 .lastLoginAt(LocalDateTime.now())
                 .build();
     }
@@ -152,14 +152,14 @@ public class SocialUser {
      * 소셜 로그인 연결 해제
      */
     public void disconnect() {
-        this.isActive = false;
+        this.active = 0;
     }
     
     /**
      * 소셜 로그인 연결 재활성화
      */
     public void reconnect() {
-        this.isActive = true;
+        this.active = 1;
         this.lastLoginAt = LocalDateTime.now();
     }
     
@@ -178,6 +178,6 @@ public class SocialUser {
      * @return 연결 상태
      */
     public boolean isActive() {
-        return isActive != null && isActive;
+        return active != null && active == 1;
     }
 } 
