@@ -207,7 +207,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     /**
      * 유니크한 닉네임 생성
      */
-    private String generateUniqueNickname(String originalNickname) {
+    public String generateUniqueNickname(String originalNickname) {
         if (originalNickname == null || originalNickname.trim().isEmpty()) {
             originalNickname = "사용자";
         }
