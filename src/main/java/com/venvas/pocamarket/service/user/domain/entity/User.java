@@ -320,6 +320,6 @@ public class User {
         this.loginId = this.loginId + "_deleted_" + LocalDateTime.now().toString();
         this.email = null;
         this.emailVerified = false;
-        this.status = UserStatus.DELETED;
+        this.statusCode = UserStatus.DELETED.getCode();
     }
 }
