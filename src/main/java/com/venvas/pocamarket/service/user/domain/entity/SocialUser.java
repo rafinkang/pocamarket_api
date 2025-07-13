@@ -180,4 +180,10 @@ public class SocialUser {
     public boolean isActive() {
         return active != null && active == 1;
     }
+
+    public void deleteSocialUser() {
+        this.providerId = this.providerId + "_deleted_" + LocalDateTime.now().toString();
+        this.active = 0;
+        this.emailVerified = false;
+    }
 } 

@@ -315,4 +315,11 @@ public class User {
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
+
+    public void deleteUser() {
+        this.loginId = this.loginId + "_deleted_" + LocalDateTime.now().toString();
+        this.email = null;
+        this.emailVerified = false;
+        this.status = UserStatus.DELETED;
+    }
 }

@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Map;
 
-
-
 /**
  * 사용자 관련 HTTP 요청을 처리하는 REST 컨트롤러
  * 사용자 생성, 조회, 수정 등의 엔드포인트를 제공
@@ -103,20 +101,23 @@ public class UserController {
         JwtErrorCode refreshTokenErrorCode = jwtTokenProvider.validateToken(refreshToken);
         log.info("refreshTokenErrorCode = {}", refreshTokenErrorCode);
         if (refreshTokenErrorCode == null) {
-            String accessToken = jwtTokenProvider.createAccessToken(jwtTokenProvider.getUuid(refreshToken), jwtTokenProvider.getGrade(refreshToken));
-            ResponseCookie accessTokenCookie = CookieUtil.createResponseCookie(JwtTokenProvider.ACCESS_TOKEN_NAME, accessToken,
-            (int) (jwtTokenProvider.getJwtProperties().getAccessTokenValidityInMs() / 1000), true, true);
-            
+            String accessToken = jwtTokenProvider.createAccessToken(jwtTokenProvider.getUuid(refreshToken),
+                    jwtTokenProvider.getGrade(refreshToken));
+            ResponseCookie accessTokenCookie = CookieUtil.createResponseCookie(JwtTokenProvider.ACCESS_TOKEN_NAME,
+                    accessToken,
+                    (int) (jwtTokenProvider.getJwtProperties().getAccessTokenValidityInMs() / 1000), true, true);
+
             CookieUtil.addCookie(httpResponse, accessTokenCookie);
-            
+
             log.info("======= reissue 엑세스 토큰 재발급 성공 end ==================================================");
             return ResponseEntity.ok(ApiResponse.success(null, "토큰 재발급에 성공하였습니다."));
         } else {
-            log.info("======= reissue 엑세스 토큰 재발급 실패 리프레쉬 토큰 이상함 end ==================================================");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error("유효하지 않은 리프레쉬 토큰입니다.", "UNAUTHORIZED_REFRESH_TOKEN"));
+            log.info(
+                    "======= reissue 엑세스 토큰 재발급 실패 리프레쉬 토큰 이상함 end ==================================================");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponse.error("유효하지 않은 리프레쉬 토큰입니다.", "UNAUTHORIZED_REFRESH_TOKEN"));
         }
     }
-    
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<Void>> logout(
@@ -167,17 +168,15 @@ public class UserController {
      * @return 삭제 결과 메시지
      */
     @DeleteMapping("/user/me")
-    public ResponseEntity<ApiResponse<Void>> deleteMyInfo(@AuthenticationPrincipal UserDetailDto userDetailDto) {
+    public ResponseEntity<ApiResponse<Void>> deleteMyInfo(HttpServletResponse httpResponse,
+            @AuthenticationPrincipal UserDetailDto userDetailDto) {
         String uuid = userDetailDto.getUuid();
-        // String password = request.get("password");
-
-        // if (password == null || password.isEmpty()) {
-        //     throw new UserException(UserErrorCode.INVALID_PASSWORD);
-        // }
 
         log.info("사용자 계정 삭제: uuid={}", uuid);
-        // userService.deleteUserAccount(uuid, password);
         userService.deleteUserAccount(uuid);
+
+        CookieUtil.deleteCookie(httpResponse, JwtTokenProvider.ACCESS_TOKEN_NAME);
+        CookieUtil.deleteCookie(httpResponse, JwtTokenProvider.REFRESH_TOKEN_NAME);
 
         return ResponseEntity.ok(ApiResponse.success(null, "회원 탈퇴가 성공적으로 처리되었습니다."));
     }
@@ -204,5 +203,5 @@ public class UserController {
         boolean isAvailable = !userService.existsByNickname(nickname);
         return ResponseEntity.ok(ApiResponse.success(isAvailable, "닉네임 중복 여부를 확인했습니다."));
     }
-    
+
 }
