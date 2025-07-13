@@ -41,7 +41,7 @@ public class User {
     /**
      * 로그인 ID (Unique)
      */
-    @Column(name = "login_id", nullable = false, unique = true, length = 50)
+    @Column(name = "login_id", nullable = false, unique = true, length = 100)
     private String loginId;
 
     /**
